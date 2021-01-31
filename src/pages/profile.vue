@@ -1,0 +1,130 @@
+<route>
+{
+  "name": "profile",
+  "meta": {
+    "order": 13,
+    "isVisible": true,
+    "iconName": "mdi-account"
+  }
+}
+</route>
+<template>
+  <div>
+    <page-title
+      :title="$t('pages.profile.title')"
+    />
+    <member-info
+      :avatar="profile.avatarImage"
+      :name="profile.name"
+      :email="profile.email"
+      :description="faker.lorem.words()"
+    />
+    <v-container>
+      <v-row
+        alignment="center"
+        justify="center"
+      >
+        <v-col
+          xs="12"
+          md="4"
+        >
+          <profile-info-card
+            variant="orange"
+            :title="faker.lorem.words()"
+            :description="faker.lorem.sentence()"
+            :link-text="faker.lorem.words()"
+            icon="mdi-account"
+            link-url="index"
+          />
+        </v-col>
+        <v-col
+          xs="12"
+          md="4"
+        >
+          <profile-info-card
+            variant="green"
+            :title="faker.lorem.words()"
+            :description="faker.lorem.sentence()"
+            :link-text="faker.lorem.words()"
+            icon="mdi-widgets"
+            link-url="index"
+          />
+        </v-col>
+      </v-row>
+      <v-row
+        alignment="center"
+        justify="center"
+      >
+        <v-col
+          xs="12"
+          md="4"
+        >
+          <profile-info-card
+            :title="faker.lorem.words()"
+            :description="faker.lorem.sentence()"
+            :link-text="faker.lorem.words()"
+            icon="mdi-folder-open"
+            link-url="index"
+          />
+        </v-col>
+        <v-col
+          xs="12"
+          md="4"
+        >
+          <profile-info-card
+            :title="faker.lorem.words()"
+            :description="faker.lorem.sentence()"
+            :link-text="faker.lorem.words()"
+            icon="mdi-pen"
+            link-url="index"
+          />
+        </v-col>
+      </v-row>
+      <v-row
+        alignment="center"
+        justify="center"
+      >
+        <v-col
+          xs="12"
+          md="8"
+        >
+            <profile-info-card
+              :title="faker.lorem.words()"
+              :description="faker.lorem.sentence()"
+              :link-text="faker.lorem.words()"
+              icon="mdi-gavel"
+              link-url="index"
+            />
+        </v-col>
+      </v-row>
+      <v-row
+        alignment="center"
+        justify="center"
+      >
+        <v-col
+          xs="12"
+          md="8"
+        >
+          <profile-info-card
+            :title="faker.lorem.words()"
+            :description="faker.lorem.sentence()"
+            :link-text="faker.lorem.words()"
+            icon="mdi-account"
+            link-url="index"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
+</template>
+
+<script>
+export default {
+  layout: APP_CONFIG.layout.mainPanelLayout,
+  computed: {
+    profile () {
+      return this.$store.state.layout.profile
+    }
+  }
+}
+</script>

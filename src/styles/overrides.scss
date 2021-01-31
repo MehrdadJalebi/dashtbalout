@@ -1,0 +1,474 @@
+*{
+  font-family: 'IRANSansNumber', 'IranYekan', 'IRANSans' !important;
+}
+
+.form-basic{
+  padding-right: 20px;
+  > div{
+    border-radius: 0;
+    font-size: 0.84rem !important;
+    .v-input:not(.v-file-input){
+      .v-input__prepend-outer,
+      .v-input__append-outer,
+      .v-input__append-inner{
+        margin: auto;
+        font-size: 0.84rem;
+      }
+      .v-input__control{
+        .v-input__slot{
+          padding: 0 !important;
+          min-height: calc(1.5em + 0.75rem + 8px);
+          height: auto;
+          margin-bottom: 0;
+          fieldset{
+            border: none;
+          }
+          .v-radio{
+            &:first-child{
+              margin-right: 0;
+            }
+          }
+          .v-text-field__slot,
+          .v-select__slot{
+            font-size: 0.84rem;
+            border-radius: 5px;
+            padding: 0 16px;
+            background-color: var(--v-formInputColor-base);
+            margin-left: 0;
+            textarea{
+              padding-bottom: 12px;
+            }
+          }
+        }
+      }
+    }
+    .form-file-input-uploader {
+      display: flex;
+      flex-direction: row;
+      height: auto;
+      flex-grow: 1;
+      flex-wrap: wrap;
+      min-width: 0;
+      width: 100%;
+      .upload-area {
+        background-color: var(--v-formInputColor-base);
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        border-radius: 0.3rem;
+      }
+      .message-area {
+        padding: 0 12px !important;
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        min-width: 250px;
+        flex: 1 0 auto;
+        max-width: 100%;
+        min-height: 14px;
+        overflow: hidden;
+      }
+    }
+    .form-uploader{
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      min-width: 320px;
+      padding: 15px 15px 8px 15px;
+      background-color: var(--v-formInputColor-base);
+      border-radius: 0.3rem;
+      margin-bottom: 8px;
+      .v-input__control {
+        align-items: flex-end
+      }
+      .v-file-input{
+        .v-input__prepend-outer{
+          display: none;
+        }
+        font-size: 0.84rem;
+        width: auto;
+        max-width: 100%;
+        .v-input__slot{
+          fieldset{
+            border: none;
+          }
+          cursor: pointer;
+          background-color: var(--v-mainContent-base);
+          padding: 0 !important;
+          min-height: 32px;
+          height: auto;
+          width: fit-content !important;
+          .v-text-field__slot{
+            padding: 0 4px;
+            .v-file-input__text{
+              overflow: hidden;
+              white-space: nowrap;
+            }
+          }
+          .v-input__append-inner{
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            margin: auto;
+            .mdi-close::before{
+              font-size: 16px;
+            }
+          }
+        }
+        .v-text-field__details {
+          position: absolute;
+          bottom: -32px;
+          right: -12px;
+          @media (min-width: 875px) and (max-width: 1263px){
+            bottom: 6px;
+            right: 305px;
+          }
+        }
+        .v-messages__wrapper{
+          width: 9rem;
+        }
+      }
+      .v-image{
+        width: 150px;
+        max-width: 150px;
+        max-height: 100px;
+      }
+    }
+    .multiselect{
+      background-color: var(--v-formInputColor-base);
+      background-image: none !important;
+      border: none;
+      border-radius: 0.3rem;
+      height: auto;
+      font-size: 16px;
+      min-height: calc(1.5em + 0.75rem + 8px);
+      ul{
+        padding-left: 0;
+      }
+      .multiselect__select{
+        top: 2px;
+        left: 1px;
+        right: auto;
+      }
+      .multiselect__tags{
+        border: none;
+        background-color: var(--v-formInputColor-base);
+        text-align: right;
+        padding: 10px 8px 3px 40px;
+        .multiselect__tag-icon:after{
+          color: gray;
+        }
+        .multiselect__tag-icon:hover{
+          background-color: transparent;
+        }
+        span,
+        input{
+          font-size: 0.875rem;
+          border: none;
+          background-color: var(--v-formInputColor-base);
+          color: gray;
+          padding-right: 12px;
+        }
+        input{
+          display: none;
+        }
+      }
+    }
+    .vpd-input-group{
+      background-color: var(--v-formInputColor-base);
+      border-radius: 0.3rem;
+      font-size: 0.84rem;
+      min-height: calc(1.5em + 0.75rem + 8px);
+      > label{
+        border-radius: 0 0.3rem 0.3rem 0;
+      }
+      > input{
+        border: none;
+        border-radius: 0.3rem;
+        max-height: 40px;
+        padding-top: 8px;
+      }
+    }
+    .row{
+      height: calc(1.5em + 0.75rem + 8px);
+      min-height: calc(1.5em + 0.75rem + 8px);
+      font-size: 0.84rem;
+      border-radius: 5px;
+      padding: 0 16px;
+      background-color: var(--v-formInputColor-base);
+      margin-left: 0;
+      .col-4,
+      .col-8{
+        padding: 2px 0 2px 0;
+      }
+    }
+  }
+}
+
+.form-horizontal{
+  @extend .form-basic;
+  border: 1px solid var(--v-borderColor-base);
+  border-radius: 10px;
+  box-shadow: -2px 3px 5px rgba(125, 125, 125, 0.1);
+  > div{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-top: 0.5px solid var(--v-borderColor-base);
+    padding: 18px 0 18px 20px;
+    @media (max-width: 780px){
+      flex-direction: column;
+    }
+    &:first-child{
+      border-top: none;
+    }
+    .v-input:not(.v-file-input){
+      margin-top: 0 !important;
+      padding-top: 0;
+      .v-input__control{
+        display: flex;
+        flex-direction: row;
+        @media (max-width: 780px){
+          flex-direction: column;
+        }
+        .v-input__slot{
+          width: 320px;
+          @media (max-width: 780px){
+            width: 100%;
+            margin-bottom: 8px;
+          }
+        }
+        .v-text-field__details,
+        .v-messages{
+          margin-bottom: 0;
+          display: flex;
+          align-items: center;
+          min-width: 250px;
+        }
+      }
+    }
+    .form-uploader{
+      @media (max-width: 780px){
+        width: 100%;
+      }
+    }
+    .multiselect{
+      width: 320px;
+      @media (max-width: 780px){
+        width: 100%;
+      }
+    }
+    .vpd-input-group{
+      width: 320px;
+      height: auto;
+      @media (max-width: 780px){
+        width: 100%;
+      }
+    }
+    .form-file-input-uploader {
+      .upload-area {
+        width: 320px;
+        height: auto;
+        @media (max-width: 780px) {
+          width: 100%
+        }
+      }
+    }
+  }
+  .form-action-component{
+    .v-btn{
+      @media (max-width: 780px){
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.form-vertical{
+  @extend .form-basic;
+  padding: 20px;
+  max-width: 500px;
+  margin: auto;
+  > div{
+    display: flex;
+    flex-direction: column;
+    padding-top: 18px;
+    .v-input:not(.v-file-input){
+      .v-input__control{
+        > * + *{
+          margin-top: 10px;
+        }
+      }
+    }
+    .multiselect{
+      margin-bottom: 32px;
+    }
+    .vpd-input-group{
+      height: auto;
+      margin-bottom: 32px;
+    }
+    .form-file-input-uploader {
+      .upload-area {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+  .form-action-component{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .v-btn{
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.form-inline{
+  @extend .form-basic;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  .md{
+    .v-text-field__slot,
+    .v-select__slot{
+      margin-top: 2px;
+      height: 38px !important;
+      min-height: 38px;
+    }
+    .multiselect{
+      min-height: 40px;
+      margin-bottom: 31px;
+      .multiselect__tags{
+        .multiselect__placeholder{
+          margin: auto;
+        }
+        padding-bottom: 6px;
+        padding-top: 6px;
+      }
+    }
+    .vpd-input-group{
+      height: auto !important;
+      min-height: auto !important;
+      input{
+        padding-top: 4px;
+        padding-bottom: 4px;
+      }
+    }
+  }
+  > div{
+    .row{
+      margin-bottom: 17px;
+      .v-input--range-slider{
+        height: inherit;
+      }
+    }
+    .v-input:not(.v-file-input){
+      .v-input__prepend-outer,
+      .v-input__append-outer,
+      .v-input__append-inner{
+        margin: auto;
+        font-size: 0.84rem;
+      }
+      .v-input__control{
+        .v-text-field__details{
+          padding-top: 5px;
+        }
+      }
+    }
+    .multiselect{
+      margin-bottom: 27px;
+    }
+    .vpd-input-group{
+      height: 48px;
+      margin-bottom: 19px;
+      input{
+        width: 100%;
+      }
+    }
+    .form-file-input-uploader {
+      .upload-area {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+  .form-label{
+    display: none !important;
+  }
+  .form-action-component{
+    display: flex;
+    flex: 0 0 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 100%;
+    padding: 12px;
+    .v-btn{
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.v-stepper{
+  box-shadow: none !important;
+  .v-stepper__header{
+    box-shadow: none !important;
+    .v-stepper__step{
+      flex-direction: column-reverse;
+      padding-bottom: 0;
+    }
+    .v-divider{
+      @media only screen and (max-width: 959px) {
+        margin-top: 51px !important;
+      }
+    }
+    .v-divider{
+      border-top-width: medium;
+    }
+  }
+  .v-stepper__items{
+    .v-stepper__content{
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+.v-stepper--alt-labels{
+  .v-stepper__step__step{
+    margin-bottom: 0;
+    margin-top: 11px;
+  }
+}
+
+.report-table{
+  padding-right: 1rem;
+  border: 1px solid var(--v-borderColor-base);
+  border-radius: 10px !important;
+  box-shadow: -2px 3px 5px hsla(0,0%,49%,.1);
+  tbody>tr{
+    direction: ltr;
+    td.text-start{
+      text-align: end !important;
+    }
+    td>button.v-btn{
+      min-width: 110px !important;
+      letter-spacing: normal;
+    }
+  }
+}
+
+.filter-actions{
+   padding: 0 16px;
+  .v-btn{
+    min-width: 110px !important;
+    letter-spacing: normal;
+  }
+}
+
+.sidebarContent > .v-navigation-drawer__content {
+  display: flex;
+  flex-direction: column;
+}

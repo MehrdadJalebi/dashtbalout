@@ -5,7 +5,7 @@ import './registerServiceWorker'
 import router from './router/index.js'
 import store from './store'
 import Vuetify from './plugins/vuetify'
-import loris from '@/plugins/loris'
+import dashtebalout from '@/plugins/dashtebalout'
 import globalMixin from '@/mixins/global'
 import faker from 'faker'
 import Server from '@/plugins/server'
@@ -66,7 +66,7 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  loris,
+  dashtebalout,
   vuetify,
   render: h => h(App)
 }).$mount('#app')

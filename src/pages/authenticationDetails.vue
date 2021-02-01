@@ -4,7 +4,7 @@
   "meta": {
     "title": "authenticationDetails",
     "order": 10,
-    "isVisible": true,
+    "isVisible": false,
     "iconName": "mdi-login",
     "artwork": "/img/samples/auth-artwork.png"
   }

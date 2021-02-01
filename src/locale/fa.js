@@ -300,6 +300,27 @@ export default {
     },
     underConstruction: {
       title: 'در حال ساخت'
-    }
+    },
+    users: {
+      title: 'کاربران'
+    },
+    payrolls: {
+      title: 'فیش های حقوقی',
+      payrollsList: 'لیست فیش های حقوقی',
+      add: 'ثبت فیش جدید'
+    },
+    fileReceipts: {
+      title: 'صدور فیش های فایلی',
+      contractsList: 'لیست قرارداد ها',
+      add: 'ثبت قرارداد جدید'
+    },
+    salariesContracts: {
+      title: 'حقوق و دستمزد پیمانکاری',
+      contractsList: 'لیست قرارداد ها',
+      add: 'ثبت قرارداد جدید'
+    },
+    messages: {
+      title: 'پیام ها'
+    },
   }
 }

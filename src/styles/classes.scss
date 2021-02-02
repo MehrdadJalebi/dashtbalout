@@ -1,8 +1,18 @@
 .english-number{
   font-family: 'IranYekan', 'IRANSans';
 }
-
-
+.alert-circle {
+  background: rgba(255, 153, 0, 0.5);
+  height: 96px;
+  width: 96px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.border-box {
+  border-color: $alertBorderColor;
+}
 .w-100 {
   width: 100%;
 }

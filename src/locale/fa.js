@@ -362,6 +362,7 @@ export default {
     details: 'جزییات',
     year: 'سال',
     month: 'ماه',
+    payrollsType: 'نوع فیش های حقوقی',
     placeholders: {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
@@ -384,7 +385,8 @@ export default {
       factoryPlace: 'محل کارگاه',
       details: 'جزییات',
       year: 'سال',
-      month: 'ماه'
+      month: 'ماه',
+      payrollsType: 'نوع فیش های حقوقی',
     },
     headers: {
       firstName: 'نام',
@@ -444,6 +446,10 @@ export default {
       dey: 'دی',
       bahman: 'بهمن',
       esfand: 'اسفند'
+    },
+    payrollsTypes: {
+      excel: 'فایل EXCEL',
+      pdf: 'فایل PDF'
     }
   }
 }

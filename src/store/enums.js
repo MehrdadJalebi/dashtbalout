@@ -40,6 +40,10 @@ export default {
     monthlyWorkTimeTypes: {
       hourly: 'Hourly',
       daily: 'Daily'
+    },
+    payrollTypes: {
+      excel: 'Excel',
+      pdf: 'Pdf'
     }
   },
   getters: {
@@ -106,5 +110,15 @@ export default {
       })
       return array
     },
+    payrollTypesArray (state) {
+      const array = Object.entries(state.payrollTypes).map(([key, value]) => {
+        const translate = APP_CONFIG.locales[APP_CONFIG.locale].enums.payrollsTypes[key]
+        return {
+          value: value,
+          text: translate
+        }
+      })
+      return array
+    }
   }
 }

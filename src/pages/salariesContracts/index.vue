@@ -39,30 +39,10 @@
       >
       <template slot="item" slot-scope="props">
         <tr>
-          <td class="data-min-td"> {{ props.item.firstName }} </td>
-          <td class="data-min-td"> {{ props.item.lastName }} </td>
-          <td class="data-min-td"> {{ props.item.nationalCode }} </td>
-          <td class="data-min-td"> {{ props.item.personalNumber }} </td>
-          <td class="data-min-td">
-            <v-switch
-              v-model="editAccess"
-              ></v-switch>
-          </td>
-          <td class="data-min-td">
-          <v-btn
-            outlined
-            color="primary"
-            >
-            {{ $t('enums.tableActions.edit') }}
-          </v-btn>
-          <v-btn
-            class="mr-3"
-            outlined
-            color="danger"
-            >
-            {{ $t('enums.tableActions.delete') }}
-          </v-btn>
-          </td>
+          <td class="data-min-td"> {{ props.item.title }} </td>
+          <td class="data-min-td"> {{ props.item.registerationNumber }} </td>
+          <td class="data-min-td"> {{ props.item.company }} </td>
+          <td class="data-min-td"> {{ props.item.factoryCode }} </td>
         </tr>
       </template>
     </v-data-table>
@@ -83,28 +63,20 @@ export default {
     headers () {
       return [
         {
-          text: this.$t('enums.headers.firstName'),
-          value: 'firstName'
+          text: this.$t('enums.headers.contractTitle'),
+          value: 'title'
         },
         {
-          text: this.$t('enums.headers.lastName'),
-          value: 'lastName'
+          text: this.$t('enums.headers.contractRegisterationNumber'),
+          value: 'registerationNumber'
         },
         {
-          text: this.$t('enums.headers.nationalCode'),
-          value: 'nationalCode'
+          text: this.$t('enums.headers.contractCompany'),
+          value: 'company'
         },
         {
-          text: this.$t('enums.headers.personalNumber'),
-          value: 'personalNumber'
-        },
-        {
-          text: this.$t('enums.headers.editAccess'),
-          value: 'editAccess'
-        },
-        {
-          text: this.$t('enums.headers.actions'),
-          value: 'actions'
+          text: this.$t('enums.headers.factoryCode'),
+          value: 'factoryCode'
         }
       ]
     }

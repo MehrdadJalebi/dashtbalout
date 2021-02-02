@@ -3,7 +3,7 @@
   "name": "confirmModal",
   "meta": {
     "order": 20,
-    "isVisible": true,
+    "isVisible": false,
     "iconName": "mdi-arrow-left"
   }
 }

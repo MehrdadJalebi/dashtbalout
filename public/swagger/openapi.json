@@ -1,799 +1,43 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Kylie API Gateway in Development mode",
-    "description": "API Gateway for Sabacell's Kylie project",
-    "termsOfService": "https://sabacell.net/terms",
-    "contact": {
-      "name": "Developer",
-      "url": "https://api.sabacell.net",
-      "email": "lead@sabacell.net"
-    },
-    "license": {
-      "name": "SabaCell License",
-      "url": "https://sabacell.net/license"
-    },
+    "title": "Payroll-Service",
     "version": "v1"
   },
   "paths": {
-    "/api/v1/account/self": {
-      "get": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "Returns a brief information about currently logged in user",
-        "operationId": "Self",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/SelfResponseModelResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SelfResponseModelResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SelfResponseModelResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/account/register/advertiser": {
+    "/api/v1/bankaccount/add/{userid}": {
       "post": {
         "tags": [
-          "Account"
+          "BankAccount"
         ],
-        "summary": "Register new advertiser user",
-        "operationId": "RegisterAdvertiser",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterAdvertiserRequestModel"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterAdvertiserRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterAdvertiserRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterAdvertiserRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/account/register/publisher": {
-      "post": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "Register new publisher user",
-        "operationId": "RegisterPublisher",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterPublisherRequestModel"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterPublisherRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterPublisherRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterPublisherRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/account/verify-email-address": {
-      "post": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "Verify user's 'email address",
-        "operationId": "VerifyEmailAddress",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/VerifyEmailAddressRequestModel"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/VerifyEmailAddressRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/VerifyEmailAddressRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/VerifyEmailAddressRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/account/resend-email-verification-email": {
-      "post": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "Resend Email verification link to the logged in user's mail address",
-        "operationId": "ResendEmailVerificationEmail",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/account/verify-mobile-number": {
-      "post": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "Verify user's mobile number",
-        "operationId": "VerifyMobileNumber",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/VerifyMobileNumberRequestModel"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/VerifyMobileNumberRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/VerifyMobileNumberRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/VerifyMobileNumberRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/account/resend-mobile-number-verification-code": {
-      "post": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "Resend verification code to user's mobile",
-        "operationId": "ResendMobileNumberVerificationCode",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/account/token": {
-      "post": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "Login user with username and password",
-        "operationId": "LoginWithCredentials",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginWithCredentialsRequestModel"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginWithCredentialsRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginWithCredentialsRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginWithCredentialsRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseModelResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseModelResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseModelResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/account/token/refresh": {
-      "post": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "Login user with refresh token",
-        "operationId": "LoginWithRefreshToken",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseModelResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseModelResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponseModelResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/account/send-reset-password-email": {
-      "post": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "Send reset password link to user's email address",
-        "operationId": "SendResetPasswordEmail",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SendResetPasswordEmailRequestModel"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SendResetPasswordEmailRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SendResetPasswordEmailRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SendResetPasswordEmailRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/account/reset-password": {
-      "post": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "Reset user's password using token sent to his/her email address",
-        "operationId": "ResetPassword",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordRequestModel"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/account/change-password": {
-      "put": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "Change user's password",
-        "operationId": "ChangePassword",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChangePasswordRequestModel"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChangePasswordRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChangePasswordRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChangePasswordRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/account/mobile-number": {
-      "put": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "Update user's mobile number",
-        "operationId": "UpdateMobileNumber",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateMobileNumberRequestModel"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateMobileNumberRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateMobileNumberRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateMobileNumberRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/advertisers/{advertiserId}/profile": {
-      "get": {
-        "tags": [
-          "AdvertisersProfile"
-        ],
-        "summary": "Get Advertiser Profile By Id",
-        "operationId": "GetAdvertiserProfileById",
+        "summary": "Only Admin",
+        "operationId": "Add",
         "parameters": [
           {
-            "name": "advertiserId",
+            "name": "userid",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
-              "type": "string",
-              "description": "",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetAdvertiserProfileByIdResponseModelResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetAdvertiserProfileByIdResponseModelResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetAdvertiserProfileByIdResponseModelResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "AdvertisersProfile"
-        ],
-        "summary": "Update Advertiser Profile",
-        "operationId": "UpdateAdvertiserProfile",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "",
-              "format": "uuid"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
         "requestBody": {
-          "description": "",
           "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateAdvertiserProfileRequestModel"
-              }
-            },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateAdvertiserProfileRequestModel"
+                "$ref": "#/components/schemas/AccountRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateAdvertiserProfileRequestModel"
+                "$ref": "#/components/schemas/AccountRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateAdvertiserProfileRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "AdvertisersProfile"
-        ],
-        "summary": "Create Advertiser Profile (Don't use this API)",
-        "operationId": "CreateAdvertiserProfile",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateAdvertiserProfileCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateAdvertiserProfileCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateAdvertiserProfileCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateAdvertiserProfileCommand"
+                "$ref": "#/components/schemas/AccountRequest"
               }
             }
           }
@@ -805,399 +49,21 @@
         }
       }
     },
-    "/api/v1/advertisers/{advertiserId}/profile/avatar": {
-      "put": {
-        "tags": [
-          "AdvertisersProfile"
-        ],
-        "summary": "Set Advertiser's Profile Avatar",
-        "operationId": "SetAdvertiserAvatar",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SetAdvertiserProfileAvatarRequestModel"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SetAdvertiserProfileAvatarRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SetAdvertiserProfileAvatarRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SetAdvertiserProfileAvatarRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/advertisers/{advertiserId}/brands": {
+    "/api/v1/bankaccount/{userid}": {
       "get": {
         "tags": [
-          "AdvertisersProfile"
+          "BankAccount"
         ],
-        "summary": "Get all brands of advertiser",
-        "operationId": "GetAdvertiserBrands",
+        "summary": "Only Admin",
+        "operationId": "Get",
         "parameters": [
           {
-            "name": "advertiserId",
+            "name": "userid",
             "in": "path",
-            "description": "",
             "required": true,
-            "schema": {
-              "type": "string",
-              "description": "",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "PageIndex",
-            "in": "query",
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
-          },
-          {
-            "name": "PageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Search",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetAdvertiserBrandsResponseModelResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetAdvertiserBrandsResponseModelResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetAdvertiserBrandsResponseModelResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "AdvertisersProfile"
-        ],
-        "summary": "Add new brand info",
-        "operationId": "CreateAdvertiserBrand",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateAdvertiserBrandRequestModel"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateAdvertiserBrandRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateAdvertiserBrandRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateAdvertiserBrandRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/advertisers/{advertiserId}/brands/{brandId}": {
-      "put": {
-        "tags": [
-          "AdvertisersProfile"
-        ],
-        "summary": "Update existing brand info",
-        "operationId": "UpdateAdvertiserBrand",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "brandId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateAdvertiserBrandRequestModel"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateAdvertiserBrandRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateAdvertiserBrandRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateAdvertiserBrandRequestModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "AdvertisersProfile"
-        ],
-        "summary": "Delete existing brand info",
-        "operationId": "DeleteAdvertiserBrand",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "brandId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResultWrapper"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/bank-accounts": {
-      "get": {
-        "tags": [
-          "BankAccounts"
-        ],
-        "summary": "Get All Bank Accounts",
-        "operationId": "GetAllBankAccounts",
-        "parameters": [
-          {
-            "name": "PageIndex",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "PageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Search",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            }
-          },
-          {
-            "name": "Status",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            }
-          },
-          {
-            "name": "AbsoluteExpiration",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-time",
-              "nullable": true
-            }
-          },
-          {
-            "name": "SlidingExpiration",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-span",
-              "nullable": true
             }
           }
         ],
@@ -1208,109 +74,11 @@
         }
       }
     },
-    "/api/v1/bank-accounts/{bankAccountId}": {
+    "/api/v1/bankaccount": {
       "get": {
         "tags": [
-          "BankAccounts"
+          "BankAccount"
         ],
-        "summary": "Get Bank Account By Id",
-        "operationId": "GetBankAccountById",
-        "parameters": [
-          {
-            "name": "BankAccountId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "AbsoluteExpiration",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "date-time",
-              "nullable": true
-            }
-          },
-          {
-            "name": "SlidingExpiration",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "date-span",
-              "nullable": true
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/bank-accounts/{bankAccountId}/review-result": {
-      "put": {
-        "tags": [
-          "BankAccounts"
-        ],
-        "summary": "Submit Bank Account Review Result (Approve/Reject)",
-        "operationId": "SubmitReviewResult",
-        "parameters": [
-          {
-            "name": "bankAccountId",
-            "in": "path",
-            "description": "Bank Account Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Bank Account Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubmitBankAccountReviewResultCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubmitBankAccountReviewResultCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubmitBankAccountReviewResultCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubmitBankAccountReviewResultCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/HealthCheck": {
-      "get": {
-        "tags": [
-          "HealthCheck"
-        ],
-        "summary": "Check Application Health",
         "operationId": "Get",
         "responses": {
           "200": {
@@ -1318,17 +86,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "string"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AccountResponse"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AccountResponse"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AccountResponse"
+                  }
                 }
               }
             }
@@ -1336,158 +113,27 @@
         }
       }
     },
-    "/api/v1/inventories/instagram-page-inventories": {
-      "get": {
+    "/api/v1/bankaccount/add": {
+      "post": {
         "tags": [
-          "Inventories"
+          "BankAccount"
         ],
-        "summary": "Get All Instagram Inventories",
-        "operationId": "GetAllInstagramPageInventories",
-        "parameters": [
-          {
-            "name": "PageIndex",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "PageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Search",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            }
-          },
-          {
-            "name": "Status",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            }
-          },
-          {
-            "name": "AbsoluteExpiration",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-time",
-              "nullable": true
-            }
-          },
-          {
-            "name": "SlidingExpiration",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-span",
-              "nullable": true
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/inventories/instagram-page-inventories/{inventoryId}": {
-      "get": {
-        "tags": [
-          "Inventories"
-        ],
-        "summary": "Get Instagram Inventory By Id",
-        "operationId": "GetInstagramPageInventoryById",
-        "parameters": [
-          {
-            "name": "InventoryId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "AbsoluteExpiration",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "date-time",
-              "nullable": true
-            }
-          },
-          {
-            "name": "SlidingExpiration",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "date-span",
-              "nullable": true
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/inventories/instagram-page-inventories/{inventoryId}/review-result": {
-      "put": {
-        "tags": [
-          "Inventories"
-        ],
-        "summary": "Submit Instagram Inventory Review Result (Approve/Reject)",
-        "operationId": "SubmitInstagramPageInventoryReviewResult",
-        "parameters": [
-          {
-            "name": "inventoryId",
-            "in": "path",
-            "description": "Inventory Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Inventory Id",
-              "format": "uuid"
-            }
-          }
-        ],
+        "operationId": "Add",
         "requestBody": {
-          "description": "",
           "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubmitInventoryReviewResultCommand"
-              }
-            },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SubmitInventoryReviewResultCommand"
+                "$ref": "#/components/schemas/AccountRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/SubmitInventoryReviewResultCommand"
+                "$ref": "#/components/schemas/AccountRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/SubmitInventoryReviewResultCommand"
+                "$ref": "#/components/schemas/AccountRequest"
               }
             }
           }
@@ -1499,547 +145,407 @@
         }
       }
     },
-    "/api/v1/advertisers/{advertiserId}/offers/{offerId}/negotiations": {
-      "get": {
+    "/api/v1/bankaccount/{id}": {
+      "delete": {
         "tags": [
-          "Negotiations"
+          "BankAccount"
         ],
-        "summary": "Get Advertiser Offer Negotiations",
-        "operationId": "GetAdvertiserOfferNegotiations",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "Advertiser Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Advertiser Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "offerId",
-            "in": "path",
-            "description": "Offer Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Offer Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "pageIndex",
-            "in": "query",
-            "description": "Page Index",
-            "schema": {
-              "type": "integer",
-              "description": "Page Index",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "description": "Page Size",
-            "schema": {
-              "type": "integer",
-              "description": "Page Size",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Negotiations"
-        ],
-        "summary": "Open Negotiation By Advertiser",
-        "operationId": "OpenNegotiationByAdvertiser",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "Advertiser Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Advertiser Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "offerId",
-            "in": "path",
-            "description": "Offer Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Offer Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/OpenNegotiationByAdvertiserCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OpenNegotiationByAdvertiserCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OpenNegotiationByAdvertiserCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/OpenNegotiationByAdvertiserCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/advertisers/{advertiserId}/offers/{offerId}/negotiations/{negotiationId}": {
-      "get": {
-        "tags": [
-          "Negotiations"
-        ],
-        "summary": "Get Advertiser Offer Negotiation By Id",
-        "operationId": "GetAdvertiserOfferNegotiationById",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "Advertiser Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Advertiser Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "offerId",
-            "in": "path",
-            "description": "Offer Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Offer Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "negotiationId",
-            "in": "path",
-            "description": "Negotiation Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Negotiation Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/offers/{offerId}/negotiations": {
-      "post": {
-        "tags": [
-          "Negotiations"
-        ],
-        "summary": "Open Negotiation By Publisher",
-        "operationId": "OpenNegotiationByPublisher",
-        "parameters": [
-          {
-            "name": "offerId",
-            "in": "path",
-            "description": "Offer Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Offer Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/OpenNegotiationByPublisherCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OpenNegotiationByPublisherCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OpenNegotiationByPublisherCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/OpenNegotiationByPublisherCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/advertisers/{advertiserId}/offers/{offerId}/negotiations/{negotiationId}/bids": {
-      "post": {
-        "tags": [
-          "Negotiations"
-        ],
-        "summary": "Place Bid On Negotiation By Advertiser",
-        "operationId": "PlaceBidByAdvertiser",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "Advertiser Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Advertiser Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "offerId",
-            "in": "path",
-            "description": "Offer Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Offer Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "negotiationId",
-            "in": "path",
-            "description": "Negotiation Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Negotiation Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/PlaceBidCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PlaceBidCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PlaceBidCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/PlaceBidCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/advertisers/{advertiserId}/offers/{offerId}/negotiations/{negotiationId}/lastBid/accept": {
-      "post": {
-        "tags": [
-          "Negotiations"
-        ],
-        "summary": "Accept Negotiation Last Bid By Advertiser",
-        "operationId": "AcceptLastBidByAdvertiser",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "Advertiser Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Advertiser Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "offerId",
-            "in": "path",
-            "description": "Offer Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Offer Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "negotiationId",
-            "in": "path",
-            "description": "Negotiation Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Negotiation Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/publishers/{publisherId}/offers/{offerId}/negotiations/{negotiationId}/bids": {
-      "post": {
-        "tags": [
-          "Negotiations"
-        ],
-        "summary": "Place Bid On Negotiation By Publisher",
-        "operationId": "PlaceBidByPublisher",
-        "parameters": [
-          {
-            "name": "publisherId",
-            "in": "path",
-            "description": "Publisher Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Publisher Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "offerId",
-            "in": "path",
-            "description": "Offer Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Offer Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "negotiationId",
-            "in": "path",
-            "description": "Negotiation Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Negotiation Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/PlaceBidCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PlaceBidCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PlaceBidCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/PlaceBidCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/publishers/{publisherId}/offers/{offerId}/negotiations/{negotiationId}/lastBid/accept": {
-      "post": {
-        "tags": [
-          "Negotiations"
-        ],
-        "summary": "Accept Negotiation Last Bid By Publisher",
-        "operationId": "AcceptLastBidByPublisher",
-        "parameters": [
-          {
-            "name": "publisherId",
-            "in": "path",
-            "description": "Publisher Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Publisher Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "offerId",
-            "in": "path",
-            "description": "Offer Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Offer Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "negotiationId",
-            "in": "path",
-            "description": "Negotiation Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Negotiation Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/offers": {
-      "get": {
-        "tags": [
-          "Offers"
-        ],
-        "summary": "Get All Offers",
-        "operationId": "GetAll",
-        "parameters": [
-          {
-            "name": "PageIndex",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "PageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Search",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            }
-          },
-          {
-            "name": "AbsoluteExpiration",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-time",
-              "nullable": true
-            }
-          },
-          {
-            "name": "SlidingExpiration",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-span",
-              "nullable": true
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/offers/{id}": {
-      "get": {
-        "tags": [
-          "Offers"
-        ],
-        "summary": "Get Offer By Id",
-        "operationId": "GetById",
+        "operationId": "Remove",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Offer Id",
             "required": true,
             "schema": {
-              "type": "string",
-              "description": "Offer Id",
-              "format": "uuid"
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BankAccount"
+        ],
+        "operationId": "Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAccountRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAccountRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAccountRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/contract": {
+      "post": {
+        "tags": [
+          "Contract"
+        ],
+        "operationId": "Add",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContractRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContractRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContractRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/contract/{id}": {
+      "put": {
+        "tags": [
+          "Contract"
+        ],
+        "operationId": "Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContractRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContractRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContractRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Contract"
+        ],
+        "operationId": "Get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContractRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContractRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContractRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/contract/all": {
+      "get": {
+        "tags": [
+          "Contract"
+        ],
+        "operationId": "GetAll",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ContractResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ContractResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ContractResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/message/add/{userid}": {
+      "post": {
+        "tags": [
+          "Message"
+        ],
+        "summary": "Only Admin",
+        "operationId": "Add",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/message": {
+      "get": {
+        "tags": [
+          "Message"
+        ],
+        "operationId": "Get",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MessageResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MessageResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MessageResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/message/countunread": {
+      "get": {
+        "tags": [
+          "Message"
+        ],
+        "operationId": "CountUnread",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/message/read/{id}": {
+      "put": {
+        "tags": [
+          "Message"
+        ],
+        "operationId": "Read",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -2050,591 +556,441 @@
         }
       }
     },
-    "/api/v1/advertisers/{advertiserId}/offers": {
+    "/api/v1/payroll": {
       "get": {
         "tags": [
-          "Offers"
+          "Payroll"
         ],
-        "summary": "Get Advertiser Offers",
-        "operationId": "GetAdvertiserOffers",
+        "operationId": "Get",
         "parameters": [
           {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "Advertiser Id",
+            "name": "year",
+            "in": "query",
             "required": true,
             "schema": {
-              "type": "string",
-              "description": "Advertiser Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "AdvertiserId",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "PageIndex",
-            "in": "query",
-            "schema": {
               "type": "integer",
               "format": "int32"
             }
           },
           {
-            "name": "PageSize",
+            "name": "month",
             "in": "query",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
-          },
-          {
-            "name": "Search",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            }
-          },
-          {
-            "name": "AbsoluteExpiration",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-time",
-              "nullable": true
-            }
-          },
-          {
-            "name": "SlidingExpiration",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-span",
-              "nullable": true
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayrollResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayrollResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayrollResponse"
+                }
+              }
+            }
           }
         }
       },
       "post": {
         "tags": [
-          "Offers"
+          "Payroll"
         ],
-        "summary": "Create Offer By Advertiser ( Individual - Legal )",
-        "operationId": "CreateOffer",
+        "summary": "Only Admin",
+        "operationId": "Add",
         "parameters": [
           {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "Advertiser Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Advertiser Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateOfferCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateOfferCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateOfferCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateOfferCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/advertisers/{advertiserId}/offers/{offerId}": {
-      "get": {
-        "tags": [
-          "Offers"
-        ],
-        "summary": "Get Advertiser Offer By Id",
-        "operationId": "GetAdvertiserOfferById",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "Advertiser Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Advertiser Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "offerId",
-            "in": "path",
-            "description": "Offer Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Offer Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/advertisers/{advertiserId}/offers/{offerId}/pause": {
-      "put": {
-        "tags": [
-          "Offers"
-        ],
-        "summary": "Pause Offer",
-        "operationId": "PauseOffer",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "Advertiser Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Advertiser Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "offerId",
-            "in": "path",
-            "description": "Offer Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Offer Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/PauseOfferCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PauseOfferCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PauseOfferCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/PauseOfferCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/advertisers/{advertiserId}/offers/{offerId}/stop": {
-      "put": {
-        "tags": [
-          "Offers"
-        ],
-        "summary": "Stop Offer",
-        "operationId": "StopOffer",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "Advertiser Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Advertiser Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "offerId",
-            "in": "path",
-            "description": "Offer Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Offer Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/StopOfferCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StopOfferCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StopOfferCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/StopOfferCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/advertisers/{advertiserId}/offers/{offerId}/resume": {
-      "put": {
-        "tags": [
-          "Offers"
-        ],
-        "summary": "Resume Offer",
-        "operationId": "ResumeOffer",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "Advertiser Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Advertiser Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "offerId",
-            "in": "path",
-            "description": "Offer Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Offer Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResumeOfferCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResumeOfferCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResumeOfferCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResumeOfferCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/advertisers/{advertiserId}/offers/{offerId}/archive": {
-      "put": {
-        "tags": [
-          "Offers"
-        ],
-        "summary": "Archive Offer",
-        "operationId": "ArchiveOffer",
-        "parameters": [
-          {
-            "name": "advertiserId",
-            "in": "path",
-            "description": "Advertiser Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Advertiser Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "offerId",
-            "in": "path",
-            "description": "Offer Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Offer Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ArchiveOfferCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ArchiveOfferCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ArchiveOfferCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ArchiveOfferCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/Offers/{offerId}/review-result": {
-      "put": {
-        "tags": [
-          "Offers"
-        ],
-        "summary": "Submit Offer Review Result ( Approve / Reject )",
-        "operationId": "SubmitReviewResult",
-        "parameters": [
-          {
-            "name": "offerId",
-            "in": "path",
-            "description": "Offer Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Offer Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubmitOfferReviewResultCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubmitOfferReviewResultCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubmitOfferReviewResultCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubmitOfferReviewResultCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/publishers/{publisherId}/profile/bank-accounts": {
-      "get": {
-        "tags": [
-          "PublishersBankAccounts"
-        ],
-        "summary": "Get Publisher (Individual - Legal) Bank Accounts",
-        "operationId": "GetBankAccounts",
-        "parameters": [
-          {
-            "name": "publisherId",
-            "in": "path",
-            "description": "Publisher Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Publisher Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "PublisherId",
+            "name": "UserId",
             "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "PageIndex",
-            "in": "query",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
             }
           },
           {
-            "name": "PageSize",
+            "name": "ContractId",
             "in": "query",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
             }
           },
           {
-            "name": "Search",
+            "name": "Year",
             "in": "query",
+            "required": true,
             "schema": {
-              "type": "string",
-              "nullable": true
+              "type": "integer",
+              "format": "int32"
             }
           },
           {
-            "name": "AbsoluteExpiration",
+            "name": "Month",
             "in": "query",
+            "required": true,
             "schema": {
-              "type": "string",
-              "format": "date-time",
-              "nullable": true
-            }
-          },
-          {
-            "name": "SlidingExpiration",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-span",
-              "nullable": true
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "formFile"
+                ],
+                "type": "object",
+                "properties": {
+                  "formFile": {
+                    "type": "file",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "formFile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success"
           }
         }
-      },
+      }
+    },
+    "/api/v1/users/userinfo": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "GetUserInfo",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfo"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfo"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/register": {
       "post": {
         "tags": [
-          "PublishersBankAccounts"
+          "Users"
         ],
-        "summary": "Add Bank Account To Publisher (Individual - Legal) Profile",
-        "operationId": "AddBankAccount",
-        "parameters": [
-          {
-            "name": "publisherId",
-            "in": "path",
-            "description": "Publisher Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Publisher Id",
-              "format": "uuid"
-            }
-          }
-        ],
+        "operationId": "Register",
         "requestBody": {
-          "description": "",
           "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddBankAccountCommand"
-              }
-            },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AddBankAccountCommand"
+                "$ref": "#/components/schemas/UserRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/AddBankAccountCommand"
+                "$ref": "#/components/schemas/UserRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/AddBankAccountCommand"
+                "$ref": "#/components/schemas/UserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticateResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticateResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/checkusernameexist": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "CheckUsernameExist",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/checkmobileexist": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "CheckMobileExist",
+        "parameters": [
+          {
+            "name": "mobile",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/checkemailexist": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "CheckEmailExist",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/authenticate": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "Authenticate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticateRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticateRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticateResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticateResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/all": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Only Admin",
+        "operationId": "GetAll",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/excel": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Only Admin",
+        "operationId": "Excel",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "file",
+                    "format": "binary",
+                    "nullable": true
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -2646,94 +1002,392 @@
         }
       }
     },
-    "/api/v1/publishers/{publisherId}/profile/bank-accounts/{bankAccountId}": {
-      "get": {
+    "/api/v1/users/disable/{userid}": {
+      "post": {
         "tags": [
-          "PublishersBankAccounts"
+          "Users"
         ],
-        "summary": "Get Publisher (Individual - Legal) Bank Account By Id",
-        "operationId": "GetBankAccountById",
+        "summary": "Only Admin",
+        "operationId": "Disable",
         "parameters": [
           {
-            "name": "publisherId",
+            "name": "userid",
             "in": "path",
-            "description": "Publisher Id",
             "required": true,
             "schema": {
-              "type": "string",
-              "description": "Publisher Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "bankAccountId",
-            "in": "path",
-            "description": "Bank Account Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Bank Account Id",
-              "format": "uuid"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/users/enable/{userid}": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Only Admin",
+        "operationId": "Enable",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/users/{userid}": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Only Admin",
+        "operationId": "Update",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Only Admin",
+        "operationId": "GetByUserId",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "Update",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "GetByUserId",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/changepassword": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "ChangePassword",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/profilepicture": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "Post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "file",
+                    "format": "binary",
+                    "nullable": true
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success"
           }
         }
       },
-      "put": {
+      "get": {
         "tags": [
-          "PublishersBankAccounts"
+          "Users"
         ],
-        "summary": "Modify Publisher (Individual - Legal) Bank Account",
-        "operationId": "ModifyBankAccount",
+        "operationId": "GetImage",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/forgotpassword": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "ForgotPassword",
         "parameters": [
           {
-            "name": "publisherId",
-            "in": "path",
-            "description": "Publisher Id",
-            "required": true,
+            "name": "phoneNumber",
+            "in": "query",
             "schema": {
               "type": "string",
-              "description": "Publisher Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "bankAccountId",
-            "in": "path",
-            "description": "Bank Account Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Bank Account Id",
-              "format": "uuid"
+              "nullable": true
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/users/confirm": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "Confirm",
         "requestBody": {
-          "description": "",
           "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ModifyBankAccountCommand"
-              }
-            },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ModifyBankAccountCommand"
+                "$ref": "#/components/schemas/ConfirmRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ModifyBankAccountCommand"
+                "$ref": "#/components/schemas/ConfirmRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ModifyBankAccountCommand"
+                "$ref": "#/components/schemas/ConfirmRequest"
               }
             }
           }
@@ -2745,424 +1399,32 @@
         }
       }
     },
-    "/api/v1/publishers/{publisherId}/profile/inventories/instagram-page-inventories": {
-      "get": {
+    "/api/v1/users/role/{userid}": {
+      "post": {
         "tags": [
-          "PublishersInventories"
+          "Users"
         ],
-        "summary": "Get Publisher (Individual - Legal) Instagram Page Inventories",
-        "operationId": "GetInstagramPageInventories",
+        "summary": "Only Admin",
+        "operationId": "ChangeRole",
         "parameters": [
           {
-            "name": "publisherId",
+            "name": "userid",
             "in": "path",
-            "description": "Publisher Id",
             "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Publisher Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "PublisherId",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "PageIndex",
-            "in": "query",
             "schema": {
               "type": "integer",
               "format": "int32"
             }
           },
           {
-            "name": "PageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Search",
+            "name": "role",
             "in": "query",
             "schema": {
               "type": "string",
               "nullable": true
             }
-          },
-          {
-            "name": "AbsoluteExpiration",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-time",
-              "nullable": true
-            }
-          },
-          {
-            "name": "SlidingExpiration",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date-span",
-              "nullable": true
-            }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "PublishersInventories"
-        ],
-        "summary": "Add Instagram Page Inventory Info To Publisher (Individual - Legal) Profile",
-        "operationId": "AddInstagramPageInventory",
-        "parameters": [
-          {
-            "name": "publisherId",
-            "in": "path",
-            "description": "Publisher Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Publisher Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddInstagramPageInventoryCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddInstagramPageInventoryCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddInstagramPageInventoryCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddInstagramPageInventoryCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/publishers/{PublisherId}/profile/inventories/instagram-page-inventories/{inventoryId}": {
-      "get": {
-        "tags": [
-          "PublishersInventories"
-        ],
-        "summary": "Get Publisher (Individual - Legal) Instagram Page Inventory By Id",
-        "operationId": "GetInstagramPageInventoryById",
-        "parameters": [
-          {
-            "name": "publisherId",
-            "in": "path",
-            "description": "Publisher Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Publisher Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "inventoryId",
-            "in": "path",
-            "description": "Inventory Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Inventory Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/publishers/{publisherId}/profile/inventories/instagram-page-inventories/{inventoryId}": {
-      "put": {
-        "tags": [
-          "PublishersInventories"
-        ],
-        "summary": "Modify Publisher (Individual - Legal) Instagram Page Inventory",
-        "operationId": "ModifyInstagramPageInventory",
-        "parameters": [
-          {
-            "name": "publisherId",
-            "in": "path",
-            "description": "Publisher Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Publisher Id",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "inventoryId",
-            "in": "path",
-            "description": "Inventory Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Inventory Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ModifyInstagramPageInventoryCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ModifyInstagramPageInventoryCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ModifyInstagramPageInventoryCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ModifyInstagramPageInventoryCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/publishers/{publisherId}/profile": {
-      "get": {
-        "tags": [
-          "PublishersProfile"
-        ],
-        "summary": "Get Publisher Profile By Id",
-        "operationId": "GetProfileById",
-        "parameters": [
-          {
-            "name": "PublisherId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "AbsoluteExpiration",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "date-time",
-              "nullable": true
-            }
-          },
-          {
-            "name": "SlidingExpiration",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "date-span",
-              "nullable": true
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "PublishersProfile"
-        ],
-        "summary": "Create Publisher Profile",
-        "operationId": "CreateProfile",
-        "parameters": [
-          {
-            "name": "publisherId",
-            "in": "path",
-            "description": "Publisher Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Publisher Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreatePublisherProfileCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreatePublisherProfileCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreatePublisherProfileCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreatePublisherProfileCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "PublishersProfile"
-        ],
-        "summary": "Modify Publisher Profile",
-        "operationId": "ModifyProfile",
-        "parameters": [
-          {
-            "name": "publisherId",
-            "in": "path",
-            "description": "Publisher Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Publisher Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ModifyPublisherProfileCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ModifyPublisherProfileCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ModifyPublisherProfileCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ModifyPublisherProfileCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/v1/publishers/{publisherId}/profile/avatar": {
-      "put": {
-        "tags": [
-          "PublishersProfile"
-        ],
-        "summary": "Set Publisher (Individual - Legal) Profile Avatar",
-        "operationId": "SetAvatar",
-        "parameters": [
-          {
-            "name": "publisherId",
-            "in": "path",
-            "description": "Publisher Id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Publisher Id",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SetPublisherProfileAvatarCommand"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SetPublisherProfileAvatarCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SetPublisherProfileAvatarCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SetPublisherProfileAvatarCommand"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Success"
@@ -3173,157 +1435,304 @@
   },
   "components": {
     "schemas": {
-      "RoleType": {
+      "AccountRequest": {
+        "required": [
+          "accountNumber",
+          "bankName",
+          "cardNumber",
+          "shabaNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "bankName": {
+            "type": "string"
+          },
+          "bankBranch": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "cardNumber": {
+            "type": "string"
+          },
+          "shabaNumber": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccountResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bankName": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankBranch": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "cardNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "shabaNumber": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateAccountRequest": {
+        "type": "object",
+        "properties": {
+          "bankName": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankBranch": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "cardNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "shabaNumber": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PayrollType": {
         "enum": [
-          "Admin",
-          "Advertiser",
-          "Publisher"
+          "Excel",
+          "Pdf",
+          "Image"
         ],
         "type": "string"
       },
-      "SelfResponseModel": {
+      "ContractRequest": {
+        "required": [
+          "contractNumber",
+          "counterParty",
+          "rowOfAgreement",
+          "title",
+          "workshopCode",
+          "workshopPlace"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "payrollType": {
+            "$ref": "#/components/schemas/PayrollType"
+          },
+          "contractNumber": {
+            "type": "string"
+          },
+          "counterParty": {
+            "type": "string"
+          },
+          "rowOfAgreement": {
+            "type": "string"
+          },
+          "workshopCode": {
+            "type": "string"
+          },
+          "workshopPlace": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ContractResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "payrollType": {
+            "$ref": "#/components/schemas/PayrollType"
+          },
+          "contractNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "counterParty": {
+            "type": "string",
+            "nullable": true
+          },
+          "rowOfAgreement": {
+            "type": "string",
+            "nullable": true
+          },
+          "workshopCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "workshopPlace": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MessageRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "body": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MessageResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "body": {
+            "type": "string",
+            "nullable": true
+          },
+          "isRead": {
+            "type": "boolean"
+          },
+          "dateAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PayrollResponse": {
+        "type": "object",
+        "properties": {
+          "attachment": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "fileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "contractNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "payrollType": {
+            "$ref": "#/components/schemas/PayrollType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserInfo": {
         "type": "object",
         "properties": {
           "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
             "type": "string",
             "nullable": true
           },
           "role": {
-            "$ref": "#/components/schemas/RoleType"
-          },
-          "firstName": {
             "type": "string",
             "nullable": true
-          },
-          "lastName": {
-            "type": "string",
-            "nullable": true
-          },
-          "avatar": {
-            "type": "string",
-            "nullable": true
-          },
-          "mobileNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "isMobileNumberVerified": {
-            "type": "boolean"
-          },
-          "isEmailVerified": {
-            "type": "boolean"
           }
         },
         "additionalProperties": false
       },
-      "ErrorInfo": {
-        "type": "object",
-        "properties": {
-          "errorCode": {
-            "type": "integer",
-            "description": "Error errorCode.",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string",
-            "description": "Error message.",
-            "nullable": true
-          },
-          "details": {
-            "type": "string",
-            "description": "Error details.",
-            "nullable": true
-          },
-          "source": {
-            "type": "string",
-            "description": "Source of the error. Generally it'll point to the service which the exception is originated from.",
-            "nullable": true
-          },
-          "validationErrors": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "Validation errors if exists.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Used to store information about an error."
-      },
-      "SelfResponseModelResultWrapper": {
-        "type": "object",
-        "properties": {
-          "result": {
-            "$ref": "#/components/schemas/SelfResponseModel"
-          },
-          "success": {
-            "type": "boolean"
-          },
-          "error": {
-            "$ref": "#/components/schemas/ErrorInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "TypeOfAdvertiser": {
-        "enum": [
-          "Individual",
-          "Legal"
+      "UserRequest": {
+        "required": [
+          "firstName",
+          "lastName",
+          "password",
+          "phoneNumber",
+          "username"
         ],
-        "type": "string"
-      },
-      "RegisterAdvertiserRequestModel": {
         "type": "object",
         "properties": {
           "firstName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "lastName": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "nationalCode": {
             "type": "string",
             "nullable": true
           },
-          "type": {
-            "$ref": "#/components/schemas/TypeOfAdvertiser"
-          },
-          "mobileNumber": {
-            "type": "string",
-            "nullable": true
+          "phoneNumber": {
+            "type": "string"
           },
           "email": {
             "type": "string",
             "nullable": true
           },
           "password": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
-      "ResultWrapper": {
+      "AuthenticateResponse": {
         "type": "object",
         "properties": {
-          "success": {
-            "type": "boolean"
+          "id": {
+            "type": "integer",
+            "format": "int32"
           },
-          "error": {
-            "$ref": "#/components/schemas/ErrorInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "TypeOfPublisher": {
-        "enum": [
-          "Individual",
-          "Legal"
-        ],
-        "type": "string"
-      },
-      "RegisterPublisherRequestModel": {
-        "type": "object",
-        "properties": {
           "firstName": {
             "type": "string",
             "nullable": true
@@ -3332,124 +1741,256 @@
             "type": "string",
             "nullable": true
           },
-          "type": {
-            "$ref": "#/components/schemas/TypeOfPublisher"
-          },
-          "mobileNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "VerifyEmailAddressRequestModel": {
-        "type": "object",
-        "properties": {
-          "refCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "verificationCode": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "VerifyMobileNumberRequestModel": {
-        "type": "object",
-        "properties": {
-          "verificationCode": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "LoginWithCredentialsRequestModel": {
-        "type": "object",
-        "properties": {
           "username": {
             "type": "string",
             "nullable": true
           },
-          "password": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "LoginResponseModel": {
-        "type": "object",
-        "properties": {
-          "accessToken": {
-            "type": "string",
-            "nullable": true
-          },
-          "accessTokenLifetime": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "refreshToken": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "LoginResponseModelResultWrapper": {
-        "type": "object",
-        "properties": {
-          "result": {
-            "$ref": "#/components/schemas/LoginResponseModel"
-          },
-          "success": {
-            "type": "boolean"
-          },
-          "error": {
-            "$ref": "#/components/schemas/ErrorInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "SendResetPasswordEmailRequestModel": {
-        "type": "object",
-        "properties": {
-          "username": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ResetPasswordRequestModel": {
-        "type": "object",
-        "properties": {
           "token": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthenticateRequest": {
+        "required": [
+          "password",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Gender": {
+        "enum": [
+          "Male",
+          "Female"
+        ],
+        "type": "string"
+      },
+      "MaritalStatus": {
+        "enum": [
+          "Single",
+          "Married"
+        ],
+        "type": "string"
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nationalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "fatherName": {
+            "type": "string",
+            "nullable": true
           },
           "username": {
             "type": "string",
             "nullable": true
           },
-          "password": {
+          "gender": {
+            "$ref": "#/components/schemas/Gender"
+          },
+          "maritalStatus": {
+            "$ref": "#/components/schemas/MaritalStatus"
+          },
+          "children": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "email": {
             "type": "string",
+            "nullable": true
+          },
+          "personnelNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "placeIssue": {
+            "type": "string",
+            "nullable": true
+          },
+          "createAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "birthdate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "birthPlace": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthCertificateNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "centerTopicName": {
+            "type": "string",
+            "nullable": true
+          },
+          "insuranceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "insuranceNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "tel": {
+            "type": "string",
+            "nullable": true
+          },
+          "startWorkDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endWorkDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "experience": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "employmentDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateUserRequest": {
+        "type": "object",
+        "properties": {
+          "nationalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "fatherName": {
+            "type": "string",
+            "nullable": true
+          },
+          "gender": {
+            "$ref": "#/components/schemas/Gender"
+          },
+          "maritalStatus": {
+            "$ref": "#/components/schemas/MaritalStatus"
+          },
+          "children": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthdate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "birthPlace": {
+            "type": "string",
+            "nullable": true
+          },
+          "placeIssue": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthCertificateNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "centerTopicName": {
+            "type": "string",
+            "nullable": true
+          },
+          "insuranceNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "insuranceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "tel": {
+            "type": "string",
+            "nullable": true
+          },
+          "personnelNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "startWorkDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endWorkDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "experience": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "employmentDate": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "ChangePasswordRequestModel": {
+      "ChangePasswordRequest": {
         "type": "object",
         "properties": {
           "oldPassword": {
@@ -3463,1046 +2004,20 @@
         },
         "additionalProperties": false
       },
-      "UpdateMobileNumberRequestModel": {
+      "ConfirmRequest": {
         "type": "object",
         "properties": {
-          "mobileNumber": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "GetAdvertiserProfileByIdResponseModel": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "firstName": {
-            "type": "string",
-            "nullable": true
-          },
-          "lastName": {
-            "type": "string",
-            "nullable": true
-          },
-          "nationalCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "legalName": {
-            "type": "string",
-            "nullable": true
-          },
-          "nationalId": {
-            "type": "string",
-            "nullable": true
-          },
-          "economicCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "registrationNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "mobileNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "tell": {
-            "type": "string",
-            "nullable": true
-          },
-          "address": {
-            "type": "string",
-            "nullable": true
-          },
-          "postalCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "avatarAttachment": {
-            "type": "string",
-            "nullable": true
-          },
-          "advertiserType": {
-            "type": "string",
-            "nullable": true
-          },
-          "isEmailVerified": {
-            "type": "boolean"
-          },
-          "isMobileNumberVerified": {
-            "type": "boolean"
-          },
-          "lastLoginDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "GetAdvertiserProfileByIdResponseModelResultWrapper": {
-        "type": "object",
-        "properties": {
-          "result": {
-            "$ref": "#/components/schemas/GetAdvertiserProfileByIdResponseModel"
-          },
-          "success": {
-            "type": "boolean"
-          },
-          "error": {
-            "$ref": "#/components/schemas/ErrorInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateAdvertiserProfileRequestModel": {
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string",
-            "nullable": true
-          },
-          "lastName": {
-            "type": "string",
-            "nullable": true
-          },
-          "nationalCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "legalName": {
-            "type": "string",
-            "nullable": true
-          },
-          "nationalId": {
-            "type": "string",
-            "nullable": true
-          },
-          "economicCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "registrationNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "tell": {
-            "type": "string",
-            "nullable": true
-          },
-          "address": {
-            "type": "string",
-            "nullable": true
-          },
-          "postalCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "advertiserType": {
-            "$ref": "#/components/schemas/TypeOfAdvertiser"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UserInfo": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "firstName": {
-            "type": "string",
-            "nullable": true
-          },
-          "lastName": {
-            "type": "string",
-            "nullable": true
-          },
           "phoneNumber": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreateAdvertiserProfileCommand": {
-        "type": "object",
-        "properties": {
-          "advertiserId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "firstName": {
-            "type": "string",
-            "nullable": true
-          },
-          "lastName": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "mobileNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "advertiserType": {
-            "$ref": "#/components/schemas/TypeOfAdvertiser"
-          },
-          "mobileNumberVerificationRefCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "SetAdvertiserProfileAvatarRequestModel": {
-        "type": "object",
-        "properties": {
-          "avatarAttachment": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "GetAdvertiserBrandsItemResponseModel": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "logo": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "GetAdvertiserBrandsResponseModel": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/GetAdvertiserBrandsItemResponseModel"
-            },
-            "nullable": true
-          },
-          "total": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
-      "GetAdvertiserBrandsResponseModelResultWrapper": {
-        "type": "object",
-        "properties": {
-          "result": {
-            "$ref": "#/components/schemas/GetAdvertiserBrandsResponseModel"
-          },
-          "success": {
-            "type": "boolean"
-          },
-          "error": {
-            "$ref": "#/components/schemas/ErrorInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreateAdvertiserBrandRequestModel": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "logo": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateAdvertiserBrandRequestModel": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "logo": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SubmitBankAccountReviewResultCommand": {
-        "type": "object",
-        "properties": {
-          "bankAccountId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "isApproved": {
-            "type": "boolean"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "SubmitInventoryReviewResultCommand": {
-        "type": "object",
-        "properties": {
-          "inventoryId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "isApproved": {
-            "type": "boolean"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "OpenNegotiationByAdvertiserCommand": {
-        "type": "object",
-        "properties": {
-          "offerId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "advertiserId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "publisherId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "suggestedPrice": {
-            "type": "number",
-            "format": "double"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "OpenNegotiationByPublisherCommand": {
-        "type": "object",
-        "properties": {
-          "offerId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "publisherId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "suggestedPrice": {
-            "type": "number",
-            "format": "double"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "TypeOfBidder": {
-        "enum": [
-          "Advertiser",
-          "Publisher"
-        ],
-        "type": "string"
-      },
-      "PlaceBidCommand": {
-        "type": "object",
-        "properties": {
-          "offerId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "negotiationId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "price": {
-            "type": "number",
-            "format": "double"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "bidderType": {
-            "$ref": "#/components/schemas/TypeOfBidder"
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreateOfferCommand": {
-        "type": "object",
-        "properties": {
-          "advertiserId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "type": {
-            "type": "string",
-            "nullable": true
-          },
-          "productTitle": {
-            "type": "string",
-            "nullable": true
-          },
-          "productCategory": {
-            "type": "string",
-            "nullable": true
-          },
-          "productDescription": {
-            "type": "string",
-            "nullable": true
-          },
-          "productImageAttachmentUri": {
-            "type": "string",
-            "nullable": true
-          },
-          "campaignTitle": {
-            "type": "string",
-            "nullable": true
-          },
-          "campaignType": {
-            "type": "string",
-            "nullable": true
-          },
-          "campaignStartDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "campaignFinishDateTime": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "campaignGoal": {
-            "type": "string",
-            "nullable": true
-          },
-          "campaignDescription": {
-            "type": "string",
-            "nullable": true
-          },
-          "contentCaption": {
-            "type": "string",
-            "nullable": true
-          },
-          "contentDos": {
-            "type": "string",
-            "nullable": true
-          },
-          "contentDonts": {
-            "type": "string",
-            "nullable": true
-          },
-          "contentAttachmentUri": {
-            "type": "string",
-            "nullable": true
-          },
-          "contentUrls": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "contentTags": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "contentPageIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "campaignerType": {
-            "type": "string",
-            "nullable": true
-          },
-          "campaignerGender": {
-            "type": "string",
-            "nullable": true
-          },
-          "campaignerLanguage": {
-            "type": "string",
-            "nullable": true
-          },
-          "campaignerProvince": {
-            "type": "string",
-            "nullable": true
-          },
-          "campaignerCategory": {
-            "type": "string",
-            "nullable": true
-          },
-          "campaignerMinimumAge": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "campaignerMaximumAge": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "campaignerMaximumPrice": {
-            "type": "number",
-            "format": "double"
-          },
-          "campaignerMinimumFollowersCount": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "PauseOfferCommand": {
-        "type": "object",
-        "properties": {
-          "advertiserId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "offerId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "reason": {
-            "type": "string",
-            "nullable": true
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "StopOfferCommand": {
-        "type": "object",
-        "properties": {
-          "advertiserId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "offerId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "reason": {
-            "type": "string",
-            "nullable": true
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ResumeOfferCommand": {
-        "type": "object",
-        "properties": {
-          "advertiserId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "offerId": {
-            "type": "string",
-            "format": "uuid"
           },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ArchiveOfferCommand": {
-        "type": "object",
-        "properties": {
-          "advertiserId": {
+          "pinCode": {
             "type": "string",
-            "format": "uuid"
-          },
-          "offerId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "SubmitOfferReviewResultCommand": {
-        "type": "object",
-        "properties": {
-          "offerId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "isApproved": {
-            "type": "boolean"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "AddBankAccountCommand": {
-        "type": "object",
-        "properties": {
-          "profileId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "ownerName": {
-            "type": "string",
-            "nullable": true
-          },
-          "bankName": {
-            "type": "string",
-            "nullable": true
-          },
-          "accountNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "cardNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "shebaNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ModifyBankAccountCommand": {
-        "type": "object",
-        "properties": {
-          "profileId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "bankAccountId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "ownerName": {
-            "type": "string",
-            "nullable": true
-          },
-          "bankName": {
-            "type": "string",
-            "nullable": true
-          },
-          "accountNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "cardNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "shebaNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "InstagramPageAdvertiseTariffCommandItem": {
-        "type": "object",
-        "properties": {
-          "advertiseType": {
-            "type": "string",
-            "nullable": true
-          },
-          "contentProducer": {
-            "type": "string",
-            "nullable": true
-          },
-          "price": {
-            "type": "number",
-            "format": "double"
-          }
-        },
-        "additionalProperties": false
-      },
-      "AddInstagramPageInventoryCommand": {
-        "type": "object",
-        "properties": {
-          "profileId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "categories": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "pageName": {
-            "type": "string",
-            "nullable": true
-          },
-          "pageId": {
-            "type": "string",
-            "nullable": true
-          },
-          "pageLanguage": {
-            "type": "string",
-            "nullable": true
-          },
-          "pageType": {
-            "type": "string",
-            "nullable": true
-          },
-          "age": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "gender": {
-            "type": "string",
-            "nullable": true
-          },
-          "followersCount": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "followersProvinces": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "followersCities": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "engagementRate": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "contestCampaignPriceIncreasePercent": {
-            "type": "number",
-            "format": "double"
-          },
-          "insightAttachment": {
-            "type": "string",
-            "nullable": true
-          },
-          "advertiseTariffs": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/InstagramPageAdvertiseTariffCommandItem"
-            },
-            "nullable": true
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ModifyInstagramPageInventoryCommand": {
-        "type": "object",
-        "properties": {
-          "profileId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "inventoryId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "categories": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "pageName": {
-            "type": "string",
-            "nullable": true
-          },
-          "pageId": {
-            "type": "string",
-            "nullable": true
-          },
-          "pageLanguage": {
-            "type": "string",
-            "nullable": true
-          },
-          "pageType": {
-            "type": "string",
-            "nullable": true
-          },
-          "age": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "gender": {
-            "type": "string",
-            "nullable": true
-          },
-          "followersCount": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "followersProvinces": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "followersCities": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "engagementRate": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "contestCampaignPriceIncreasePercent": {
-            "type": "number",
-            "format": "double"
-          },
-          "insightAttachment": {
-            "type": "string",
-            "nullable": true
-          },
-          "advertiseTariffs": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "number",
-              "format": "double"
-            },
-            "nullable": true
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreatePublisherProfileCommand": {
-        "type": "object",
-        "properties": {
-          "publisherId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "firstName": {
-            "type": "string",
-            "nullable": true
-          },
-          "lastName": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "mobileNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "publisherType": {
-            "$ref": "#/components/schemas/TypeOfPublisher"
-          },
-          "mobileNumberVerificationRefCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ModifyPublisherProfileCommand": {
-        "type": "object",
-        "properties": {
-          "profileId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "firstName": {
-            "type": "string",
-            "nullable": true
-          },
-          "lastName": {
-            "type": "string",
-            "nullable": true
-          },
-          "nationalCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "age": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "gender": {
-            "type": "string",
-            "nullable": true
-          },
-          "legalName": {
-            "type": "string",
-            "nullable": true
-          },
-          "nationalId": {
-            "type": "string",
-            "nullable": true
-          },
-          "economicCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "registrationNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "mobileNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "tell": {
-            "type": "string",
-            "nullable": true
-          },
-          "address": {
-            "type": "string",
-            "nullable": true
-          },
-          "postalCode": {
-            "type": "string",
             "nullable": true
-          },
-          "publisherType": {
-            "$ref": "#/components/schemas/TypeOfPublisher"
           },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
-          }
-        },
-        "additionalProperties": false
-      },
-      "SetPublisherProfileAvatarCommand": {
-        "type": "object",
-        "properties": {
-          "profileId": {
+          "password": {
             "type": "string",
-            "format": "uuid"
-          },
-          "avatarAttachment": {
-            "type": "string",
             "nullable": true
-          },
-          "commandSenderInfo": {
-            "$ref": "#/components/schemas/UserInfo"
           }
         },
         "additionalProperties": false
@@ -4511,7 +2026,7 @@
     "securitySchemes": {
       "Bearer": {
         "type": "apiKey",
-        "description": "Please enter into field the word 'Bearer' following by space and JWT. Example: \"Authorization: Bearer {token}\"",
+        "description": "JWT Authorization header using the Bearer scheme.",
         "name": "Authorization",
         "in": "header"
       }

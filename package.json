@@ -9,7 +9,7 @@
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "start": "vue-cli-service serve",
-    "updateswagger": "curl http://webapi.asazan.com/swagger/api-v1/swagger.json > public/swagger/openapi.json",
+    "updateswagger": "curl http://webapi.asazan.com/swagger/v1/swagger.json > public/swagger/openapi.json",
     "boil:pages": "cp ./src/pages/* ../pages/",
     "boil:config": "cp ./src/config.js ../config.js",
     "boil:plugin:vuetify": "cp ./src/plugins/vuetify.js ../plugins/vuetify.js",

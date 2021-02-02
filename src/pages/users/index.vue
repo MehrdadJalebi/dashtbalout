@@ -38,6 +38,66 @@
          </v-btn>
        </div>
     </page-title>
+    <v-data-table
+      align-center
+      class="report-table negotiation-list"
+      :headers="headers"
+      :options.sync="pages"
+      :server-items-length="totalItems"
+      :items="negotiationsList"
+      :loading="isLoading"
+      disable-sort
+      >
+      <template slot="item" slot-scope="props">
+        <tr>
+          <td class="data-min-td"> {{ props.item.negotiatorName }} </td>
+          <td class="data-min-td"> {{ $t('pages.admin.negotiations.roles.' +
+            toLowerCamelCase(props.item.negotiatorType)) }} </td>
+          <td class="data-min-td"> {{ props.item.receiverName }} </td>
+          <td class="data-min-td">
+            <v-btn
+              text
+              target="_blank"
+              color="primary"
+              :to="{ name: 'inventory', params: { id: props.item.inventoryId } }">
+              {{ props.item.inventoryPageName }}
+            </v-btn>
+          </td>
+          <td class="data-min-td">
+            <v-btn
+              text
+              target="_blank"
+              color="primary"
+              :to="{
+                name: 'advertiserCampaign',
+                params: { id: props.item.campaignId },
+                query: { advertiserId: props.item.advertiserId }
+              }">
+              {{ props.item.campaignTitle }}
+            </v-btn>
+          </td>
+          <td class="data-max-td"> {{ $t('enums.campaignCategories.' +
+            toLowerCamelCase(props.item.advertiseType)) }} </td>
+          <td class="data-min-td"> {{ props.item.suggestedPrice }} </td>
+          <td class="data-min-td"> {{ $t('enums.negotiationStatuses.' +
+            toLowerCamelCase(props.item.status)) }} </td>
+          <td class="data-min-td">
+            <v-select
+              :placeholder="$t('pages.admin.negotiations.tableHeader.changeStatus')"
+              dense
+              hide-details
+              outlined
+              solo
+              flat
+              :menu-props="{ offsetY: true }"
+              :items='getNegotiationActionTypes(props.item.status)'
+              @input="e => changeNegotiationState(e, props.item.id)"
+            >
+            </v-select>
+          </td>
+        </tr>
+      </template>
+    </v-data-table>
     <v-dialog
       v-model="dialog"
       width="700"
@@ -105,6 +165,36 @@ export default {
   data(){
     return {
       dialog: false
+    }
+  },
+  computed: {
+    headers () {
+      return [
+        {
+          text: this.$t('enums.headers.firstName'),
+          value: 'firstName'
+        },
+        {
+          text: this.$t('enums.headers.lastName'),
+          value: 'lastName'
+        },
+        {
+          text: this.$t('enums.headers.nationalCode'),
+          value: 'nationalCode'
+        },
+        {
+          text: this.$t('enums.headers.personalNumber'),
+          value: 'personalNumber'
+        },
+        {
+          text: this.$t('enums.headers.editAccess'),
+          value: 'editAccess'
+        },
+        {
+          text: this.$t('enums.headers.actions'),
+          value: 'actions'
+        }
+      ]
     }
   },
   methods: {

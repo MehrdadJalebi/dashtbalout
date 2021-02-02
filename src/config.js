@@ -15,7 +15,7 @@ export default {
   },
   rtl: true,
   darkTheme: false,
-  apiBaseURL: 'https://api.sabacell.com',
+  apiBaseURL: 'https://webapi.asazan.com',
   apiJson: API_JSON,
   brandLogo: '/img/brand-logo.png',
   defaultPagesArtwork: '/img/samples/artwork.png',

@@ -361,6 +361,18 @@ export default {
       devotion: 'جانبازی',
       lessDevelopedAreas: 'مناطق کمتر توسعه یافته'
     },
+    headers: {
+      firstName: 'نام',
+      lastName: 'نام خانوادگی',
+      nationalCode: 'کد ملی',
+      personalNumber: 'شماره پرسنلی',
+      editAccess: 'مجوز ویرایش',
+      actions: 'عملیات'
+    },
+    tableActions: {
+      edit: 'ویرایش',
+      delete: 'حذف'
+    },
     userRoles: {
       admin: 'ادمین',
       user: 'کاربر'

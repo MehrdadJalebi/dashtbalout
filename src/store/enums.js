@@ -23,7 +23,7 @@ export default {
       otherClause14: 'OtherClause14',
       taxExemptCitizens: 'TaxExemptCitizens'
     },
-    mountlyWorkTimeTypes: {
+    monthlyWorkTimeTypes: {
       hourly: 'Hourly',
       daily: 'Daily'
     }
@@ -72,9 +72,9 @@ export default {
       })
       return array
     },
-    mountlyWorkTimeTypesArray (state) {
-      const array = Object.entries(state.mountlyWorkTimeTypes).map(([key, value]) => {
-        const translate = APP_CONFIG.locales[APP_CONFIG.locale].enums.mountlyWorkTimeTypes[key]
+    monthlyWorkTimeTypesArray (state) {
+      const array = Object.entries(state.monthlyWorkTimeTypes).map(([key, value]) => {
+        const translate = APP_CONFIG.locales[APP_CONFIG.locale].enums.monthlyWorkTimeTypes[key]
         return {
           value: value,
           text: translate

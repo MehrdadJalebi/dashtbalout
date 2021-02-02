@@ -110,23 +110,23 @@
             :sm="5"
             >
             <form-item
-              v-model="contract.mountlyWorkTimeType"
+              v-model="contract.monthlyWorkTimeType"
               type="select"
-              :items="mountlyWorkTimeTypesArray"
+              :items="monthlyWorkTimeTypesArray"
               icon="mdi-account-circle"
-              :label="$t('enums.mountlyWorkTimeType')"
-              :placeholder="$t('enums.placeholders.mountlyWorkTimeType')"
+              :label="$t('enums.monthlyWorkTimeType')"
+              :placeholder="$t('enums.placeholders.monthlyWorkTimeType')"
               ></form-item>
           </v-col>
           <v-col
             :sm="7"
             >
             <form-item
-              v-model="contract.mountlyWorkAmount"
+              v-model="contract.monthlyWorkAmount"
               type="textbox"
               icon="mdi-account-circle"
-              :label="$t('enums.mountlyWorkAmount')"
-              :placeholder="$t('enums.placeholders.mountlyWorkAmount')"
+              :label="$t('enums.monthlyWorkAmount')"
+              :placeholder="$t('enums.placeholders.monthlyWorkAmount')"
               ></form-item>
           </v-col>
         </v-row>
@@ -184,7 +184,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      mountlyWorkTimeTypesArray: 'enums/mountlyWorkTimeTypesArray',
+      monthlyWorkTimeTypesArray: 'enums/monthlyWorkTimeTypesArray',
     })
   },
 }

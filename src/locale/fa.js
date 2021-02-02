@@ -355,10 +355,12 @@ export default {
     contractCompany: 'شرکت طرف قرارداد',
     contractTier: 'ردیف پیمان',
     factoryCode: 'کد کارگاه',
-    mountlyWorkTimeType: 'نوع زمان کار ماهانه',
-    mountlyWorkAmount: 'میزان کارکرد ماهانه ( تعداد ساعت یا روز)',
+    monthlyWorkTimeType: 'نوع زمان کار ماهانه',
+    monthlyWorkAmount: 'میزان کارکرد ماهانه ( تعداد ساعت یا روز)',
     factoryPlace: 'محل کارگاه',
     details: 'جزییات',
+    year: 'سال',
+    month: 'ماه',
     placeholders: {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
@@ -376,10 +378,12 @@ export default {
       contractCompany: 'شرکت طرف قرارداد',
       contractTier: 'ردیف پیمان',
       factoryCode: 'کد کارگاه',
-      mountlyWorkTimeType: 'نوع زمان کار ماهانه',
-      mountlyWorkAmount: 'میزان کارکرد ماهانه ( تعداد ساعت یا روز)',
+      monthlyWorkTimeType: 'نوع زمان کار ماهانه',
+      monthlyWorkAmount: 'میزان کارکرد ماهانه ( تعداد ساعت یا روز)',
       factoryPlace: 'محل کارگاه',
       details: 'جزییات',
+      year: 'سال',
+      month: 'ماه'
     },
     headers: {
       firstName: 'نام',
@@ -391,7 +395,11 @@ export default {
       contractTitle: 'عنوان قرارداد',
       contractRegisterationNumber: 'شماره ثبت قرارداد',
       contractCompany: 'شرکت طرف قرارداد',
-      factoryCode: 'کد کارگاه'
+      factoryCode: 'کد کارگاه',
+      year: 'سال',
+      month: 'ماه',
+      income: 'دریافتی',
+      type: 'نوع'
     },
     tableActions: {
       edit: 'ویرایش',
@@ -418,7 +426,7 @@ export default {
       otherClause14: 'سایر مشمولین بند ۱۴ ماده ۹۱',
       taxExemptCitizens: 'اتباع خارجی مشمول قانون اجتناب از اخد مالیات مضاعف'
     },
-    mountlyWorkTimeTypes: {
+    monthlyWorkTimeTypes: {
       daily: 'روز کارکرد',
       hourly: 'ساعت کارکرد'
     }

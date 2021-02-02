@@ -472,3 +472,6 @@
   display: flex;
   flex-direction: column;
 }
+.form-label i + label {
+  margin: 0 5px !important;
+}

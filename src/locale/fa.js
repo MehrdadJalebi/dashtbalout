@@ -306,6 +306,7 @@ export default {
       usersList: 'لیست کاربران',
       add: 'ثبت کاربر جدید',
       excelAdd: 'ثبت  از فایل  اکسل',
+      addUserBtn: 'ثبت کاربر',
       excelAddUsers: {
         title: 'آپلود فایل اکسل کاربران',
         noticeText: '۱- جهت راهنمایی در مورد چگونگی پر کردن فایل اکسل لطفا قبل از شروع، راهنمای مورد را مطالعه فرمایید<br>۲- فرمت های صحیح فایل ورودی CSV, XSLX و XSL می باشند.<br>۳-خطاهای سامانه را در مورد فایل خود با دقت مطالعه و بررسی نمایید<br>۴- فیلدهای عددی را با اعداد انگلیسی پر کنید و اعداد فارسی قرار ندهید',
@@ -331,6 +332,55 @@ export default {
     },
     messages: {
       title: 'پیام ها'
+    }
+  },
+  enums: {
+    firstName: 'نام',
+    lastName: 'نام خانوادگی',
+    nationalCode: 'کد ملی',
+    gender: 'جنسیت',
+    maritalStatus: 'تاهل',
+    childrensCount: 'تعداد فرزندان',
+    underSupportPersonsCount: 'تعداد افراد تحت تکفل',
+    personalNumber: 'شماره پرسنلی',
+    employeeStatus: 'وضعیت کارمند',
+    devotion: 'جانبازی',
+    lessDevelopedAreas: 'مناطق کمتر توسعه یافته',
+    has: 'دارد',
+    hasnt: 'ندارد',
+    placeholders: {
+      firstName: 'نام',
+      lastName: 'نام خانوادگی',
+      nationalCode: 'کد ملی',
+      gender: 'جنسیت',
+      maritalStatus: 'تاهل',
+      childrensCount: 'تعداد فرزندان',
+      underSupportPersonsCount: 'تعداد افراد تحت تکفل',
+      personalNumber: 'شماره پرسنلی',
+      employeeStatus: 'وضعیت کارمند',
+      devotion: 'جانبازی',
+      lessDevelopedAreas: 'مناطق کمتر توسعه یافته'
+    },
+    userRoles: {
+      admin: 'ادمین',
+      user: 'کاربر'
+    },
+    genders: {
+      male: 'مرد',
+      female: 'زن'
+    },
+    maritalStatuses: {
+      single: 'مجرد',
+      married: 'متاهل'
+    },
+    employeeStatuses: {
+      normal: 'عادی',
+      devoted: 'جانباز',
+      martyrChild: 'فرزند شهید',
+      captive: 'آزاده',
+      armedForces: 'نیروهای مسلح ـ نظامی یا انتظامی)',
+      otherClause14: 'سایر مشمولین بند ۱۴ ماده ۹۱',
+      taxExemptCitizens: 'اتباع خارجی مشمول قانون اجتناب از اخد مالیات مضاعف'
     }
   }
 }

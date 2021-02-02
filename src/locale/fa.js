@@ -329,7 +329,8 @@ export default {
       title: 'حقوق و دستمزد پیمانکاری',
       contractsList: 'لیست قرارداد ها',
       add: 'ثبت قرارداد جدید',
-      addContractBtn: 'ثبت  قرارداد'
+      addContractBtn: 'ثبت  قرارداد',
+      noticeText: 'برای شروع کار نیاز است تا قرارداد خود را ثبت کنید'
     },
     messages: {
       title: 'پیام ها'

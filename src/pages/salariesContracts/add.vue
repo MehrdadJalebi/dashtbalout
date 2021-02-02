@@ -12,8 +12,36 @@
   <div class="mt-5 mx-5">
       <v-card>
         <v-card-title>{{$t('pages.salariesContracts.add')}}</v-card-title>
+        <v-card
+          outlined
+          color="orange"
+          class="border-box mx-3 mb-3"
+          >
+          <v-card
+            flat
+            class="d-flex">
+            <v-layout
+              justify-right
+              align-center
+              class="pa-2"
+              >
+              <div>
+                <div class="alert-circle">
+                  <v-icon class="orange--text text-h2">mdi-alert</v-icon>
+                </div>
+              </div>
+              <div>
+                <v-card-text
+                  class="orange--text"
+                  v-html="$t('pages.salariesContracts.noticeText')"
+                  >
+                </v-card-text>
+              </div>
+            </v-layout>
+          </v-card>
+        </v-card>
         <v-row
-        class="px-3"
+          class="px-3"
           >
           <v-col
             :sm="8"

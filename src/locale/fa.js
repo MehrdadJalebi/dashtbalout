@@ -328,7 +328,8 @@ export default {
     salariesContracts: {
       title: 'حقوق و دستمزد پیمانکاری',
       contractsList: 'لیست قرارداد ها',
-      add: 'ثبت قرارداد جدید'
+      add: 'ثبت قرارداد جدید',
+      addContractBtn: 'ثبت  قرارداد'
     },
     messages: {
       title: 'پیام ها'
@@ -348,6 +349,15 @@ export default {
     lessDevelopedAreas: 'مناطق کمتر توسعه یافته',
     has: 'دارد',
     hasnt: 'ندارد',
+    contractTitle: 'عنوان قرارداد',
+    contractRegisterationNumber: 'شماره ثبت قرارداد',
+    contractCompany: 'شرکت طرف قرارداد',
+    contractTier: 'ردیف پیمان',
+    factoryCode: 'کد کارگاه',
+    mountlyWorkTimeType: 'نوع زمان کار ماهانه',
+    mountlyWorkAmount: 'میزان کارکرد ماهانه ( تعداد ساعت یا روز)',
+    factoryPlace: 'محل کارگاه',
+    details: 'جزییات',
     placeholders: {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
@@ -359,7 +369,16 @@ export default {
       personalNumber: 'شماره پرسنلی',
       employeeStatus: 'وضعیت کارمند',
       devotion: 'جانبازی',
-      lessDevelopedAreas: 'مناطق کمتر توسعه یافته'
+      lessDevelopedAreas: 'مناطق کمتر توسعه یافته',
+      contractTitle: 'عنوان قرارداد',
+      contractRegisterationNumber: 'شماره ثبت قرارداد',
+      contractCompany: 'شرکت طرف قرارداد',
+      contractTier: 'ردیف پیمان',
+      factoryCode: 'کد کارگاه',
+      mountlyWorkTimeType: 'نوع زمان کار ماهانه',
+      mountlyWorkAmount: 'میزان کارکرد ماهانه ( تعداد ساعت یا روز)',
+      factoryPlace: 'محل کارگاه',
+      details: 'جزییات',
     },
     headers: {
       firstName: 'نام',
@@ -367,7 +386,11 @@ export default {
       nationalCode: 'کد ملی',
       personalNumber: 'شماره پرسنلی',
       editAccess: 'مجوز ویرایش',
-      actions: 'عملیات'
+      actions: 'عملیات',
+      contractTitle: 'عنوان قرارداد',
+      contractRegisterationNumber: 'شماره ثبت قرارداد',
+      contractCompany: 'شرکت طرف قرارداد',
+      factoryCode: 'کد کارگاه'
     },
     tableActions: {
       edit: 'ویرایش',
@@ -393,6 +416,10 @@ export default {
       armedForces: 'نیروهای مسلح ـ نظامی یا انتظامی)',
       otherClause14: 'سایر مشمولین بند ۱۴ ماده ۹۱',
       taxExemptCitizens: 'اتباع خارجی مشمول قانون اجتناب از اخد مالیات مضاعف'
+    },
+    mountlyWorkTimeTypes: {
+      daily: 'روز کارکرد',
+      hourly: 'ساعت کارکرد'
     }
   }
 }

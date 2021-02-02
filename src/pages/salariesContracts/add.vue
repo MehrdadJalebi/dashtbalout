@@ -9,15 +9,155 @@
 }
 </route>
 <template>
-  <div>
-    <page-title
-      :title="$t('pages.salariesContracts.add')"
-    >
-    </page-title>
+  <div class="mt-5 mx-5">
+      <v-card>
+        <v-card-title>{{$t('pages.salariesContracts.add')}}</v-card-title>
+        <v-row
+        class="px-3"
+          >
+          <v-col
+            :sm="8"
+            >
+            <form-item
+              v-model="contract.title"
+              type="textbox"
+              icon="mdi-account-circle"
+              :label="$t('enums.contractTitle')"
+              :placeholder="$t('enums.placeholders.contractTitle')"
+              ></form-item>
+          </v-col>
+          <v-col
+            :sm="4"
+            >
+            <form-item
+              v-model="contract.registerationNumber"
+              type="textbox"
+              icon="mdi-account-circle"
+              :label="$t('enums.contractRegisterationNumber')"
+              :placeholder="$t('enums.placeholders.contractRegisterationNumber')"
+              ></form-item>
+          </v-col>
+        </v-row>
+        <v-row
+        class="px-3"
+          >
+          <v-col
+            :sm="6"
+            >
+            <form-item
+              v-model="contract.company"
+              type="textbox"
+              icon="mdi-account-circle"
+              :label="$t('enums.contractCompany')"
+              :placeholder="$t('enums.placeholders.contractCompany')"
+              ></form-item>
+          </v-col>
+          <v-col
+            :sm="2"
+            >
+            <form-item
+              v-model="contract.tier"
+              type="textbox"
+              icon="mdi-account-circle"
+              :label="$t('enums.contractTier')"
+              :placeholder="$t('enums.placeholders.contractTier')"
+              ></form-item>
+          </v-col>
+          <v-col
+            :sm="4"
+            >
+            <form-item
+              v-model="contract.factoryCode"
+              type="textbox"
+              icon="mdi-account-circle"
+              :label="$t('enums.factoryCode')"
+              :placeholder="$t('enums.placeholders.factoryCode')"
+              ></form-item>
+          </v-col>
+        </v-row>
+        <v-row
+        class="px-3"
+          >
+          <v-col
+            :sm="5"
+            >
+            <form-item
+              v-model="contract.mountlyWorkTimeType"
+              type="select"
+              :items="mountlyWorkTimeTypesArray"
+              icon="mdi-account-circle"
+              :label="$t('enums.mountlyWorkTimeType')"
+              :placeholder="$t('enums.placeholders.mountlyWorkTimeType')"
+              ></form-item>
+          </v-col>
+          <v-col
+            :sm="7"
+            >
+            <form-item
+              v-model="contract.mountlyWorkAmount"
+              type="textbox"
+              icon="mdi-account-circle"
+              :label="$t('enums.mountlyWorkAmount')"
+              :placeholder="$t('enums.placeholders.mountlyWorkAmount')"
+              ></form-item>
+          </v-col>
+        </v-row>
+        <v-row
+        class="px-3"
+          >
+          <v-col
+            :sm="12"
+            >
+            <form-item
+              v-model="contract.factoryPlace"
+              type="textbox"
+              icon="mdi-account-circle"
+              :label="$t('enums.factoryPlace')"
+              :placeholder="$t('enums.placeholders.factoryPlace')"
+              ></form-item>
+          </v-col>
+        </v-row>
+        <v-row
+        class="px-3"
+          >
+          <v-col
+            :sm="12"
+            >
+            <form-item
+              v-model="contract.details"
+              type="textarea"
+              rows="3"
+              icon="mdi-account-circle"
+              :label="$t('enums.details')"
+              :placeholder="$t('enums.placeholders.details')"
+              ></form-item>
+          </v-col>
+        </v-row>
+          <v-card-actions>
+            <v-btn
+              large
+              class="px-5 ml-1 mr-auto"
+              color="success"
+              >
+              {{ $t('pages.salariesContracts.addContractBtn') }}
+            </v-btn>
+          </v-card-actions>
+      </v-card>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  layout: APP_CONFIG.layout.mainPanelLayout
+  layout: APP_CONFIG.layout.mainPanelLayout,
+  data(){
+    return {
+      contract: {},
+    }
+  },
+  computed: {
+    ...mapGetters({
+      mountlyWorkTimeTypesArray: 'enums/mountlyWorkTimeTypesArray',
+    })
+  },
 }
 </script>

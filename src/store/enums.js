@@ -10,6 +10,20 @@ export default {
       male: 'Male',
       female: 'Female'
     },
+    months: {
+      farvardin: 1,
+      ordibehesht: 2,
+      khordad: 3,
+      tir: 4,
+      mordad: 5,
+      shahrivar: 6,
+      mehr: 7,
+      aban: 8,
+      azar: 9,
+      dey: 10,
+      bahman: 11,
+      esfand: 12
+    },
     maritalStatuses: {
       single: 'Single',
       married: 'Married'
@@ -75,6 +89,16 @@ export default {
     monthlyWorkTimeTypesArray (state) {
       const array = Object.entries(state.monthlyWorkTimeTypes).map(([key, value]) => {
         const translate = APP_CONFIG.locales[APP_CONFIG.locale].enums.monthlyWorkTimeTypes[key]
+        return {
+          value: value,
+          text: translate
+        }
+      })
+      return array
+    },
+    monthsArray (state) {
+      const array = Object.entries(state.months).map(([key, value]) => {
+        const translate = APP_CONFIG.locales[APP_CONFIG.locale].enums.months[key]
         return {
           value: value,
           text: translate

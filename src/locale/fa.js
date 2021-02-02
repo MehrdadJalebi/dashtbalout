@@ -318,7 +318,8 @@ export default {
     payrolls: {
       title: 'فیش های حقوقی',
       payrollsList: 'لیست فیش های حقوقی',
-      add: 'ثبت فیش جدید'
+      add: 'ثبت فیش حقوقی جدید',
+      addPayrollBtn: 'ثبت فیش  جدید'
     },
     fileReceipts: {
       title: 'صدور فیش های فایلی',
@@ -429,6 +430,20 @@ export default {
     monthlyWorkTimeTypes: {
       daily: 'روز کارکرد',
       hourly: 'ساعت کارکرد'
+    },
+    months: {
+      farvardin: 'فروردین',
+      ordibehesht: 'اردییهشت',
+      khordad: 'خرداد',
+      tir: 'تیر',
+      mordad: 'مرداد',
+      shahrivar: 'شهریور',
+      mehr: 'مهر',
+      aban: 'آبان',
+      azar: 'آذر',
+      dey: 'دی',
+      bahman: 'بهمن',
+      esfand: 'اسفند'
     }
   }
 }

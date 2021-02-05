@@ -3,7 +3,7 @@
   "name": "admin",
   "meta": {
     "order": 1.1,
-    "isVisible": true,
+    "isVisible": false,
     "iconName": "mdi-play",
     "roles": ["ADMIN"]
   }

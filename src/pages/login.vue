@@ -11,24 +11,60 @@
 </route>
 <template>
   <login
+    ref="login"
+    :emailEnabled="false"
+    :is-loading="isLoading"
+    :is-dark=true
     forgot-password-route="forgotpass"
     register-route="register"
-    :is-dark=true
     :solo=true
     :outlined=false
     :icon-enabled=true
     @login="onLogin" />
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   layout: 'twoside',
-  methods: {
-    onLogin (payload) {
-      console.log('Do Login ---------------- !!!!')
-      console.log(payload.email)
-      console.log(payload.password)
-      console.log(payload.rememberMe)
+  data () {
+    return {
+      isLoading: false
     }
+  },
+  computed: {
+    ...mapGetters({
+      userInfo: 'auth/userInfo'
+    }),
+  },
+  methods: {
+    ...mapActions({
+      login: 'auth/login',
+      getUserInfo: 'auth/getUserInfo'
+    }),
+    onLogin (payload) {
+      this.isLoading = true
+      this.login(payload)
+        .then(() => {
+          this.isLoading = false
+          if (localStorage.token) {
+            this.getUserInfo().then(() => {
+              if (this.userInfo.role === 'Admin') {
+                this.$router.push({ name: 'index' })
+              } else  {
+                this.$router.push({ name: 'index' })
+              }
+              window.dispatchEvent(new Event('UPDATE_AUTHORIZATION'))
+            })
+          }
+          this.isLoading = false
+        })
+        .catch(() => {
+          this.isLoading = false
+        })
+    }
+  },
+  mounted () {
+    this.$refs.login.userInfo.rememberMe = false
   }
 }
 </script>

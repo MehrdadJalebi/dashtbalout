@@ -5,13 +5,12 @@
     "version": "v1"
   },
   "paths": {
-    "/api/v1/bankaccount/add/{userid}": {
+    "/api/v1/bankaccounts/add/{userid}": {
       "post": {
         "tags": [
-          "BankAccount"
+          "BankAccounts"
         ],
-        "summary": "Only Admin",
-        "operationId": "Add",
+        "operationId": "AddBankAccountByUserId",
         "parameters": [
           {
             "name": "userid",
@@ -49,13 +48,12 @@
         }
       }
     },
-    "/api/v1/bankaccount/{userid}": {
+    "/api/v1/bankaccounts/{userid}": {
       "get": {
         "tags": [
-          "BankAccount"
+          "BankAccounts"
         ],
-        "summary": "Only Admin",
-        "operationId": "Get",
+        "operationId": "GetBankAccountByUserId",
         "parameters": [
           {
             "name": "userid",
@@ -74,12 +72,12 @@
         }
       }
     },
-    "/api/v1/bankaccount": {
+    "/api/v1/bankaccounts": {
       "get": {
         "tags": [
-          "BankAccount"
+          "BankAccounts"
         ],
-        "operationId": "Get",
+        "operationId": "GetBankAccount",
         "responses": {
           "200": {
             "description": "Success",
@@ -113,12 +111,12 @@
         }
       }
     },
-    "/api/v1/bankaccount/add": {
+    "/api/v1/bankaccounts/add": {
       "post": {
         "tags": [
-          "BankAccount"
+          "BankAccounts"
         ],
-        "operationId": "Add",
+        "operationId": "AddBankAccount",
         "requestBody": {
           "content": {
             "application/json": {
@@ -145,12 +143,12 @@
         }
       }
     },
-    "/api/v1/bankaccount/{id}": {
+    "/api/v1/bankaccounts/{id}": {
       "delete": {
         "tags": [
-          "BankAccount"
+          "BankAccounts"
         ],
-        "operationId": "Remove",
+        "operationId": "RemoveBankAccount",
         "parameters": [
           {
             "name": "id",
@@ -170,9 +168,9 @@
       },
       "put": {
         "tags": [
-          "BankAccount"
+          "BankAccounts"
         ],
-        "operationId": "Update",
+        "operationId": "UpdateBankAccount",
         "parameters": [
           {
             "name": "id",
@@ -227,12 +225,12 @@
         }
       }
     },
-    "/api/v1/contract": {
+    "/api/v1/contracts": {
       "post": {
         "tags": [
-          "Contract"
+          "Contracts"
         ],
-        "operationId": "Add",
+        "operationId": "AddContract",
         "requestBody": {
           "content": {
             "application/json": {
@@ -259,12 +257,12 @@
         }
       }
     },
-    "/api/v1/contract/{id}": {
+    "/api/v1/contracts/{id}": {
       "put": {
         "tags": [
-          "Contract"
+          "Contracts"
         ],
-        "operationId": "Update",
+        "operationId": "UpdateContract",
         "parameters": [
           {
             "name": "id",
@@ -320,9 +318,9 @@
       },
       "get": {
         "tags": [
-          "Contract"
+          "Contracts"
         ],
-        "operationId": "Get",
+        "operationId": "GetContractById",
         "parameters": [
           {
             "name": "id",
@@ -334,25 +332,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ContractRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ContractRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ContractRequest"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Success",
@@ -377,12 +356,12 @@
         }
       }
     },
-    "/api/v1/contract/all": {
+    "/api/v1/contracts/all": {
       "get": {
         "tags": [
-          "Contract"
+          "Contracts"
         ],
-        "operationId": "GetAll",
+        "operationId": "GetAllContracts",
         "responses": {
           "200": {
             "description": "Success",
@@ -416,13 +395,12 @@
         }
       }
     },
-    "/api/v1/message/add/{userid}": {
+    "/api/v1/messages/add/{userid}": {
       "post": {
         "tags": [
-          "Message"
+          "Messages"
         ],
-        "summary": "Only Admin",
-        "operationId": "Add",
+        "operationId": "AddMessageByUserId",
         "parameters": [
           {
             "name": "userid",
@@ -460,12 +438,12 @@
         }
       }
     },
-    "/api/v1/message": {
+    "/api/v1/messages": {
       "get": {
         "tags": [
-          "Message"
+          "Messages"
         ],
-        "operationId": "Get",
+        "operationId": "GetMessages",
         "responses": {
           "200": {
             "description": "Success",
@@ -499,12 +477,12 @@
         }
       }
     },
-    "/api/v1/message/countunread": {
+    "/api/v1/messages/unreadcount": {
       "get": {
         "tags": [
-          "Message"
+          "Messages"
         ],
-        "operationId": "CountUnread",
+        "operationId": "GetUnReadCount",
         "responses": {
           "200": {
             "description": "Success",
@@ -532,12 +510,12 @@
         }
       }
     },
-    "/api/v1/message/read/{id}": {
+    "/api/v1/messages/readed/{id}": {
       "put": {
         "tags": [
-          "Message"
+          "Messages"
         ],
-        "operationId": "Read",
+        "operationId": "Readed",
         "parameters": [
           {
             "name": "id",
@@ -556,12 +534,12 @@
         }
       }
     },
-    "/api/v1/payroll": {
+    "/api/v1/payrolls": {
       "get": {
         "tags": [
-          "Payroll"
+          "Payrolls"
         ],
-        "operationId": "Get",
+        "operationId": "GetPayRoll",
         "parameters": [
           {
             "name": "year",
@@ -607,10 +585,9 @@
       },
       "post": {
         "tags": [
-          "Payroll"
+          "Payrolls"
         ],
-        "summary": "Only Admin",
-        "operationId": "Add",
+        "operationId": "AddPayroll",
         "parameters": [
           {
             "name": "UserId",
@@ -758,12 +735,12 @@
         }
       }
     },
-    "/api/v1/users/checkusernameexist": {
+    "/api/v1/users/usernameexist": {
       "get": {
         "tags": [
           "Users"
         ],
-        "operationId": "CheckUsernameExist",
+        "operationId": "UsernameExist",
         "parameters": [
           {
             "name": "username",
@@ -798,12 +775,12 @@
         }
       }
     },
-    "/api/v1/users/checkmobileexist": {
+    "/api/v1/users/mobileexist": {
       "get": {
         "tags": [
           "Users"
         ],
-        "operationId": "CheckMobileExist",
+        "operationId": "MobileExist",
         "parameters": [
           {
             "name": "mobile",
@@ -838,12 +815,12 @@
         }
       }
     },
-    "/api/v1/users/checkemailexist": {
+    "/api/v1/users/emailexist": {
       "get": {
         "tags": [
           "Users"
         ],
-        "operationId": "CheckEmailExist",
+        "operationId": "EmailExist",
         "parameters": [
           {
             "name": "email",
@@ -932,8 +909,33 @@
         "tags": [
           "Users"
         ],
-        "summary": "Only Admin",
         "operationId": "GetAll",
+        "parameters": [
+          {
+            "name": "PageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Search",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -1057,8 +1059,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "Only Admin",
-        "operationId": "Update",
+        "operationId": "UpdateByUserId",
         "parameters": [
           {
             "name": "userid",
@@ -1205,7 +1206,7 @@
         "tags": [
           "Users"
         ],
-        "operationId": "GetByUserId",
+        "operationId": "GetUser",
         "responses": {
           "200": {
             "description": "Success",
@@ -1279,12 +1280,12 @@
         }
       }
     },
-    "/api/v1/users/profilepicture": {
+    "/api/v1/users/profilepic": {
       "post": {
         "tags": [
           "Users"
         ],
-        "operationId": "Post",
+        "operationId": "SaveProfilePic",
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -1316,7 +1317,7 @@
         "tags": [
           "Users"
         ],
-        "operationId": "GetImage",
+        "operationId": "GetProfilePic",
         "responses": {
           "200": {
             "description": "Success",

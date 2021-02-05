@@ -39,12 +39,10 @@
        </div>
     </page-title>
     <v-data-table
-      align-center
-      class="report-table"
+      class="report-table text-right"
       :headers="headers"
       :options.sync="pages"
-      :server-items-length="totalItems"
-      :items="userList"
+      :items="usersList"
       :loading="isLoading"
       disable-sort
       >
@@ -53,7 +51,7 @@
           <td class="data-min-td"> {{ props.item.firstName }} </td>
           <td class="data-min-td"> {{ props.item.lastName }} </td>
           <td class="data-min-td"> {{ props.item.nationalCode }} </td>
-          <td class="data-min-td"> {{ props.item.personalNumber }} </td>
+          <td class="data-min-td"> {{ props.item.personnelNumber }} </td>
           <td class="data-min-td">
             <v-switch
               v-model="editAccess"
@@ -67,7 +65,7 @@
             {{ $t('enums.tableActions.edit') }}
           </v-btn>
           <v-btn
-            class="mr-3"
+            class="ml-3"
             outlined
             color="danger"
             >
@@ -139,14 +137,17 @@
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data(){
     return {
+      page: 1,
+      pageCount: 15,
       dialog: false,
       pages: {},
       totalItems: 0,
-      isLoading: false,
+      isLoading: true,
       usersList: []
     }
   },
@@ -180,7 +181,22 @@ export default {
       ]
     }
   },
+  created() {
+    let payload = {
+      pageIndex: this.page,
+      pageSize: this.pageCount
+    }
+    this.getAllUsers(payload)
+    .then(response => {
+      this.usersList = response.data
+      this.isLoading = false
+      console.log('asdasd', this.usersList)
+    })
+  },
   methods: {
+    ...mapActions({
+      getAllUsers: 'users/getAllUsers',
+    }),
     excelAddUsersModal() {
       this.dialog = true
     }

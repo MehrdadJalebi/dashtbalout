@@ -19,6 +19,7 @@ export default {
       send: 'ارسال'
     },
     login: {
+      userName: 'نام کاربری',
       email: 'پست الکترونیک',
       password: 'کلمه عبور',
       login: 'ورود',
@@ -30,7 +31,6 @@ export default {
       passwordPlaceholder: '********',
       passwordRequired: 'کلمه عبور الزامی است',
       emailRequired: 'پست الکترونیکی الزامی است',
-      passwordValidation: 'حداقل تعداد کلمه عبور 8 کاراکتر است',
       emailValidation: 'فرمت پست الکترونیکی صحیح نیست'
     },
     register: {
@@ -323,7 +323,7 @@ export default {
     },
     fileReceipts: {
       title: 'صدور فیش های فایلی',
-      contractsList: 'لیست قرارداد ها',
+      contractsList: 'قراردادهای سیستم فایلی',
       add: 'ثبت قرارداد جدید'
     },
     salariesContracts: {

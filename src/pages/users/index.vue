@@ -16,8 +16,8 @@
     <div
        class="mb-3">
          <v-btn
-           @click="excelAddUsersModal"
-           color="success">
+           color="success"
+           @click="excelAddUsersModal">
            <v-icon
              class="mr-2"
              small>
@@ -59,13 +59,15 @@
           </td>
           <td class="data-min-td">
           <v-btn
+            small
             outlined
             color="primary"
             >
             {{ $t('enums.tableActions.edit') }}
           </v-btn>
           <v-btn
-            class="ml-3"
+            small
+            class="mr-3"
             outlined
             color="danger"
             >
@@ -137,10 +139,10 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
-  data(){
+  data () {
     return {
       page: 1,
       pageCount: 15,
@@ -181,23 +183,23 @@ export default {
       ]
     }
   },
-  created() {
-    let payload = {
+  created () {
+    const payload = {
       pageIndex: this.page,
       pageSize: this.pageCount
     }
     this.getAllUsers(payload)
-    .then(response => {
-      this.usersList = response.data
-      this.isLoading = false
-      console.log('asdasd', this.usersList)
-    })
+      .then(response => {
+        this.usersList = response.data
+        this.isLoading = false
+        console.log('asdasd', this.usersList)
+      })
   },
   methods: {
     ...mapActions({
-      getAllUsers: 'users/getAllUsers',
+      getAllUsers: 'users/getAllUsers'
     }),
-    excelAddUsersModal() {
+    excelAddUsersModal () {
       this.dialog = true
     }
   }

@@ -165,13 +165,13 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
-  data(){
+  data () {
     return {
       user: {},
-      underSupportPersonsCountArray: [], 
+      underSupportPersonsCountArray: [],
       childrensCountArray: [],
       devotionStatusesArray: [
         {
@@ -197,15 +197,23 @@ export default {
   },
   computed: {
     ...mapGetters({
-      userRoleArray: 'enums/userRoleArray', 
+      userRoleArray: 'enums/userRoleArray',
       genderArray: 'enums/genderArray',
       maritalStatusesArray: 'enums/maritalStatusesArray',
-      employeeStatusesArray: 'enums/employeeStatusesArray',
+      employeeStatusesArray: 'enums/employeeStatusesArray'
     })
   },
-  created() {
+  created () {
     this.childrensCountArray = Array.from({ length: 30 }, (_, i) => ++i)
     this.underSupportPersonsCountArray = Array.from({ length: 30 }, (_, i) => ++i)
+  },
+  methods: {
+    ...mapActions({
+      addUser: 'users/addUser'
+    }),
+    addUser () {
+
+    }
   }
 }
 </script>

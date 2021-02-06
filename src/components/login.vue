@@ -38,6 +38,28 @@
           required
         ></v-text-field>
       </div>
+      <!-- phoneNumber -->
+      <div
+        v-if="!emailEnabled"
+        class="subtitle-2 input-placeholder-left pt-1">
+        <v-icon v-if="solo && iconEnabled" col medium color="darken-2" class="ml-3">mdi-phone</v-icon>
+        <span v-if="solo">{{ userNameTitle }}</span>
+        <v-text-field
+          v-model="userInfo.userName"
+          autofocus
+          tabindex="1"
+          :solo="solo"
+          :outlined="outlined"
+          flat
+          color="primary"
+          class="mt-2"
+          :label="this.userNameTitle"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-cellphone' : ''"
+          name="userName"
+          type="text"
+          required
+        ></v-text-field>
+      </div>
       <!-- password  -->
       <div
         v-if="passwordEnabled"
@@ -53,7 +75,6 @@
           color="primary"
           class="mt-2"
           :prepend-inner-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-          :rules="passwordValidation"
           :label="this.passwordTitle"
           :placeholder="this.passwordPlaceholder"
           :prepend-icon="outlined && iconEnabled ? 'mdi-lock' : ''"
@@ -249,6 +270,13 @@ export default {
       type: String,
       default: 'forgotpassword',
       required: true
+    },
+    userNameTitle: {
+      type: String,
+      default () {
+        return this.$t('components.login.userName')
+      },
+      required: false
     },
     emailEnabled: {
       type: Boolean,

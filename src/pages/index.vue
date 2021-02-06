@@ -10,6 +10,7 @@
 </route>
 <template>
   <div class="home text-end">
+    asdasdasd
   </div>
 </template>
 

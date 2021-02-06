@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'LayoutsDemosBaselineFlipped',
   props: {
@@ -31,7 +32,54 @@ export default {
   },
   data: () => ({
     drawer: null
-  })
+  }),
+  methods: {
+  ...mapActions({
+      init: 'auth/init'
+  }),
+    isExceptionPath (routePath) {
+      const exceptionPaths = [
+        '/forgetpass',
+        '/login',
+        '/register',
+        '/resetPassword',
+        '/emailactivated',
+        '/emailactivationfailed',
+        '/termsandconditions',
+        '/advertiser/register',
+        '/advertiser/authenticationDetails',
+        '/advertiser/resetPasswordDetails',
+        '/advertiser/forgotPasswordDetails',
+        '/publisher/register',
+        '/publisher/authenticationDetails',
+        '/publisher/resetPasswordDetails',
+        '/publisher/forgotPasswordDetails'
+      ]
+      const isException = exceptionPaths.includes(routePath)
+      return isException
+    },
+    loadPreData () {
+      alert()
+      if (this.isExceptionPath(window.location.pathname)) {
+        this.isRouterViewVisible = true
+      } else {
+        this.init()
+          .then((response) => {
+            this.isRouterViewVisible = true
+            const roles = response.data.result.role
+            if (window.CURRENT_ROUTE_ROLES && !window.CURRENT_ROUTE_ROLES.includes(roles)) {
+              setTimeout(() => {
+                this.$router.push('/noaccess')
+              }, 0)
+            }
+          })
+          .catch(() => {
+            this.isRouterViewVisible = true
+            this.$router.push('/logout')
+          })
+      }
+    }
+  }
 }
 </script>
 

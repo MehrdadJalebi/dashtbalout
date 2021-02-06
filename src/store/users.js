@@ -17,12 +17,11 @@ export default {
   actions: {
     addUser (context, payload) {
     },
-    getUsers (context) {
-      return this.server.GetUsers(query)
-        .then(response => {
-          const users = response.data.result
-          context.commit('setUsers', users)
-        })
+    getAllUsers (context, payload) {
+      return this.server.GetAll({
+        PageIndex: payload.pageIndex,
+        PageSize: payload.pageSize
+      })
     },
     editUser (context, payload) {
     }

@@ -15,7 +15,7 @@ export default {
   },
   rtl: true,
   darkTheme: false,
-  apiBaseURL: 'https://webapi.asazan.com',
+  apiBaseURL: 'http://webapi.asazan.com',
   apiJson: API_JSON,
   brandLogo: '/img/brand-logo.png',
   defaultPagesArtwork: '/img/samples/artwork.png',
@@ -44,7 +44,7 @@ export default {
       defaultArtworkAspectRatio: 2
     },
     panel: {
-      isHeaderDark: true,
+      isHeaderDark: false,
       isSidebarDark: false
     }
   },

@@ -23,7 +23,6 @@
     "faker": "git+https://github.com/fariborzemami/faker.js.git",
     "moment": "^2.27.0",
     "persian-date": "^1.1.0",
-    "persian-datepicker-next-version": "git+https://github.com/babakhani/persian-datepicker-next-version.git",
     "portal-vue": "^2.1.7",
     "qs": "^6.9.4",
     "register-service-worker": "^1.7.1",

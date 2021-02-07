@@ -328,7 +328,8 @@ export default {
       edit: 'ویرایش قرارداد',
       addContractBtn: 'ثبت  قرارداد',
       noticeText: 'برای شروع کار نیاز است تا قرارداد خود را ثبت کنید',
-      editedSuccessfully: 'قرارداد با موفقیت ویرایش شد'
+      editedSuccessfully: 'قرارداد با موفقیت ویرایش شد',
+      addedSuccessfully: 'قرارداد با موفقیت افزوده شد'
     },
     messages: {
       title: 'پیام ها'
@@ -355,7 +356,7 @@ export default {
     workshopCode: 'کد کارگاه',
     monthlyWorkTimeType: 'نوع زمان کار ماهانه',
     monthlyWorkAmount: 'میزان کارکرد ماهانه ( تعداد ساعت یا روز)',
-    factoryPlace: 'محل کارگاه',
+    workshopPlace: 'محل کارگاه',
     details: 'جزییات',
     year: 'سال',
     month: 'ماه',
@@ -380,7 +381,7 @@ export default {
       workshopCode: 'کد کارگاه',
       monthlyWorkTimeType: 'نوع زمان کار ماهانه',
       monthlyWorkAmount: 'میزان کارکرد ماهانه ( تعداد ساعت یا روز)',
-      factoryPlace: 'محل کارگاه',
+      workshopPlace: 'محل کارگاه',
       details: 'جزییات',
       year: 'سال',
       month: 'ماه',

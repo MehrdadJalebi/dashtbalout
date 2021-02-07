@@ -106,7 +106,6 @@ export default {
       .then(response => {
         this.contractsList = response.data
         this.isLoading = false
-        console.log(this.contractsList)
       })
   },
   methods: {

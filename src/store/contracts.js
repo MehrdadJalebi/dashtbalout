@@ -16,7 +16,7 @@ export default {
   },
   actions: {
     addContract (context, payload) {
-      return this.server.Contract(payload)
+      return this.server.AddContract(payload)
     },
     getAllContracts (context, payload) {
       return this.server.GetAllContracts()

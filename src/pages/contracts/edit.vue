@@ -153,8 +153,8 @@
               v-model="contract.workshopPlace"
               type="textbox"
               icon="mdi-account-circle"
-              :label="$t('enums.factoryPlace')"
-              :placeholder="$t('enums.placeholders.factoryPlace')"
+              :label="$t('enums.workshopPlace')"
+              :placeholder="$t('enums.placeholders.workshopPlace')"
               ></form-item>
           </v-col>
         </v-row>
@@ -209,7 +209,6 @@ export default {
     this.getContractById(payload)
       .then(response => {
         this.contract = response.data
-        console.log(this.contract)
       })
   },
   methods: {

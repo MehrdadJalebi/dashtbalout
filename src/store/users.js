@@ -24,6 +24,9 @@ export default {
       })
     },
     editUser (context, payload) {
+    },
+    register (context, payload) {
+      return this.server.Register(payload)
     }
   }
 }

@@ -313,7 +313,8 @@ export default {
         sampleBtn: 'دریافت  فایل نمونه اکسل',
         chooseFile: 'انتخاب فایل جهت آپلود',
         uploadFile: 'آپلود فایل'
-      }
+      },
+      userregisteredSuccessfully: 'کاربر با موفقیت ثبت نام شد'
     },
     payrolls: {
       title: 'فیش های حقوقی',
@@ -339,6 +340,10 @@ export default {
     firstName: 'نام',
     lastName: 'نام خانوادگی',
     nationalCode: 'کد ملی',
+    userName: 'نام کاربری',
+    phoneNumber: 'شماره موبایل',
+    password: 'کلمه عبور',
+    email: 'ایمیل',
     gender: 'جنسیت',
     maritalStatus: 'تاهل',
     childrensCount: 'تعداد فرزندان',
@@ -366,6 +371,10 @@ export default {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
       nationalCode: 'کد ملی',
+      userName: 'نام کاربری',
+      phoneNumber: 'شماره موبایل',
+      password: 'کلمه عبور',
+      email: 'ایمیل',
       gender: 'جنسیت',
       maritalStatus: 'تاهل',
       childrensCount: 'تعداد فرزندان',

@@ -10,158 +10,252 @@
 </route>
 <template>
   <div class="mt-5 mx-5">
-      <v-card>
-        <v-card-title>{{$t('pages.users.add')}}</v-card-title>
-        <v-row
-        class="px-3"
-          >
-          <v-col
-            :sm="4"
-            >
-            <form-item
-              v-model="user.firstName"
-              type="textbox"
-              icon="mdi-account-circle"
-              :label="$t('enums.firstName')"
-              :placeholder="$t('enums.placeholders.firstName')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="4"
-            >
-            <form-item
-              v-model="user.lastName"
-              type="textbox"
-              icon="mdi-account-circle"
-              :label="$t('enums.lastName')"
-              :placeholder="$t('enums.placeholders.lastName')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="4"
-            >
-            <form-item
-              v-model="user.nationalCode"
-              type="textbox"
-              icon="mdi-account-circle"
-              :label="$t('enums.nationalCode')"
-              :placeholder="$t('enums.placeholders.nationalCode')"
-              ></form-item>
-          </v-col>
-        </v-row>
-        <v-row
-        class="px-3"
-          >
-          <v-col
-            :sm="3"
-            >
-            <form-item
-              v-model="user.gender"
-              type="select"
-              :items="genderArray"
-              icon="mdi-account-circle"
-              :label="$t('enums.gender')"
-              :placeholder="$t('enums.placeholders.gender')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="3"
-            >
-            <form-item
-              v-model="user.maritalStatus"
-              type="select"
-              :items="maritalStatusesArray"
-              icon="mdi-account-circle"
-              :label="$t('enums.maritalStatus')"
-              :placeholder="$t('enums.placeholders.maritalStatus')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="3"
-            >
-            <form-item
-              v-model="user.childrensCount"
-              type="select"
-              :items="childrensCountArray"
-              icon="mdi-account-circle"
-              :label="$t('enums.childrensCount')"
-              :placeholder="$t('enums.placeholders.childrensCount')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="3"
-            >
-            <form-item
-              v-model="user.underSupportPersonsCount"
-              type="select"
-              :items="underSupportPersonsCountArray"
-              icon="mdi-account-circle"
-              :label="$t('enums.underSupportPersonsCount')"
-              :placeholder="$t('enums.placeholders.underSupportPersonsCount')"
-              ></form-item>
-          </v-col>
-        </v-row>
-        <v-row
-        class="px-3"
-          >
-          <v-col
-            :sm="3"
-            >
-            <form-item
-              v-model="user.personalNumber"
-              type="textbox"
-              icon="mdi-account-circle"
-              :label="$t('enums.personalNumber')"
-              :placeholder="$t('enums.placeholders.personalNumber')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="3"
-            >
-            <form-item
-              v-model="user.employeeStatus"
-              type="select"
-              :items="employeeStatusesArray"
-              icon="mdi-account-circle"
-              :label="$t('enums.employeeStatus')"
-              :placeholder="$t('enums.placeholders.employeeStatus')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="3"
-            >
-            <form-item
-              v-model="user.devotion"
-              type="select"
-              :items="devotionStatusesArray"
-              icon="mdi-account-circle"
-              :label="$t('enums.devotion')"
-              :placeholder="$t('enums.placeholders.devotion')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="3"
-            >
-            <form-item
-              v-model="user.lessDevelopedAreas"
-              type="select"
-              :items="lessDevelopedAreasArray"
-              icon="mdi-account-circle"
-              :label="$t('enums.lessDevelopedAreas')"
-              :placeholder="$t('enums.placeholders.lessDevelopedAreas')"
-              ></form-item>
-          </v-col>
-        </v-row>
-          <v-card-actions>
-            <v-btn
-              large
-              class="px-5 ml-1 mr-auto"
-              color="success"
+    <v-card>
+      <v-card-title>{{$t('pages.users.add')}}</v-card-title>
+      <v-stepper
+        v-model="stepper.current"
+        alt-labels
+        >
+        <v-stepper-header>
+          <template v-for="n in stepper.steps">
+            <v-stepper-step
+              :key="`${n}-step`"
+              :step="n"
+              :rules="[() => n !== 2 ? true : stepper.current === n ? stepper.step2.isValid : true]"
+              :complete="stepper.current > n"
               >
-              {{ $t('pages.users.addUserBtn') }}
-            </v-btn>
-          </v-card-actions>
-      </v-card>
+              {{ $t('pages.stepper.step' + n) }}
+            </v-stepper-step>
+        <v-divider
+          v-if="n !== stepper.steps"
+          :key="n"
+          ></v-divider>
+          </template>
+        </v-stepper-header>
+        <v-stepper-items>
+          <v-stepper-content
+            step="1"
+            >
+            <v-row
+              class="px-3"
+              >
+              <v-col
+                :sm="4"
+                >
+                <form-item
+                  v-model="user.firstName"
+                  type="textbox"
+                  icon="mdi-account-circle"
+                  :label="$t('enums.firstName')"
+                  :placeholder="$t('enums.placeholders.firstName')"
+                  ></form-item>
+              </v-col>
+                <v-col
+                  :sm="4"
+                  >
+                  <form-item
+                    v-model="user.lastName"
+                    type="textbox"
+                    icon="mdi-account-circle"
+                    :label="$t('enums.lastName')"
+                    :placeholder="$t('enums.placeholders.lastName')"
+                    ></form-item>
+                </v-col>
+                  <v-col
+                    :sm="4"
+                    >
+                    <form-item
+                      v-model="user.username"
+                      type="textbox"
+                      icon="mdi-account-circle"
+                      :label="$t('enums.userName')"
+                      :placeholder="$t('enums.placeholders.userName')"
+                      ></form-item>
+                  </v-col>
+            </v-row>
+              <v-row
+                class="px-3"
+                >
+                <v-col
+                  :sm="4"
+                  >
+                  <form-item
+                    v-model="user.nationalCode"
+                    type="textbox"
+                    icon="mdi-account-circle"
+                    :label="$t('enums.nationalCode')"
+                    :placeholder="$t('enums.placeholders.nationalCode')"
+                    ></form-item>
+                </v-col>
+                  <v-col
+                    :sm="4"
+                    >
+                    <form-item
+                      v-model="user.phoneNumber"
+                      type="textbox"
+                      icon="mdi-account-circle"
+                      :label="$t('enums.phoneNumber')"
+                      :placeholder="$t('enums.placeholders.phoneNumber')"
+                      ></form-item>
+                  </v-col>
+                    <v-col
+                      :sm="4"
+                      >
+                      <form-item
+                        v-model="user.password"
+                        type="textbox"
+                        icon="mdi-account-circle"
+                        :label="$t('enums.password')"
+                        :placeholder="$t('enums.placeholders.password')"
+                        ></form-item>
+                    </v-col>
+              </v-row>
+                <v-row
+                  class="px-3"
+                  >
+                  <v-col
+                    :sm="12"
+                    >
+                    <form-item
+                      v-model="user.email"
+                      type="textbox"
+                      icon="mdi-account-circle"
+                      :label="$t('enums.email')"
+                      :placeholder="$t('enums.placeholders.email')"
+                      ></form-item>
+                  </v-col>
+                </v-row>
+                  <v-row
+                    class="px-3 text-left"
+                    >
+                    <v-col
+                      :sm="12"
+                      >
+                      <v-btn
+                        large
+                        class="px-5 ml-1 mr-auto"
+                        color="primary"
+                        @click="goStep(2)"
+                        >
+                        {{ $t('pages.users.addUserBtn') }}
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+          </v-stepper-content>
+            <v-stepper-content
+              step="2"
+              >
+              <v-row
+                class="px-3"
+                >
+                <v-col
+                  :sm="3"
+                  >
+                  <form-item
+                    v-model="user.gender"
+                    type="select"
+                    :items="genderArray"
+                    icon="mdi-account-circle"
+                    :label="$t('enums.gender')"
+                    :placeholder="$t('enums.placeholders.gender')"
+                    ></form-item>
+                </v-col>
+                  <v-col
+                    :sm="3"
+                    >
+                    <form-item
+                      v-model="user.maritalStatus"
+                      type="select"
+                      :items="maritalStatusesArray"
+                      icon="mdi-account-circle"
+                      :label="$t('enums.maritalStatus')"
+                      :placeholder="$t('enums.placeholders.maritalStatus')"
+                      ></form-item>
+                  </v-col>
+                    <v-col
+                      :sm="3"
+                      >
+                      <form-item
+                        v-model="user.childrensCount"
+                        type="select"
+                        :items="childrensCountArray"
+                        icon="mdi-account-circle"
+                        :label="$t('enums.childrensCount')"
+                        :placeholder="$t('enums.placeholders.childrensCount')"
+                        ></form-item>
+                    </v-col>
+                      <v-col
+                        :sm="3"
+                        >
+                        <form-item
+                          v-model="user.underSupportPersonsCount"
+                          type="select"
+                          :items="underSupportPersonsCountArray"
+                          icon="mdi-account-circle"
+                          :label="$t('enums.underSupportPersonsCount')"
+                          :placeholder="$t('enums.placeholders.underSupportPersonsCount')"
+                          ></form-item>
+                      </v-col>
+              </v-row>
+            </v-stepper-content>
+              <v-stepper-content
+                step="3"
+                >
+                <v-row
+                  class="px-3"
+                  >
+                  <v-col
+                    :sm="3"
+                    >
+                    <form-item
+                      v-model="user.personalNumber"
+                      type="textbox"
+                      icon="mdi-account-circle"
+                      :label="$t('enums.personalNumber')"
+                      :placeholder="$t('enums.placeholders.personalNumber')"
+                      ></form-item>
+                  </v-col>
+                    <v-col
+                      :sm="3"
+                      >
+                      <form-item
+                        v-model="user.employeeStatus"
+                        type="select"
+                        :items="employeeStatusesArray"
+                        icon="mdi-account-circle"
+                        :label="$t('enums.employeeStatus')"
+                        :placeholder="$t('enums.placeholders.employeeStatus')"
+                        ></form-item>
+                    </v-col>
+                      <v-col
+                        :sm="3"
+                        >
+                        <form-item
+                          v-model="user.devotion"
+                          type="select"
+                          :items="devotionStatusesArray"
+                          icon="mdi-account-circle"
+                          :label="$t('enums.devotion')"
+                          :placeholder="$t('enums.placeholders.devotion')"
+                          ></form-item>
+                      </v-col>
+                        <v-col
+                          :sm="3"
+                          >
+                          <form-item
+                            v-model="user.lessDevelopedAreas"
+                            type="select"
+                            :items="lessDevelopedAreasArray"
+                            icon="mdi-account-circle"
+                            :label="$t('enums.lessDevelopedAreas')"
+                            :placeholder="$t('enums.placeholders.lessDevelopedAreas')"
+                            ></form-item>
+                        </v-col>
+                </v-row>
+              </v-stepper-content>
+        </v-stepper-items>
+      </v-stepper>
+    </v-card>
   </div>
 </template>
 <script>
@@ -192,7 +286,13 @@ export default {
           text: this.$t('enums.hasnt'),
           value: false
         }
-      ]
+      ],
+      stepper: {
+        current: 1,
+        steps: 3,
+        step2: {},
+        step3: {}
+      }
     }
   },
   computed: {
@@ -209,8 +309,24 @@ export default {
   },
   methods: {
     ...mapActions({
-      addUser: 'users/addUser'
+      addUser: 'users/addUser',
+      register: 'users/register',
+      showToast: 'snackbar/showToastMessage'
     }),
+    goStep (n) {
+      console.log(this.user)
+      if (this.stepper.current === 1) {
+        console.log(this.user)
+        this.register(this.user).then(response => {
+          const successMessage = this.$t('pages.users.userregisteredSuccessfully')
+          this.showToast({ content: successMessage, color: 'success' })
+          console.log(response)
+        })
+      } else if (this.stepper.current === 2) {
+      } else {
+      }
+      this.stepper.current = n
+    },
     addUser () {
 
     }

@@ -393,7 +393,7 @@ export default {
       lastName: 'نام خانوادگی',
       nationalCode: 'کد ملی',
       personalNumber: 'شماره پرسنلی',
-      editAccess: 'مجوز ویرایش',
+      adminAccess: 'دسترسی ادمین',
       actions: 'عملیات',
       contractTitle: 'عنوان قرارداد',
       contractNumber: 'شماره ثبت قرارداد',

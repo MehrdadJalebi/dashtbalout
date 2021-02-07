@@ -165,7 +165,7 @@
             :sm="12"
             >
             <form-item
-              v-model="contract.details"
+              v-model="contract.description"
               type="textarea"
               rows="3"
               icon="mdi-account-circle"

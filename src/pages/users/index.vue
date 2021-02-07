@@ -54,7 +54,7 @@
           <td class="data-min-td"> {{ props.item.personnelNumber }} </td>
           <td class="data-min-td">
             <v-switch
-              v-model="editAccess"
+              v-model="adminAccess"
               ></v-switch>
           </td>
           <td class="data-min-td">
@@ -150,7 +150,8 @@ export default {
       pages: {},
       totalItems: 0,
       isLoading: true,
-      usersList: []
+      usersList: [],
+      adminAccess: true
     }
   },
   computed: {
@@ -173,8 +174,8 @@ export default {
           value: 'personalNumber'
         },
         {
-          text: this.$t('enums.headers.editAccess'),
-          value: 'editAccess'
+          text: this.$t('enums.headers.adminAccess'),
+          value: this.isAdmin
         },
         {
           text: this.$t('enums.headers.actions'),

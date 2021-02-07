@@ -192,7 +192,6 @@ export default {
       .then(response => {
         this.usersList = response.data
         this.isLoading = false
-        console.log('asdasd', this.usersList)
       })
   },
   methods: {

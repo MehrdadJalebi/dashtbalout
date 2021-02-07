@@ -321,13 +321,8 @@ export default {
       add: 'ثبت فیش حقوقی جدید',
       addPayrollBtn: 'ثبت فیش  جدید'
     },
-    fileReceipts: {
-      title: 'صدور فیش های فایلی',
-      contractsList: 'قراردادهای سیستم فایلی',
-      add: 'ثبت قرارداد جدید'
-    },
-    salariesContracts: {
-      title: 'حقوق و دستمزد پیمانکاری',
+    contracts: {
+      title: 'قرارداد ها',
       contractsList: 'لیست قرارداد ها',
       add: 'ثبت قرارداد جدید',
       addContractBtn: 'ثبت  قرارداد',
@@ -386,7 +381,7 @@ export default {
       details: 'جزییات',
       year: 'سال',
       month: 'ماه',
-      payrollsType: 'نوع فیش های حقوقی',
+      payrollsType: 'نوع فیش های حقوقی'
     },
     headers: {
       firstName: 'نام',
@@ -396,13 +391,14 @@ export default {
       editAccess: 'مجوز ویرایش',
       actions: 'عملیات',
       contractTitle: 'عنوان قرارداد',
-      contractRegisterationNumber: 'شماره ثبت قرارداد',
-      contractCompany: 'شرکت طرف قرارداد',
-      factoryCode: 'کد کارگاه',
+      contractNumber: 'شماره ثبت قرارداد',
+      counterParty: 'شرکت طرف قرارداد',
+      workshopCode: 'کد کارگاه',
       year: 'سال',
       month: 'ماه',
       income: 'دریافتی',
-      type: 'نوع'
+      type: 'نوع',
+      description: 'توضیحات'
     },
     tableActions: {
       edit: 'ویرایش',

@@ -12,7 +12,7 @@
 <template>
   <div class="mt-5 mx-5">
       <v-card>
-        <v-card-title>{{$t('pages.salariesContracts.add')}}</v-card-title>
+        <v-card-title>{{$t('pages.contracts.add')}}</v-card-title>
         <v-card
           outlined
           color="orange"
@@ -34,7 +34,7 @@
               <div>
                 <v-card-text
                   class="orange--text"
-                  v-html="$t('pages.salariesContracts.noticeText')"
+                  v-html="$t('pages.contracts.noticeText')"
                   >
                 </v-card-text>
               </div>
@@ -168,7 +168,7 @@
               class="px-5 ml-1 mr-auto"
               color="success"
               >
-              {{ $t('pages.salariesContracts.addContractBtn') }}
+              {{ $t('pages.contracts.addContractBtn') }}
             </v-btn>
           </v-card-actions>
       </v-card>
@@ -178,15 +178,15 @@
 import { mapGetters } from 'vuex'
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
-  data(){
+  data () {
     return {
-      contract: {},
+      contract: {}
     }
   },
   computed: {
     ...mapGetters({
-      monthlyWorkTimeTypesArray: 'enums/monthlyWorkTimeTypesArray',
+      monthlyWorkTimeTypesArray: 'enums/monthlyWorkTimeTypesArray'
     })
-  },
+  }
 }
 </script>

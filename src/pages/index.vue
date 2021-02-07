@@ -10,24 +10,13 @@
 </route>
 <template>
   <div class="home text-end">
-    asdasdasd
   </div>
 </template>
 
 <script>
-import README from '../../README.md'
-import VueMarkdown from 'vue-markdown'
 
 export default {
   name: 'Home',
-  layout: APP_CONFIG.layout.mainPanelLayout,
-  components: {
-    VueMarkdown
-  },
-  data () {
-    return {
-      readme: README
-    }
-  }
+  layout: APP_CONFIG.layout.mainPanelLayout
 }
 </script>

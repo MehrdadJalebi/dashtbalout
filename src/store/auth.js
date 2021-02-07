@@ -48,7 +48,7 @@ export default {
           return context.dispatch('setTokenInfo', tokenData)
         })
     },
-    getUserInfo(context) {
+    getUserInfo (context) {
       return this.server.GetUserInfo()
         .then((response) => {
           if (response.data) {
@@ -119,7 +119,8 @@ export default {
       localStorage.removeItem('refreshToken')
       localStorage.removeItem('rememberMeExpiryDate')
       clearInterval(context.state.refreshTokenInterval)
-      return context.dispatch('layout/updateProfile', {}, { root: true })
+      context.dispatch('layout/updateProfile', {}, { root: true })
+      window.location.href = window.location.origin
     },
     self (context) {
       const promise = this.server.Self()

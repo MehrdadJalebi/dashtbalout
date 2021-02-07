@@ -10,14 +10,19 @@
 </route>
 <template>
   <div>
-    <page-title
-      :title="$t('pages.starter.title')"
-    ></page-title>
-    <starter />
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
-  layout: APP_CONFIG.layout.mainPanelLayout
+  layout: APP_CONFIG.layout.mainPanelLayout,
+  created () {
+    this.logout()
+  },
+  methods: {
+    ...mapActions({
+      logout: 'auth/logout'
+    })
+  }
 }
 </script>

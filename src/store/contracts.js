@@ -16,15 +16,16 @@ export default {
   },
   actions: {
     addContract (context, payload) {
+      return this.server.Contract(payload)
     },
     getAllContracts (context, payload) {
-      // return this.server.GetAllContracts({
-      // PageIndex: payload.pageIndex,
-      // PageSize: payload.pageSize
-      // })
       return this.server.GetAllContracts()
     },
-    editContract (context, payload) {
+    getContractById (context, payload) {
+      return this.server.GetContractById(payload)
+    },
+    updateContract (context, payload) {
+      return this.server.UpdateContract(payload)
     }
   }
 }

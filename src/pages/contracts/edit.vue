@@ -1,6 +1,6 @@
 <route>
 {
-  "name": "addContracts",
+  "name": "editContracts",
   "meta": {
     "order": 4,
     "isVisible": false,
@@ -12,7 +12,7 @@
 <template>
   <div class="mt-5 mx-5">
       <v-card>
-        <v-card-title>{{$t('pages.contracts.add')}}</v-card-title>
+        <v-card-title>{{$t('pages.contracts.edit')}}</v-card-title>
         <v-card
           outlined
           color="orange"
@@ -59,7 +59,7 @@
             :sm="4"
             >
             <form-item
-              v-model="contract.registerationNumber"
+              v-model="contract.contractNumber"
               type="textbox"
               icon="mdi-account-circle"
               :label="$t('enums.contractRegisterationNumber')"
@@ -71,29 +71,29 @@
         class="px-3"
           >
           <v-col
-            :sm="6"
+            :sm="4"
             >
             <form-item
-              v-model="contract.company"
+              v-model="contract.counterParty"
               type="textbox"
               icon="mdi-account-circle"
-              :label="$t('enums.contractCompany')"
-              :placeholder="$t('enums.placeholders.contractCompany')"
+              :label="$t('enums.counterParty')"
+              :placeholder="$t('enums.placeholders.counterParty')"
+              ></form-item>
+          </v-col>
+          <v-col
+            :sm="3"
+            >
+            <form-item
+              v-model="contract.rowOfAgreement"
+              type="textbox"
+              icon="mdi-account-circle"
+              :label="$t('enums.rowOfAgreement')"
+              :placeholder="$t('enums.placeholders.rowOfAgreement')"
               ></form-item>
           </v-col>
           <v-col
             :sm="2"
-            >
-            <form-item
-              v-model="contract.tier"
-              type="textbox"
-              icon="mdi-account-circle"
-              :label="$t('enums.contractTier')"
-              :placeholder="$t('enums.placeholders.contractTier')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="4"
             >
             <form-item
               v-model="contract.workshopCode"
@@ -101,6 +101,18 @@
               icon="mdi-account-circle"
               :label="$t('enums.workshopCode')"
               :placeholder="$t('enums.placeholders.workshopCode')"
+              ></form-item>
+          </v-col>
+          <v-col
+            :sm="3"
+            >
+            <form-item
+              v-model="contract.payrollType"
+              type="select"
+              :items="payrollTypesArray"
+              icon="mdi-account-circle"
+              :label="$t('enums.payrollsType')"
+              :placeholder="$t('enums.placeholders.payrollsType')"
               ></form-item>
           </v-col>
         </v-row>
@@ -138,7 +150,7 @@
             :sm="12"
             >
             <form-item
-              v-model="contract.factoryPlace"
+              v-model="contract.workshopPlace"
               type="textbox"
               icon="mdi-account-circle"
               :label="$t('enums.factoryPlace')"
@@ -153,7 +165,7 @@
             :sm="12"
             >
             <form-item
-              v-model="contract.details"
+              v-model="contract.description"
               type="textarea"
               rows="3"
               icon="mdi-account-circle"
@@ -167,6 +179,7 @@
               large
               class="px-5 ml-1 mr-auto"
               color="success"
+              @click="editContract"
               >
               {{ $t('pages.contracts.addContractBtn') }}
             </v-btn>
@@ -175,7 +188,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
@@ -185,8 +198,34 @@ export default {
   },
   computed: {
     ...mapGetters({
-      monthlyWorkTimeTypesArray: 'enums/monthlyWorkTimeTypesArray'
+      monthlyWorkTimeTypesArray: 'enums/monthlyWorkTimeTypesArray',
+      payrollTypesArray: 'enums/payrollTypesArray'
     })
+  },
+  created () {
+    const payload = {
+      id: this.$route.query.id
+    }
+    this.getContractById(payload)
+      .then(response => {
+        this.contract = response.data
+        console.log(this.contract)
+      })
+  },
+  methods: {
+    ...mapActions({
+      getContractById: 'contracts/getContractById',
+      updateContract: 'contracts/updateContract',
+      showToast: 'snackbar/showToastMessage'
+    }),
+    editContract () {
+      this.updateContract(this.contract)
+        .then(() => {
+          const successMessage = this.$t('pages.contracts.editedSuccessfully')
+          this.showToast({ content: successMessage, color: 'success' })
+          this.$router.push({ name: 'contracts' })
+        })
+    }
   }
 }
 </script>

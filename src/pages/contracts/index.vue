@@ -42,6 +42,16 @@
           <td class="data-min-td"> {{ props.item.contractNumber }} </td>
           <td class="data-min-td"> {{ props.item.counterParty }} </td>
           <td class="data-min-td"> {{ props.item.workshopCode }} </td>
+          <td class="data-min-td">
+            <v-btn
+              :to="'/contracts/edit?id='+ props.item.id"
+              small
+              outlined
+              color="primary"
+              >
+              {{ $t('enums.tableActions.edit') }}
+            </v-btn>
+          </td>
         </tr>
       </template>
     </v-data-table>
@@ -79,6 +89,10 @@ export default {
         {
           text: this.$t('enums.headers.workshopCode'),
           value: 'workshopCode'
+        },
+        {
+          text: this.$t('enums.headers.actions'),
+          value: 'actions'
         }
       ]
     }
@@ -92,6 +106,7 @@ export default {
       .then(response => {
         this.contractsList = response.data
         this.isLoading = false
+        console.log(this.contractsList)
       })
   },
   methods: {

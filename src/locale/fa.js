@@ -325,8 +325,10 @@ export default {
       title: 'قرارداد ها',
       contractsList: 'لیست قرارداد ها',
       add: 'ثبت قرارداد جدید',
+      edit: 'ویرایش قرارداد',
       addContractBtn: 'ثبت  قرارداد',
-      noticeText: 'برای شروع کار نیاز است تا قرارداد خود را ثبت کنید'
+      noticeText: 'برای شروع کار نیاز است تا قرارداد خود را ثبت کنید',
+      editedSuccessfully: 'قرارداد با موفقیت ویرایش شد'
     },
     messages: {
       title: 'پیام ها'
@@ -348,9 +350,9 @@ export default {
     hasnt: 'ندارد',
     contractTitle: 'عنوان قرارداد',
     contractRegisterationNumber: 'شماره ثبت قرارداد',
-    contractCompany: 'شرکت طرف قرارداد',
-    contractTier: 'ردیف پیمان',
-    factoryCode: 'کد کارگاه',
+    counterParty: 'شرکت طرف قرارداد',
+    rowOfAgreement: 'ردیف پیمان',
+    workshopCode: 'کد کارگاه',
     monthlyWorkTimeType: 'نوع زمان کار ماهانه',
     monthlyWorkAmount: 'میزان کارکرد ماهانه ( تعداد ساعت یا روز)',
     factoryPlace: 'محل کارگاه',
@@ -358,6 +360,7 @@ export default {
     year: 'سال',
     month: 'ماه',
     payrollsType: 'نوع فیش های حقوقی',
+    contractType: 'نوع قرارداد',
     placeholders: {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
@@ -372,16 +375,17 @@ export default {
       lessDevelopedAreas: 'مناطق کمتر توسعه یافته',
       contractTitle: 'عنوان قرارداد',
       contractRegisterationNumber: 'شماره ثبت قرارداد',
-      contractCompany: 'شرکت طرف قرارداد',
-      contractTier: 'ردیف پیمان',
-      factoryCode: 'کد کارگاه',
+      counterParty: 'شرکت طرف قرارداد',
+      rowOfAgreement: 'ردیف پیمان',
+      workshopCode: 'کد کارگاه',
       monthlyWorkTimeType: 'نوع زمان کار ماهانه',
       monthlyWorkAmount: 'میزان کارکرد ماهانه ( تعداد ساعت یا روز)',
       factoryPlace: 'محل کارگاه',
       details: 'جزییات',
       year: 'سال',
       month: 'ماه',
-      payrollsType: 'نوع فیش های حقوقی'
+      payrollsType: 'نوع فیش های حقوقی',
+      contractType: 'نوع قرارداد'
     },
     headers: {
       firstName: 'نام',
@@ -445,7 +449,13 @@ export default {
     },
     payrollsTypes: {
       excel: 'فایل EXCEL',
-      pdf: 'فایل PDF'
+      pdf: 'فایل PDF',
+      image: 'فایل  عکس'
+    },
+    contractsTypes: {
+      excel: 'فایل EXCEL',
+      pdf: 'فایل PDF',
+      image: 'فایل  عکس'
     }
   }
 }

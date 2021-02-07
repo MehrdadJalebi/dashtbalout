@@ -4,7 +4,7 @@
   "meta": {
     "title": "enter current password",
     "order": 9,
-    "isVisible": true,
+    "isVisible": false,
     "iconName": "mdi-login",
     "artwork": "/img/samples/auth-artwork.png"
   }

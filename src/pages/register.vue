@@ -3,7 +3,7 @@
   "name": "register",
   "meta": {
     "order": 6,
-    "isVisible": true,
+    "isVisible": false,
     "iconName": "mdi-login",
     "artwork": "/img/samples/auth-artwork.png"
     }

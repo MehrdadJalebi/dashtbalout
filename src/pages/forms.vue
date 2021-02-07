@@ -3,7 +3,7 @@
   "name": "forms",
   "meta": {
     "order": 4.1,
-    "isVisible": true,
+    "isVisible": false,
     "iconName": "mdi-pen"
   }
 }

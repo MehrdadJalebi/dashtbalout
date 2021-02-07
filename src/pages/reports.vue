@@ -3,7 +3,7 @@
   "name": "reports",
   "meta": {
     "order": 4.2,
-    "isVisible": true,
+    "isVisible": false,
     "iconName": "mdi-book"
   }
 }

@@ -3,7 +3,7 @@
   "name": "forgotpass",
   "meta": {
     "order": 7,
-    "isVisible": true,
+    "isVisible": false,
     "iconName": "mdi-lock-open",
     "artwork": "/img/samples/auth-artwork.png"
   }

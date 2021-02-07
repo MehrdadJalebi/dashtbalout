@@ -3,7 +3,7 @@
   "name": "login",
   "meta": {
     "order": 5,
-    "isVisible": true,
+    "isVisible": false,
     "iconName": "mdi-email",
     "artwork": "/img/samples/auth-artwork.png"
   }
@@ -34,7 +34,7 @@ export default {
   computed: {
     ...mapGetters({
       userInfo: 'auth/userInfo'
-    }),
+    })
   },
   methods: {
     ...mapActions({
@@ -50,7 +50,7 @@ export default {
             this.getUserInfo().then(() => {
               if (this.userInfo.role === 'Admin') {
                 this.$router.push({ name: 'index' })
-              } else  {
+              } else {
                 this.$router.push({ name: 'index' })
               }
               window.dispatchEvent(new Event('UPDATE_AUTHORIZATION'))

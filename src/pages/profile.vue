@@ -3,7 +3,7 @@
   "name": "profile",
   "meta": {
     "order": 13,
-    "isVisible": true,
+    "isVisible": false,
     "iconName": "mdi-account"
   }
 }

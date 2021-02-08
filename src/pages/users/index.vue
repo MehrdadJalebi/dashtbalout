@@ -170,8 +170,8 @@ export default {
           value: 'nationalCode'
         },
         {
-          text: this.$t('enums.headers.personalNumber'),
-          value: 'personalNumber'
+          text: this.$t('enums.headers.personnelNumber'),
+          value: 'personnelNumber'
         },
         {
           text: this.$t('enums.headers.adminAccess'),

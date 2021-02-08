@@ -188,33 +188,98 @@
                         :sm="3"
                         >
                         <form-item
-                          v-model="user.underSupportPersonsCount"
-                          type="select"
-                          :items="underSupportPersonsCountArray"
+                          v-model="user.personnelNumber"
+                          type="textbox"
                           icon="mdi-account-circle"
-                          :label="$t('enums.underSupportPersonsCount')"
-                          :placeholder="$t('enums.placeholders.underSupportPersonsCount')"
+                          :label="$t('enums.personnelNumber')"
+                          :placeholder="$t('enums.placeholders.personnelNumber')"
                           ></form-item>
                       </v-col>
               </v-row>
-            </v-stepper-content>
-              <v-stepper-content
-                step="3"
-                >
-                <v-row
+              <v-row
                   class="px-3"
                   >
                   <v-col
                     :sm="3"
                     >
                     <form-item
-                      v-model="user.personalNumber"
+                      v-model="user.fatherName"
                       type="textbox"
                       icon="mdi-account-circle"
-                      :label="$t('enums.personalNumber')"
-                      :placeholder="$t('enums.placeholders.personalNumber')"
+                      :label="$t('enums.fatherName')"
+                      :placeholder="$t('enums.placeholders.fatherName')"
                       ></form-item>
                   </v-col>
+                    <v-col
+                      :sm="3"
+                      >
+                      <form-item
+                        v-model="user.birthDate"
+                        type="textbox"
+                        icon="mdi-account-circle"
+                        :label="$t('enums.birthDate')"
+                        :placeholder="$t('enums.placeholders.birthDate')"
+                        ></form-item>
+                    </v-col>
+                      <v-col
+                        :sm="3"
+                        >
+                        <form-item
+                          v-model="user.birthPlace"
+                          type="textbox"
+                          icon="mdi-account-circle"
+                          :label="$t('enums.birthPlace')"
+                          :placeholder="$t('enums.placeholders.birthPlace')"
+                          ></form-item>
+                      </v-col>
+                        <v-col
+                          :sm="3"
+                          >
+                          <form-item
+                            v-model="user.placeIssue"
+                            type="textbox"
+                            icon="mdi-account-circle"
+                            :label="$t('enums.placeIssue')"
+                            :placeholder="$t('enums.placeholders.placeIssue')"
+                            ></form-item>
+                        </v-col>
+              </v-row>
+              <v-row
+                class="px-3"
+                >
+                <v-col
+                  :sm="3"
+                  >
+                  <form-item
+                    v-model="user.birthCertificateNumber"
+                    type="textbox"
+                    icon="mdi-account-circle"
+                    :label="$t('enums.birthCertificateNumber')"
+                    :placeholder="$t('enums.placeholders.birthCertificateNumber')"
+                    ></form-item>
+                </v-col>
+                  <v-col
+                    :sm="3"
+                    >
+                    <form-item
+                      v-model="user.centerTopicName"
+                      type="textbox"
+                      icon="mdi-account-circle"
+                      :label="$t('enums.centerTopicName')"
+                      :placeholder="$t('enums.placeholders.centerTopicName')"
+                      ></form-item>
+                  </v-col>
+                    <v-col
+                      :sm="3"
+                      >
+                      <form-item
+                        v-model="user.telephone"
+                        type="textbox"
+                        icon="mdi-account-circle"
+                        :label="$t('enums.telephone')"
+                        :placeholder="$t('enums.placeholders.telephone')"
+                        ></form-item>
+                    </v-col>
                     <v-col
                       :sm="3"
                       >
@@ -227,18 +292,92 @@
                         :placeholder="$t('enums.placeholders.employeeStatus')"
                         ></form-item>
                     </v-col>
+              </v-row>
+              <v-row
+                class="px-3"
+                >
+                <v-col
+                  :sm="3"
+                  >
+                  <form-item
+                    v-model="user.insuranceNumber"
+                    type="textbox"
+                    icon="mdi-account-circle"
+                    :label="$t('enums.insuranceNumber')"
+                    :placeholder="$t('enums.placeholders.insuranceNumber')"
+                    ></form-item>
+                </v-col>
+                  <v-col
+                    :sm="3"
+                    >
+                    <form-item
+                      v-model="user.insuranceName"
+                      type="textbox"
+                      icon="mdi-account-circle"
+                      :label="$t('enums.insuranceName')"
+                      :placeholder="$t('enums.placeholders.insuranceName')"
+                      ></form-item>
+                  </v-col>
+                    <v-col
+                      :sm="3"
+                      >
+                      <form-item
+                        v-model="user.experience"
+                        type="textbox"
+                        icon="mdi-account-circle"
+                        :label="$t('enums.experience')"
+                        :placeholder="$t('enums.placeholders.experience')"
+                        ></form-item>
+                    </v-col>
                       <v-col
                         :sm="3"
                         >
                         <form-item
-                          v-model="user.devotion"
+                          v-model="user.underSupportPersonsCount"
                           type="select"
-                          :items="devotionStatusesArray"
+                          :items="underSupportPersonsCountArray"
                           icon="mdi-account-circle"
-                          :label="$t('enums.devotion')"
-                          :placeholder="$t('enums.placeholders.devotion')"
+                          :label="$t('enums.underSupportPersonsCount')"
+                          :placeholder="$t('enums.placeholders.underSupportPersonsCount')"
                           ></form-item>
                       </v-col>
+              </v-row>
+              <v-row
+                class="px-3"
+                >
+                <v-col
+                  :sm="3"
+                  >
+                  <form-item
+                    v-model="user.employmentDate"
+                    type="textbox"
+                    icon="mdi-account-circle"
+                    :label="$t('enums.employmentDate')"
+                    :placeholder="$t('enums.placeholders.employmentDate')"
+                    ></form-item>
+                </v-col>
+                <v-col
+                  :sm="3"
+                  >
+                  <form-item
+                    v-model="user.startWorkDate"
+                    type="textbox"
+                    icon="mdi-account-circle"
+                    :label="$t('enums.startWorkDate')"
+                    :placeholder="$t('enums.placeholders.startWorkDate')"
+                    ></form-item>
+                </v-col>
+                <v-col
+                  :sm="3"
+                  >
+                  <form-item
+                    v-model="user.endWorkDate"
+                    type="textbox"
+                    icon="mdi-account-circle"
+                    :label="$t('enums.endWorkDate')"
+                    :placeholder="$t('enums.placeholders.endWorkDate')"
+                    ></form-item>
+                </v-col>
                         <v-col
                           :sm="3"
                           >
@@ -251,6 +390,62 @@
                             :placeholder="$t('enums.placeholders.lessDevelopedAreas')"
                             ></form-item>
                         </v-col>
+              </v-row>
+                <v-row
+                  class="px-3 text-left"
+                  >
+                  <v-col
+                    :sm="12"
+                    >
+                    <v-btn
+                      large
+                      class="px-5 ml-1"
+                      color="secondary"
+                      depressed
+                      outlined
+                      @click="goBack(1)"
+                      >
+                      {{ $t('enums.return') }}
+                   </v-btn>
+                      <v-btn
+                        large
+                        class="px-5 ml-1 mr-auto"
+                        color="primary"
+                        @click="goStep(3)"
+                        >
+                        {{ $t('pages.users.completeUserBtn') }}
+                      </v-btn>
+                    </v-col>
+                </v-row>
+            </v-stepper-content>
+              <v-stepper-content
+                step="3"
+                >
+                <v-row
+                  class="px-3 text-left"
+                  >
+                  <v-col
+                    :sm="12"
+                    >
+                    <v-btn
+                      large
+                      class="px-5 ml-1"
+                      color="secondary"
+                      depressed
+                      outlined
+                      @click="goBack(2)"
+                      >
+                      {{ $t('enums.return') }}
+                   </v-btn>
+                      <v-btn
+                        large
+                        class="px-5 ml-1 mr-auto"
+                        color="primary"
+                        @click="addBankAccount"
+                        >
+                        {{ $t('pages.users.addBankInfoBtn') }}
+                      </v-btn>
+                    </v-col>
                 </v-row>
               </v-stepper-content>
         </v-stepper-items>
@@ -288,7 +483,7 @@ export default {
         }
       ],
       stepper: {
-        current: 1,
+        current: 2,
         steps: 3,
         step2: {},
         step3: {}
@@ -311,6 +506,7 @@ export default {
     ...mapActions({
       addUser: 'users/addUser',
       register: 'users/register',
+      update: 'users/update',
       showToast: 'snackbar/showToastMessage'
     }),
     goStep (n) {
@@ -318,16 +514,36 @@ export default {
       if (this.stepper.current === 1) {
         console.log(this.user)
         this.register(this.user).then(response => {
-          const successMessage = this.$t('pages.users.userregisteredSuccessfully')
+          const successMessage = this.$t('pages.users.userRegisteredSuccessfully')
           this.showToast({ content: successMessage, color: 'success' })
           console.log(response)
         })
       } else if (this.stepper.current === 2) {
+        console.log(this.user)
+        this.update(this.user).then(response => {
+          const successMessage = this.$t('pages.users.userCompletedSuccessfully')
+          this.showToast({ content: successMessage, color: 'success' })
+          console.log(response)
+        })
       } else {
       }
       this.stepper.current = n
     },
+    goBack (n) {
+      this.stepper.current = n
+    },
     addUser () {
+      // fatherName
+      // birthdate
+      // birthPlace
+      // placeIssue ?
+      // birthCertificateNumber ?
+      // centerTopicName ?
+      // tel ? sabet?
+      // startWorkDate
+      // endWorkDate
+      // experience
+      // employmentDate
 
     }
   }

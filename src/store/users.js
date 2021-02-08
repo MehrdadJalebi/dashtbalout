@@ -27,6 +27,9 @@ export default {
     },
     register (context, payload) {
       return this.server.Register(payload)
+    },
+    update (context, payload) {
+      return this.server.Update(payload)
     }
   }
 }

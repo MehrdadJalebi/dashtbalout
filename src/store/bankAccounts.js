@@ -2,37 +2,35 @@ export default {
 
   namespaced: true,
   state: {
-    users: []
+    bankAccounts: []
   },
   getters: {
-    users (state) {
-      return state.users
+    bankAccounts (state) {
+      return state.bankAccounts
     }
   },
   mutations: {
-    setUsers (state, data) {
-      state.users = data
+    setBankAccounts (state, data) {
+      state.bankAccounts = data
     }
   },
   actions: {
-    addUser (context, payload) {
+    addBankAccountByUserId (context, payload) {
+      return this.server.AddBankAccountByUserId(payload)
     },
-    getAllUsers (context, payload) {
+    getAllBankAccounts (context, payload) {
       return this.server.GetAll({
         PageIndex: payload.pageIndex,
         PageSize: payload.pageSize
       })
     },
-    editUser (context, payload) {
+    editBankAccount (context, payload) {
     },
     register (context, payload) {
       return this.server.Register(payload)
     },
     update (context, payload) {
       return this.server.Update(payload)
-    },
-    updateByUserId (context, payload) {
-      return this.server.UpdateByUserId(payload)
     }
   }
 }

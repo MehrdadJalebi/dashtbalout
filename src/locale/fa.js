@@ -308,7 +308,7 @@ export default {
       excelAdd: 'ثبت  از فایل  اکسل',
       addUserBtn: 'ثبت کاربر',
       completeUserBtn: 'تکمیل اطلاعات کاربر',
-      addBankInfoBtn: 'افزودن اطلاعات بانی',
+      addBankInfoBtn: 'افزودن اطلاعات بانکی',
       excelAddUsers: {
         title: 'آپلود فایل اکسل کاربران',
         noticeText: '۱- جهت راهنمایی در مورد چگونگی پر کردن فایل اکسل لطفا قبل از شروع، راهنمای مورد را مطالعه فرمایید<br>۲- فرمت های صحیح فایل ورودی CSV, XSLX و XSL می باشند.<br>۳-خطاهای سامانه را در مورد فایل خود با دقت مطالعه و بررسی نمایید<br>۴- فیلدهای عددی را با اعداد انگلیسی پر کنید و اعداد فارسی قرار ندهید',
@@ -317,7 +317,8 @@ export default {
         uploadFile: 'آپلود فایل'
       },
       userRegisteredSuccessfully: 'کاربر با موفقیت ثبت نام شد',
-      userCompletedSuccessfully: 'اطلاعات کاربر با موفقیت کمیلت نام شد'
+      userCompletedSuccessfully: 'اطلاعات کاربر با موفقیت تکمیل  شد',
+      bankInfoAddedSuccessfully: 'اطلاعات بانکی با موفقیت افزوده  شد'
     },
     payrolls: {
       title: 'فیش های حقوقی',
@@ -384,6 +385,13 @@ export default {
     experience: 'سابقه کار',
     employmentDate: 'تاریخ استخدام',
     return: 'بازگشت',
+    bankName: 'نام بانک',
+    bankBranch: 'شعبه بانک',
+    accountNumber: 'شماره حساب',
+    cardNumber: 'شماره کارت',
+    shabaNumber: 'شماره شبا',
+    addAnotherBankAccount: 'افزودن اطلاعات بانکی جدید',
+    remove: 'حذف',
     placeholders: {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
@@ -425,7 +433,12 @@ export default {
       year: 'سال',
       month: 'ماه',
       payrollsType: 'نوع فیش های حقوقی',
-      contractType: 'نوع قرارداد'
+      contractType: 'نوع قرارداد',
+      bankName: 'نام بانک',
+      bankBranch: 'شعبه بانک',
+      accountNumber: 'شماره حساب',
+      cardNumber: 'شماره کارت',
+      shabaNumber: 'شماره شبا'
     },
     headers: {
       firstName: 'نام',

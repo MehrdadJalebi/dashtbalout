@@ -422,6 +422,92 @@
                 step="3"
                 >
                 <v-row
+                  v-for="(bankAccount, index) in bankAccounts"
+                  :key="index"
+                  class="px-3 text-left"
+                  >
+                  <v-col
+                    :sm="2"
+                    >
+                    <form-item
+                      v-model="bankAccount.bankName"
+                      type="textbox"
+                      icon="mdi-account-circle"
+                      :label="$t('enums.bankName')"
+                      :placeholder="$t('enums.placeholders.bankName')"
+                      ></form-item>
+                  </v-col>
+                  <v-col
+                    :sm="2"
+                    >
+                    <form-item
+                      v-model="bankAccount.bankBranch"
+                      type="textbox"
+                      icon="mdi-account-circle"
+                      :label="$t('enums.bankBranch')"
+                      :placeholder="$t('enums.placeholders.bankBranch')"
+                      ></form-item>
+                  </v-col>
+                  <v-col
+                    :sm="2"
+                    >
+                    <form-item
+                      v-model="bankAccount.accountNumber"
+                      type="textbox"
+                      icon="mdi-account-circle"
+                      :label="$t('enums.accountNumber')"
+                      :placeholder="$t('enums.placeholders.accountNumber')"
+                      ></form-item>
+                  </v-col>
+                  <v-col
+                    :sm="3"
+                    >
+                    <form-item
+                      v-model="bankAccount.cardNumber"
+                      type="textbox"
+                      icon="mdi-account-circle"
+                      :label="$t('enums.cardNumber')"
+                      :placeholder="$t('enums.placeholders.cardNumber')"
+                      ></form-item>
+                  </v-col>
+                  <v-col
+                    :sm="3"
+                    >
+                    <form-item
+                      v-model="bankAccount.shabaNumber"
+                      type="textbox"
+                      icon="mdi-account-circle"
+                      :label="$t('enums.shabaNumber')"
+                      :placeholder="$t('enums.placeholders.shabaNumber')"
+                      ></form-item>
+                  </v-col>
+                </v-row>
+                <v-row>
+                    <v-col
+                      class="text-center"
+                      :sm="12"
+                      >
+                      <v-btn
+                        large
+                        class="px-5 ml-1"
+                        color="primary"
+                        depressed
+                        @click="addAnotherBankAccount"
+                        >
+                        {{ $t('enums.addAnotherBankAccount') }}
+                      </v-btn>
+                      <v-btn
+                        large
+                        outlined
+                        class="px-1"
+                        color="danger"
+                        @click="removeLastBankAccount"
+                        >
+                        {{ $t('enums.remove') }}
+                      </v-btn>
+                    </v-col>
+                </v-row>
+                <v-row
                   class="px-3 text-left"
                   >
                   <v-col
@@ -436,16 +522,16 @@
                       @click="goBack(2)"
                       >
                       {{ $t('enums.return') }}
-                   </v-btn>
+                    </v-btn>
                       <v-btn
                         large
                         class="px-5 ml-1 mr-auto"
                         color="primary"
-                        @click="addBankAccount"
+                        @click="addBankAccounts"
                         >
                         {{ $t('pages.users.addBankInfoBtn') }}
                       </v-btn>
-                    </v-col>
+                  </v-col>
                 </v-row>
               </v-stepper-content>
         </v-stepper-items>
@@ -483,11 +569,21 @@ export default {
         }
       ],
       stepper: {
-        current: 2,
+        current: 1,
         steps: 3,
         step2: {},
         step3: {}
-      }
+      },
+      bankAccounts: [
+        {
+          bankName: null,
+          bankBranch: null,
+          accountNumber: null,
+          cardNumber: null,
+          shabaNumber: null
+        }
+      ],
+      userId: null
     }
   },
   computed: {
@@ -506,7 +602,8 @@ export default {
     ...mapActions({
       addUser: 'users/addUser',
       register: 'users/register',
-      update: 'users/update',
+      updateByUserId: 'users/updateByUserId',
+      addBankAccountByUserId: 'bankAccounts/addBankAccountByUserId',
       showToast: 'snackbar/showToastMessage'
     }),
     goStep (n) {
@@ -517,10 +614,12 @@ export default {
           const successMessage = this.$t('pages.users.userRegisteredSuccessfully')
           this.showToast({ content: successMessage, color: 'success' })
           console.log(response)
+          this.userId = response.data.id
         })
       } else if (this.stepper.current === 2) {
         console.log(this.user)
-        this.update(this.user).then(response => {
+        this.user.userid = this.userId
+        this.updateByUserId(this.user).then(response => {
           const successMessage = this.$t('pages.users.userCompletedSuccessfully')
           this.showToast({ content: successMessage, color: 'success' })
           console.log(response)
@@ -531,6 +630,31 @@ export default {
     },
     goBack (n) {
       this.stepper.current = n
+    },
+    addAnotherBankAccount () {
+      this.bankAccounts.push({
+        bankName: null,
+        bankBranch: null,
+        accountNumber: null,
+        cardNumber: null,
+        shabaNumber: null
+      })
+    },
+    removeLastBankAccount () {
+      this.bankAccounts.pop()
+    },
+    addBankAccounts () {
+      this.bankAccounts.forEach(bankAccount => {
+        const payload = bankAccount
+        payload.push({ userid: this.userId })
+        console.log('payload is: ', payload)
+        this.addBankAccountByUserId(payload).then(response => {
+          const successMessage = this.$t('pages.users.bankInfoAddedSuccessfully')
+          this.showToast({ content: successMessage, color: 'success' })
+          console.log(response)
+        })
+      })
+      this.$router.push({ name: 'users' })
     },
     addUser () {
       // fatherName

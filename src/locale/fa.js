@@ -337,7 +337,8 @@ export default {
       addedSuccessfully: 'قرارداد با موفقیت افزوده شد'
     },
     messages: {
-      title: 'پیام ها'
+      title: 'پیام ها',
+      messageSendedSuccessfully: 'پیام با موفقیت ارسال شد'
     }
   },
   enums: {
@@ -392,6 +393,10 @@ export default {
     shabaNumber: 'شماره شبا',
     addAnotherBankAccount: 'افزودن اطلاعات بانکی جدید',
     remove: 'حذف',
+    messageTitle: 'عنوان پیام',
+    messageBody: 'متن پیام',
+    sendMessage: 'ارسال پیام',
+    userList: 'لیست کاربران',
     placeholders: {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
@@ -438,7 +443,10 @@ export default {
       bankBranch: 'شعبه بانک',
       accountNumber: 'شماره حساب',
       cardNumber: 'شماره کارت',
-      shabaNumber: 'شماره شبا'
+      shabaNumber: 'شماره شبا',
+      messageTitle: 'عنوان پیام',
+      messageBody: 'متن پیام',
+      userList: 'لیست کاربران'
     },
     headers: {
       firstName: 'نام',

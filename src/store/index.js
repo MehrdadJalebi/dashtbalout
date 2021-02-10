@@ -5,6 +5,7 @@ import auth from './auth'
 import users from './users'
 import contracts from './contracts'
 import bankAccounts from './bankAccounts'
+import messages from './messages'
 import enums from './enums'
 import snackbar from './snackbar'
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     users,
     contracts,
     bankAccounts,
+    messages,
     enums,
     snackbar
   }

@@ -13,19 +13,19 @@
     <page-title
       :title="$t('pages.payrolls.payrollsList')"
     >
-    <div                                                                                                                        
-       class="mb-3">                                                                                
-         <v-btn                                                                                     
-           to="/payrolls/add"                                                          
-           color="success">                                                                         
-           <v-icon                                                                                  
-             class="mr-2"                                                                           
-             small>                                                                                 
-             mdi-plus                                                                               
-           </v-icon>                                                                                
-       {{ $t('pages.payrolls.add') }}                                                   
-         </v-btn>                                                                                   
-       </div>      
+    <div
+       class="mb-3">
+         <v-btn
+           to="/payrolls/add"
+           color="success">
+           <v-icon
+             class="mr-2"
+             small>
+             mdi-plus
+           </v-icon>
+       {{ $t('pages.payrolls.add') }}
+         </v-btn>
+    </div>
     </page-title>
     <v-data-table
       align-center
@@ -56,7 +56,7 @@
 <script>
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
-  data(){
+  data () {
     return {
       pages: {},
       totalItems: 0,
@@ -101,6 +101,6 @@ export default {
         }
       ]
     }
-  },
+  }
 }
 </script>

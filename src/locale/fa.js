@@ -324,7 +324,8 @@ export default {
       title: 'فیش های حقوقی',
       payrollsList: 'لیست فیش های حقوقی',
       add: 'ثبت فیش حقوقی جدید',
-      addPayrollBtn: 'ثبت فیش  جدید'
+      addPayrollBtn: 'ثبت فیش  جدید',
+      addedSuccessfully: 'فیش حقوقی با موفقیت افزوده شد'
     },
     contracts: {
       title: 'قرارداد ها',
@@ -400,6 +401,7 @@ export default {
     userList: 'لیست کاربران',
     getUserPayrolls: 'نمایش فیش های حقوقی',
     downloadPayroll: 'دانلود فیش  حقوقی',
+    payrollFile: 'فایل فیش حقوقی',
     placeholders: {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
@@ -449,7 +451,8 @@ export default {
       shabaNumber: 'شماره شبا',
       messageTitle: 'عنوان پیام',
       messageBody: 'متن پیام',
-      userList: 'لیست کاربران'
+      userList: 'لیست کاربران',
+      chooseFile: 'انتخاب فایل'
     },
     headers: {
       firstName: 'نام',

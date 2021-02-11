@@ -327,6 +327,7 @@ export default {
       title: 'فیش های حقوقی',
       payrollsList: 'لیست فیش های حقوقی',
       add: 'ثبت فیش حقوقی جدید',
+      addGroup: 'ثبت فیش حقوقی گروهی',
       addPayrollBtn: 'ثبت فیش  جدید',
       addedSuccessfully: 'فیش حقوقی با موفقیت افزوده شد'
     },

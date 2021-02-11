@@ -16,14 +16,25 @@
     <div
        class="mb-3">
          <v-btn
+          class="ml-2"
            to="/payrolls/add"
            color="success">
            <v-icon
-             class="mr-2"
+             class="ml-2"
              small>
              mdi-plus
            </v-icon>
        {{ $t('pages.payrolls.add') }}
+         </v-btn>
+         <v-btn
+           to="/payrolls/addGroup"
+           color="success">
+           <v-icon
+             class="ml-2"
+             small>
+             mdi-plus
+           </v-icon>
+       {{ $t('pages.payrolls.addGroup') }}
          </v-btn>
     </div>
     </page-title>

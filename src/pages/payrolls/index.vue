@@ -27,12 +27,41 @@
          </v-btn>
     </div>
     </page-title>
+    <v-card class="mt-5 mb-5">
+        <v-row
+          class="px-3"
+          >
+          <v-col
+            :sm="6"
+            >
+            <form-item
+              v-model="userid"
+              type="select"
+              :items="userList"
+              icon="mdi-account-circle"
+              :label="$t('enums.userList')"
+              :placeholder="$t('enums.placeholders.userList')"
+              ></form-item>
+          </v-col>
+          <v-col
+            :sm="12"
+            >
+            <v-btn
+              large
+              class="px-5 ml-1 mr-auto"
+              color="primary"
+              @click="getUserPayrolls"
+              >
+              {{ $t('enums.getUserPayrolls') }}
+            </v-btn>
+          </v-col>
+        </v-row>
+    </v-card>
     <v-data-table
       align-center
       class="report-table"
       :headers="headers"
       :options.sync="pages"
-      :server-items-length="totalItems"
       :items="payrollsList"
       :loading="isLoading"
       disable-sort
@@ -40,20 +69,28 @@
       <template slot="item" slot-scope="props">
         <tr>
           <td class="data-min-td"> {{ props.item.title }} </td>
-          <td class="data-min-td"> {{ props.item.firstName}} </td>
-          <td class="data-min-td"> {{ props.item.lastName}} </td>
-          <td class="data-min-td"> {{ props.item.company }} </td>
-          <td class="data-min-td"> {{ props.item.contractTitle }} </td>
+          <td class="data-min-td"> {{ props.item.contractNumber}} </td>
+          <td class="data-min-td"> {{ props.item.payrollType}} </td>
           <td class="data-min-td"> {{ props.item.year }} </td>
           <td class="data-min-td"> {{ props.item.month}} </td>
-          <td class="data-min-td"> {{ props.item.income }} </td>
-          <td class="data-min-td"> {{ props.item.type }} </td>
+          <td class="data-min-td">
+            <v-btn
+              small
+              outlined
+              class="px-1"
+              color="primary"
+              @click="downloadPayroll(props.item.fileId)"
+              >
+              {{ $t('enums.downloadPayroll') }}
+            </v-btn>
+          </td>
         </tr>
       </template>
     </v-data-table>
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
@@ -61,27 +98,25 @@ export default {
       pages: {},
       totalItems: 0,
       isLoading: false,
-      payrollsList: []
+      payrollsList: [],
+      userList: [],
+      userid: null
     }
   },
   computed: {
     headers () {
       return [
         {
-          text: this.$t('enums.headers.nationalCode'),
-          value: 'nationalCode'
-        },
-        {
-          text: this.$t('enums.headers.firstName'),
-          value: 'firstName'
-        },
-        {
-          text: this.$t('enums.headers.lastName'),
-          value: 'lastName'
-        },
-        {
           text: this.$t('enums.headers.contractTitle'),
           value: 'title'
+        },
+        {
+          text: this.$t('enums.headers.contractNumber'),
+          value: 'contractNumber'
+        },
+        {
+          text: this.$t('enums.headers.payrollType'),
+          value: 'payrollType'
         },
         {
           text: this.$t('enums.headers.year'),
@@ -92,14 +127,47 @@ export default {
           value: 'month'
         },
         {
-          text: this.$t('enums.headers.income'),
-          value: 'income'
-        },
-        {
-          text: this.$t('enums.headers.type'),
-          value: 'type'
+          text: this.$t('enums.headers.actions'),
+          value: ''
         }
       ]
+    }
+  },
+  created () {
+    const payload = {
+      pageIndex: 1,
+      pageSize: 100000
+    }
+    this.getAllUsers(payload)
+      .then(response => {
+        this.isLoading = false
+        this.userList = response.data.map(user => {
+          return { text: user.fullName, value: user.id }
+        })
+      })
+  },
+  methods: {
+    ...mapActions({
+      getAllUsers: 'users/getAllUsers',
+      getPayrollByUserId: 'payrolls/getPayrollByUserId',
+      download: 'payrolls/download'
+    }),
+    getUserPayrolls () {
+      this.isLoading = true
+      const userIdPayload = {
+        userid: this.userid
+      }
+      this.getPayrollByUserId(userIdPayload).then(response => {
+        this.isLoading = false
+        //        console.log('response is: ', response)
+        this.payrollsList = response.data
+      })
+    },
+    downloadPayroll (fileId) {
+      const payload = {
+        fileid: fileId
+      }
+      this.download(payload)
     }
   }
 }

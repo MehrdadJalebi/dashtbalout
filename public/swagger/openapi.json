@@ -10,6 +10,7 @@
         "tags": [
           "BankAccounts"
         ],
+        "summary": "Only Admin",
         "operationId": "AddBankAccountByUserId",
         "parameters": [
           {
@@ -53,6 +54,7 @@
         "tags": [
           "BankAccounts"
         ],
+        "summary": "Only Admin",
         "operationId": "GetBankAccountByUserId",
         "parameters": [
           {
@@ -400,6 +402,7 @@
         "tags": [
           "Messages"
         ],
+        "summary": "Only Admin",
         "operationId": "AddMessageByUserId",
         "parameters": [
           {
@@ -539,44 +542,33 @@
         "tags": [
           "Payrolls"
         ],
-        "operationId": "GetPayRoll",
-        "parameters": [
-          {
-            "name": "year",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "month",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
+        "operationId": "GetPayroll",
         "responses": {
           "200": {
             "description": "Success",
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/PayrollResponse"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PayrollResponse"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PayrollResponse"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PayrollResponse"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PayrollResponse"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PayrollResponse"
+                  }
                 }
               }
             }
@@ -587,6 +579,7 @@
         "tags": [
           "Payrolls"
         ],
+        "summary": "Only Admin",
         "operationId": "AddPayroll",
         "parameters": [
           {
@@ -631,18 +624,174 @@
             "multipart/form-data": {
               "schema": {
                 "required": [
-                  "formFile"
+                  "file"
                 ],
                 "type": "object",
                 "properties": {
-                  "formFile": {
-                    "type": "file",
+                  "file": {
+                    "type": "string",
                     "format": "binary"
                   }
                 }
               },
               "encoding": {
-                "formFile": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/payrolls/{userid}": {
+      "get": {
+        "tags": [
+          "Payrolls"
+        ],
+        "summary": "Only Admin",
+        "operationId": "GetPayrollByUserId",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PayrollResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PayrollResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PayrollResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/payrolls/download/{fileid}": {
+      "get": {
+        "tags": [
+          "Payrolls"
+        ],
+        "operationId": "Download",
+        "parameters": [
+          {
+            "name": "fileid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/payrolls/group": {
+      "post": {
+        "tags": [
+          "Payrolls"
+        ],
+        "summary": "Only Admin",
+        "operationId": "AddGroupPayroll",
+        "parameters": [
+          {
+            "name": "UserIds",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
+            "name": "ContractId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Year",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Month",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "files"
+                ],
+                "type": "object",
+                "properties": {
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              },
+              "encoding": {
+                "files": {
                   "style": "form"
                 }
               }
@@ -909,6 +1058,7 @@
         "tags": [
           "Users"
         ],
+        "summary": "Only Admin",
         "operationId": "GetAll",
         "parameters": [
           {
@@ -983,7 +1133,7 @@
                 "type": "object",
                 "properties": {
                   "file": {
-                    "type": "file",
+                    "type": "string",
                     "format": "binary",
                     "nullable": true
                   }
@@ -1059,6 +1209,7 @@
         "tags": [
           "Users"
         ],
+        "summary": "Only Admin",
         "operationId": "UpdateByUserId",
         "parameters": [
           {
@@ -1293,7 +1444,7 @@
                 "type": "object",
                 "properties": {
                   "file": {
-                    "type": "file",
+                    "type": "string",
                     "format": "binary",
                     "nullable": true
                   }
@@ -1650,11 +1801,6 @@
       "PayrollResponse": {
         "type": "object",
         "properties": {
-          "attachment": {
-            "type": "string",
-            "format": "byte",
-            "nullable": true
-          },
           "fileName": {
             "type": "string",
             "nullable": true
@@ -1667,8 +1813,20 @@
             "type": "string",
             "nullable": true
           },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "month": {
+            "type": "integer",
+            "format": "int32"
+          },
           "payrollType": {
             "$ref": "#/components/schemas/PayrollType"
+          },
+          "fileId": {
+            "type": "string",
+            "format": "uuid"
           }
         },
         "additionalProperties": false

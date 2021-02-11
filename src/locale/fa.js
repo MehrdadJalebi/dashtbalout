@@ -371,6 +371,7 @@ export default {
     year: 'سال',
     month: 'ماه',
     payrollsType: 'نوع فیش های حقوقی',
+    payrollType: 'نوع فیش  حقوقی',
     contractType: 'نوع قرارداد',
     fatherName: 'نام پدر',
     birthDate: 'تاریخ تولد',
@@ -397,6 +398,8 @@ export default {
     messageBody: 'متن پیام',
     sendMessage: 'ارسال پیام',
     userList: 'لیست کاربران',
+    getUserPayrolls: 'نمایش فیش های حقوقی',
+    downloadPayroll: 'دانلود فیش  حقوقی',
     placeholders: {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
@@ -463,7 +466,8 @@ export default {
       month: 'ماه',
       income: 'دریافتی',
       type: 'نوع',
-      description: 'توضیحات'
+      description: 'توضیحات',
+      payrollType: 'نوع فیش  حقوقی'
     },
     tableActions: {
       edit: 'ویرایش',

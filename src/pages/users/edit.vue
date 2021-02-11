@@ -1,6 +1,6 @@
 <route>
 {
-  "name": "addUsers",
+  "name": "editUsers",
   "meta": {
     "order": 4,
     "isVisible": false,
@@ -11,7 +11,7 @@
 <template>
   <div class="mt-5 mx-5">
     <v-card>
-      <v-card-title>{{$t('pages.users.add')}}</v-card-title>
+      <v-card-title>{{$t('pages.users.edit')}}</v-card-title>
       <v-stepper
         v-model="stepper.current"
         alt-labels
@@ -527,9 +527,9 @@
                         large
                         class="px-5 ml-1 mr-auto"
                         color="primary"
-                        @click="addBankAccounts"
+                        @click="editBankAccounts"
                         >
-                        {{ $t('pages.users.addBankInfoBtn') }}
+                        {{ $t('pages.users.editBankInfoBtn') }}
                       </v-btn>
                   </v-col>
                 </v-row>
@@ -583,7 +583,7 @@ export default {
           shabaNumber: null
         }
       ],
-      userId: null
+      userId: this.$route.query.id
     }
   },
   computed: {
@@ -597,26 +597,23 @@ export default {
   created () {
     this.childrensCountArray = Array.from({ length: 30 }, (_, i) => ++i)
     this.underSupportPersonsCountArray = Array.from({ length: 30 }, (_, i) => ++i)
+    const payload = {
+      userid: this.$route.query.id
+    }
+    this.getUserById(payload)
+      .then(response => {
+        this.user = response.data
+      })
   },
   methods: {
     ...mapActions({
-      addUser: 'users/addUser',
-      register: 'users/register',
+      getUserById: 'users/getUserByUserId',
       updateByUserId: 'users/updateByUserId',
-      addBankAccountByUserId: 'bankAccounts/addBankAccountByUserId',
+      updateBankAccount: 'bankAccounts/updateBankAccount',
       showToast: 'snackbar/showToastMessage'
     }),
     goStep (n) {
-      console.log(this.user)
-      if (this.stepper.current === 1) {
-        console.log(this.user)
-        this.register(this.user).then(response => {
-          const successMessage = this.$t('pages.users.userRegisteredSuccessfully')
-          this.showToast({ content: successMessage, color: 'success' })
-          console.log(response)
-          this.userId = response.data.id
-        })
-      } else if (this.stepper.current === 2) {
+      if (this.stepper.current === 2) {
         console.log(this.user)
         this.user.userid = this.userId
         this.updateByUserId(this.user).then(response => {
@@ -642,20 +639,19 @@ export default {
     removeLastBankAccount () {
       this.bankAccounts.pop()
     },
-    addBankAccounts () {
+    editBankAccounts () {
       this.bankAccounts.forEach(bankAccount => {
         const payload = bankAccount
-        payload.push({ userid: this.userId })
-        console.log('payload is: ', payload)
-        this.addBankAccountByUserId(payload).then(response => {
-          const successMessage = this.$t('pages.users.bankInfoAddedSuccessfully')
+        payload.id = this.userId
+        this.updateBankAccount(payload).then(response => {
+          const successMessage = this.$t('pages.users.bankInfoEditedSuccessfully')
           this.showToast({ content: successMessage, color: 'success' })
           console.log(response)
         })
       })
       this.$router.push({ name: 'users' })
     },
-    addUser () {
+    editUser () {
       // fatherName
       // birthdate
       // birthPlace

@@ -18,19 +18,26 @@ export default {
     addBankAccountByUserId (context, payload) {
       return this.server.AddBankAccountByUserId(payload)
     },
+    getBankAccountByUserId (context, payload) {
+      return this.server.GetBankAccountByUserId(payload)
+    },
     getAllBankAccounts (context, payload) {
       return this.server.GetAll({
         PageIndex: payload.pageIndex,
         PageSize: payload.pageSize
       })
     },
-    editBankAccount (context, payload) {
+    getBankAccount (context, payload) {
+      return this.server.GetBankAccount(payload)
     },
-    register (context, payload) {
-      return this.server.Register(payload)
+    addBankAccount (context, payload) {
+      return this.server.AddBankAccount(payload)
     },
-    update (context, payload) {
-      return this.server.Update(payload)
+    removeBankAccount (context, payload) {
+      return this.server.RemoveBankAccount(payload)
+    },
+    updateBankAccount (context, payload) {
+      return this.server.UpdateBankAccount(payload)
     }
   }
 }

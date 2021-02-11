@@ -305,10 +305,12 @@ export default {
       title: 'کاربران',
       usersList: 'لیست کاربران',
       add: 'ثبت کاربر جدید',
+      edit: 'ویرایش کاربر',
       excelAdd: 'ثبت  از فایل  اکسل',
       addUserBtn: 'ثبت کاربر',
       completeUserBtn: 'تکمیل اطلاعات کاربر',
       addBankInfoBtn: 'افزودن اطلاعات بانکی',
+      editBankInfoBtn: 'ویرایش اطلاعات بانکی',
       excelAddUsers: {
         title: 'آپلود فایل اکسل کاربران',
         noticeText: '۱- جهت راهنمایی در مورد چگونگی پر کردن فایل اکسل لطفا قبل از شروع، راهنمای مورد را مطالعه فرمایید<br>۲- فرمت های صحیح فایل ورودی CSV, XSLX و XSL می باشند.<br>۳-خطاهای سامانه را در مورد فایل خود با دقت مطالعه و بررسی نمایید<br>۴- فیلدهای عددی را با اعداد انگلیسی پر کنید و اعداد فارسی قرار ندهید',
@@ -318,7 +320,8 @@ export default {
       },
       userRegisteredSuccessfully: 'کاربر با موفقیت ثبت نام شد',
       userCompletedSuccessfully: 'اطلاعات کاربر با موفقیت تکمیل  شد',
-      bankInfoAddedSuccessfully: 'اطلاعات بانکی با موفقیت افزوده  شد'
+      bankInfoAddedSuccessfully: 'اطلاعات بانکی با موفقیت افزوده  شد',
+      bankInfoEditedSuccessfully: 'اطلاعات بانکی با موفقیت ویرایش گریدی'
     },
     payrolls: {
       title: 'فیش های حقوقی',

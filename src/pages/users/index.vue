@@ -54,24 +54,22 @@
           <td class="data-min-td"> {{ props.item.personnelNumber }} </td>
           <td class="data-min-td">
             <v-switch
-              v-model="adminAccess"
+              v-model="props.item.adminAccess"
+              ></v-switch>
+          </td>
+          <td class="data-min-td">
+            <v-switch
+              v-model="props.item.isActive"
               ></v-switch>
           </td>
           <td class="data-min-td">
           <v-btn
+            :to="'/users/edit?id='+ props.item.id"
             small
             outlined
             color="primary"
             >
             {{ $t('enums.tableActions.edit') }}
-          </v-btn>
-          <v-btn
-            small
-            class="mr-3"
-            outlined
-            color="danger"
-            >
-            {{ $t('enums.tableActions.delete') }}
           </v-btn>
           </td>
         </tr>
@@ -150,8 +148,7 @@ export default {
       pages: {},
       totalItems: 0,
       isLoading: true,
-      usersList: [],
-      adminAccess: true
+      usersList: []
     }
   },
   computed: {
@@ -175,7 +172,11 @@ export default {
         },
         {
           text: this.$t('enums.headers.adminAccess'),
-          value: this.isAdmin
+          value: ''
+        },
+        {
+          text: this.$t('enums.headers.adminAccess'),
+          value: ''
         },
         {
           text: this.$t('enums.headers.actions'),

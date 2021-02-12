@@ -321,7 +321,10 @@ export default {
       userRegisteredSuccessfully: 'کاربر با موفقیت ثبت نام شد',
       userCompletedSuccessfully: 'اطلاعات کاربر با موفقیت تکمیل  شد',
       bankInfoAddedSuccessfully: 'اطلاعات بانکی با موفقیت افزوده  شد',
-      bankInfoEditedSuccessfully: 'اطلاعات بانکی با موفقیت ویرایش گریدی'
+      bankInfoEditedSuccessfully: 'اطلاعات بانکی با موفقیت ویرایش گریدی',
+      roleChangedSuccessfully: 'نقش کاربر با موفقیت تغییر یافت',
+      userDisabledSuccessfully: 'کاربر با موفقیت غیرفعال گردید',
+      userEnabledSuccessfully: 'کاربر با موفقیت فعال گردید'
     },
     payrolls: {
       title: 'فیش های حقوقی',
@@ -474,7 +477,8 @@ export default {
       income: 'دریافتی',
       type: 'نوع',
       description: 'توضیحات',
-      payrollType: 'نوع فیش  حقوقی'
+      payrollType: 'نوع فیش  حقوقی',
+      userState: 'کاربر فعال'
     },
     tableActions: {
       edit: 'ویرایش',

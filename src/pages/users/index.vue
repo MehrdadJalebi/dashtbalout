@@ -54,12 +54,14 @@
           <td class="data-min-td"> {{ props.item.personnelNumber }} </td>
           <td class="data-min-td">
             <v-switch
-              v-model="props.item.adminAccess"
+              v-model="props.item.isAdmin"
+              @click="changeUserRole(props.item.id, props.item.role)"
               ></v-switch>
           </td>
           <td class="data-min-td">
             <v-switch
               v-model="props.item.isActive"
+              @click="changeUserState(props.item.id, props.item.userState)"
               ></v-switch>
           </td>
           <td class="data-min-td">
@@ -175,7 +177,7 @@ export default {
           value: ''
         },
         {
-          text: this.$t('enums.headers.adminAccess'),
+          text: this.$t('enums.headers.userState'),
           value: ''
         },
         {
@@ -193,15 +195,50 @@ export default {
     this.getAllUsers(payload)
       .then(response => {
         this.usersList = response.data
+        this.usersList.map(user => {
+          user.isAdmin = user.role === 'Admin'
+          user.isActive = user.userState === 'Enable'
+        })
+        console.log(this.usersList)
         this.isLoading = false
       })
   },
   methods: {
     ...mapActions({
-      getAllUsers: 'users/getAllUsers'
+      getAllUsers: 'users/getAllUsers',
+      changeRole: 'users/changeRole',
+      enableUser: 'users/enableUser',
+      disableUser: 'users/disableUser',
+      showToast: 'snackbar/showToastMessage'
     }),
     excelAddUsersModal () {
       this.dialog = true
+    },
+    changeUserRole (id, role) {
+      const payload = {
+        userid: id,
+        role: role === 'Admin' ? 'User' : 'Admin'
+      }
+      this.changeRole(payload).then(() => {
+        const successMessage = this.$t('pages.users.roleChangedSuccessfully')
+        this.showToast({ content: successMessage, color: 'success' })
+      })
+    },
+    changeUserState (id, state) {
+      const payload = {
+        userid: id
+      }
+      if (state === 'Enable') {
+        this.disableUser(payload).then(() => {
+          const successMessage = this.$t('pages.users.userDisabledSuccessfully')
+          this.showToast({ content: successMessage, color: 'success' })
+        })
+      } else {
+        this.enableUser(payload).then(() => {
+          const successMessage = this.$t('pages.users.userEnabledSuccessfully')
+          this.showToast({ content: successMessage, color: 'success' })
+        })
+      }
     }
   }
 }

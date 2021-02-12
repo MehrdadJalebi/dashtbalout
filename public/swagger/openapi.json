@@ -227,6 +227,84 @@
         }
       }
     },
+    "/api/v1/cdn": {
+      "post": {
+        "tags": [
+          "Cdn"
+        ],
+        "operationId": "Upload",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "nullable": true
+                  }
+                }
+              },
+              "encoding": {
+                "files": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cdn/{fileid}": {
+      "get": {
+        "tags": [
+          "Cdn"
+        ],
+        "operationId": "Download",
+        "parameters": [
+          {
+            "name": "fileid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/v1/contracts": {
       "post": {
         "tags": [
@@ -581,63 +659,21 @@
         ],
         "summary": "Only Admin",
         "operationId": "AddPayroll",
-        "parameters": [
-          {
-            "name": "UserId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "ContractId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Year",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Month",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
-                "required": [
-                  "file"
-                ],
-                "type": "object",
-                "properties": {
-                  "file": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              },
-              "encoding": {
-                "file": {
-                  "style": "form"
-                }
+                "$ref": "#/components/schemas/PayrollRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PayrollRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PayrollRequest"
               }
             }
           }
@@ -700,12 +736,12 @@
         }
       }
     },
-    "/api/v1/payrolls/download/{fileid}": {
-      "get": {
+    "/api/v1/payrolls/{fileid}": {
+      "delete": {
         "tags": [
           "Payrolls"
         ],
-        "operationId": "Download",
+        "operationId": "DeletePayroll",
         "parameters": [
           {
             "name": "fileid",
@@ -731,69 +767,21 @@
         ],
         "summary": "Only Admin",
         "operationId": "AddGroupPayroll",
-        "parameters": [
-          {
-            "name": "UserIds",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
-          },
-          {
-            "name": "ContractId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Year",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Month",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
-                "required": [
-                  "files"
-                ],
-                "type": "object",
-                "properties": {
-                  "files": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "binary"
-                    }
-                  }
-                }
-              },
-              "encoding": {
-                "files": {
-                  "style": "form"
-                }
+                "$ref": "#/components/schemas/PayrollGroupRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PayrollGroupRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PayrollGroupRequest"
               }
             }
           }
@@ -1671,6 +1659,33 @@
         },
         "additionalProperties": false
       },
+      "UploadItemResponse": {
+        "type": "object",
+        "properties": {
+          "originalFileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "fileId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UploadResponse": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UploadItemResponse"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "PayrollType": {
         "enum": [
           "Excel",
@@ -1831,6 +1846,70 @@
         },
         "additionalProperties": false
       },
+      "PayrollRequest": {
+        "required": [
+          "contractId",
+          "fileId",
+          "month",
+          "userId",
+          "year"
+        ],
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "contractId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "month": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fileId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PayrollGroupRequest": {
+        "required": [
+          "contractId",
+          "fileIds",
+          "month",
+          "year"
+        ],
+        "type": "object",
+        "properties": {
+          "fileIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "contractId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "month": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "UserInfo": {
         "type": "object",
         "properties": {
@@ -1853,6 +1932,7 @@
         "required": [
           "firstName",
           "lastName",
+          "nationalCode",
           "password",
           "phoneNumber",
           "username"
@@ -1869,8 +1949,7 @@
             "type": "string"
           },
           "nationalCode": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "phoneNumber": {
             "type": "string"
@@ -1938,6 +2017,13 @@
         "enum": [
           "Single",
           "Married"
+        ],
+        "type": "string"
+      },
+      "UserStatus": {
+        "enum": [
+          "Enable",
+          "Disable"
         ],
         "type": "string"
       },
@@ -2049,6 +2135,13 @@
             "type": "string",
             "nullable": true,
             "readOnly": true
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
+          },
+          "userState": {
+            "$ref": "#/components/schemas/UserStatus"
           }
         },
         "additionalProperties": false

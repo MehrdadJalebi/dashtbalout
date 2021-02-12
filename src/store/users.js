@@ -36,6 +36,15 @@ export default {
     },
     getUserByUserId (context, payload) {
       return this.server.GetByUserId(payload)
+    },
+    changeRole (context, payload) {
+      return this.server.ChangeRole(payload)
+    },
+    disableUser (context, payload) {
+      return this.server.Disable(payload)
+    },
+    enableUser (context, payload) {
+      return this.server.Enable(payload)
     }
   }
 }

@@ -645,7 +645,7 @@ export default {
     addBankAccounts () {
       this.bankAccounts.forEach(bankAccount => {
         const payload = bankAccount
-        payload.push({ userid: this.userId })
+        payload.userid = this.userId
         console.log('payload is: ', payload)
         this.addBankAccountByUserId(payload).then(response => {
           const successMessage = this.$t('pages.users.bankInfoAddedSuccessfully')

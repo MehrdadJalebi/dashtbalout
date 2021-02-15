@@ -45,6 +45,16 @@ export default {
     },
     enableUser (context, payload) {
       return this.server.Enable(payload)
+    },
+    userNameExist (context, payload) {
+      return this.server.UsernameExist(payload)
+    },
+    mobileExist (context, payload) {
+      return this.server.MobileExist(payload)
+    },
+    emailExist (context, payload) {
+      return this.server.EmailExist(payload)
     }
+
   }
 }

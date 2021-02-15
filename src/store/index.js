@@ -7,6 +7,7 @@ import contracts from './contracts'
 import bankAccounts from './bankAccounts'
 import payrolls from './payrolls'
 import messages from './messages'
+import cdn from './cdn'
 import enums from './enums'
 import snackbar from './snackbar'
 
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     bankAccounts,
     payrolls,
     messages,
+    cdn,
     enums,
     snackbar
   }

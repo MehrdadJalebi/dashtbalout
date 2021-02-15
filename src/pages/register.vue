@@ -13,28 +13,80 @@
   <registration
     login-route="login"
     :is-dark=true
+    :is-loading="isLoading"
     :solo=true
     :outlined=false
     :icon-enabled=true
-    @register="onRegsiter"
+    @register="onRegister"
   />
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   layout: 'twoside',
   data () {
     return {
-
+      isLoading: false
     }
   },
+  computed: {
+    ...mapGetters({
+      userInfo: 'auth/userInfo'
+    })
+  },
   methods: {
-    onRegsiter (payload) {
-      console.log('Do Regsiter ---------------- !!!!')
-      console.log(payload.email)
-      console.log(payload.name)
-      console.log(payload.lastName)
-      console.log(payload.password)
-      console.log(payload.phoneNumber)
+    ...mapActions({
+      register: 'auth/registerWithToken',
+      userNameExist: 'users/userNameExist',
+      mobileExist: 'users/mobileExist',
+      emailExist: 'users/emailExist',
+      getUserInfo: 'auth/getUserInfo',
+      showToast: 'snackbar/showToastMessage'
+    }),
+    onRegister (payload) {
+      this.isLoading = true
+      this.userNameExist({ username: payload.username }).then(usernameResponse => {
+        if (usernameResponse.data) {
+          const errorMessage = this.$t('pages.users.userNameExist')
+          this.showToast({ content: errorMessage, color: 'error' })
+          this.isLoading = false
+        } else {
+          this.emailExist({ email: payload.email }).then(emailResponse => {
+            if (emailResponse.data) {
+              const errorMessage = this.$t('pages.users.emailExist')
+              this.showToast({ content: errorMessage, color: 'error' })
+              this.isLoading = false
+            } else {
+              this.mobileExist({ mobile: payload.phoneNumber }).then(mobileResponse => {
+                if (mobileResponse.data) {
+                  const errorMessage = this.$t('pages.users.mobileExist')
+                  this.showToast({ content: errorMessage, color: 'error' })
+                  this.isLoading = false
+                } else {
+                  this.register(payload)
+                    .then(response => {
+                      const successMessage = this.$t('pages.users.userRegisteredSuccessfully')
+                      this.showToast({ content: successMessage, color: 'success' })
+                      if (localStorage.token) {
+                        this.getUserInfo().then(() => {
+                          if (this.userInfo.role === 'Admin') {
+                            this.$router.push({ name: 'index' })
+                          } else {
+                            this.$router.push({ name: 'index' })
+                          }
+                          window.dispatchEvent(new Event('UPDATE_AUTHORIZATION'))
+                        })
+                      } else {
+                        this.$router.push({ name: 'login' })
+                      }
+                      this.isLoading = false
+                    })
+                }
+              })
+            }
+          })
+        }
+      })
     }
   }
 }

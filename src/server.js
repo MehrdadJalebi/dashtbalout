@@ -63,10 +63,10 @@ const setBaseServerMethod = function (server) {
       dataModel = new FormData()
       if (Array.isArray(payload)) {
         payload.map((item) => {
-          dataModel.append('items', item)
+          dataModel.append('files', item)
         })
       }
-      dataModel.append('items', payload)
+      dataModel.append('files', payload)
       return dataModel
     } else {
       const model = {}

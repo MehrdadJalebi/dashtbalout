@@ -2,6 +2,16 @@
   font-family: 'IRANSansNumber', 'IranYekan', 'IRANSans' !important;
 }
 
+.v-text-field {
+  .v-input__control{
+    .v-input__slot{
+      border: 1px solid #bfbfbf !important;
+      input:placeholder{
+        color: #efefef !important;
+      }
+    }
+  }
+}
 .form-basic{
   padding-right: 20px;
   > div{

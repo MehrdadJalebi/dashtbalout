@@ -36,12 +36,14 @@ export default {
     register: {
       title: 'ثبت نام',
       password: 'کلمه عبور',
-      register: 'ادامه و تایید پست الکترونیکی',
+      register: 'ثبت نام',
+      userName: 'نام کاربری',
       login: 'وارد شوید',
       haveAccount: 'حساب کاربری دارید؟',
       legalPerson: 'شخص حقوقی',
       realPerson: 'شخص حقیقی',
       phoneNumber: 'شماره موبایل',
+      nationalCode: 'شماره ملی',
       email: 'پست الکترونیک',
       emailPlaceholder: 'email@example.com',
       name: 'نام',
@@ -55,12 +57,15 @@ export default {
       phoneNumberPlaceholder: '**** *** **09',
       passwordRequired: 'کلمه عبور الزامی است',
       phoneNumberRequired: 'شماره موبایل الزامی است',
+      nationalCodeRequired: 'شماره ملی الزامی است',
+      userNameRequired: 'نام کاربری الزامی است',
       emailRequired: 'پست الکترونیکی الزامی است',
       passwordValidation: 'حداقل تعداد کاراکتر برای کلمه عبور ۸ کاراکتر است',
       emailValidation: 'فرمت پست الکترونیکی اشتباه است',
       emailStatus: 'پست الکترونیکی شما به عنوان نام کاربری بوده و غیر قابل تغییر است',
       phoneNumberValidation: 'فرمت شماره موبایل اشتباه است',
       phoneNumberCountValidation: 'شماره موبایل باید 11 رقمی باشد',
+      nationalCodeCountValidation: 'شماره ملی باید 10 رقمی باشد',
       nameValidation: 'لطفا نام را با حروف فارسی وارد کنید',
       lastNameValidation: 'لطفا نام خانوادگی را با حروف فارسی وارد کنید'
     },
@@ -324,7 +329,10 @@ export default {
       bankInfoEditedSuccessfully: 'اطلاعات بانکی با موفقیت ویرایش گریدی',
       roleChangedSuccessfully: 'نقش کاربر با موفقیت تغییر یافت',
       userDisabledSuccessfully: 'کاربر با موفقیت غیرفعال گردید',
-      userEnabledSuccessfully: 'کاربر با موفقیت فعال گردید'
+      userEnabledSuccessfully: 'کاربر با موفقیت فعال گردید',
+      userNameExist: 'نام کاربری تکراری است',
+      mobileExist: 'شماره موبایل تکراری است',
+      emailExist: 'ایمیل تکراری است'
     },
     payrolls: {
       title: 'فیش های حقوقی',

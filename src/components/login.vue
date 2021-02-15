@@ -53,7 +53,6 @@
           flat
           color="primary"
           class="mt-2"
-          :label="this.userNameTitle"
           :prepend-icon="outlined && iconEnabled ? 'mdi-cellphone' : ''"
           name="userName"
           type="text"
@@ -75,7 +74,6 @@
           color="primary"
           class="mt-2"
           :prepend-inner-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-          :label="this.passwordTitle"
           :placeholder="this.passwordPlaceholder"
           :prepend-icon="outlined && iconEnabled ? 'mdi-lock' : ''"
           name="password"

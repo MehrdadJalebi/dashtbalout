@@ -133,6 +133,7 @@
                       >
                       <v-btn
                         large
+                        :loading="isLoading"
                         class="px-5 ml-1 mr-auto"
                         color="primary"
                         @click="goStep(2)"
@@ -583,7 +584,8 @@ export default {
           shabaNumber: null
         }
       ],
-      userId: null
+      userId: null,
+      isLoading: false
     }
   },
   computed: {
@@ -604,17 +606,46 @@ export default {
       register: 'users/register',
       updateByUserId: 'users/updateByUserId',
       addBankAccountByUserId: 'bankAccounts/addBankAccountByUserId',
+      userNameExist: 'users/userNameExist',
+      mobileExist: 'users/mobileExist',
+      emailExist: 'users/emailExist',
       showToast: 'snackbar/showToastMessage'
     }),
     goStep (n) {
-      console.log(this.user)
+      this.isLoading = true
       if (this.stepper.current === 1) {
         console.log(this.user)
-        this.register(this.user).then(response => {
-          const successMessage = this.$t('pages.users.userRegisteredSuccessfully')
-          this.showToast({ content: successMessage, color: 'success' })
-          console.log(response)
-          this.userId = response.data.id
+        this.userNameExist({ username: this.user.username }).then(usernameResponse => {
+          if (usernameResponse.data) {
+            const errorMessage = this.$t('pages.users.userNameExist')
+            this.showToast({ content: errorMessage, color: 'error' })
+            this.isLoading = false
+          } else {
+            this.emailExist({ email: this.user.email }).then(emailResponse => {
+              if (emailResponse.data) {
+                const errorMessage = this.$t('pages.users.emailExist')
+                this.showToast({ content: errorMessage, color: 'error' })
+                this.isLoading = false
+              } else {
+                this.mobileExist({ mobile: this.user.phoneNumber }).then(mobileResponse => {
+                  if (mobileResponse.data) {
+                    const errorMessage = this.$t('pages.users.mobileExist')
+                    this.showToast({ content: errorMessage, color: 'error' })
+                    this.isLoading = false
+                  } else {
+                    this.register(this.user)
+                      .then(response => {
+                        const successMessage = this.$t('pages.users.userRegisteredSuccessfully')
+                        this.showToast({ content: successMessage, color: 'success' })
+                        this.isLoading = false
+                        this.userId = response.data.id
+                        this.stepper.current = n
+                      })
+                  }
+                })
+              }
+            })
+          }
         })
       } else if (this.stepper.current === 2) {
         console.log(this.user)
@@ -623,9 +654,10 @@ export default {
           const successMessage = this.$t('pages.users.userCompletedSuccessfully')
           this.showToast({ content: successMessage, color: 'success' })
           console.log(response)
+          this.isLoading = false
+          this.stepper.current = n
         })
       }
-      this.stepper.current = n
     },
     goBack (n) {
       this.stepper.current = n

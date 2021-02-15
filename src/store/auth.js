@@ -57,6 +57,17 @@ export default {
           }
         })
     },
+    register (context, payload) {
+      return this.server.Register(payload)
+    },
+    registerWithToken (context, payload) {
+      return this.server.Register(payload)
+        .then((response) => {
+          const tokenData = response.data
+          return context.dispatch('setTokenInfo', tokenData)
+        })
+    },
+
     init (context) {
       return context.dispatch('loginWithRefreshToken')
         .then((response) => {

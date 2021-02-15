@@ -19,6 +19,7 @@
     register-route="register"
     :solo=true
     :outlined=false
+    :rememberMeEnabled="false"
     :icon-enabled=true
     @login="onLogin" />
 </template>

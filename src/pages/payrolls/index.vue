@@ -161,7 +161,7 @@ export default {
     ...mapActions({
       getAllUsers: 'users/getAllUsers',
       getPayrollByUserId: 'payrolls/getPayrollByUserId',
-      download: 'payrolls/download'
+      download: 'cdn/download'
     }),
     getUserPayrolls () {
       this.isLoading = true
@@ -178,7 +178,9 @@ export default {
       const payload = {
         fileid: fileId
       }
-      this.download(payload)
+      this.download(payload).then(response => {
+        console.log(response)
+      })
     }
   }
 }

@@ -11,44 +11,19 @@
         {{$t('components.register.title')}}
       </v-row>
       <v-form ref="form" v-model="valid" @submit.prevent="register">
-      <!-- email -->
-      <div v-if="emailEnabled" class="subtitle-2 input-placeholder-left">
-        <v-icon v-if="solo && iconEnabled" col medium color="darken-2" class="ml-3">mdi-email</v-icon>
-        <span v-if="solo">{{emailTitle}}</span>
-        <v-text-field
-          v-model="userInfo.email"
-          autofocus
-          tabindex="1"
-          :solo="solo"
-          :outlined="outlined"
-          flat
-          color="primary"
-          class="mt-2"
-          :label="emailTitle"
-          :placeholder="emailPlaceholder"
-          :rules="emailValidation"
-          :prepend-icon="outlined && iconEnabled ? 'mdi-email' : ''"
-          name="email"
-          :hint="$t('components.register.emailStatus')"
-          type="text"
-          required
-        ></v-text-field>
-      </div>
       <!-- name -->
       <div v-if="nameEnabled"  class="subtitle-2">
         <v-icon v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-account-circle</v-icon>
         <span v-if="solo">{{nameTitle}}</span>
         <v-text-field
-          v-model="userInfo.name"
+          v-model="userInfo.firstName"
           tabindex="2"
           :solo="solo"
           :outlined="outlined"
           flat
           color="primary"
           class="mt-2"
-          :label="nameTitle"
-          :placeholder="namePlaceholder"
-          :rules="nameRequiredEnabled ? [nameRules.required, nameRules.pattern] : [] "
+          :rules="nameRequiredEnabled ? [nameRules.required] : [] "
           :prepend-icon="outlined && iconEnabled ? 'mdi-account-circle' : ''"
           name="name"
           type="text"
@@ -67,10 +42,27 @@
           flat
           color="primary"
           class="mt-2"
-          :label="lastNameTitle"
-          :placeholder="lastNamePlaceholder"
           :rules="lastNameRequiredEnabled ? [lastNameRules.required, lastNameRules.pattern] : [] "
           name="lastName"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-account-circle' : ''"
+          type="text"
+          required
+        ></v-text-field>
+      </div>
+      <!-- user name -->
+      <div v-if="userNameEnabled" class="subtitle-2">
+        <v-icon v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-account-circle</v-icon>
+        <span v-if="solo">{{userNameTitle}}</span>
+        <v-text-field
+          v-model="userInfo.username"
+          tabindex="3"
+          :solo="solo"
+          :outlined="outlined"
+          flat
+          color="primary"
+          class="mt-2"
+          :rules="userNameRequiredEnabled ? [userNameRules.required] : [] "
+          name="userName"
           :prepend-icon="outlined && iconEnabled ? 'mdi-account-circle' : ''"
           type="text"
           required
@@ -90,8 +82,6 @@
           class="mt-2"
           :prepend-inner-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="passwordValidation"
-          :label="passwordTitle"
-          :placeholder="passwordPlaceholder"
           :prepend-icon="outlined && iconEnabled ? 'mdi-lock' : ''"
           name="password"
           :type="showPass ? 'text' : 'password'"
@@ -104,7 +94,6 @@
         <v-icon  v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-cellphone-iphone</v-icon>
         <span v-if="solo">{{phoneNumberTitle}}</span>
         <v-text-field
-          @input="onPhoneNumberChange"
           :value="userInfo.phoneNumber"
           tabindex="5"
           :solo="solo"
@@ -113,37 +102,52 @@
           color="primary"
           class="mt-2"
           :rules="phoneNumberValidation"
-          :label="phoneNumberTitle"
-          :placeholder="phoneNumberPlaceholder"
           :prepend-icon="outlined && iconEnabled ? 'mdi-cellphone-iphone' : ''"
           name="phoneNumber"
           type="text"
           required
           ></v-text-field>
       </div>
-      <!-- role -->
-      <v-row
-        class='justify-center'
-        >
-        <v-checkbox
-          v-model="userInfo.agreeRules"
-          tabindex="6"
-          :color="checkBoxColor"
-          :label="$t('components.register.rules')"
-          :rules="[agreeRulesRules.required]"
+      <!-- national code -->
+      <div v-if="nationalCodeEnabled" class="subtitle-2 input-placeholder-left">
+        <v-icon  v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-cellphone-iphone</v-icon>
+        <span v-if="solo">{{nationalCodeTitle}}</span>
+        <v-text-field
+          :value="userInfo.nationalCode"
+          tabindex="5"
+          :solo="solo"
+          :outlined="outlined"
+          flat
+          color="primary"
+          :rules="nationalCodeValidation"
+          class="mt-2"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-cellphone-iphone' : ''"
+          name="nationalCode"
+          type="text"
           required
-        >
-          <template v-slot:label>
-            <v-btn
-              text
-              small
-              @click="onOpenTermsAndConditions"
-            >
-              {{$t('components.register.rules')}}
-            </v-btn>
-          </template>
-        </v-checkbox>
-      </v-row>
+          ></v-text-field>
+      </div>
+      <!-- email -->
+      <div v-if="emailEnabled" class="subtitle-2 input-placeholder-left">
+        <v-icon v-if="solo && iconEnabled" col medium color="darken-2" class="ml-3">mdi-email</v-icon>
+        <span v-if="solo">{{emailTitle}}</span>
+        <v-text-field
+          v-model="userInfo.email"
+          autofocus
+          tabindex="1"
+          :solo="solo"
+          :outlined="outlined"
+          flat
+          color="primary"
+          class="mt-2"
+          :rules="emailValidation"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-email' : ''"
+          name="email"
+          type="text"
+          required
+        ></v-text-field>
+      </div>
+      <!-- role -->
       <!-- register btn -->
       <v-row class="justify-center mx-0">
         <v-btn
@@ -154,7 +158,7 @@
           :x-large="isButtonLarge"
           :disabled="!valid"
           :loading="isLoading"
-          class="white--text"
+          class="white--text mt-5"
           :color="registerButtonColor">
           {{registerButtonTitle}}
         </v-btn>
@@ -209,9 +213,13 @@
  * @property {Boolean} [nameEnabled]
  * @property {String} [lastNameTitle]
  * @property {String} [lastNamePlaceholder]
+ * @property {String} [userNamePlaceholder]
  * @property {String} [lastNameRequiredMessage]
  * @property {Boolean} [lastNameRequiredEnabled=true]
+ * @property {Boolean} [userNameRequiredEnabled=true]
  * @property {Boolean} [lastNameEnabled]
+ * @property {Boolean} [userNameEnabled]
+ * @property {Boolean} [nationalCodeEnabled]
  * @property {String} [passwordTitle]
  * @property {String} [passwordPlaceholder]
  * @property {String} [passwordRequiredMessage]
@@ -221,11 +229,13 @@
  * @property {Boolean} [passwordPatternEnabled=true]
  * @property {Boolean} [phoneNumberEnabled]
  * @property {String} [phoneNumberTitle]
+ * @property {String} [nationalCodeTitle]
  * @property {String} [phoneNumberPlaceholder]
  * @property {String} [phoneNumberRequiredMessage]
  * @property {String} [phoneNumberPatternRegex]
  * @property {String} [phoneNumberPatternMessage]
  * @property {Boolean} [phoneNumberRequiredEnabled=true]
+ * @property {Boolean} [nationalCodeRequiredEnabled=true]
  * @property {Boolean} [phoneNumberPatternEnabled=true]
  * @property {Boolean} [solo=true] - input theme is solo
  * @property {Boolean} [outlined=false] - input theme is outlined
@@ -402,6 +412,18 @@ export default {
       default: true,
       required: false
     },
+    nationalCodeEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    nationalCodeTitle: {
+      type: String,
+      default () {
+        return this.$t('components.register.nationalCode')
+      },
+      required: false
+    },
     phoneNumberTitle: {
       type: String,
       default () {
@@ -421,6 +443,18 @@ export default {
       default () {
         return this.$t('components.register.phoneNumberRequired')
       },
+      required: false
+    },
+    nationalCodeRequiredMessage: {
+      type: String,
+      default () {
+        return this.$t('components.register.nationalCodeRequired')
+      },
+      required: false
+    },
+    nationalCodeRequiredEnabled: {
+      type: Boolean,
+      default: true,
       required: false
     },
     phoneNumberPatternMessage: {
@@ -493,6 +527,30 @@ export default {
       default: true,
       required: false
     },
+    userNameEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    userNameTitle: {
+      type: String,
+      default () {
+        return this.$t('components.register.userName')
+      },
+      required: false
+    },
+    userNamePlaceholder: {
+      type: String,
+      default () {
+        return this.$t('components.register.userName')
+      },
+      required: false
+    },
+    userNameRequiredEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
     lastNameTitle: {
       type: String,
       default () {
@@ -514,9 +572,21 @@ export default {
       },
       required: false
     },
+    userNameRequiredMessage: {
+      type: String,
+      default () {
+        return this.$t('components.register.userNameRequired')
+      },
+      required: false
+    },
     lastNameRequiredEnabled: {
       type: Boolean,
       default: true,
+      required: false
+    },
+    userNamePatternRegex: {
+      type: String,
+      default: '/^[\u0600-\u06FF\u0020]+$/',
       required: false
     },
     lastNamePatternRegex: {
@@ -558,10 +628,10 @@ export default {
       userInfo: {
         password: '',
         phoneNumber: '',
-        name: '',
+        nationalCode: '',
+        username: '',
         lastName: '',
-        email: '',
-        agreeRules: false
+        email: ''
       },
       showPass: false,
       passwordRules: {
@@ -573,9 +643,16 @@ export default {
         pattern: value => RegExp(this.phoneNumberPatternRegex.substring(1, this.phoneNumberPatternRegex.length - 1)).test(value) || this.phoneNumberPatternMessage,
         counter: value => value.length === 11 || this.$t('components.register.phoneNumberCountValidation')
       },
+      nationalCodeRules: {
+        required: value => !!value || this.nationalCodeRequiredMessage,
+        counter: value => value.length === 10 || this.$t('components.register.nationalCodeCountValidation')
+      },
       nameRules: {
         required: value => !!value || this.nameRequiredMessage,
         pattern: value => RegExp(this.namePatternRegex.substring(1, this.namePatternRegex.length - 1)).test(value) || this.namePatternMessage
+      },
+      userNameRules: {
+        required: value => !!value || this.userNameRequiredMessage
       },
       lastNameRules: {
         required: value => !!value || this.lastNameRequiredMessage,
@@ -584,9 +661,6 @@ export default {
       emailRules: {
         required: value => !!value || this.emailRequiredMessage,
         pattern: value => RegExp(this.emailPatternRegex.substring(1, this.emailPatternRegex.length - 1)).test(value) || this.emailPatternMessage
-      },
-      agreeRulesRules: {
-        required: value => !!value
       }
     }
   },
@@ -620,42 +694,17 @@ export default {
         return [this.phoneNumberRules.pattern, this.phoneNumberRules.counter]
       }
       return ''
+    },
+    nationalCodeValidation () {
+      if (this.nationalCodeRequiredEnabled === true) {
+        return [this.nationalCodeRules.required, this.nationalCodeRules.counter]
+      }
+      return ''
     }
   },
   methods: {
-    onOpenTermsAndConditions () {
-      // TODO: target="_blank" does not work inside the checkbox template, temporarily used the
-      // click method and manually opened the link path in a new tab (should fixed and target
-      // attribute should be used instead)
-
-      const routeUrl = this.$router.resolve({
-        name: this.termsAndConditionsRoute
-      })
-      window.open(routeUrl.href, '_blank')
-    },
     register (event) {
       this.$emit('register', this.userInfo)
-    },
-    isNumber (evt) {
-      evt = (evt) || window.event
-      var charCode = (evt.which) ? evt.which : evt.keyCode
-      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
-        evt.preventDefault()
-      } else {
-        return true
-      }
-    },
-    onPhoneNumberChange (e) {
-      String.prototype.toEnglishDigits = function () {
-        return this.replace(/[۰-۹]/g, function (chr) {
-          var persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-          return persian.indexOf(chr);
-        });
-      };
-      if (e) {
-        e = e.toEnglishDigits()
-      }
-      this.userInfo.phoneNumber = e
     }
   }
 }

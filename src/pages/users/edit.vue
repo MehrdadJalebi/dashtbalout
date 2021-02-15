@@ -427,7 +427,7 @@
                   class="px-3 text-left"
                   >
                   <v-col
-                    :sm="2"
+                    :sm="4"
                     >
                     <form-item
                       v-model="bankAccount.bankName"
@@ -438,7 +438,7 @@
                       ></form-item>
                   </v-col>
                   <v-col
-                    :sm="2"
+                    :sm="4"
                     >
                     <form-item
                       v-model="bankAccount.bankBranch"
@@ -449,7 +449,7 @@
                       ></form-item>
                   </v-col>
                   <v-col
-                    :sm="2"
+                    :sm="4"
                     >
                     <form-item
                       v-model="bankAccount.accountNumber"
@@ -460,7 +460,7 @@
                       ></form-item>
                   </v-col>
                   <v-col
-                    :sm="3"
+                    :sm="5"
                     >
                     <form-item
                       v-model="bankAccount.cardNumber"
@@ -471,7 +471,7 @@
                       ></form-item>
                   </v-col>
                   <v-col
-                    :sm="3"
+                    :sm="6"
                     >
                     <form-item
                       v-model="bankAccount.shabaNumber"
@@ -480,6 +480,18 @@
                       :label="$t('enums.shabaNumber')"
                       :placeholder="$t('enums.placeholders.shabaNumber')"
                       ></form-item>
+                  </v-col>
+                    <v-col
+                      class="d-flex align-center"
+                      :sm="1"
+                      >
+                      <v-icon
+                        class="mt-5"
+                        color="red"
+                        @click="removeLastBankAccount"
+                      >
+                        mdi-delete
+                      </v-icon>
                   </v-col>
                 </v-row>
                 <v-row>
@@ -495,15 +507,6 @@
                         @click="addAnotherBankAccount"
                         >
                         {{ $t('enums.addAnotherBankAccount') }}
-                      </v-btn>
-                      <v-btn
-                        large
-                        outlined
-                        class="px-1"
-                        color="danger"
-                        @click="removeLastBankAccount"
-                        >
-                        {{ $t('enums.remove') }}
                       </v-btn>
                     </v-col>
                 </v-row>
@@ -598,18 +601,29 @@ export default {
     this.childrensCountArray = Array.from({ length: 30 }, (_, i) => ++i)
     this.underSupportPersonsCountArray = Array.from({ length: 30 }, (_, i) => ++i)
     const payload = {
-      userid: this.$route.query.id
+      userid: this.userId
     }
     this.getUserById(payload)
       .then(response => {
         this.user = response.data
+        const bankPayload = {
+          userid: this.userId
+        }
+        this.getBankAccountByUserId(bankPayload).then(res => {
+          console.log('eeeee', res)
+          this.bankAccounts = res.data
+        })
       })
   },
   methods: {
     ...mapActions({
       getUserById: 'users/getUserByUserId',
       updateByUserId: 'users/updateByUserId',
-      updateBankAccount: 'bankAccounts/updateBankAccount',
+      addBankAccount: 'bankAccounts/addBankAccountByUserId',
+      getBankAccountByUserId: 'bankAccounts/getBankAccountByUserId',
+      userNameExist: 'users/userNameExist',
+      mobileExist: 'users/mobileExist',
+      emailExist: 'users/emailExist',
       showToast: 'snackbar/showToastMessage'
     }),
     goStep (n) {
@@ -637,13 +651,15 @@ export default {
       })
     },
     removeLastBankAccount () {
-      this.bankAccounts.pop()
+      const id = this.bankAccounts[this.bankAccounts.length - 1].id
+      console.log(id)
+      // this.bankAccounts.pop()
     },
     editBankAccounts () {
       this.bankAccounts.forEach(bankAccount => {
         const payload = bankAccount
         payload.id = this.userId
-        this.updateBankAccount(payload).then(response => {
+        this.addBankAccount(payload).then(response => {
           const successMessage = this.$t('pages.users.bankInfoEditedSuccessfully')
           this.showToast({ content: successMessage, color: 'success' })
           console.log(response)

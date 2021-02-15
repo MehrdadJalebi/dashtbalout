@@ -21,7 +21,7 @@
             :sm="4"
             >
             <form-item
-              v-model="payroll.UserId"
+              v-model="payroll.userId"
               type="select"
               :items="userList"
               icon="mdi-account-circle"
@@ -33,7 +33,7 @@
             :sm="4"
             >
             <form-item
-              v-model="payroll.ContractId"
+              v-model="payroll.contractId"
               type="select"
               :items="contractsList"
               icon="mdi-account-circle"
@@ -45,7 +45,7 @@
             :sm="2"
             >
             <form-item
-              v-model="payroll.Month"
+              v-model="payroll.month"
               type="select"
               :items="monthsArray"
               icon="mdi-account-circle"
@@ -57,7 +57,7 @@
             :sm="2"
             >
             <form-item
-              v-model="payroll.Year"
+              v-model="payroll.year"
               type="select"
               :items="yearsArray"
               icon="mdi-account-circle"
@@ -73,13 +73,14 @@
             :sm="6"
             >
             <form-item
-              v-model="payroll.file"
+              v-model="file"
               class="file-upload mb-3"
               type="file"
               icon="mdi-file-upload"
               accept="image/*"
               :label="$t('enums.payrollFile')"
               :placeholder="$t('enums.placeholders.chooseFile')"
+              @input="uploadPayroll"
               ></form-item>
           </v-col>
         </v-row>
@@ -106,7 +107,9 @@ export default {
       yearsArray: [1395, 1396, 1397, 1398, 1399, 1400],
       userList: [],
       contractsList: [],
-      isLoading: true
+      isLoading: true,
+      file: null,
+      fileList: []
     }
   },
   computed: {
@@ -144,15 +147,20 @@ export default {
       getAllUsers: 'users/getAllUsers',
       getAllContracts: 'contracts/getAllContracts',
       addPayroll: 'payrolls/addPayroll',
+      upload: 'cdn/upload',
       showToast: 'snackbar/showToastMessage'
     }),
     addNewPayroll () {
-      console.log('this.payroll is: ', this.payroll)
       this.addPayroll(this.payroll).then(response => {
-        console.log('payroll res is: ', response)
         const successMessage = this.$t('pages.payrolls.addedSuccessfully')
         this.showToast({ content: successMessage, color: 'success' })
         this.$router.push({ name: 'payrolls' })
+      })
+    },
+    uploadPayroll () {
+      this.fileList.push(this.file)
+      this.upload(this.fileList).then(response => {
+        this.payroll.fileId = response.data.items[response.data.items.length - 1].fileId
       })
     }
   }

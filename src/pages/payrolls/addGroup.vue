@@ -21,19 +21,6 @@
             :sm="4"
             >
             <form-item
-              v-model="payroll.UserId"
-              type="select"
-              :items="userList"
-              icon="mdi-account-circle"
-              :label="$t('enums.userList')"
-              :placeholder="$t('enums.placeholders.userList')"
-              multiple
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="4"
-            >
-            <form-item
               v-model="payroll.ContractId"
               type="select"
               :items="contractsList"
@@ -43,7 +30,7 @@
               ></form-item>
           </v-col>
           <v-col
-            :sm="2"
+            :sm="4"
             >
             <form-item
               v-model="payroll.Month"
@@ -55,7 +42,7 @@
               ></form-item>
           </v-col>
           <v-col
-            :sm="2"
+            :sm="4"
             >
             <form-item
               v-model="payroll.Year"
@@ -74,13 +61,15 @@
             :sm="6"
             >
             <form-item
-              v-model="payroll.file"
+              v-model="file"
               class="file-upload mb-3"
               type="file"
+              multiple
               icon="mdi-file-upload"
               accept="image/*"
               :label="$t('enums.payrollFile')"
               :placeholder="$t('enums.placeholders.chooseFile')"
+              @input="uploadPayroll"
               ></form-item>
           </v-col>
         </v-row>
@@ -103,11 +92,15 @@ export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
     return {
-      payroll: {},
+      payroll: {
+        fileIds: []
+      },
       yearsArray: [1395, 1396, 1397, 1398, 1399, 1400],
       userList: [],
       contractsList: [],
-      isLoading: true
+      isLoading: true,
+      file: [],
+      fileList: []
     }
   },
   computed: {
@@ -125,13 +118,6 @@ export default {
       pageIndex: 1,
       pageSize: 100000
     }
-    this.getAllUsers(payload)
-      .then(response => {
-        this.isLoading = false
-        this.userList = response.data.map(user => {
-          return { text: user.fullName, value: user.id }
-        })
-      })
     this.getAllContracts(payload)
       .then(response => {
         this.contractsList = response.data.map(contract => {
@@ -142,9 +128,9 @@ export default {
   },
   methods: {
     ...mapActions({
-      getAllUsers: 'users/getAllUsers',
       getAllContracts: 'contracts/getAllContracts',
       addGroupPayroll: 'payrolls/addGroupPayroll',
+      upload: 'cdn/upload',
       showToast: 'snackbar/showToastMessage'
     }),
     addNewPayroll () {
@@ -154,6 +140,14 @@ export default {
         const successMessage = this.$t('pages.payrolls.addedSuccessfully')
         this.showToast({ content: successMessage, color: 'success' })
         this.$router.push({ name: 'payrolls' })
+      })
+    },
+    uploadPayroll () {
+      this.upload(this.file).then(response => {
+        console.log('response is: ', response)
+        response.data.items.map(item => {
+          this.payroll.fileIds.push(item.fileId)
+        })
       })
     }
   }

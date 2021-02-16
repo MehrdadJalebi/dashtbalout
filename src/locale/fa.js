@@ -350,7 +350,9 @@ export default {
       add: 'ثبت فیش حقوقی جدید',
       addGroup: 'ثبت فیش حقوقی گروهی',
       addPayrollBtn: 'ثبت فیش  جدید',
-      addedSuccessfully: 'فیش حقوقی با موفقیت افزوده شد'
+      addedSuccessfully: 'فیش حقوقی با موفقیت افزوده شد',
+      noticeText: 'نام فایل اکسل وارد شده باید برابر با شماره پرسنلی باشد',
+      payrollDeletedSuccessfully: 'فیش حقوقی با موفقیت حذف گردید'
     },
     contracts: {
       title: 'قرارداد ها',

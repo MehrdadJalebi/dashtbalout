@@ -94,6 +94,15 @@
               >
               {{ $t('enums.downloadPayroll') }}
             </v-btn>
+            <v-btn
+              small
+              outlined
+              class="px-1 mr-1"
+              color="error"
+              @click="deletePayroll(props.item.fileId)"
+              >
+              {{ $t('enums.tableActions.delete') }}
+            </v-btn>
           </td>
         </tr>
       </template>
@@ -161,6 +170,8 @@ export default {
     ...mapActions({
       getAllUsers: 'users/getAllUsers',
       getPayrollByUserId: 'payrolls/getPayrollByUserId',
+      delete: 'payrolls/delete',
+      showToast: 'snackbar/showToastMessage',
       download: 'cdn/download'
     }),
     getUserPayrolls () {
@@ -180,6 +191,16 @@ export default {
       }
       this.download(payload).then(response => {
         console.log(response)
+      })
+    },
+    deletePayroll (fileId) {
+      const payload = {
+        fileid: fileId
+      }
+      this.delete(payload).then(response => {
+        const successMessage = this.$t('pages.payrolls.payrollDeletedSuccessfully')
+        this.showToast({ content: successMessage, color: 'success' })
+        this.getUserPayrolls()
       })
     }
   }

@@ -215,7 +215,7 @@
                       :sm="3"
                       >
                       <form-item
-                        v-model="user.birthDate"
+                        v-model="user.birthdate"
                         icon="mdi-calendar"
                         type="date"
                         :label="$t('enums.birthDate')"

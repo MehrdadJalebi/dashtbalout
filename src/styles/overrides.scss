@@ -12,6 +12,20 @@
     }
   }
 }
+.vpd-input-group{
+  margin-top: 10px;
+  border-radius: 5px;
+  align-items: center;
+  line-height: 50px;
+  min-height: 56px;
+  border: 1px solid #808080 !important;
+  padding: 0 !important;
+  margin-bottom: 0;
+  input {
+    border: 0;
+    width: 100%;
+  }
+}
 .form-basic{
   padding-right: 20px;
   > div{

@@ -67,6 +67,12 @@ export default {
           return context.dispatch('setTokenInfo', tokenData)
         })
     },
+    confirm (context, payload) {
+      return this.server.Confirm(payload)
+    },
+    forgotPassword (context, payload) {
+      return this.server.ForgotPassword(payload)
+    },
 
     init (context) {
       return context.dispatch('loginWithRefreshToken')

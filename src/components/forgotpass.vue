@@ -13,11 +13,11 @@
     </v-row>
     <v-form ref="form" v-model="valid" @submit.prevent="onRecoverPassword">
       <!-- email -->
-      <div class="subtitle-2 input-placeholder-left pt-1">
+      <div  v-if="emailEnabled" class="subtitle-2 input-placeholder-left pt-1">
         <v-icon v-if="solo && iconEnabled" col medium color="darken-2" class="ml-3">mdi-email</v-icon>
         <span v-if="solo">{{ emailTitle }}</span>
         <v-text-field
-          v-model="email"
+          v-model="userInfo.email"
           autofocus
           :solo="solo"
           :outlined="outlined"
@@ -32,6 +32,65 @@
           required
         ></v-text-field>
       </div>
+      <!-- phone number -->
+      <div v-if="phoneNumberEnabled" class="subtitle-2 input-placeholder-left">
+        <v-icon  v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-cellphone-iphone</v-icon>
+        <span v-if="solo">{{phoneNumberTitle}}</span>
+        <v-text-field
+          v-model="userInfo.phoneNumber"
+          tabindex="5"
+          :solo="solo"
+          :outlined="outlined"
+          flat
+          color="primary"
+          class="mt-2"
+          :rules="phoneNumberValidation"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-cellphone-iphone' : ''"
+          name="phoneNumber"
+          type="text"
+          required
+          ></v-text-field>
+      </div>
+      <!-- password  -->
+      <div v-if="passwordEnabled" class="subtitle-2 input-placeholder-left">
+        <v-icon  v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-lock</v-icon>
+        <span v-if="solo">{{passwordTitle}}</span>
+        <v-text-field
+          v-model="userInfo.password"
+          tabindex="4"
+          :solo="solo"
+          :outlined="outlined"
+          flat
+          color="primary"
+          class="mt-2"
+          :prepend-inner-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+          :rules="passwordValidation"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-lock' : ''"
+          name="password"
+          :type="showPass ? 'text' : 'password'"
+          required
+          @click:prepend-inner="showPass = !showPass"
+        ></v-text-field>
+      </div>
+      <!-- pin code-->
+      <div v-if="pinEnabled" class="subtitle-2 input-placeholder-left">
+        <v-icon  v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-lock</v-icon>
+        <span v-if="solo">{{pinTitle}}</span>
+        <v-text-field
+          v-model="userInfo.pin"
+          tabindex="4"
+          :solo="solo"
+          :outlined="outlined"
+          flat
+          color="primary"
+          class="mt-2"
+          :rules="pinValidation"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-lock' : ''"
+          name="pin"
+          type="text"
+          required
+        ></v-text-field>
+      </div>
       <!------------>
       <v-row
         class="justify-center mx-0 my-3">
@@ -39,6 +98,7 @@
           type="submit"
           :width="buttonWidth"
           :disabled="!valid"
+          :loading="isLoading"
           :block="isButtonFullWidth"
           :x-large="isButtonLarge"
           class="white--text"
@@ -88,12 +148,24 @@
  * @property {String} [recoveryButtonColor='blue darken-2']
  * @property {String} [recoveryLinkColor='blue darken-2']
  * @property {String} [registerRoute='register']
+ * @property {Boolean} [emailEnabled]
+ * @property {Boolean} [phoneNumberEnabled]
+ * @property {Boolean} [passwordEnabled]
+ * @property {String} [passwordTitle]
  * @property {String} [emailTitle]
  * @property {String} [emailPlaceholder]
  * @property {String} [emailRequiredMessage]
  * @property {String} [emailPatternRegex]
  * @property {String} [emailPatternMessage]
+ * @property {Boolean} [passwordRequiredEnabled=true]
+ * @property {Boolean} [passwordPatternEnabled=true]
+ * @property {String} [passwordPatternMessage]
  * @property {Boolean} [emailIsRequired=true]
+ * @property {String} [phoneNumberPatternMessage]
+ * @property {String} [phoneNumberPatternRegex]
+ * @property {String} [phoneNumberRequiredMessage]
+ * @property {Boolean} [phoneNumberRequiredEnabled=true]
+ * @property {Boolean} [phoneNumberPatternEnabled=true]
  * @property {Boolean} [emailHavePattern=true]
  * @property {Boolean} [solo=true] - input theme is solo
  * @property {Boolean} [outlined=false] - input theme is outlined
@@ -104,6 +176,7 @@
  * @property {String} [backLinkColor=''] - Specifies back button color
  * @property {Boolean} [isButtonLarge=false] - Specifies Button is larger than usual or not
  * @property {Number} [buttonWidth=200] - button width
+ * @property {Boolean} [isLoading=false] - button loading state
 
  */
 export default {
@@ -118,7 +191,27 @@ export default {
       default: true,
       required: false
     },
+    emailEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
     solo: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    passwordEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    passwordRequiredEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    passwordPatternEnabled: {
       type: Boolean,
       default: true,
       required: false
@@ -133,6 +226,20 @@ export default {
       default: false,
       required: false
     },
+    passwordTitle: {
+      type: String,
+      default () {
+        return this.$t('components.forgotPassword.password')
+      },
+      required: false
+    },
+    passwordRequiredMessage: {
+      type: String,
+      default () {
+        return this.$t('components.forgotPassword.passwordRequired')
+      },
+      required: false
+    },
     recoveryButtonTitle: {
       type: String,
       default () {
@@ -143,6 +250,18 @@ export default {
     isButtonFullWidth: {
       type: Boolean,
       default: false,
+      required: false
+    },
+    passwordPatternMessage: {
+      type: String,
+      default () {
+        return this.$t('components.forgotPassword.passwordValidation')
+      },
+      required: false
+    },
+    passwordPatternRegex: {
+      type: String,
+      default: '/^(?=.*).{8,}/',
       required: false
     },
     recoveryButtonColor: {
@@ -203,6 +322,88 @@ export default {
       default: true,
       required: false
     },
+    phoneNumberTitle: {
+      type: String,
+      default () {
+        return this.$t('components.forgotPassword.phoneNumber')
+      },
+      required: false
+    },
+    phoneNumberRequiredMessage: {
+      type: String,
+      default () {
+        return this.$t('components.forgotPassword.phoneNumberRequired')
+      },
+      required: false
+    },
+    phoneNumberPatternMessage: {
+      type: String,
+      default () {
+        return this.$t('components.forgotPassword.phoneNumberValidation')
+      },
+      required: false
+    },
+    phoneNumberPatternRegex: {
+      type: String,
+      default: '/09[0-9]{9,9}/',
+      required: false
+    },
+    phoneNumberRequiredEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    phoneNumberPatternEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    phoneNumberEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    pinEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    pinTitle: {
+      type: String,
+      default () {
+        return this.$t('components.forgotPassword.pin')
+      },
+      required: false
+    },
+    pinRequiredMessage: {
+      type: String,
+      default () {
+        return this.$t('components.forgotPassword.pinRequired')
+      },
+      required: false
+    },
+    pinPatternMessage: {
+      type: String,
+      default () {
+        return this.$t('components.forgotPassword.pinValidation')
+      },
+      required: false
+    },
+    pinPatternRegex: {
+      type: String,
+      default: '/[0-9]/',
+      required: false
+    },
+    pinRequiredEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
+    pinPatternEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
     titleEnabled: {
       type: Boolean,
       default: true,
@@ -227,15 +428,40 @@ export default {
       type: Boolean,
       default: false,
       required: false
+    },
+    isLoading: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   data () {
     return {
       valid: true,
-      email: '',
+      userInfo: {
+        phoneNumber: '',
+        email: '',
+        password: '',
+        pin: ''
+      },
+      showPass: false,
       emailRules: {
         required: value => !!value || this.emailRequiredMessage,
         pattern: value => RegExp(this.emailPatternRegex.substring(1, this.emailPatternRegex.length - 1)).test(value) || this.emailPatternMessage
+      },
+      passwordRules: {
+        required: value => !!value || this.passwordRequiredMessage,
+        pattern: value => RegExp(this.passwordPatternRegex.substring(1, this.passwordPatternRegex.length - 1)).test(value) || this.passwordPatternMessage
+      },
+      pinRules: {
+        required: value => !!value || this.pinRequiredMessage,
+        pattern: value => RegExp(this.pinPatternRegex.substring(1, this.pinPatternRegex.length -
+          1)).test(value) || this.pinPatternMessage
+      },
+      phoneNumberRules: {
+        required: value => !!value || this.phoneNumberRequiredMessage,
+        pattern: value => RegExp(this.phoneNumberPatternRegex.substring(1, this.phoneNumberPatternRegex.length - 1)).test(value) || this.phoneNumberPatternMessage,
+        counter: value => value.length === 11 || this.$t('components.register.phoneNumberCountValidation')
       }
     }
   },
@@ -249,13 +475,41 @@ export default {
         return [this.emailRules.pattern]
       }
       return ''
+    },
+    passwordValidation () {
+      if (this.passwordRequiredEnabled === true && this.passwordPatternEnabled === true) {
+        return [this.passwordRules.required, this.passwordRules.pattern]
+      } else if (this.passwordRequiredEnabled === true) {
+        return [this.passwordRules.required]
+      } else if (this.passwordPatternEnabled === true) {
+        return [this.passwordRules.pattern]
+      }
+      return ''
+    },
+    phoneNumberValidation () {
+      if (this.phoneNumberRequiredEnabled === true && this.phoneNumberPatternEnabled === true) {
+        return [this.phoneNumberRules.required, this.phoneNumberRules.pattern, this.phoneNumberRules.counter]
+      } else if (this.phoneNumberRequiredEnabled === true) {
+        return [this.phoneNumberRules.required, this.phoneNumberRules.counter]
+      } else if (this.phoneNumberPatternEnabled === true) {
+        return [this.phoneNumberRules.pattern, this.phoneNumberRules.counter]
+      }
+      return ''
+    },
+    pinValidation () {
+      if (this.pinRequiredEnabled === true && this.pinPatternEnabled === true) {
+        return [this.pinRules.required, this.pinRules.pattern]
+      } else if (this.pinRequiredEnabled === true) {
+        return [this.pinRules.required]
+      } else if (this.pinPatternEnabled === true) {
+        return [this.pinRules.pattern]
+      }
+      return ''
     }
   },
   methods: {
     onRecoverPassword (event) {
-      this.$emit('forgotpass', {
-        email: this.email
-      })
+      this.$emit('forgotpass', this.userInfo)
     }
   }
 }

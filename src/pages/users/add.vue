@@ -216,11 +216,11 @@
                       >
                       <form-item
                         v-model="user.birthDate"
-                        type="textbox"
-                        icon="mdi-account-circle"
+                        icon="mdi-calendar"
+                        type="date"
                         :label="$t('enums.birthDate')"
                         :placeholder="$t('enums.placeholders.birthDate')"
-                        ></form-item>
+                      ></form-item>
                     </v-col>
                       <v-col
                         :sm="3"
@@ -351,33 +351,33 @@
                   >
                   <form-item
                     v-model="user.employmentDate"
-                    type="textbox"
-                    icon="mdi-account-circle"
+                    icon="mdi-calendar"
+                    type="date"
                     :label="$t('enums.employmentDate')"
                     :placeholder="$t('enums.placeholders.employmentDate')"
-                    ></form-item>
+                  ></form-item>
                 </v-col>
                 <v-col
                   :sm="3"
                   >
                   <form-item
                     v-model="user.startWorkDate"
-                    type="textbox"
-                    icon="mdi-account-circle"
+                    icon="mdi-calendar"
+                    type="date"
                     :label="$t('enums.startWorkDate')"
                     :placeholder="$t('enums.placeholders.startWorkDate')"
-                    ></form-item>
+                  ></form-item>
                 </v-col>
                 <v-col
                   :sm="3"
                   >
                   <form-item
                     v-model="user.endWorkDate"
-                    type="textbox"
-                    icon="mdi-account-circle"
+                    icon="mdi-calendar"
+                    type="date"
                     :label="$t('enums.endWorkDate')"
                     :placeholder="$t('enums.placeholders.endWorkDate')"
-                    ></form-item>
+                  ></form-item>
                 </v-col>
                         <v-col
                           :sm="3"
@@ -650,6 +650,7 @@ export default {
       } else if (this.stepper.current === 2) {
         console.log(this.user)
         this.user.userid = this.userId
+        this.user.experience = Number(this.user.experience)
         this.updateByUserId(this.user).then(response => {
           const successMessage = this.$t('pages.users.userCompletedSuccessfully')
           this.showToast({ content: successMessage, color: 'success' })

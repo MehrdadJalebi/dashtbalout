@@ -475,24 +475,13 @@
         }
       }
     },
-    "/api/v1/messages/add/{userid}": {
+    "/api/v1/messages/add": {
       "post": {
         "tags": [
           "Messages"
         ],
         "summary": "Only Admin",
         "operationId": "AddMessageByUserId",
-        "parameters": [
-          {
-            "name": "userid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -525,6 +514,57 @@
           "Messages"
         ],
         "operationId": "GetMessages",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MessageResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MessageResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MessageResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/messages/{userid}": {
+      "get": {
+        "tags": [
+          "Messages"
+        ],
+        "summary": "Only Admin",
+        "operationId": "GetMessageByUserId",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -1072,6 +1112,13 @@
               "type": "string",
               "nullable": true
             }
+          },
+          {
+            "name": "UserStatus",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/UserStatus"
+            }
           }
         ],
         "responses": {
@@ -1121,8 +1168,11 @@
                 "type": "object",
                 "properties": {
                   "file": {
-                    "type": "string",
-                    "format": "binary",
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
                     "nullable": true
                   }
                 }
@@ -1432,8 +1482,11 @@
                 "type": "object",
                 "properties": {
                   "file": {
-                    "type": "string",
-                    "format": "binary",
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
                     "nullable": true
                   }
                 }
@@ -1777,6 +1830,14 @@
       "MessageRequest": {
         "type": "object",
         "properties": {
+          "userIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          },
           "title": {
             "type": "string",
             "nullable": true
@@ -2006,6 +2067,13 @@
         },
         "additionalProperties": false
       },
+      "UserStatus": {
+        "enum": [
+          "Enable",
+          "Disable"
+        ],
+        "type": "string"
+      },
       "Gender": {
         "enum": [
           "Male",
@@ -2017,13 +2085,6 @@
         "enum": [
           "Single",
           "Married"
-        ],
-        "type": "string"
-      },
-      "UserStatus": {
-        "enum": [
-          "Enable",
-          "Disable"
         ],
         "type": "string"
       },

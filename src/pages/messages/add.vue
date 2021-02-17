@@ -11,88 +11,54 @@
 <template>
   <div>
     <v-card class="mt-5">
-      <v-card-title>
-        {{ $t('pages.payrolls.add') }}
-      </v-card-title>
         <v-row
           class="px-3"
           >
           <v-col
-            :sm="4"
+            :sm="12"
             >
             <form-item
-              v-model="payroll.userId"
+              v-model="message.userIds"
               type="select"
               :items="userList"
+              multiple
               icon="mdi-account-circle"
               :label="$t('enums.userList')"
               :placeholder="$t('enums.placeholders.userList')"
               ></form-item>
           </v-col>
           <v-col
-            :sm="4"
+            :sm="12"
             >
             <form-item
-              v-model="payroll.contractId"
-              type="select"
-              :items="contractsList"
+              v-model="message.title"
+              type="textbox"
               icon="mdi-account-circle"
-              :label="$t('enums.contractTitle')"
-              :placeholder="$t('enums.placeholders.contractTitle')"
+              :label="$t('enums.messageTitle')"
+              :placeholder="$t('enums.placeholders.messageTitle')"
               ></form-item>
           </v-col>
           <v-col
-            :sm="2"
+            :sm="12"
             >
             <form-item
-              v-model="payroll.month"
-              type="select"
-              :items="monthsArray"
+              v-model="message.body"
+              type="textarea"
+              rows="6"
               icon="mdi-account-circle"
-              :label="$t('enums.month')"
-              :placeholder="$t('enums.placeholders.month')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="2"
-            >
-            <form-item
-              v-model="payroll.year"
-              type="select"
-              :items="yearsArray"
-              icon="mdi-account-circle"
-              :label="$t('enums.year')"
-              :placeholder="$t('enums.placeholders.year')"
-              ></form-item>
-          </v-col>
-        </v-row>
-        <v-row
-          class="px-3"
-          >
-          <v-col
-            :sm="6"
-            >
-            <form-item
-              v-model="file"
-              class="file-upload mb-3"
-              type="file"
-              icon="mdi-file-upload"
-              accept="image/*"
-              :label="$t('enums.payrollFile')"
-              :placeholder="$t('enums.placeholders.chooseFile')"
-              @input="uploadPayroll"
+              :label="$t('enums.messageBody')"
+              :placeholder="$t('enums.placeholders.messageBody')"
               ></form-item>
           </v-col>
         </v-row>
           <v-card-actions>
             <v-btn
-              :loading="isLoading"
               large
               class="px-5 ml-1 mr-auto"
               color="success"
-              @click="addNewPayroll"
+              @click="sendMessage"
               >
-              {{ $t('pages.payrolls.addPayrollBtn') }}
+              {{ $t('enums.sendMessage') }}
             </v-btn>
           </v-card-actions>
     </v-card>
@@ -104,24 +70,19 @@ export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
     return {
-      payroll: {},
-      yearsArray: [1395, 1396, 1397, 1398, 1399, 1400],
+      message: {
+        userIds: [],
+        title: null,
+        body: null
+      },
       userList: [],
-      contractsList: [],
-      file: null,
-      fileList: [],
       isLoading: false
     }
   },
   computed: {
     ...mapGetters({
       monthsArray: 'enums/monthsArray'
-    }),
-    fileRules () {
-      return [
-        v => (v && v.length > 0) || 'Required'
-      ]
-    }
+    })
   },
   created () {
     const payload = {
@@ -135,35 +96,18 @@ export default {
           return { text: user.fullName, value: user.id }
         })
       })
-    this.getAllContracts(payload)
-      .then(response => {
-        this.contractsList = response.data.map(contract => {
-          return { text: contract.title, value: contract.id }
-        })
-        this.isLoading = false
-      })
   },
   methods: {
     ...mapActions({
       getAllUsers: 'users/getAllUsers',
-      getAllContracts: 'contracts/getAllContracts',
-      addPayroll: 'payrolls/addPayroll',
-      upload: 'cdn/upload',
+      addMessageByUserId: 'messages/addMessageByUserId',
       showToast: 'snackbar/showToastMessage'
     }),
-    addNewPayroll () {
-      this.addPayroll(this.payroll).then(response => {
-        const successMessage = this.$t('pages.payrolls.addedSuccessfully')
+    sendMessage () {
+      this.addMessageByUserId(this.message).then(response => {
+        const successMessage = this.$t('pages.messages.messageSendedSuccessfully')
         this.showToast({ content: successMessage, color: 'success' })
-        this.$router.push({ name: 'payrolls' })
-      })
-    },
-    uploadPayroll () {
-      this.isLoading = true
-      this.fileList.push(this.file)
-      this.upload(this.fileList).then(response => {
-        this.payroll.fileId = response.data.items[response.data.items.length - 1].fileId
-        this.isLoading = false
+        console.log(response)
       })
     }
   }

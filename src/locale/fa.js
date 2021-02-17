@@ -370,6 +370,7 @@ export default {
     },
     messages: {
       title: 'پیام ها',
+      add: 'نوشتن پیام جدید',
       messageSendedSuccessfully: 'پیام با موفقیت ارسال شد'
     },
     userMessages: {
@@ -436,6 +437,7 @@ export default {
     sendMessage: 'ارسال پیام',
     userList: 'لیست کاربران',
     getUserPayrolls: 'نمایش فیش های حقوقی',
+    getUserMessages: 'نمایش پیامهای کاربر',
     downloadPayroll: 'دانلود فیش  حقوقی',
     payrollFile: 'فایل فیش حقوقی',
     isRead: 'خوانده شده',

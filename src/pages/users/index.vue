@@ -14,7 +14,7 @@
     <page-title
       :title="$t('pages.users.usersList')"
     >
-    <div
+     <div
        class="mb-3">
          <v-btn
            color="success"
@@ -37,7 +37,7 @@
            </v-icon>
        {{ $t('pages.users.add') }}
          </v-btn>
-       </div>
+      </div>
     </page-title>
     <v-data-table
       class="report-table text-right"

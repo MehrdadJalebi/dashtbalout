@@ -15,57 +15,79 @@
       :title="$t('pages.messages.title')"
     >
     </page-title>
-    <v-card class="mt-5">
-        <v-row
-          class="px-3"
-          >
-          <v-col
-            :sm="12"
-            >
-            <form-item
-              v-model="message.userid"
-              type="select"
-              :items="userList"
-              icon="mdi-account-circle"
-              :label="$t('enums.userList')"
-              :placeholder="$t('enums.placeholders.userList')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="12"
-            >
-            <form-item
-              v-model="message.title"
-              type="textbox"
-              icon="mdi-account-circle"
-              :label="$t('enums.messageTitle')"
-              :placeholder="$t('enums.placeholders.messageTitle')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="12"
-            >
-            <form-item
-              v-model="message.body"
-              type="textarea"
-              rows="6"
-              icon="mdi-account-circle"
-              :label="$t('enums.messageBody')"
-              :placeholder="$t('enums.placeholders.messageBody')"
-              ></form-item>
-          </v-col>
-        </v-row>
-          <v-card-actions>
+    <v-data-table
+      align-center
+      class="report-table"
+      :headers="headers"
+      :options.sync="pages"
+      :items="messagesList"
+      :loading="isLoading"
+      disable-sort
+      >
+      <template slot="item" slot-scope="props">
+        <tr>
+          <td class="data-min-td"> {{ props.item.title }} </td>
+          <td class="data-min-td"> {{ props.item.body.substring(0,60) }}
+            <span v-if="props.item.body.length > 60">...</span>
+          </td>
+          <td v-if="props.item.isRead" class="data-min-td success--text"> {{ isRead }} </td>
+          <td v-else class="data-min-td error--text"> {{ isntRead }} </td>
+          <td class="data-min-td"> {{ props.item.dateAt }} </td>
+          <td class="data-min-td">
             <v-btn
-              large
-              class="px-5 ml-1 mr-auto"
-              color="success"
-              @click="sendMessage"
+              small
+              outlined
+              class="px-1"
+              color="primary"
+              @click="showMessageModal(props.item)"
               >
-              {{ $t('enums.sendMessage') }}
+              {{ $t('enums.showMessage') }}
             </v-btn>
-          </v-card-actions>
-    </v-card>
+          </td>
+        </tr>
+      </template>
+    </v-data-table>
+    <v-dialog
+      v-model="dialog"
+      width="700"
+      >
+      <v-card class="px-3 pb-3">
+        <v-card-title class="headline">
+          {{ $t('enums.showMessage') }}
+        </v-card-title>
+      <v-card
+        outlined
+        class="border-box"
+        >
+        <v-card
+          flat
+          class="d-flex">
+          <v-layout
+            flex-column
+            justify-right
+            align-center
+            class="pa-2"
+            >
+            <v-row>
+              <v-card-text>{{$t('enums.messageTitle') }} : {{ message.title }}</v-card-text>
+            </v-row>
+        <v-row>
+          <v-card-text>{{$t('enums.messageBody') }} : {{ message.body}}</v-card-text>
+        </v-row>
+          </v-layout>
+        </v-card>
+      </v-card>
+      <div class="text-center mt-3">
+        <v-btn
+          :loading="btnLoading"
+          color="primary"
+          @click="readMessage(message)"
+          >
+          {{ $t('pages.userMessages.readedMessageBtn') }}
+        </v-btn>
+      </div>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -74,33 +96,70 @@ export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
     return {
-      message: {},
-      userList: []
+      pages: {},
+      totalItems: 0,
+      isLoading: false,
+      btnLoading: false,
+      dialog: false,
+      isRead: this.$t('enums.isRead'),
+      isntRead: this.$t('enums.isntRead'),
+      messagesList: [],
+      message: {}
     }
   },
   created () {
-    const payload = {
-      pageIndex: 1,
-      pageSize: 100000
+    this.getUserMessages()
+  },
+  computed: {
+    headers () {
+      return [
+        {
+          text: this.$t('enums.headers.messageTitle'),
+          value: 'title'
+        },
+        {
+          text: this.$t('enums.headers.messageBody'),
+          value: 'body'
+        },
+        {
+          text: this.$t('enums.headers.status'),
+          value: 'isRead'
+        },
+        {
+          text: this.$t('enums.headers.sendingDate'),
+          value: 'dateAt'
+        },
+        {
+          text: this.$t('enums.headers.actions'),
+          value: 'actions'
+        }
+      ]
     }
-    this.getAllUsers(payload)
-      .then(response => {
-        this.userList = response.data.map(user => {
-          return { text: user.fullName, value: user.id }
-        })
-      })
   },
   methods: {
     ...mapActions({
-      getAllUsers: 'users/getAllUsers',
-      addMessageByUserId: 'messages/addMessageByUserId',
+      getMessages: 'messages/getMessages',
+      readed: 'messages/readed',
       showToast: 'snackbar/showToastMessage'
     }),
-    sendMessage () {
-      this.addMessageByUserId(this.message).then(response => {
-        const successMessage = this.$t('pages.messages.messageSendedSuccessfully')
-        this.showToast({ content: successMessage, color: 'success' })
-        console.log(response)
+    getUserMessages () {
+      this.isLoading = true
+      this.getMessages()
+        .then(response => {
+          this.messagesList = response.data
+          this.isLoading = false
+        })
+    },
+    showMessageModal (val) {
+      this.message = val
+      this.dialog = true
+    },
+    readMessage (message) {
+      this.btnLoading = true
+      this.readed({ id: message.id }).then(response => {
+        this.btnLoading = false
+        this.getUserMessages()
+        this.dialog = false
       })
     }
   }

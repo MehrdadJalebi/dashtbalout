@@ -371,6 +371,10 @@ export default {
     messages: {
       title: 'پیام ها',
       messageSendedSuccessfully: 'پیام با موفقیت ارسال شد'
+    },
+    userMessages: {
+      title: 'پیام ها',
+      readedMessageBtn: 'خوانده شد'
     }
   },
   enums: {
@@ -428,11 +432,14 @@ export default {
     remove: 'حذف',
     messageTitle: 'عنوان پیام',
     messageBody: 'متن پیام',
+    showMessage: 'نمایش  پیام',
     sendMessage: 'ارسال پیام',
     userList: 'لیست کاربران',
     getUserPayrolls: 'نمایش فیش های حقوقی',
     downloadPayroll: 'دانلود فیش  حقوقی',
     payrollFile: 'فایل فیش حقوقی',
+    isRead: 'خوانده شده',
+    isntRead: 'خوانده نشده',
     placeholders: {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
@@ -502,7 +509,11 @@ export default {
       type: 'نوع',
       description: 'توضیحات',
       payrollType: 'نوع فیش  حقوقی',
-      userState: 'کاربر فعال'
+      userState: 'کاربر فعال',
+      messageTitle: 'عنوان پیام',
+      messageBody: 'متن پیام',
+      status: 'وضعیت',
+      sendingDate: 'تاریخ ارسال'
     },
     tableActions: {
       edit: 'ویرایش',

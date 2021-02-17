@@ -17,16 +17,13 @@ export default {
   actions: {
     addMessage (context, payload) {
     },
-    getAllMessages (context, payload) {
-      return this.server.GetAll({
-        PageIndex: payload.pageIndex,
-        PageSize: payload.pageSize
-      })
+    getMessages (context, payload) {
+      return this.server.GetMessages()
     },
     editMessage (context, payload) {
     },
-    register (context, payload) {
-      return this.server.Register(payload)
+    readed (context, payload) {
+      return this.server.Readed(payload)
     },
     update (context, payload) {
       return this.server.Update(payload)

@@ -112,7 +112,7 @@ export default {
         fileid: fileId
       }
       this.download(payload).then(response => {
-        console.log(response)
+        window.open(`https://webapi.asazan.com/api/v1/cdn/${fileId}`, '_blank')
       })
     }
   }

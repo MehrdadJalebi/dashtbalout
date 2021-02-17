@@ -74,7 +74,7 @@ export default {
     cancelButtonColor: {
       type: String,
       required: false,
-      default: 'gray'
+      default: 'error'
     }
   },
   data: () => ({

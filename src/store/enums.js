@@ -50,6 +50,11 @@ export default {
       excel: 'Excel',
       pdf: 'Pdf',
       image: 'Image'
+    },
+    userTypes: {
+      all: 'All',
+      enable: 'Enable',
+      disable: 'Disable'
     }
   },
   getters: {
@@ -129,6 +134,16 @@ export default {
     contractTypesArray (state) {
       const array = Object.entries(state.contractTypes).map(([key, value]) => {
         const translate = APP_CONFIG.locales[APP_CONFIG.locale].enums.contractsTypes[key]
+        return {
+          value: value,
+          text: translate
+        }
+      })
+      return array
+    },
+    userTypeArray (state) {
+      const array = Object.entries(state.userTypes).map(([key, value]) => {
+        const translate = APP_CONFIG.locales[APP_CONFIG.locale].enums.userTypes[key]
         return {
           value: value,
           text: translate

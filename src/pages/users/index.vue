@@ -16,6 +16,18 @@
     >
      <div
        class="mb-3">
+        <v-btn
+          :outlined="!filterBtn.isActive"
+          max-width="42"
+          min-width="42"
+          class="ml-2"
+          :color="filterBtn.btnColor"
+          @click="filter()">
+          <v-icon
+            :color="filterBtn.iconColor">
+            mdi-filter
+          </v-icon>
+        </v-btn>
          <v-btn
            color="success"
            @click="excelAddUsersModal">
@@ -39,6 +51,27 @@
          </v-btn>
       </div>
     </page-title>
+      <filter-box
+        v-if="filterBtn.isActive"
+        :disable-from-date=true
+        :disable-to-date=true
+        @Filter="onFilter"
+        @cancelFilter="onCancelFilter"
+        >
+        <filter-item
+          v-model="filterObject.search"
+          type="textbox"
+          :placeholder="$t('components.filterBox.search')"
+          @input="onFilter"
+          ></filter-item>
+        <filter-item
+          v-model="filterObject.userType"
+          type="select"
+          :items='userTypeArray'
+          :placeholder="$t('components.filterBox.userStatus')"
+          @input="onFilter"
+          ></filter-item>
+      </filter-box>
     <v-data-table
       class="report-table text-right"
       :headers="headers"
@@ -52,6 +85,7 @@
           <td class="data-min-td"> {{ props.item.firstName }} </td>
           <td class="data-min-td"> {{ props.item.lastName }} </td>
           <td class="data-min-td"> {{ props.item.nationalCode }} </td>
+          <td class="data-min-td"> {{ props.item.username }} </td>
           <td class="data-min-td"> {{ props.item.personnelNumber }} </td>
           <td class="data-min-td">
             <v-switch
@@ -140,7 +174,7 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
@@ -151,10 +185,22 @@ export default {
       pages: {},
       totalItems: 0,
       isLoading: true,
-      usersList: []
+      usersList: [],
+      filterBtn: {
+        iconColor: 'primary',
+        btnColor: 'primary',
+        isActive: false
+      },
+      filterObject: {
+        userType: null,
+        search: null
+      }
     }
   },
   computed: {
+    ...mapGetters({
+      userTypeArray: 'enums/userTypeArray'
+    }),
     headers () {
       return [
         {
@@ -168,6 +214,10 @@ export default {
         {
           text: this.$t('enums.headers.nationalCode'),
           value: 'nationalCode'
+        },
+        {
+          text: this.$t('enums.headers.userName'),
+          value: 'userName'
         },
         {
           text: this.$t('enums.headers.personnelNumber'),
@@ -189,20 +239,7 @@ export default {
     }
   },
   created () {
-    const payload = {
-      pageIndex: this.page,
-      pageSize: this.pageCount
-    }
-    this.getAllUsers(payload)
-      .then(response => {
-        this.usersList = response.data
-        this.usersList.map(user => {
-          user.isAdmin = user.role === 'Admin'
-          user.isActive = user.userState === 'Enable'
-        })
-        console.log(this.usersList)
-        this.isLoading = false
-      })
+    this.loadData()
   },
   methods: {
     ...mapActions({
@@ -212,6 +249,45 @@ export default {
       disableUser: 'users/disableUser',
       showToast: 'snackbar/showToastMessage'
     }),
+    filter () {
+      this.filterBtn.isActive = !this.filterBtn.isActive
+      if (this.filterBtn.isActive) {
+        this.filterBtn.iconColor = 'white'
+        this.filterBtn.btnColor = 'primary'
+      } else {
+        this.filterObject = {}
+        this.loadData()
+        this.filterBtn.iconColor = 'primary'
+        this.filterBtn.btnColor = 'primary'
+      }
+    },
+    onFilter (payload) {
+      this.page = 1
+      this.loadData()
+    },
+    onCancelFilter () {
+      this.page = 1
+      this.filterObject = {}
+      this.loadData()
+    },
+    loadData () {
+      this.isLoading = true
+      const payload = {
+        pageIndex: this.page,
+        pageSize: this.pageCount,
+        ...this.filterObject
+      }
+      this.getAllUsers(payload)
+        .then(response => {
+          this.usersList = response.data
+          this.usersList.map(user => {
+            user.isAdmin = user.role === 'Admin'
+            user.isActive = user.userState === 'Enable'
+          })
+          console.log(this.usersList)
+          this.isLoading = false
+        })
+    },
     excelAddUsersModal () {
       this.dialog = true
     },

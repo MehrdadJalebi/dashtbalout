@@ -109,7 +109,9 @@ export default {
       fromDate: 'از تاریخ',
       toDate: 'تا تاریخ',
       buttonText: 'فیلتر کردن',
-      cancelButtonText: 'پاک کردن'
+      cancelButtonText: 'پاک کردن',
+      search: 'جستجو',
+      userStatus: 'وضعیت کاربر'
     },
     underConstruction: {
       title: 'در حال ساخت',
@@ -497,6 +499,7 @@ export default {
     headers: {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
+      userName: 'نام کاربری',
       nationalCode: 'کد ملی',
       personnelNumber: 'شماره پرسنلی',
       adminAccess: 'دسترسی ادمین',
@@ -569,6 +572,11 @@ export default {
       excel: 'فایل EXCEL',
       pdf: 'فایل PDF',
       image: 'فایل  عکس'
+    },
+    userTypes: {
+      all: 'همه',
+      enable: 'فعال',
+      disable: 'غیر فعال'
     }
   }
 }

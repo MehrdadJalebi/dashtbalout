@@ -19,6 +19,8 @@ export default {
     },
     getAllUsers (context, payload) {
       return this.server.GetAll({
+        Search: payload.search,
+        UserStatus: payload.userType,
         PageIndex: payload.pageIndex,
         PageSize: payload.pageSize
       })

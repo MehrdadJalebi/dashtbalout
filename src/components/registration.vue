@@ -94,7 +94,7 @@
         <v-icon  v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-cellphone-iphone</v-icon>
         <span v-if="solo">{{phoneNumberTitle}}</span>
         <v-text-field
-          :value="userInfo.phoneNumber"
+          v-model="userInfo.phoneNumber"
           tabindex="5"
           :solo="solo"
           :outlined="outlined"
@@ -113,7 +113,7 @@
         <v-icon  v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-cellphone-iphone</v-icon>
         <span v-if="solo">{{nationalCodeTitle}}</span>
         <v-text-field
-          :value="userInfo.nationalCode"
+          v-model="userInfo.nationalCode"
           tabindex="5"
           :solo="solo"
           :outlined="outlined"

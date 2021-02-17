@@ -44,6 +44,7 @@ export default {
       showToast: 'snackbar/showToastMessage'
     }),
     onRegister (payload) {
+      console.log('ertert is: ', payload)
       this.isLoading = true
       this.userNameExist({ username: payload.username }).then(usernameResponse => {
         if (usernameResponse.data) {
@@ -69,11 +70,7 @@ export default {
                       this.showToast({ content: successMessage, color: 'success' })
                       if (localStorage.token) {
                         this.getUserInfo().then(() => {
-                          if (this.userInfo.role === 'Admin') {
-                            this.$router.push({ name: 'index' })
-                          } else {
-                            this.$router.push({ name: 'index' })
-                          }
+                          this.$router.push({ name: 'index' })
                           window.dispatchEvent(new Event('UPDATE_AUTHORIZATION'))
                         })
                       } else {

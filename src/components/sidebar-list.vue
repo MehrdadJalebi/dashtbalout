@@ -44,6 +44,7 @@ export default {
       if (this.item) {
         out = this.item
       } else {
+        console.log(this.$store.state.auth.role)
         const routes = this.$router.options.routes[0]
         const visibleRoutes = routes.children
           .filter(route => route.meta.isVisible || !('isVisible' in route.meta))

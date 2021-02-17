@@ -86,6 +86,7 @@
         </v-row>
           <v-card-actions>
             <v-btn
+              :loading="isLoading"
               large
               class="px-5 ml-1 mr-auto"
               color="success"
@@ -107,9 +108,9 @@ export default {
       yearsArray: [1395, 1396, 1397, 1398, 1399, 1400],
       userList: [],
       contractsList: [],
-      isLoading: true,
       file: null,
-      fileList: []
+      fileList: [],
+      isLoading: false
     }
   },
   computed: {
@@ -158,9 +159,11 @@ export default {
       })
     },
     uploadPayroll () {
+      this.isLoading = true
       this.fileList.push(this.file)
       this.upload(this.fileList).then(response => {
         this.payroll.fileId = response.data.items[response.data.items.length - 1].fileId
+        this.isLoading = false
       })
     }
   }

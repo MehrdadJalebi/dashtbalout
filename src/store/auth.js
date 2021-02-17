@@ -5,6 +5,7 @@ export default {
   namespaced: true,
   state: {
     userInfo: {},
+    role: null,
     token: null,
     password: null,
     refreshTokenInterval: null
@@ -32,9 +33,13 @@ export default {
     },
     setUserInfo (state, data) {
       state.userInfo = data
+      state.role = data.role
     },
     setPassword (state, data) {
       state.password = data
+    },
+    setRole (state, data) {
+      state.role = data
     }
   },
   actions: {

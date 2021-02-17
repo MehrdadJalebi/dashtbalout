@@ -1,11 +1,11 @@
 <route>
 {
-  "name": "messages",
+  "name": "userMessages",
   "meta": {
-    "order": 4.01,
+    "order": 4,
     "isVisible": true,
     "iconName": "mdi-arrow-left",
-    "roles": ["Admin"]
+    "roles": ["User"]
   }
 }
 </route>

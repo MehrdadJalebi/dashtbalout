@@ -48,15 +48,8 @@ export default {
         const visibleRoutes = routes.children
           .filter(route => route.meta.isVisible || !('isVisible' in route.meta))
           .filter((route) => {
-            if (route.meta.workspaces) {
-              return route.meta.workspaces.includes(this.$store.state.workspace.workspace)
-            } else {
-              return true
-            }
-          })
-          .filter((route) => {
             if (route.meta.roles) {
-              return route.meta.roles.includes(this.$store.state.layout.profile.role)
+              return route.meta.roles.includes(this.$store.state.auth.role)
             } else {
               return true
             }

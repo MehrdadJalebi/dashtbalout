@@ -1,11 +1,11 @@
 <route>
 {
-  "name": "payrolls",
+  "name": "userPayrolls",
   "meta": {
     "order": 3,
     "isVisible": true,
     "iconName": "mdi-arrow-left",
-    "roles": ["Admin"]
+    "roles": ["User"]
   }
 }
 </route>
@@ -192,6 +192,7 @@ export default {
       }
       this.download(payload).then(response => {
         console.log(response)
+        require('downloadjs')(response.data, `${fileId}.png`, 'image/png')
       })
     },
     deletePayroll (fileId) {

@@ -191,7 +191,7 @@ export default {
         fileid: fileId
       }
       this.download(payload).then(response => {
-        console.log(response)
+        console.log('response is: ', response)
       })
     },
     deletePayroll (fileId) {

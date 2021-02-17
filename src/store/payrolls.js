@@ -19,10 +19,7 @@ export default {
       return this.server.GetPayrollByUserId(payload)
     },
     getPayrolls (context, payload) {
-      return this.server.GetPayroll({
-        PageIndex: payload.pageIndex,
-        PageSize: payload.pageSize
-      })
+      return this.server.GetPayroll()
     },
     addPayroll (context, payload) {
       return this.server.AddPayroll(payload)

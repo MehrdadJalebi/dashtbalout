@@ -354,6 +354,10 @@ export default {
       noticeText: 'نام فایل اکسل وارد شده باید برابر با شماره پرسنلی باشد',
       payrollDeletedSuccessfully: 'فیش حقوقی با موفقیت حذف گردید'
     },
+    userPayrolls: {
+      title: 'فیش های حقوقی',
+      payrollsList: 'لیست فیش های حقوقی'
+    },
     contracts: {
       title: 'قرارداد ها',
       contractsList: 'لیست قرارداد ها',

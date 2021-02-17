@@ -12,63 +12,9 @@
 <template>
   <div class="mt-3">
     <page-title
-      :title="$t('pages.payrolls.payrollsList')"
+      :title="$t('pages.userPayrolls.payrollsList')"
     >
-    <div
-       class="mb-3">
-         <v-btn
-          class="ml-2"
-           to="/payrolls/add"
-           color="success">
-           <v-icon
-             class="ml-2"
-             small>
-             mdi-plus
-           </v-icon>
-       {{ $t('pages.payrolls.add') }}
-         </v-btn>
-         <v-btn
-           to="/payrolls/addGroup"
-           color="success">
-           <v-icon
-             class="ml-2"
-             small>
-             mdi-plus
-           </v-icon>
-       {{ $t('pages.payrolls.addGroup') }}
-         </v-btn>
-    </div>
     </page-title>
-    <v-card class="mt-5 mb-5">
-        <v-row
-          class="px-3"
-          >
-          <v-col
-            :sm="6"
-            >
-            <form-item
-              v-model="userid"
-              type="select"
-              :items="userList"
-              icon="mdi-account-circle"
-              :label="$t('enums.userList')"
-              :placeholder="$t('enums.placeholders.userList')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="12"
-            >
-            <v-btn
-              large
-              class="px-5 ml-1 mr-auto"
-              color="primary"
-              @click="getUserPayrolls"
-              >
-              {{ $t('enums.getUserPayrolls') }}
-            </v-btn>
-          </v-col>
-        </v-row>
-    </v-card>
     <v-data-table
       align-center
       class="report-table"
@@ -94,15 +40,6 @@
               @click="downloadPayroll(props.item.fileId)"
               >
               {{ $t('enums.downloadPayroll') }}
-            </v-btn>
-            <v-btn
-              small
-              outlined
-              class="px-1 mr-1"
-              color="error"
-              @click="deletePayroll(props.item.fileId)"
-              >
-              {{ $t('enums.tableActions.delete') }}
             </v-btn>
           </td>
         </tr>
@@ -155,34 +92,18 @@ export default {
     }
   },
   created () {
-    const payload = {
-      pageIndex: 1,
-      pageSize: 100000
-    }
-    this.getAllUsers(payload)
-      .then(response => {
-        this.isLoading = false
-        this.userList = response.data.map(user => {
-          return { text: user.fullName, value: user.id }
-        })
-      })
+    this.getUserPayrolls()
   },
   methods: {
     ...mapActions({
-      getAllUsers: 'users/getAllUsers',
-      getPayrollByUserId: 'payrolls/getPayrollByUserId',
-      delete: 'payrolls/delete',
+      getPayrolls: 'payrolls/getPayrolls',
       showToast: 'snackbar/showToastMessage',
       download: 'cdn/download'
     }),
     getUserPayrolls () {
       this.isLoading = true
-      const userIdPayload = {
-        userid: this.userid
-      }
-      this.getPayrollByUserId(userIdPayload).then(response => {
+      this.getPayrolls().then(response => {
         this.isLoading = false
-        //        console.log('response is: ', response)
         this.payrollsList = response.data
       })
     },
@@ -192,17 +113,6 @@ export default {
       }
       this.download(payload).then(response => {
         console.log(response)
-        require('downloadjs')(response.data, `${fileId}.png`, 'image/png')
-      })
-    },
-    deletePayroll (fileId) {
-      const payload = {
-        fileid: fileId
-      }
-      this.delete(payload).then(response => {
-        const successMessage = this.$t('pages.payrolls.payrollDeletedSuccessfully')
-        this.showToast({ content: successMessage, color: 'success' })
-        this.getUserPayrolls()
       })
     }
   }

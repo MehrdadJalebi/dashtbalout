@@ -337,7 +337,6 @@ export default {
       userRegisteredSuccessfully: 'کاربر با موفقیت ثبت نام شد',
       userCompletedSuccessfully: 'اطلاعات کاربر با موفقیت تکمیل  شد',
       bankInfoAddedSuccessfully: 'اطلاعات بانکی با موفقیت افزوده  شد',
-      bankInfoEditedSuccessfully: 'اطلاعات بانکی با موفقیت ویرایش گریدی',
       roleChangedSuccessfully: 'نقش کاربر با موفقیت تغییر یافت',
       userDisabledSuccessfully: 'کاربر با موفقیت غیرفعال گردید',
       userEnabledSuccessfully: 'کاربر با موفقیت فعال گردید',
@@ -521,6 +520,7 @@ export default {
       sendingDate: 'تاریخ ارسال'
     },
     tableActions: {
+      add: 'افزودن',
       edit: 'ویرایش',
       delete: 'حذف'
     },
@@ -578,5 +578,11 @@ export default {
       enable: 'فعال',
       disable: 'غیر فعال'
     }
+  },
+  toasts: {
+    completeFields: 'لطفا مقادیر فیلدها را وارد نمایید',
+    bankInfoEditedSuccessfully: 'اطلاعات بانکی با موفقیت ویرایش گردید',
+    bankInfoAddedSuccessfully: 'اطلاعات بانکی با موفقیت افزوده  شد',
+    bankAccountDeletedSuccessfully: 'حساب بانکی با موفقیت حذف گردید'
   }
 }

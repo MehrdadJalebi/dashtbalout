@@ -135,6 +135,7 @@
                         large
                         class="px-5 ml-1 mr-auto"
                         color="primary"
+                        :loading="isLoading"
                         @click="goStep(2)"
                         >
                         {{ $t('pages.users.addUserBtn') }}
@@ -176,7 +177,7 @@
                       :sm="3"
                       >
                       <form-item
-                        v-model="user.childrensCount"
+                        v-model="user.childrenCount"
                         type="select"
                         :items="childrensCountArray"
                         icon="mdi-account-circle"
@@ -273,7 +274,7 @@
                       :sm="3"
                       >
                       <form-item
-                        v-model="user.telephone"
+                        v-model="user.tel"
                         type="textbox"
                         icon="mdi-account-circle"
                         :label="$t('enums.telephone')"
@@ -323,7 +324,8 @@
                       >
                       <form-item
                         v-model="user.experience"
-                        type="textbox"
+                        type="select"
+                        :items="experienceArray"
                         icon="mdi-account-circle"
                         :label="$t('enums.experience')"
                         :placeholder="$t('enums.placeholders.experience')"
@@ -411,6 +413,7 @@
                         large
                         class="px-5 ml-1 mr-auto"
                         color="primary"
+                        :loading="isLoading"
                         @click="goStep(3)"
                         >
                         {{ $t('pages.users.completeUserBtn') }}
@@ -460,7 +463,7 @@
                       ></form-item>
                   </v-col>
                   <v-col
-                    :sm="5"
+                    :sm="4"
                     >
                     <form-item
                       v-model="bankAccount.cardNumber"
@@ -471,7 +474,7 @@
                       ></form-item>
                   </v-col>
                   <v-col
-                    :sm="6"
+                    :sm="4"
                     >
                     <form-item
                       v-model="bankAccount.shabaNumber"
@@ -482,16 +485,40 @@
                       ></form-item>
                   </v-col>
                     <v-col
+                      class="d-flex align-center text-right"
+                      :sm="1"
+                      >
+                      <v-btn
+                        v-if="bankAccount.id"
+                        small
+                        class="mt-5"
+                        color="primary"
+                        @click="editBankAccount(bankAccount)"
+                      >
+                      {{ $t('enums.tableActions.edit') }}
+                      </v-btn>
+                      <v-btn
+                        v-else
+                        small
+                        class="mt-5"
+                        color="success"
+                        @click="addBankAccount(bankAccount)"
+                      >
+                      {{ $t('enums.tableActions.add') }}
+                      </v-btn>
+                  </v-col>
+                    <v-col
                       class="d-flex align-center"
                       :sm="1"
                       >
-                      <v-icon
+                      <v-btn
+                        small
                         class="mt-5"
                         color="red"
-                        @click="removeLastBankAccount"
+                        @click="remove(bankAccount, index)"
                       >
-                        mdi-delete
-                      </v-icon>
+                      {{ $t('enums.tableActions.delete') }}
+                      </v-btn>
                   </v-col>
                 </v-row>
                 <v-row>
@@ -528,9 +555,10 @@
                     </v-btn>
                       <v-btn
                         large
+                        :loading="isLoading"
                         class="px-5 ml-1 mr-auto"
                         color="primary"
-                        @click="editBankAccounts"
+                        @click="finalEdit"
                         >
                         {{ $t('pages.users.editBankInfoBtn') }}
                       </v-btn>
@@ -551,6 +579,7 @@ export default {
       user: {},
       underSupportPersonsCountArray: [],
       childrensCountArray: [],
+      experienceArray: [],
       devotionStatusesArray: [
         {
           text: this.$t('enums.has'),
@@ -577,28 +606,22 @@ export default {
         step2: {},
         step3: {}
       },
-      bankAccounts: [
-        {
-          bankName: null,
-          bankBranch: null,
-          accountNumber: null,
-          cardNumber: null,
-          shabaNumber: null
-        }
-      ],
+      bankAccounts: [],
+      newBankAccounts: [],
       userId: this.$route.query.id
     }
   },
   computed: {
     ...mapGetters({
-      userRoleArray: 'enums/userRoleArray',
       genderArray: 'enums/genderArray',
       maritalStatusesArray: 'enums/maritalStatusesArray',
       employeeStatusesArray: 'enums/employeeStatusesArray'
     })
   },
   created () {
+    this.isLoading = true
     this.childrensCountArray = Array.from({ length: 30 }, (_, i) => ++i)
+    this.experienceArray = Array.from({ length: 30 }, (_, i) => ++i)
     this.underSupportPersonsCountArray = Array.from({ length: 30 }, (_, i) => ++i)
     const payload = {
       userid: this.userId
@@ -606,21 +629,18 @@ export default {
     this.getUserById(payload)
       .then(response => {
         this.user = response.data
-        const bankPayload = {
-          userid: this.userId
-        }
-        this.getBankAccountByUserId(bankPayload).then(res => {
-          console.log('eeeee', res)
-          this.bankAccounts = res.data
-        })
+        this.getBankAccounts()
+        this.isLoading = false
       })
   },
   methods: {
     ...mapActions({
       getUserById: 'users/getUserByUserId',
       updateByUserId: 'users/updateByUserId',
-      addBankAccount: 'bankAccounts/addBankAccountByUserId',
+      updateBankAccount: 'bankAccounts/updateBankAccount',
+      removeBankAccount: 'bankAccounts/removeBankAccount',
       getBankAccountByUserId: 'bankAccounts/getBankAccountByUserId',
+      addBankAccountByUserId: 'bankAccounts/addBankAccountByUserId',
       userNameExist: 'users/userNameExist',
       mobileExist: 'users/mobileExist',
       emailExist: 'users/emailExist',
@@ -628,13 +648,11 @@ export default {
     }),
     goStep (n) {
       if (this.stepper.current === 2) {
-        console.log(this.user)
         this.user.userid = this.userId
         this.user.experience = Number(this.user.experience)
         this.updateByUserId(this.user).then(response => {
           const successMessage = this.$t('pages.users.userCompletedSuccessfully')
           this.showToast({ content: successMessage, color: 'success' })
-          console.log(response)
         })
       }
       this.stepper.current = n
@@ -651,36 +669,49 @@ export default {
         shabaNumber: null
       })
     },
-    removeLastBankAccount () {
-      const id = this.bankAccounts[this.bankAccounts.length - 1].id
-      console.log(id)
-      // this.bankAccounts.pop()
-    },
-    editBankAccounts () {
-      this.bankAccounts.forEach(bankAccount => {
-        const payload = bankAccount
-        payload.id = this.userId
-        this.addBankAccount(payload).then(response => {
-          const successMessage = this.$t('pages.users.bankInfoEditedSuccessfully')
+    remove (bankAccount, index) {
+      if (bankAccount.id !== null && bankAccount.id !== undefined) {
+        this.isLoading = true
+        const payload = {
+          id: bankAccount.id
+        }
+        this.removeBankAccount(payload).then(response => {
+          const successMessage = this.$t('toasts.bankAccountDeletedSuccessfully')
           this.showToast({ content: successMessage, color: 'success' })
-          console.log(response)
+          this.isLoading = false
+          this.bankAccounts.splice(index, 1)
         })
-      })
-      this.$router.push({ name: 'users' })
+      } else {
+        this.bankAccounts.splice(index, 1)
+      }
     },
-    editUser () {
-      // fatherName
-      // birthdate
-      // birthPlace
-      // placeIssue ?
-      // birthCertificateNumber ?
-      // centerTopicName ?
-      // tel ? sabet?
-      // startWorkDate
-      // endWorkDate
-      // experience
-      // employmentDate
-
+    editBankAccount (bankAccount) {
+      this.isLoading = true
+      this.updateBankAccount(bankAccount).then(response => {
+        const successMessage = this.$t('toasts.bankInfoEditedSuccessfully')
+        this.showToast({ content: successMessage, color: 'success' })
+        this.isLoading = false
+      })
+    },
+    addBankAccount (bankAccount) {
+      this.isLoading = true
+      const payload = bankAccount
+      payload.userid = this.userId
+      this.addBankAccountByUserId(payload).then(response => {
+        const successMessage = this.$t('toasts.bankInfoAddedSuccessfully')
+        this.showToast({ content: successMessage, color: 'success' })
+        this.isLoading = false
+      })
+    },
+    getBankAccounts () {
+      this.isLoading = true
+      this.getBankAccountByUserId({ userid: this.userId }).then(res => {
+        this.bankAccounts = res.data
+        this.isLoading = false
+      })
+    },
+    finalEdit () {
+      this.$router.push({ name: 'users' })
     }
   }
 }

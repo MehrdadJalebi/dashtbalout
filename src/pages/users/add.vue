@@ -21,7 +21,6 @@
             <v-stepper-step
               :key="`${n}-step`"
               :step="n"
-              :rules="[() => n !== 2 ? true : stepper.current === n ? stepper.step2.isValid : true]"
               :complete="stepper.current > n"
               >
               {{ $t('pages.stepper.step' + n) }}
@@ -46,6 +45,7 @@
                   v-model="user.firstName"
                   type="textbox"
                   icon="mdi-account-circle"
+                  :rules="[rules.required]"
                   :label="$t('enums.firstName')"
                   :placeholder="$t('enums.placeholders.firstName')"
                   ></form-item>
@@ -56,6 +56,7 @@
                   <form-item
                     v-model="user.lastName"
                     type="textbox"
+                    :rules="[rules.required]"
                     icon="mdi-account-circle"
                     :label="$t('enums.lastName')"
                     :placeholder="$t('enums.placeholders.lastName')"
@@ -67,6 +68,7 @@
                     <form-item
                       v-model="user.username"
                       type="textbox"
+                      :rules="[rules.required]"
                       icon="mdi-account-circle"
                       :label="$t('enums.userName')"
                       :placeholder="$t('enums.placeholders.userName')"
@@ -83,6 +85,7 @@
                     v-model="user.nationalCode"
                     type="textbox"
                     icon="mdi-account-circle"
+                    :rules="nationalCodeValidation"
                     :label="$t('enums.nationalCode')"
                     :placeholder="$t('enums.placeholders.nationalCode')"
                     ></form-item>
@@ -94,6 +97,7 @@
                       v-model="user.phoneNumber"
                       type="textbox"
                       icon="mdi-account-circle"
+                      :rules="phoneNumberValidation"
                       :label="$t('enums.phoneNumber')"
                       :placeholder="$t('enums.placeholders.phoneNumber')"
                       ></form-item>
@@ -104,6 +108,7 @@
                       <form-item
                         v-model="user.password"
                         type="textbox"
+                        :rules="[rules.required]"
                         icon="mdi-account-circle"
                         :label="$t('enums.password')"
                         :placeholder="$t('enums.placeholders.password')"
@@ -119,6 +124,7 @@
                     <form-item
                       v-model="user.email"
                       type="textbox"
+                      :rules="[rules.required]"
                       icon="mdi-account-circle"
                       :label="$t('enums.email')"
                       :placeholder="$t('enums.placeholders.email')"
@@ -136,6 +142,7 @@
                         :loading="isLoading"
                         class="px-5 ml-1 mr-auto"
                         color="primary"
+                        :disabled="!isStep1Valid"
                         @click="goStep(2)"
                         >
                         {{ $t('pages.users.addUserBtn') }}
@@ -177,7 +184,7 @@
                       :sm="3"
                       >
                       <form-item
-                        v-model="user.childrensCount"
+                        v-model="user.childrenCount"
                         type="select"
                         :items="childrensCountArray"
                         icon="mdi-account-circle"
@@ -274,7 +281,7 @@
                       :sm="3"
                       >
                       <form-item
-                        v-model="user.telephone"
+                        v-model="user.tel"
                         type="textbox"
                         icon="mdi-account-circle"
                         :label="$t('enums.telephone')"
@@ -324,7 +331,8 @@
                       >
                       <form-item
                         v-model="user.experience"
-                        type="textbox"
+                        type="select"
+                        :items="experienceArray"
                         icon="mdi-account-circle"
                         :label="$t('enums.experience')"
                         :placeholder="$t('enums.placeholders.experience')"
@@ -412,6 +420,7 @@
                         large
                         class="px-5 ml-1 mr-auto"
                         color="primary"
+                        :loading="isLoading"
                         @click="goStep(3)"
                         >
                         {{ $t('pages.users.completeUserBtn') }}
@@ -546,9 +555,18 @@ export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
     return {
-      user: {},
+      user: {
+        firstName: null,
+        lastName: null,
+        username: null,
+        nationalCode: null,
+        phoneNumber: null,
+        password: null,
+        email: null
+      },
       underSupportPersonsCountArray: [],
       childrensCountArray: [],
+      experienceArray: [],
       devotionStatusesArray: [
         {
           text: this.$t('enums.has'),
@@ -572,6 +590,7 @@ export default {
       stepper: {
         current: 1,
         steps: 3,
+        step1: {},
         step2: {},
         step3: {}
       },
@@ -584,20 +603,43 @@ export default {
           shabaNumber: null
         }
       ],
+      phoneNumberPatternRegex: '/09[0-9]{9,9}/',
       userId: null,
-      isLoading: false
+      isLoading: false,
+      phoneNumberRules: {
+        required: value => !!value || this.$t('components.register.phoneNumberRequired'),
+        pattern: value => RegExp(this.phoneNumberPatternRegex.substring(1, this.phoneNumberPatternRegex.length - 1)).test(value) || this.phoneNumberPatternMessage,
+        counter: value => value.length === 11 || this.$t('components.register.phoneNumberCountValidation')
+      },
+      nationalCodeRules: {
+        required: value => !!value || this.$t('components.register.nationalCodeRequired'),
+        counter: value => value.length === 10 || this.$t('components.register.nationalCodeCountValidation')
+      },
+      rules: {
+        required: value => !!value || 'ﺎﯿﻧ ﻒﯿﻟﺩ ﺎﺠﺑﺍﺮﯾ ﺎﺴﺗ'
+      }
     }
   },
   computed: {
     ...mapGetters({
-      userRoleArray: 'enums/userRoleArray',
       genderArray: 'enums/genderArray',
       maritalStatusesArray: 'enums/maritalStatusesArray',
       employeeStatusesArray: 'enums/employeeStatusesArray'
-    })
+    }),
+    phoneNumberValidation () {
+      return [this.phoneNumberRules.required, this.phoneNumberRules.pattern, this.phoneNumberRules.counter]
+    },
+    nationalCodeValidation () {
+      return [this.nationalCodeRules.required, this.nationalCodeRules.counter]
+    },
+    isStep1Valid () {
+      return Object.keys(this.user).filter(key => this.user[key] === null ||
+         this.user[key] === undefined || this.user[key] === '').length === 0
+    }
   },
   created () {
     this.childrensCountArray = Array.from({ length: 30 }, (_, i) => ++i)
+    this.experienceArray = Array.from({ length: 30 }, (_, i) => ++i)
     this.underSupportPersonsCountArray = Array.from({ length: 30 }, (_, i) => ++i)
   },
   methods: {
@@ -614,39 +656,45 @@ export default {
     goStep (n) {
       this.isLoading = true
       if (this.stepper.current === 1) {
-        console.log(this.user)
-        this.userNameExist({ username: this.user.username }).then(usernameResponse => {
-          if (usernameResponse.data) {
-            const errorMessage = this.$t('pages.users.userNameExist')
-            this.showToast({ content: errorMessage, color: 'error' })
-            this.isLoading = false
-          } else {
-            this.emailExist({ email: this.user.email }).then(emailResponse => {
-              if (emailResponse.data) {
-                const errorMessage = this.$t('pages.users.emailExist')
-                this.showToast({ content: errorMessage, color: 'error' })
-                this.isLoading = false
-              } else {
-                this.mobileExist({ mobile: this.user.phoneNumber }).then(mobileResponse => {
-                  if (mobileResponse.data) {
-                    const errorMessage = this.$t('pages.users.mobileExist')
-                    this.showToast({ content: errorMessage, color: 'error' })
-                    this.isLoading = false
-                  } else {
-                    this.register(this.user)
-                      .then(response => {
-                        const successMessage = this.$t('pages.users.userRegisteredSuccessfully')
-                        this.showToast({ content: successMessage, color: 'success' })
-                        this.isLoading = false
-                        this.userId = response.data.id
-                        this.stepper.current = n
-                      })
-                  }
-                })
-              }
-            })
-          }
-        })
+        if (Object.keys(this.user).length !== 0) {
+          console.log(this.user)
+          this.userNameExist({ username: this.user.username }).then(usernameResponse => {
+            if (usernameResponse.data) {
+              const errorMessage = this.$t('pages.users.userNameExist')
+              this.showToast({ content: errorMessage, color: 'error' })
+              this.isLoading = false
+            } else {
+              this.emailExist({ email: this.user.email }).then(emailResponse => {
+                if (emailResponse.data) {
+                  const errorMessage = this.$t('pages.users.emailExist')
+                  this.showToast({ content: errorMessage, color: 'error' })
+                  this.isLoading = false
+                } else {
+                  this.mobileExist({ mobile: this.user.phoneNumber }).then(mobileResponse => {
+                    if (mobileResponse.data) {
+                      const errorMessage = this.$t('pages.users.mobileExist')
+                      this.showToast({ content: errorMessage, color: 'error' })
+                      this.isLoading = false
+                    } else {
+                      this.register(this.user)
+                        .then(response => {
+                          const successMessage = this.$t('pages.users.userRegisteredSuccessfully')
+                          this.showToast({ content: successMessage, color: 'success' })
+                          this.isLoading = false
+                          this.userId = response.data.id
+                          this.stepper.current = n
+                        })
+                    }
+                  })
+                }
+              })
+            }
+          })
+        } else {
+          const errorMessage = this.$t('toasts.completeFields')
+          this.showToast({ content: errorMessage, color: 'error' })
+          this.isLoading = false
+        }
       } else if (this.stepper.current === 2) {
         console.log(this.user)
         this.user.userid = this.userId
@@ -676,17 +724,21 @@ export default {
       this.bankAccounts.pop()
     },
     addBankAccounts () {
-      this.bankAccounts.forEach(bankAccount => {
-        const payload = bankAccount
-        payload.userid = this.userId
-        console.log('payload is: ', payload)
-        this.addBankAccountByUserId(payload).then(response => {
-          const successMessage = this.$t('pages.users.bankInfoAddedSuccessfully')
-          this.showToast({ content: successMessage, color: 'success' })
-          console.log(response)
+      if (this.bankAccounts.length !== 0) {
+        this.bankAccounts.forEach(bankAccount => {
+          const payload = bankAccount
+          payload.userid = this.userId
+          console.log('payload is: ', payload)
+          this.addBankAccountByUserId(payload).then(response => {
+            const successMessage = this.$t('pages.users.bankInfoAddedSuccessfully')
+            this.showToast({ content: successMessage, color: 'success' })
+            console.log(response)
+          })
         })
-      })
-      this.$router.push({ name: 'users' })
+        this.$router.push({ name: 'users' })
+      } else {
+        this.$router.push({ name: 'users' })
+      }
     },
     addUser () {
       // fatherName

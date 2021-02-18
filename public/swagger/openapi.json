@@ -69,7 +69,33 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AccountResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AccountResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AccountResponse"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -282,11 +308,11 @@
       }
     },
     "/api/v1/cdn/{fileid}": {
-      "get": {
+      "post": {
         "tags": [
           "Cdn"
         ],
-        "operationId": "Download",
+        "operationId": "Ticket",
         "parameters": [
           {
             "name": "fileid",
@@ -300,7 +326,80 @@
         ],
         "responses": {
           "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cdn/{ticket}": {
+      "get": {
+        "tags": [
+          "Cdn"
+        ],
+        "operationId": "Download",
+        "parameters": [
+          {
+            "name": "ticket",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
             "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/contracts/count": {
+      "get": {
+        "tags": [
+          "Contracts"
+        ],
+        "operationId": "GetContractCount",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
           }
         }
       }
@@ -432,6 +531,28 @@
                 }
               }
             }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Contracts"
+        ],
+        "operationId": "DeleteContractById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
@@ -655,6 +776,39 @@
         }
       }
     },
+    "/api/v1/payrolls/count": {
+      "get": {
+        "tags": [
+          "Payrolls"
+        ],
+        "operationId": "GetContractCount",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/payrolls": {
       "get": {
         "tags": [
@@ -856,6 +1010,39 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UserInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/count": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "GetUserCount",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
                 }
               }
             }
@@ -1242,6 +1429,48 @@
         }
       }
     },
+    "/api/v1/users/resetpassword/{userid}": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Only Admin",
+        "operationId": "ResetPassword",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/users/{userid}": {
       "put": {
         "tags": [
@@ -1339,6 +1568,29 @@
                 }
               }
             }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Only Admin",
+        "operationId": "Delete",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
@@ -1510,6 +1762,98 @@
           "Users"
         ],
         "operationId": "GetProfilePic",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/profilepic/{userid}": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Only Admin",
+        "operationId": "SaveProfilePicByUserId",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "nullable": true
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Only Admin",
+        "operationId": "GetProfilePicByUserId",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -1877,10 +2221,6 @@
       "PayrollResponse": {
         "type": "object",
         "properties": {
-          "fileName": {
-            "type": "string",
-            "nullable": true
-          },
           "title": {
             "type": "string",
             "nullable": true
@@ -2069,6 +2409,7 @@
       },
       "UserStatus": {
         "enum": [
+          "All",
           "Enable",
           "Disable"
         ],
@@ -2298,6 +2639,21 @@
           "employmentDate": {
             "type": "string",
             "format": "date-time",
+            "nullable": true
+          },
+          "childrenCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "underSupportPersonsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lessDevelopedAreas": {
+            "type": "boolean"
+          },
+          "employeeStatus": {
+            "type": "string",
             "nullable": true
           }
         },

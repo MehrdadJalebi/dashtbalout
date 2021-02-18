@@ -180,7 +180,7 @@ export default {
   data () {
     return {
       page: 1,
-      pageCount: 15,
+      pageCount: 100000,
       dialog: false,
       pages: {},
       totalItems: 0,

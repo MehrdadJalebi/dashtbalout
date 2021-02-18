@@ -585,7 +585,7 @@ export default {
         }
       ],
       stepper: {
-        current: 3,
+        current: 1,
         steps: 3,
         step2: {},
         step3: {}

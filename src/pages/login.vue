@@ -52,7 +52,7 @@ export default {
               if (this.userInfo.role === 'Admin') {
                 this.$router.push({ name: 'index' })
               } else {
-                this.$router.push({ name: 'index' })
+                this.$router.push({ name: 'userPayrolls' })
               }
               window.dispatchEvent(new Event('UPDATE_AUTHORIZATION'))
             })

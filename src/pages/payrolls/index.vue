@@ -173,6 +173,7 @@ export default {
       getPayrollByUserId: 'payrolls/getPayrollByUserId',
       delete: 'payrolls/delete',
       showToast: 'snackbar/showToastMessage',
+      ticket: 'cdn/ticket',
       download: 'cdn/download'
     }),
     getUserPayrolls () {
@@ -190,8 +191,8 @@ export default {
       const payload = {
         fileid: fileId
       }
-      this.download(payload).then(response => {
-        window.open(`https://webapi.asazan.com/api/v1/cdn/${fileId}`, '_blank')
+      this.ticket(payload).then(response => {
+        window.open(response.data, '_blank')
       })
     },
     deletePayroll (fileId) {

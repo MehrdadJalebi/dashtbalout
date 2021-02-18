@@ -377,6 +377,9 @@ export default {
     userMessages: {
       title: 'پیام ها',
       readedMessageBtn: 'خوانده شد'
+    },
+    editUserInfos: {
+      title: 'ویرایش اطلاعات کاربری'
     }
   },
   enums: {

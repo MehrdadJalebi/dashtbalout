@@ -36,6 +36,9 @@ export default {
     updateByUserId (context, payload) {
       return this.server.UpdateByUserId(payload)
     },
+    getUser (context, payload) {
+      return this.server.GetUser(payload)
+    },
     getUserByUserId (context, payload) {
       return this.server.GetByUserId(payload)
     },

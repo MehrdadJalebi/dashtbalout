@@ -1,17 +1,18 @@
 <route>
 {
-  "name": "editUsers",
+  "name": "editUserInfos",
   "meta": {
-    "order": 4,
-    "isVisible": false,
-    "iconName": "mdi-arrow-left"
+    "order": 5,
+    "isVisible": true,
+    "iconName": "mdi-arrow-left",
+    "roles": ["User"]
   }
 }
 </route>
 <template>
   <div class="mt-5 mx-5">
     <v-card>
-      <v-card-title>{{$t('pages.users.edit')}}</v-card-title>
+      <v-card-title>{{$t('pages.editUserInfos.title')}}</v-card-title>
       <v-stepper
         v-model="stepper.current"
         alt-labels
@@ -489,7 +490,7 @@
                         outlined
                         class="mt-5"
                         color="success"
-                        @click="addBankAccount(bankAccount)"
+                        @click="addBank(bankAccount)"
                       >
                       {{ $t('enums.tableActions.add') }}
                       </v-btn>
@@ -584,14 +585,14 @@ export default {
         }
       ],
       stepper: {
-        current: 1,
+        current: 3,
         steps: 3,
         step2: {},
         step3: {}
       },
       bankAccounts: [],
       newBankAccounts: [],
-      userId: this.$route.query.id
+      userId: null
     }
   },
   computed: {
@@ -606,24 +607,22 @@ export default {
     this.childrensCountArray = Array.from({ length: 30 }, (_, i) => ++i)
     this.experienceArray = Array.from({ length: 30 }, (_, i) => ++i)
     this.underSupportPersonsCountArray = Array.from({ length: 30 }, (_, i) => ++i)
-    const payload = {
-      userid: this.userId
-    }
-    this.getUserById(payload)
+    this.getUser()
       .then(response => {
         this.user = response.data
+        this.userId = response.data.id
         this.getBankAccounts()
         this.isLoading = false
       })
   },
   methods: {
     ...mapActions({
-      getUserById: 'users/getUserByUserId',
-      updateByUserId: 'users/updateByUserId',
+      getUser: 'users/getUser',
+      update: 'users/update',
       updateBankAccount: 'bankAccounts/updateBankAccount',
       removeBankAccount: 'bankAccounts/removeBankAccount',
-      getBankAccountByUserId: 'bankAccounts/getBankAccountByUserId',
-      addBankAccountByUserId: 'bankAccounts/addBankAccountByUserId',
+      getBankAccount: 'bankAccounts/getBankAccount',
+      addBankAccount: 'bankAccounts/addBankAccount',
       userNameExist: 'users/userNameExist',
       mobileExist: 'users/mobileExist',
       emailExist: 'users/emailExist',
@@ -631,9 +630,8 @@ export default {
     }),
     goStep (n) {
       if (this.stepper.current === 2) {
-        this.user.userid = this.userId
         this.user.experience = Number(this.user.experience)
-        this.updateByUserId(this.user).then(response => {
+        this.update(this.user).then(response => {
           const successMessage = this.$t('pages.users.userCompletedSuccessfully')
           this.showToast({ content: successMessage, color: 'success' })
         })
@@ -676,11 +674,11 @@ export default {
         this.isLoading = false
       })
     },
-    addBankAccount (bankAccount) {
+    addBank (bankAccount) {
       this.isLoading = true
       const payload = bankAccount
       payload.userid = this.userId
-      this.addBankAccountByUserId(payload).then(response => {
+      this.addBankAccount(payload).then(response => {
         const successMessage = this.$t('toasts.bankInfoAddedSuccessfully')
         this.showToast({ content: successMessage, color: 'success' })
         this.isLoading = false
@@ -688,13 +686,13 @@ export default {
     },
     getBankAccounts () {
       this.isLoading = true
-      this.getBankAccountByUserId({ userid: this.userId }).then(res => {
+      this.getBankAccount().then(res => {
         this.bankAccounts = res.data
         this.isLoading = false
       })
     },
     finalEdit () {
-      this.$router.push({ name: 'users' })
+      this.$router.push({ name: 'userPayrolls' })
     }
   }
 }

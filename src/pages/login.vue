@@ -40,12 +40,13 @@ export default {
   methods: {
     ...mapActions({
       login: 'auth/login',
+      showToast: 'snackbar/showToastMessage',
       getUserInfo: 'auth/getUserInfo'
     }),
     onLogin (payload) {
       this.isLoading = true
       this.login(payload)
-        .then(() => {
+        .then(response => {
           this.isLoading = false
           if (localStorage.token) {
             this.getUserInfo().then(() => {
@@ -57,6 +58,11 @@ export default {
               window.dispatchEvent(new Event('UPDATE_AUTHORIZATION'))
             })
           }
+          this.isLoading = false
+          // eslint-disable-next-line
+        }, error => {
+          const errorMessage = this.$t('toasts.invalidValues')
+          this.showToast({ content: errorMessage, color: 'error' })
           this.isLoading = false
         })
         .catch(() => {

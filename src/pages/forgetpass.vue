@@ -45,19 +45,24 @@ export default {
       this.isLoading = true
       if (!this.hasPin) {
         this.forgotPassword({ phoneNumber: payload.phoneNumber }).then(response => {
-          console.log('response is : ', response)
           if (response.status === 200) {
             this.hasPin = true
           }
           this.isLoading = false
         })
       } else {
+        payload.pinCode = payload.pin.toString()
         this.confirm(payload).then(response => {
-          console.log('response conri is : ', response)
           if (response.status === 200) {
             const successMessage = this.$t('pages.users.passwordRecoverdSuccessfully')
             this.showToast({ content: successMessage, color: 'success' })
+            this.$router.push({ name: 'login' })
           }
+          this.isLoading = false
+          // eslint-disable-next-line
+        }, error => {
+          const errorMessage = this.$t('toasts.invalidValues')
+          this.showToast({ content: errorMessage, color: 'error' })
           this.isLoading = false
         })
       }

@@ -586,6 +586,7 @@ export default {
     completeFields: 'لطفا مقادیر فیلدها را وارد نمایید',
     bankInfoEditedSuccessfully: 'اطلاعات بانکی با موفقیت ویرایش گردید',
     bankInfoAddedSuccessfully: 'اطلاعات بانکی با موفقیت افزوده  شد',
-    bankAccountDeletedSuccessfully: 'حساب بانکی با موفقیت حذف گردید'
+    bankAccountDeletedSuccessfully: 'حساب بانکی با موفقیت حذف گردید',
+    invalidValues: 'مقادیر ورودی معتبر نیست'
   }
 }

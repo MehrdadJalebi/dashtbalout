@@ -90,20 +90,9 @@ const responseInterceptor = function (response) {
     return Promise.reject(response)
   }
   if (responseStatus === 400) {
-    const errorCode = response.response.data.Error.ErrorCode
-    if (errorCode === 0) {
-      console.log('The server can’t process the request because of bad request error, client and API Validation should be the same ')
-      const errorMessage = APP_CONFIG.locales[APP_CONFIG.locale].errorMessages.badRequest
-      store.dispatch('snackbar/showToastMessage', { content: errorMessage, color: 'error' })
-    } else {
-      const errorMessage = APP_CONFIG.locales[APP_CONFIG.locale].errorMessages[errorCode]
-      store.dispatch('snackbar/showToastMessage', { content: errorMessage, color: 'error' })
-    }
     return Promise.reject(response)
   }
   if (responseStatus === 500) {
-    const errorMessage = APP_CONFIG.locales[APP_CONFIG.locale].errorMessages.serverError
-    store.dispatch('snackbar/showToastMessage', { content: errorMessage, color: 'error' })
     return Promise.reject(response)
   }
   return new Promise((resolve) => {

@@ -2,16 +2,23 @@ export default {
 
   namespaced: true,
   state: {
+    user: {},
     users: []
   },
   getters: {
     users (state) {
       return state.users
+    },
+    user (state) {
+      return state.user
     }
   },
   mutations: {
     setUsers (state, data) {
       state.users = data
+    },
+    setUser (state, data) {
+      state.user = data
     }
   },
   actions: {

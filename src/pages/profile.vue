@@ -9,15 +9,15 @@
 }
 </route>
 <template>
-  <div>
+  <div class="mt-3">
     <page-title
       :title="$t('pages.profile.title')"
     />
     <member-info
-      :avatar="profile.avatarImage"
-      :name="profile.name"
-      :email="profile.email"
-      :description="faker.lorem.words()"
+      :avatar="avatarImage"
+      :name="name"
+      :email="email"
+      :description="$t('pages.profile.userProfile')"
     />
     <v-container>
       <v-row
@@ -26,28 +26,14 @@
       >
         <v-col
           xs="12"
-          md="4"
+          md="6"
         >
           <profile-info-card
-            variant="orange"
-            :title="faker.lorem.words()"
-            :description="faker.lorem.sentence()"
-            :link-text="faker.lorem.words()"
-            icon="mdi-account"
-            link-url="index"
-          />
-        </v-col>
-        <v-col
-          xs="12"
-          md="4"
-        >
-          <profile-info-card
-            variant="green"
-            :title="faker.lorem.words()"
-            :description="faker.lorem.sentence()"
-            :link-text="faker.lorem.words()"
-            icon="mdi-widgets"
-            link-url="index"
+            :title="$t('pages.profile.personalInfo')"
+            :description="$t('pages.profile.personalDescription')"
+            :link-text="$t('pages.profile.personalLinkText')"
+            icon="mdi-account-edit"
+            link-url="editUserInfos"
           />
         </v-col>
       </v-row>
@@ -57,43 +43,14 @@
       >
         <v-col
           xs="12"
-          md="4"
-        >
-          <profile-info-card
-            :title="faker.lorem.words()"
-            :description="faker.lorem.sentence()"
-            :link-text="faker.lorem.words()"
-            icon="mdi-folder-open"
-            link-url="index"
-          />
-        </v-col>
-        <v-col
-          xs="12"
-          md="4"
-        >
-          <profile-info-card
-            :title="faker.lorem.words()"
-            :description="faker.lorem.sentence()"
-            :link-text="faker.lorem.words()"
-            icon="mdi-pen"
-            link-url="index"
-          />
-        </v-col>
-      </v-row>
-      <v-row
-        alignment="center"
-        justify="center"
-      >
-        <v-col
-          xs="12"
-          md="8"
+          md="6"
         >
             <profile-info-card
-              :title="faker.lorem.words()"
-              :description="faker.lorem.sentence()"
-              :link-text="faker.lorem.words()"
-              icon="mdi-gavel"
-              link-url="index"
+              :title="$t('pages.profile.avatar')"
+              :description="$t('pages.profile.avatarDescription')"
+              :link-text="$t('pages.profile.avatarLinkText')"
+              icon="mdi-account-circle"
+              link-url="profilePhoto"
             />
         </v-col>
       </v-row>
@@ -103,14 +60,14 @@
       >
         <v-col
           xs="12"
-          md="8"
+          md="6"
         >
           <profile-info-card
-            :title="faker.lorem.words()"
-            :description="faker.lorem.sentence()"
-            :link-text="faker.lorem.words()"
-            icon="mdi-account"
-            link-url="index"
+            :title="$t('pages.profile.changePassword')"
+            :description="$t('pages.profile.changePasswordDescription')"
+            :link-text="$t('pages.profile.changePasswordLinkText')"
+            icon="mdi-lock"
+            link-url="changePassword"
           />
         </v-col>
       </v-row>
@@ -119,12 +76,39 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
+  data () {
+    return {
+      userInfo: {}
+    }
+  },
   computed: {
     profile () {
       return this.$store.state.layout.profile
+    },
+    avatarImage () {
+      return this.userInfo.avatarImage ? this.userInfo.avatarImage : '/img/default-avatar.jpg'
+    },
+    email () {
+      return this.userInfo ? this.userInfo.email : ''
+    },
+    name () {
+      return this.userInfo ? this.userInfo.fullName : '-'
     }
+  },
+  created () {
+    this.getUser().then(response => {
+      this.userInfo = response.data
+      console.log(this.userInfo)
+    })
+  },
+  methods: {
+    ...mapActions({
+      getUser: 'users/getUser',
+      showToast: 'snackbar/showToastMessage'
+    })
   }
 }
 </script>

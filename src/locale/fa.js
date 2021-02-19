@@ -175,7 +175,17 @@ export default {
       selectPage: 'انتخاب صفحه'
     },
     profile: {
-      title: 'حساب کاربری'
+      title: 'حساب کاربری',
+      userProfile: 'مدیریت حساب کاربری',
+      personalInfo: 'اطلاعات کاربری',
+      personalDescription: 'نام و نام خانوادگی، شماره ملی و ...',
+      personalLinkText: 'ویرایش اطلاعات کاربری',
+      avatar: 'ﺁﻭاتاﺭ',
+      avatarDescription: 'تصویر کاربر',
+      avatarLinkText: 'تغییر آواتار',
+      changePassword: 'تغییر کلمه عبور',
+      changePasswordDescription: 'کلمه عبور',
+      changePasswordLinkText: 'تغییر کلمه عبور'
     },
     logout: {
       title: 'خروج از حساب'
@@ -380,6 +390,12 @@ export default {
     },
     editUserInfos: {
       title: 'ویرایش اطلاعات کاربری'
+    },
+    profilePhoto: {
+      title: 'تغییر عکس آواتار',
+      photo: 'تصویر کاربری',
+      photoPlaceholder: 'آپلود تصویر کاربری',
+      avatarAttachmentRequired: 'تصویر کاربری اجباری است'
     }
   },
   enums: {

@@ -379,9 +379,13 @@ export default {
       add: 'ثبت قرارداد جدید',
       edit: 'ویرایش قرارداد',
       addContractBtn: 'ثبت  قرارداد',
+      deleteContractBtn: 'حذف  قرارداد',
       noticeText: 'برای شروع کار نیاز است تا قرارداد خود را ثبت کنید',
       editedSuccessfully: 'قرارداد با موفقیت ویرایش شد',
-      addedSuccessfully: 'قرارداد با موفقیت افزوده شد'
+      addedSuccessfully: 'قرارداد با موفقیت افزوده شد',
+      deleteContractConfirmation: {
+        title: 'پاک کردن قرارداد'
+      }
     },
     messages: {
       title: 'پیام ها',
@@ -611,12 +615,14 @@ export default {
     invalidValues: 'مقادیر ورودی معتبر نیست',
     fileUploadedSuccessfully: 'فایل با موفقیت آپلود گردید',
     avatarChangedSuccessfully: 'آواتار با موفقیت تغییر یافت',
-    userDeletedSuccessfully: 'کاربر با موفقیت حذف شد'
+    userDeletedSuccessfully: 'کاربر با موفقیت حذف شد',
+    contractDeletedSuccessfully: 'قرارداد با موفقیت حذف شد'
   },
   validations: {
     fileImageWhiteList: 'فرمت های قابل قبول تصویر png jpg jpeg'
   },
   confirms: {
-    deleteUserConfirmation: 'با حذف کردن کاربر، تمامی فیش های حقوقی مربوط به کاربر حذف خواهد شد. آیا از حذف کاربر اطمینان دارید؟'
+    deleteUserConfirmation: 'با حذف کردن کاربر، تمامی فیش های حقوقی مربوط به کاربر حذف خواهد شد. آیا از حذف کاربر اطمینان دارید؟',
+    deleteContractConfirmation: 'با حذف کردن کاربر، تمامی فیش های حقوقی مربوط به قرارداد حذف خواهد شد. آیا از حذف قرارداد اطمینان دارید؟'
   }
 }

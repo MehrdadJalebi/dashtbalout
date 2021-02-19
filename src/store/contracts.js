@@ -26,6 +26,9 @@ export default {
     },
     updateContract (context, payload) {
       return this.server.UpdateContract(payload)
+    },
+    deleteContract (context, payload) {
+      return this.server.DeleteContractById(payload)
     }
   }
 }

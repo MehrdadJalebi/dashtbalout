@@ -75,6 +75,9 @@ export default {
     },
     getProfilePic (context, payload) {
       return this.server.GetProfilePic(payload)
+    },
+    deleteUser (context, payload) {
+      return this.server.Delete(payload)
     }
   }
 }

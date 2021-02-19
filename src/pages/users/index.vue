@@ -108,6 +108,15 @@
             >
             {{ $t('enums.tableActions.edit') }}
           </v-btn>
+            <v-btn
+              small
+              outlined
+              class="mr-1"
+              color="error"
+              @click="deleteUserModal(props.item.id)"
+              >
+              {{ $t('enums.tableActions.delete') }}
+            </v-btn>
           </td>
         </tr>
       </template>
@@ -177,6 +186,55 @@
       </v-row>
       </v-card>
     </v-dialog>
+    <v-dialog
+      v-model="deleteUserDialog"
+      width="700"
+      >
+      <v-card class="px-3 pb-3">
+        <v-card-title class="headline">
+          {{ $t('pages.users.deleteUserConfirmation.title') }}
+        </v-card-title>
+      <v-card
+        outlined
+        class="border-box"
+        >
+        <v-card
+          flat
+          class="d-flex">
+          <v-layout
+            justify-right
+            align-center
+            class="pa-2"
+            >
+            <div>
+              <div class="alert-circle">
+                <v-icon class="orange--text text-h2">mdi-alert</v-icon>
+              </div>
+            </div>
+            <div>
+              <v-card-text
+                class="orange--text"
+                v-html="$t('confirms.deleteUserConfirmation')"
+                >
+              </v-card-text>
+            </div>
+          </v-layout>
+        </v-card>
+      </v-card>
+      <v-row class="mt-3">
+        <v-col class="text-center" :sm="12">
+          <v-btn
+            :loading="deleteLoading"
+            class="mr-3"
+            color="success"
+            @click="deleteUser"
+            >
+            {{ $t('pages.users.deleteUserBtn') }}
+          </v-btn>
+        </v-col>
+      </v-row>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -188,10 +246,12 @@ export default {
       page: 1,
       pageCount: 100000,
       dialog: false,
+      deleteUserDialog: false,
       pages: {},
       totalItems: 0,
       isLoading: true,
       uploadLoading: false,
+      deleteLoading: false,
       usersList: [],
       filterBtn: {
         iconColor: 'primary',
@@ -203,7 +263,8 @@ export default {
         search: null
       },
       file: null,
-      fileList: []
+      fileList: [],
+      userId: null
     }
   },
   computed: {
@@ -255,6 +316,7 @@ export default {
       getAllUsers: 'users/getAllUsers',
       changeRole: 'users/changeRole',
       enableUser: 'users/enableUser',
+      delete: 'users/deleteUser',
       disableUser: 'users/disableUser',
       excel: 'users/excel',
       showToast: 'snackbar/showToastMessage'
@@ -335,6 +397,23 @@ export default {
         this.showToast({ content: successMessage, color: 'success' })
         this.uploadLoading = false
         this.dialog = false
+      })
+    },
+    deleteUserModal (userId) {
+      this.userId = userId
+      this.deleteUserDialog = true
+    },
+    deleteUser () {
+      this.deleteLoading = true
+      const payload = {
+        userid: this.userId
+      }
+      this.delete(payload).then(response => {
+        const successMessage = this.$t('toasts.userDeletedSuccessfully')
+        this.showToast({ content: successMessage, color: 'success' })
+        this.deleteLoading = false
+        this.deleteUserDialog = false
+        this.loadData()
       })
     }
   }

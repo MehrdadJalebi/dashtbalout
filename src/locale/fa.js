@@ -334,6 +334,7 @@ export default {
       edit: 'ویرایش کاربر',
       excelAdd: 'ثبت  از فایل  اکسل',
       addUserBtn: 'ثبت کاربر',
+      deleteUserBtn: 'حذف کاربر',
       completeUserBtn: 'تکمیل اطلاعات کاربر',
       addBankInfoBtn: 'افزودن اطلاعات بانکی',
       editBankInfoBtn: 'ویرایش اطلاعات بانکی',
@@ -343,6 +344,9 @@ export default {
         sampleBtn: 'دریافت  فایل نمونه اکسل',
         chooseFile: 'انتخاب فایل جهت آپلود',
         uploadFile: 'آپلود فایل'
+      },
+      deleteUserConfirmation: {
+        title: 'پاک کردن کاربر'
       },
       userRegisteredSuccessfully: 'کاربر با موفقیت ثبت نام شد',
       userCompletedSuccessfully: 'اطلاعات کاربر با موفقیت تکمیل  شد',
@@ -606,9 +610,13 @@ export default {
     bankAccountDeletedSuccessfully: 'حساب بانکی با موفقیت حذف گردید',
     invalidValues: 'مقادیر ورودی معتبر نیست',
     fileUploadedSuccessfully: 'فایل با موفقیت آپلود گردید',
-    avatarChangedSuccessfully: 'آواتار با موفقیت تغییر یافت'
+    avatarChangedSuccessfully: 'آواتار با موفقیت تغییر یافت',
+    userDeletedSuccessfully: 'کاربر با موفقیت حذف شد'
   },
   validations: {
     fileImageWhiteList: 'فرمت های قابل قبول تصویر png jpg jpeg'
+  },
+  confirms: {
+    deleteUserConfirmation: 'با حذف کردن کاربر، تمامی فیش های حقوقی مربوط به کاربر حذف خواهد شد. آیا از حذف کاربر اطمینان دارید؟'
   }
 }

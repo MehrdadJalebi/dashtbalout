@@ -122,7 +122,6 @@
                         large
                         class="px-5 ml-1 mr-auto"
                         color="primary"
-                        :disabled="!isStep1Valid"
                         :loading="isLoading"
                         @click="goStep(2)"
                         >
@@ -408,7 +407,6 @@
                         large
                         class="px-5 ml-1 mr-auto"
                         color="primary"
-                        :disabled="!isStep2Valid"
                         :loading="isLoading"
                         @click="goStep(3)"
                         >

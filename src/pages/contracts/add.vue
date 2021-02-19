@@ -208,6 +208,7 @@ export default {
       showToast: 'snackbar/showToastMessage'
     }),
     add () {
+      console.log(this.contract)
       this.addContract(this.contract)
         .then(() => {
           const successMessage = this.$t('pages.contracts.addedSuccessfully')

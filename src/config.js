@@ -22,12 +22,12 @@ export default {
   themes: {
     enableChange: false,
     light: {
-      headerColor: '#fafafa',
+      headerColor: '#0E1E3D',
       mainContent: '#ffffff',
-      sidebarContent: '#f3f3f3',
+      sidebarContent: '#182E59',
       formInputColor: '#F3F7F9',
-      borderColor: '#E1E8EE',
-      authContent: '#fafafa'
+      borderColor: '#E1E7EE',
+      authContent: '#0E1E3D'
     },
     dark: {
       headerColor: '#000000',
@@ -45,7 +45,7 @@ export default {
     },
     panel: {
       isHeaderDark: false,
-      isSidebarDark: false
+      isSidebarDark: true
     }
   },
   validBrowsers: {

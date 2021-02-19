@@ -41,14 +41,6 @@
                 The slot content of the above portal component will be rendered here.
               -->
             </portal-target>
-            <v-footer
-              v-if="copyRight"
-              absolute
-              color="transparent"
-              class="d-none d-md-flex justify-center col-sm-12 col-md-4 col-12"
-            >
-              <span class="white--text text-caption">{{ $t('components.copyRight.copyRight')}} </span>
-            </v-footer>
             <v-img
               v-if="artworkURL"
               max-width="100%"

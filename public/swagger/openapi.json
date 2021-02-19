@@ -781,7 +781,7 @@
         "tags": [
           "Payrolls"
         ],
-        "operationId": "GetContractCount",
+        "operationId": "GetPayrollCount",
         "responses": {
           "200": {
             "description": "Success",
@@ -1374,7 +1374,24 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -2134,10 +2151,10 @@
             "type": "string",
             "nullable": true
           },
-          "contractType": {
+          "monthlyWorkTimeType": {
             "$ref": "#/components/schemas/ContractType"
           },
-          "functionValue": {
+          "monthlyWorkAmount": {
             "type": "integer",
             "format": "int32"
           }
@@ -2182,10 +2199,10 @@
             "type": "string",
             "nullable": true
           },
-          "contractType": {
+          "monthlyWorkTimeType": {
             "$ref": "#/components/schemas/ContractType"
           },
-          "functionValue": {
+          "monthlyWorkAmount": {
             "type": "integer",
             "format": "int32"
           }
@@ -2483,10 +2500,6 @@
           "maritalStatus": {
             "$ref": "#/components/schemas/MaritalStatus"
           },
-          "children": {
-            "type": "integer",
-            "format": "int32"
-          },
           "email": {
             "type": "string",
             "nullable": true
@@ -2505,7 +2518,8 @@
           },
           "birthdate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "birthPlace": {
             "type": "string",
@@ -2553,6 +2567,17 @@
             "type": "string",
             "format": "date-time",
             "nullable": true
+          },
+          "childrenCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "underSupportPersonsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lessDevelopedAreas": {
+            "type": "boolean"
           },
           "fullName": {
             "type": "string",

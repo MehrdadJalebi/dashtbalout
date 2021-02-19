@@ -16,3 +16,20 @@
 .w-100 {
   width: 100%;
 }
+
+.counts-boxes {
+  width: 25vw;
+  padding: 10px;
+  text-align: center;
+  height: 100px;
+  border-radius: 5px;
+  &.redbg{
+    background-color: #ffbbb6 !important;
+  }
+  &.greenbg{
+    background-color: #8be68f !important;
+  }
+  &.bluebg{
+    background-color: #c5e5ff !important;
+  }
+}

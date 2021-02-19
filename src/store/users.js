@@ -84,6 +84,15 @@ export default {
     },
     changePassword (context, payload) {
       return this.server.ChangePassword(payload)
+    },
+    getUserCount (context, payload) {
+      return this.server.GetUserCount(payload)
+    },
+    getContractCount (context, payload) {
+      return this.server.GetContractCount(payload)
+    },
+    getPayrollCount (context, payload) {
+      return this.server.GetPayrollCount(payload)
     }
   }
 }

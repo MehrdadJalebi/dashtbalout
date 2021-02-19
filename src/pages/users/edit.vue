@@ -82,6 +82,7 @@
                   <form-item
                     v-model="user.nationalCode"
                     type="textbox"
+                    :rules="nationalCodeValidation"
                     icon="mdi-account-circle"
                     :label="$t('enums.nationalCode')"
                     :placeholder="$t('enums.placeholders.nationalCode')"
@@ -94,6 +95,7 @@
                       v-model="user.phoneNumber"
                       type="textbox"
                       icon="mdi-account-circle"
+                      :rules="phoneNumberValidation"
                       :label="$t('enums.phoneNumber')"
                       :placeholder="$t('enums.placeholders.phoneNumber')"
                       ></form-item>
@@ -120,6 +122,7 @@
                         large
                         class="px-5 ml-1 mr-auto"
                         color="primary"
+                        :disabled="!isStep1Valid"
                         :loading="isLoading"
                         @click="goStep(2)"
                         >
@@ -141,6 +144,7 @@
                     v-model="user.gender"
                     type="select"
                     :items="genderArray"
+                    :rules="[rules.required]"
                     icon="mdi-account-circle"
                     :label="$t('enums.gender')"
                     :placeholder="$t('enums.placeholders.gender')"
@@ -153,6 +157,7 @@
                       v-model="user.maritalStatus"
                       type="select"
                       :items="maritalStatusesArray"
+                    :rules="[rules.required]"
                       icon="mdi-account-circle"
                       :label="$t('enums.maritalStatus')"
                       :placeholder="$t('enums.placeholders.maritalStatus')"
@@ -191,6 +196,7 @@
                     <form-item
                       v-model="user.fatherName"
                       type="textbox"
+                    :rules="[rules.required]"
                       icon="mdi-account-circle"
                       :label="$t('enums.fatherName')"
                       :placeholder="$t('enums.placeholders.fatherName')"
@@ -202,6 +208,7 @@
                       <form-item
                         v-model="user.birthdate"
                         icon="mdi-calendar"
+                    :rules="[rules.required]"
                         type="date"
                         :label="$t('enums.birthDate')"
                         :placeholder="$t('enums.placeholders.birthDate')"
@@ -214,6 +221,7 @@
                           v-model="user.birthPlace"
                           type="textbox"
                           icon="mdi-account-circle"
+                    :rules="[rules.required]"
                           :label="$t('enums.birthPlace')"
                           :placeholder="$t('enums.placeholders.birthPlace')"
                           ></form-item>
@@ -240,6 +248,7 @@
                     v-model="user.birthCertificateNumber"
                     type="textbox"
                     icon="mdi-account-circle"
+                    :rules="[rules.required]"
                     :label="$t('enums.birthCertificateNumber')"
                     :placeholder="$t('enums.placeholders.birthCertificateNumber')"
                     ></form-item>
@@ -262,6 +271,7 @@
                         v-model="user.tel"
                         type="textbox"
                         icon="mdi-account-circle"
+                    :rules="[rules.required]"
                         :label="$t('enums.telephone')"
                         :placeholder="$t('enums.placeholders.telephone')"
                         ></form-item>
@@ -398,6 +408,7 @@
                         large
                         class="px-5 ml-1 mr-auto"
                         color="primary"
+                        :disabled="!isStep2Valid"
                         :loading="isLoading"
                         @click="goStep(3)"
                         >
@@ -591,7 +602,19 @@ export default {
       },
       bankAccounts: [],
       newBankAccounts: [],
-      userId: this.$route.query.id
+      userId: this.$route.query.id,
+      phoneNumberRules: {
+        required: value => !!value || this.$t('components.register.phoneNumberRequired'),
+        pattern: value => RegExp(this.phoneNumberPatternRegex.substring(1, this.phoneNumberPatternRegex.length - 1)).test(value) || this.phoneNumberPatternMessage,
+        counter: value => value.length === 11 || this.$t('components.register.phoneNumberCountValidation')
+      },
+      nationalCodeRules: {
+        required: value => !!value || this.$t('components.register.nationalCodeRequired'),
+        counter: value => value.length === 10 || this.$t('components.register.nationalCodeCountValidation')
+      },
+      rules: {
+        required: value => !!value || 'این فیلد اجباری است'
+      }
     }
   },
   computed: {
@@ -599,7 +622,23 @@ export default {
       genderArray: 'enums/genderArray',
       maritalStatusesArray: 'enums/maritalStatusesArray',
       employeeStatusesArray: 'enums/employeeStatusesArray'
-    })
+    }),
+    phoneNumberValidation () {
+      return [this.phoneNumberRules.required, this.phoneNumberRules.pattern, this.phoneNumberRules.counter]
+    },
+    nationalCodeValidation () {
+      return [this.nationalCodeRules.required, this.nationalCodeRules.counter]
+    },
+    isStep1Valid () {
+      return Object.keys(this.user).filter(key => this.user[key] === null ||
+         this.user[key] === undefined || this.user[key] === '').length === 0
+    },
+    isStep2Valid () {
+      return this.user.gender !== null && this.user.maritalStatus !== null &&
+        this.user.fatherName !== null && this.user.birthdate !== null &&
+        this.user.birthPlace !== null && this.user.birthCertificateNumber !== null &&
+        this.user.tel !== null
+    }
   },
   created () {
     this.isLoading = true
@@ -699,3 +738,8 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+  .v-input__control{
+    flex-direction: row;
+  }
+</style>

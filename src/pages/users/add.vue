@@ -163,6 +163,7 @@
                     v-model="user.gender"
                     type="select"
                     :items="genderArray"
+                    :rules="[rules.required]"
                     icon="mdi-account-circle"
                     :label="$t('enums.gender')"
                     :placeholder="$t('enums.placeholders.gender')"
@@ -175,6 +176,7 @@
                       v-model="user.maritalStatus"
                       type="select"
                       :items="maritalStatusesArray"
+                      :rules="[rules.required]"
                       icon="mdi-account-circle"
                       :label="$t('enums.maritalStatus')"
                       :placeholder="$t('enums.placeholders.maritalStatus')"
@@ -213,6 +215,7 @@
                     <form-item
                       v-model="user.fatherName"
                       type="textbox"
+                      :rules="[rules.required]"
                       icon="mdi-account-circle"
                       :label="$t('enums.fatherName')"
                       :placeholder="$t('enums.placeholders.fatherName')"
@@ -225,6 +228,7 @@
                         v-model="user.birthdate"
                         icon="mdi-calendar"
                         type="date"
+                        :rules="[rules.required]"
                         :label="$t('enums.birthDate')"
                         :placeholder="$t('enums.placeholders.birthDate')"
                       ></form-item>
@@ -235,6 +239,7 @@
                         <form-item
                           v-model="user.birthPlace"
                           type="textbox"
+                          :rules="[rules.required]"
                           icon="mdi-account-circle"
                           :label="$t('enums.birthPlace')"
                           :placeholder="$t('enums.placeholders.birthPlace')"
@@ -262,6 +267,7 @@
                     v-model="user.birthCertificateNumber"
                     type="textbox"
                     icon="mdi-account-circle"
+                    :rules="[rules.required]"
                     :label="$t('enums.birthCertificateNumber')"
                     :placeholder="$t('enums.placeholders.birthCertificateNumber')"
                     ></form-item>
@@ -283,6 +289,7 @@
                       <form-item
                         v-model="user.tel"
                         type="textbox"
+                        :rules="[rules.required]"
                         icon="mdi-account-circle"
                         :label="$t('enums.telephone')"
                         :placeholder="$t('enums.placeholders.telephone')"
@@ -421,6 +428,7 @@
                         class="px-5 ml-1 mr-auto"
                         color="primary"
                         :loading="isLoading"
+                        :disabled="!isStep2Valid"
                         @click="goStep(3)"
                         >
                         {{ $t('pages.users.completeUserBtn') }}
@@ -616,7 +624,7 @@ export default {
         counter: value => value.length === 10 || this.$t('components.register.nationalCodeCountValidation')
       },
       rules: {
-        required: value => !!value || 'ﺎﯿﻧ ﻒﯿﻟﺩ ﺎﺠﺑﺍﺮﯾ ﺎﺴﺗ'
+        required: value => !!value || 'این فیلد اجباری است'
       }
     }
   },
@@ -635,6 +643,12 @@ export default {
     isStep1Valid () {
       return Object.keys(this.user).filter(key => this.user[key] === null ||
          this.user[key] === undefined || this.user[key] === '').length === 0
+    },
+    isStep2Valid () {
+      return this.user.gender !== null && this.user.maritalStatus !== null &&
+        this.user.fatherName !== null && this.user.birthdate !== null &&
+        this.user.birthPlace !== null && this.user.birthCertificateNumber !== null &&
+        this.user.tel !== null
     }
   },
   created () {
@@ -757,3 +771,8 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+  .v-input__control{
+    flex-direction: row;
+  }
+</style>

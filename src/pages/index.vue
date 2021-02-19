@@ -13,19 +13,19 @@
     <v-row class="mt-3">
       <v-col :sm="4">
         <div class="counts-boxes greenbg">
-          <h3>تعداد پرسنل و کاربران</h3>
+          <h3 class="mb-3">تعداد پرسنل و کاربران</h3>
           <h3>{{ userCount }}</h3>
         </div>
       </v-col>
       <v-col :sm="4">
         <div class="counts-boxes redbg">
-          <h3>تعداد قراردادها</h3>
+          <h3 class="mb-3">تعداد قراردادها</h3>
           <h3>{{ contractCount }}</h3>
         </div>
       </v-col>
       <v-col :sm="4">
         <div class="counts-boxes bluebg">
-          <h3>تعداد فیشها</h3>
+          <h3 class="mb-3">تعداد فیشها</h3>
           <h3>{{ payrollCount }}</h3>
         </div>
       </v-col>

@@ -180,6 +180,7 @@
                         <form-item
                           v-model="user.personnelNumber"
                           type="textbox"
+                          :rules="[rules.required]"
                           icon="mdi-account-circle"
                           :label="$t('enums.personnelNumber')"
                           :placeholder="$t('enums.placeholders.personnelNumber')"
@@ -632,7 +633,7 @@ export default {
          this.user[key] === undefined || this.user[key] === '').length === 0
     },
     isStep2Valid () {
-      return this.user.gender !== null && this.user.maritalStatus !== null &&
+      return this.user.personnelNumber !== null && this.user.gender !== null && this.user.maritalStatus !== null &&
         this.user.fatherName !== null && this.user.birthdate !== null &&
         this.user.birthPlace !== null && this.user.birthCertificateNumber !== null &&
         this.user.tel !== null

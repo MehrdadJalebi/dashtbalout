@@ -49,7 +49,7 @@
             :sm="4"
             >
             <form-item
-              v-model="payroll.ContractId"
+              v-model="payroll.contractId"
               type="select"
               :items="contractsList"
               icon="mdi-account-circle"
@@ -61,7 +61,7 @@
             :sm="4"
             >
             <form-item
-              v-model="payroll.Month"
+              v-model="payroll.month"
               type="select"
               :items="monthsArray"
               icon="mdi-account-circle"
@@ -73,7 +73,7 @@
             :sm="4"
             >
             <form-item
-              v-model="payroll.Year"
+              v-model="payroll.year"
               type="select"
               :items="yearsArray"
               icon="mdi-account-circle"

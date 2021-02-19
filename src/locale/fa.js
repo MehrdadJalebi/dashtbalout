@@ -373,7 +373,7 @@ export default {
       addGroup: 'ثبت فیش حقوقی گروهی',
       addPayrollBtn: 'ثبت فیش  جدید',
       addedSuccessfully: 'فیش حقوقی با موفقیت افزوده شد',
-      noticeText: 'نام فایل اکسل وارد شده باید برابر با شماره پرسنلی باشد',
+      noticeText: 'نام فایل وارد شده باید برابر با شماره پرسنلی باشد',
       payrollDeletedSuccessfully: 'فیش حقوقی با موفقیت حذف گردید'
     },
     userPayrolls: {

@@ -625,7 +625,8 @@ export default {
     avatarChangedSuccessfully: 'آواتار با موفقیت تغییر یافت',
     userDeletedSuccessfully: 'کاربر با موفقیت حذف شد',
     contractDeletedSuccessfully: 'قرارداد با موفقیت حذف شد',
-    passwordChangedSuccessfully: 'پسورد با موفقیت تغییر یافت'
+    passwordChangedSuccessfully: 'پسورد با موفقیت تغییر یافت',
+    fillFields: 'لطفا مقادیر را وارد کنید'
   },
   validations: {
     fileImageWhiteList: 'فرمت های قابل قبول تصویر png jpg jpeg'

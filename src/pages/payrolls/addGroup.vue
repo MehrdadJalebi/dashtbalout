@@ -52,6 +52,7 @@
               v-model="payroll.contractId"
               type="select"
               :items="contractsList"
+                    :rules="[rules.required]"
               icon="mdi-account-circle"
               :label="$t('enums.contractTitle')"
               :placeholder="$t('enums.placeholders.contractTitle')"
@@ -64,6 +65,7 @@
               v-model="payroll.month"
               type="select"
               :items="monthsArray"
+                    :rules="[rules.required]"
               icon="mdi-account-circle"
               :label="$t('enums.month')"
               :placeholder="$t('enums.placeholders.month')"
@@ -76,6 +78,7 @@
               v-model="payroll.year"
               type="select"
               :items="yearsArray"
+                    :rules="[rules.required]"
               icon="mdi-account-circle"
               :label="$t('enums.year')"
               :placeholder="$t('enums.placeholders.year')"
@@ -93,6 +96,7 @@
               class="file-upload mb-3"
               type="file"
               multiple
+                    :rules="[rules.required]"
               icon="mdi-file-upload"
               accept="image/*"
               :label="$t('enums.payrollFile')"
@@ -129,7 +133,10 @@ export default {
       contractsList: [],
       isLoading: false,
       file: [],
-      fileList: []
+      fileList: [],
+      rules: {
+        required: value => !!value || 'این فیلد اجباری است'
+      }
     }
   },
   computed: {
@@ -163,13 +170,19 @@ export default {
       showToast: 'snackbar/showToastMessage'
     }),
     addNewPayroll () {
-      console.log('this.payroll is: ', this.payroll)
-      this.addGroupPayroll(this.payroll).then(response => {
-        console.log('payroll res is: ', response)
-        const successMessage = this.$t('pages.payrolls.addedSuccessfully')
-        this.showToast({ content: successMessage, color: 'success' })
-        this.$router.push({ name: 'payrolls' })
-      })
+      if (this.payroll.fileIds.length !== 0 && this.payroll.contractId !== null &&
+        this.payroll.year !== null && this.payroll.month !== null) {
+        console.log('this.payroll is: ', this.payroll)
+        this.addGroupPayroll(this.payroll).then(response => {
+          console.log('payroll res is: ', response)
+          const successMessage = this.$t('pages.payrolls.addedSuccessfully')
+          this.showToast({ content: successMessage, color: 'success' })
+          this.$router.push({ name: 'payrolls' })
+        })
+      } else {
+        const errorMessage = this.$t('toasts.fillFields')
+        this.showToast({ content: errorMessage, color: 'error' })
+      }
     },
     uploadPayroll () {
       this.isLoading = true
@@ -184,3 +197,8 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+  .v-input__control{
+    flex-direction: row;
+  }
+</style>

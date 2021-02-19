@@ -25,6 +25,7 @@
               type="select"
               :items="userList"
               icon="mdi-account-circle"
+                    :rules="[rules.required]"
               :label="$t('enums.userList')"
               :placeholder="$t('enums.placeholders.userList')"
               ></form-item>
@@ -36,6 +37,7 @@
               v-model="payroll.contractId"
               type="select"
               :items="contractsList"
+                    :rules="[rules.required]"
               icon="mdi-account-circle"
               :label="$t('enums.contractTitle')"
               :placeholder="$t('enums.placeholders.contractTitle')"
@@ -49,6 +51,7 @@
               type="select"
               :items="monthsArray"
               icon="mdi-account-circle"
+                    :rules="[rules.required]"
               :label="$t('enums.month')"
               :placeholder="$t('enums.placeholders.month')"
               ></form-item>
@@ -60,6 +63,7 @@
               v-model="payroll.year"
               type="select"
               :items="yearsArray"
+                    :rules="[rules.required]"
               icon="mdi-account-circle"
               :label="$t('enums.year')"
               :placeholder="$t('enums.placeholders.year')"
@@ -76,6 +80,7 @@
               v-model="file"
               class="file-upload mb-3"
               type="file"
+                    :rules="[rules.required]"
               icon="mdi-file-upload"
               accept="image/*"
               :label="$t('enums.payrollFile')"
@@ -104,12 +109,17 @@ export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
     return {
-      payroll: {},
+      payroll: {
+        fileId: []
+      },
       yearsArray: [1395, 1396, 1397, 1398, 1399, 1400],
       userList: [],
       contractsList: [],
       file: null,
       fileList: [],
+      rules: {
+        required: value => !!value || 'این فیلد اجباری است'
+      },
       isLoading: false
     }
   },
@@ -152,11 +162,17 @@ export default {
       showToast: 'snackbar/showToastMessage'
     }),
     addNewPayroll () {
-      this.addPayroll(this.payroll).then(response => {
-        const successMessage = this.$t('pages.payrolls.addedSuccessfully')
-        this.showToast({ content: successMessage, color: 'success' })
-        this.$router.push({ name: 'payrolls' })
-      })
+      if (this.payroll.fileId.length !== 0 && this.payroll.userId !== null && this.payroll.contractId !== null &&
+        this.payroll.year !== null && this.payroll.month !== null) {
+        this.addPayroll(this.payroll).then(response => {
+          const successMessage = this.$t('pages.payrolls.addedSuccessfully')
+          this.showToast({ content: successMessage, color: 'success' })
+          this.$router.push({ name: 'payrolls' })
+        })
+      } else {
+        const errorMessage = this.$t('toasts.fillFields')
+        this.showToast({ content: errorMessage, color: 'error' })
+      }
     },
     uploadPayroll () {
       this.isLoading = true
@@ -169,3 +185,8 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+  .v-input__control{
+    flex-direction: row;
+  }
+</style>

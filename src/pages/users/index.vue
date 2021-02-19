@@ -108,6 +108,15 @@
             >
             {{ $t('enums.tableActions.edit') }}
           </v-btn>
+          <v-btn
+            small
+            class="mr-1"
+            outlined
+            color="primary"
+            @click="resetUserPassword(props.item.id)"
+            >
+            {{ $t('enums.tableActions.resetPassword') }}
+          </v-btn>
             <v-btn
               small
               outlined
@@ -370,6 +379,7 @@ export default {
       enableUser: 'users/enableUser',
       delete: 'users/deleteUser',
       disableUser: 'users/disableUser',
+      resetPassword: 'users/resetPassword',
       excel: 'users/excel',
       showToast: 'snackbar/showToastMessage'
     }),
@@ -476,6 +486,14 @@ export default {
       this.userId = userId
       this.userRole = userRole
       this.changeUserRoleDialog = true
+    },
+    resetUserPassword (userId) {
+      this.isLoading = true
+      this.resetPassword({ userid: userId }).then(response => {
+        const successMessage = response.data
+        this.showToast({ content: successMessage, color: 'success' })
+        this.isLoading = false
+      })
     }
   }
 }

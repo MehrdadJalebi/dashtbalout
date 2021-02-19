@@ -78,6 +78,9 @@ export default {
     },
     deleteUser (context, payload) {
       return this.server.Delete(payload)
+    },
+    resetPassword (context, payload) {
+      return this.server.ResetPassword(payload)
     }
   }
 }

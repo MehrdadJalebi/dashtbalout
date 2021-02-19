@@ -554,7 +554,8 @@ export default {
     tableActions: {
       add: 'افزودن',
       edit: 'ویرایش',
-      delete: 'حذف'
+      delete: 'حذف',
+      resetPassword: 'بازیابی کلمه عبور'
     },
     userRoles: {
       admin: 'ادمین',

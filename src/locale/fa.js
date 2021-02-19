@@ -335,6 +335,7 @@ export default {
       excelAdd: 'ثبت  از فایل  اکسل',
       addUserBtn: 'ثبت کاربر',
       deleteUserBtn: 'حذف کاربر',
+      changeUserRoleBtn: 'تغییر نقش کاربر',
       completeUserBtn: 'تکمیل اطلاعات کاربر',
       addBankInfoBtn: 'افزودن اطلاعات بانکی',
       editBankInfoBtn: 'ویرایش اطلاعات بانکی',
@@ -347,6 +348,9 @@ export default {
       },
       deleteUserConfirmation: {
         title: 'پاک کردن کاربر'
+      },
+      changeUserRoleConfirmation: {
+        title: 'تغییر نقش کاربر'
       },
       userRegisteredSuccessfully: 'کاربر با موفقیت ثبت نام شد',
       userCompletedSuccessfully: 'اطلاعات کاربر با موفقیت تکمیل  شد',
@@ -623,6 +627,7 @@ export default {
   },
   confirms: {
     deleteUserConfirmation: 'با حذف کردن کاربر، تمامی فیش های حقوقی مربوط به کاربر حذف خواهد شد. آیا از حذف کاربر اطمینان دارید؟',
-    deleteContractConfirmation: 'با حذف کردن کاربر، تمامی فیش های حقوقی مربوط به قرارداد حذف خواهد شد. آیا از حذف قرارداد اطمینان دارید؟'
+    deleteContractConfirmation: 'با حذف کردن کاربر، تمامی فیش های حقوقی مربوط به قرارداد حذف خواهد شد. آیا از حذف قرارداد اطمینان دارید؟',
+    changeUserRoleConfirmation: 'آیا از تغییر نقش کاربر مورد نظر اطمینان دارید؟'
   }
 }

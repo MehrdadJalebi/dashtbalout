@@ -90,7 +90,7 @@
           <td class="data-min-td">
             <v-switch
               v-model="props.item.isAdmin"
-              @click="changeUserRole(props.item.id, props.item.role)"
+              @click="changeUserRoleModal(props.item.id, props.item.role)"
               ></v-switch>
           </td>
           <td class="data-min-td">
@@ -235,6 +235,55 @@
       </v-row>
       </v-card>
     </v-dialog>
+    <v-dialog
+      v-model="changeUserRoleDialog"
+      width="700"
+      >
+      <v-card class="px-3 pb-3">
+        <v-card-title class="headline">
+          {{ $t('pages.users.changeUserRoleConfirmation.title') }}
+        </v-card-title>
+      <v-card
+        outlined
+        class="border-box"
+        >
+        <v-card
+          flat
+          class="d-flex">
+          <v-layout
+            justify-right
+            align-center
+            class="pa-2"
+            >
+            <div>
+              <div class="alert-circle">
+                <v-icon class="orange--text text-h2">mdi-alert</v-icon>
+              </div>
+            </div>
+            <div>
+              <v-card-text
+                class="orange--text"
+                v-html="$t('confirms.changeUserRoleConfirmation')"
+                >
+              </v-card-text>
+            </div>
+          </v-layout>
+        </v-card>
+      </v-card>
+      <v-row class="mt-3">
+        <v-col class="text-center" :sm="12">
+          <v-btn
+            :loading="changeUserRoleLoading"
+            class="mr-3"
+            color="success"
+            @click="changeUserRole"
+            >
+            {{ $t('pages.users.changeUserRoleBtn') }}
+          </v-btn>
+        </v-col>
+      </v-row>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -247,11 +296,13 @@ export default {
       pageCount: 100000,
       dialog: false,
       deleteUserDialog: false,
+      changeUserRoleDialog: false,
       pages: {},
       totalItems: 0,
       isLoading: true,
       uploadLoading: false,
       deleteLoading: false,
+      changeUserRoleLoading: false,
       usersList: [],
       filterBtn: {
         iconColor: 'primary',
@@ -264,7 +315,8 @@ export default {
       },
       file: null,
       fileList: [],
-      userId: null
+      userId: null,
+      userRole: null
     }
   },
   computed: {
@@ -363,14 +415,18 @@ export default {
     excelAddUsersModal () {
       this.dialog = true
     },
-    changeUserRole (id, role) {
+    changeUserRole () {
+      this.changeUserRoleLoading = true
       const payload = {
-        userid: id,
-        role: role === 'Admin' ? 'User' : 'Admin'
+        userid: this.userId,
+        role: this.userRole === 'Admin' ? 'User' : 'Admin'
       }
       this.changeRole(payload).then(() => {
         const successMessage = this.$t('pages.users.roleChangedSuccessfully')
         this.showToast({ content: successMessage, color: 'success' })
+        this.loadData()
+        this.changeUserRoleDialog = false
+        this.changeUserRoleLoading = false
       })
     },
     changeUserState (id, state) {
@@ -415,6 +471,11 @@ export default {
         this.deleteUserDialog = false
         this.loadData()
       })
+    },
+    changeUserRoleModal (userId, userRole) {
+      this.userId = userId
+      this.userRole = userRole
+      this.changeUserRoleDialog = true
     }
   }
 }

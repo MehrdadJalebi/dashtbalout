@@ -85,7 +85,7 @@ export default {
 .form-action-component{
   border-top: none;
   .v-btn{
-    min-width: 110px !important;
+    min-width: 70px !important;
     margin-left: 10px;
   }
 }

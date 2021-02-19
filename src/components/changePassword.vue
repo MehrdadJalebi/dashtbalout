@@ -10,6 +10,30 @@
       >
       {{$t('components.changePassword.changePassword')}}</v-row>
     <v-form ref="form" v-model="valid" @submit.prevent="onChangePassword">
+      <!-- old password  -->
+      <div v-if="oldPasswordEnabled" class="subtitle-2 input-placeholder-left pt-1">
+        <v-icon v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-lock</v-icon>
+        <span v-if="solo">{{ oldPasswordTitle}}</span>
+        <v-text-field
+          v-model="userPassword.oldPassword"
+          autofocus
+          tabindex="1"
+          :solo="solo"
+          :outlined="outlined"
+          flat
+          color="primary"
+          class="mt-2"
+          :rules=[oldPasswordRules.required]
+          :prepend-inner-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+          :label="this.oldPasswordTitle"
+          :placeholder="this.oldPasswordPlaceholder"
+          :prepend-icon="outlined && iconEnabled ? 'mdi-lock' : ''"
+          name="oldPassword"
+          :type="showPass ? 'text' : 'password'"
+          required
+          @click:prepend-inner="showPass = !showPass"
+        ></v-text-field>
+      </div>
       <!-- password  -->
       <div v-if="passwordEnabled" class="subtitle-2 input-placeholder-left pt-1">
         <v-icon v-if="solo && iconEnabled" medium color="darken-2" class="ml-3">mdi-lock</v-icon>
@@ -100,14 +124,18 @@
  * @property {String} [isButtonFullWidth] - Expands the button to 100% of available space,
  * @property {String} [changePasswordButtonColor='blue darken-2'] - Specifies the color of the registration button,
  * @property {Boolean} [newPasswordEnabled=true] - Specifies whether input exists in the form,
+ * @property {Boolean} [oldPasswordEnabled=true] - Specifies whether input exists in the form,
  * @property {Boolean} [passwordEnabled=true] - Specifies whether input exists in the form,
  * @property {String} [newPasswordTitle] - Specifies the input Title text,
+ * @property {String} [oldPasswordTitle] - Specifies the input Title text,
  * @property {String} [passwordTitle] - Specifies the input Title text,
  * @property {String} [newPasswordPlaceholder] - Specifies the input placeholder text,
+ * @property {String} [oldPasswordPlaceholder] - Specifies the input placeholder text,
  * @property {String} [passwordPlaceholder] - Specifies the input placeholder text,
  * @property {Boolean} [newPasswordRequiredEnabled=true] - Specifies whether input is required,
  * @property {Boolean} [newPasswordRequiredEnabled=true] - Specifies whether input is required,
  * @property {String} [newPasswordRequiredMessage] - If the input value is empty, the text of the error message is displayed,
+ * @property {String} [oldPasswordRequiredMessage] - If the input value is empty, the text of the error message is displayed,
  * @property {String} [passwordRequiredMessage] - If the input value is empty, the text of the error message is displayed,
  * @property {Boolean} [newPasswordPatternEnabled=true]
  * @property {Boolean} [passwordPatternEnabled=true]
@@ -224,9 +252,21 @@ export default {
       default: true,
       required: false
     },
+    oldPasswordEnabled: {
+      type: Boolean,
+      default: true,
+      required: false
+    },
     passwordEnabled: {
       type: Boolean,
       default: true,
+      required: false
+    },
+    oldPasswordTitle: {
+      type: String,
+      default () {
+        return this.$t('components.changePassword.oldPassword')
+      },
       required: false
     },
     passwordTitle: {
@@ -236,10 +276,24 @@ export default {
       },
       required: false
     },
+    oldPasswordPlaceholder: {
+      type: String,
+      default () {
+        return this.$t('components.changePassword.oldPasswordPlaceholder')
+      },
+      required: false
+    },
     passwordPlaceholder: {
       type: String,
       default () {
         return this.$t('components.changePassword.passwordPlaceholder')
+      },
+      required: false
+    },
+    oldPasswordRequiredMessage: {
+      type: String,
+      default () {
+        return this.$t('components.changePassword.oldPasswordRequired')
       },
       required: false
     },
@@ -260,6 +314,11 @@ export default {
     passwordPatternRegex: {
       type: String,
       default: '/^(?=.*).{8,}/',
+      required: false
+    },
+    oldPasswordRequiredEnabled: {
+      type: Boolean,
+      default: true,
       required: false
     },
     passwordRequiredEnabled: {
@@ -287,11 +346,15 @@ export default {
     return {
       valid: true,
       userPassword: {
+        oldPassword: '',
         password: '',
         newPassword: ''
       },
       showPass: false,
       showNewPass: false,
+      oldPasswordRules: {
+        required: value => !!value || this.oldPasswordRequiredMessage
+      },
       passwordRules: {
         required: value => !!value || this.passwordRequiredMessage,
         pattern: value => RegExp(this.passwordPatternRegex.substring(1, this.passwordPatternRegex.length - 1)).test(value) || this.passwordPatternMessage
@@ -327,7 +390,8 @@ export default {
   methods: {
     onChangePassword (event) {
       this.$emit('changepassword', {
-        password: this.userPassword.password
+        oldPassword: this.userPassword.oldPassword,
+        newPassword: this.userPassword.password
       })
     }
   }

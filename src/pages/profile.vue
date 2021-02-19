@@ -60,7 +60,7 @@
       >
         <v-col
           xs="12"
-          md="5"
+          md="10"
         >
           <profile-info-card
             :title="$t('pages.profile.changePassword')"
@@ -68,18 +68,6 @@
             :link-text="$t('pages.profile.changePasswordLinkText')"
             icon="mdi-lock"
             link-url="changePassword"
-          />
-        </v-col>
-        <v-col
-          xs="12"
-          md="5"
-        >
-          <profile-info-card
-            :title="$t('pages.profile.resetPassword')"
-            :description="$t('pages.profile.resetPasswordDescription')"
-            :link-text="$t('pages.profile.resetPasswordLinkText')"
-            icon="mdi-lock"
-            link-url="resetPassword"
           />
         </v-col>
       </v-row>

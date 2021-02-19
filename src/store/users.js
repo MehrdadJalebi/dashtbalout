@@ -81,6 +81,9 @@ export default {
     },
     resetPassword (context, payload) {
       return this.server.ResetPassword(payload)
+    },
+    changePassword (context, payload) {
+      return this.server.ChangePassword(payload)
     }
   }
 }

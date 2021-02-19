@@ -97,9 +97,12 @@ export default {
     changePassword: {
       title: 'تغییر گذرواژه',
       changePassword: 'تغییر کلمه عبور',
+      oldPassword: 'کلمه عبور قدیم',
       newPassword: 'کلمه عبور جدید',
       repeatNewPassword: 'تکرار کلمه عبور جدید',
+      oldPasswordPlaceholder: '********',
       passwordPlaceholder: '********',
+      oldPasswordRequired: 'کلمه عبور قدیم الزامی است',
       passwordRequired: 'کلمه عبور جدید الزامی است',
       newPasswordRequired: 'تکرار کلمه عبور جدید الزامی است',
       passwordValidation: 'حداقل تعداد کاراکتر برای کلمه عبور 8 کاراکتر است',
@@ -621,7 +624,8 @@ export default {
     fileUploadedSuccessfully: 'فایل با موفقیت آپلود گردید',
     avatarChangedSuccessfully: 'آواتار با موفقیت تغییر یافت',
     userDeletedSuccessfully: 'کاربر با موفقیت حذف شد',
-    contractDeletedSuccessfully: 'قرارداد با موفقیت حذف شد'
+    contractDeletedSuccessfully: 'قرارداد با موفقیت حذف شد',
+    passwordChangedSuccessfully: 'پسورد با موفقیت تغییر یافت'
   },
   validations: {
     fileImageWhiteList: 'فرمت های قابل قبول تصویر png jpg jpeg'

@@ -19,14 +19,7 @@
           width="64"
           height="64">
           <img
-            v-if="profile.avatarImage"
-            :src="profile.avatarImage"
-            :alt="profile.name"
-            />
-          <img
-            v-else
-            src="/img/default-avatar.jpg"
-            :alt="profile.name"
+            :src="avatarImage"
             />
         </v-avatar>
       <span
@@ -127,14 +120,7 @@
               width="32"
               height="32">
               <img
-                v-if="profile.avatarImage"
-                :src="profile.avatarImage"
-                :alt="profile.name"
-                />
-              <img
-                v-else
-                src="/img/default-avatar.jpg"
-                :alt="profile.name"
+                :src="avatarImage"
                 />
             </v-avatar>
           </v-btn>
@@ -180,6 +166,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import sidebarList from '../components/sidebar-list'
 export default {
   name: 'LayoutsPanel',
@@ -196,13 +183,30 @@ export default {
     },
     memberTerritoryMenus () {
       return this.$store.state.layout.memberTerritoryMenus
+    },
+    avatarImage () {
+      return this.avatarFile ? this.avatarFile : '/img/default-avatar.jpg'
     }
+  },
+  created () {
+    this.getUser().then(response => {
+      this.userInfo = response.data
+      this.getProfilePic().then(response => {
+        this.avatarFile = `data:image/png;base64, ${response.data}`
+      })
+      console.log(this.userInfo)
+    })
   },
   data: () => ({
     drawer: null,
-    drawerIsMini: null
+    drawerIsMini: null,
+    avatarFile: null
   }),
   methods: {
+    ...mapActions({
+      getUser: 'users/getUser',
+      getProfilePic: 'users/getProfilePic'
+    }),
     changeTheme () {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
     }

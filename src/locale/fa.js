@@ -605,6 +605,10 @@ export default {
     bankInfoAddedSuccessfully: 'اطلاعات بانکی با موفقیت افزوده  شد',
     bankAccountDeletedSuccessfully: 'حساب بانکی با موفقیت حذف گردید',
     invalidValues: 'مقادیر ورودی معتبر نیست',
-    fileUploadedSuccessfully: 'فایل با موفقیت آپلود گردید'
+    fileUploadedSuccessfully: 'فایل با موفقیت آپلود گردید',
+    avatarChangedSuccessfully: 'آواتار با موفقیت تغییر یافت'
+  },
+  validations: {
+    fileImageWhiteList: 'فرمت های قابل قبول تصویر png jpg jpeg'
   }
 }

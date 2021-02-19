@@ -27,13 +27,13 @@
         accept="image/*"
         :label="$t('pages.profilePhoto.photo')"
         :placeholder="$t('pages.profilePhoto.photoPlaceholder')"
-        @input="uploadFile"
       ></form-item>
       <form-action
+        :loading="fileLoading"
         :submit-text="$t('pages.forms.sendButtonText')"
         :cancel-text="$t('pages.forms.returnButtonText')"
         novalidate
-        @submit="onSubmitForm"
+        @submit="uploadProfilePic"
       ></form-action>
     </v-form>
   </div>
@@ -46,15 +46,13 @@ export default {
   data: () => ({
     formIsValid: true,
     avatarFile: null,
-    fileLoading: false,
-    formData: {
-      avatarAttachment: null
-    }
+    fileId: null,
+    fileList: [],
+    fileLoading: false
   }),
   computed: {
     ...mapGetters({
-      userInfo: 'auth/userInfo',
-      files: 'cdn/files'
+      userInfo: 'auth/userInfo'
     }),
     avatarRules () {
       return [
@@ -66,30 +64,20 @@ export default {
   methods: {
     ...mapActions({
       setAvatar: 'profile/setAvatar',
-      upload: 'cdn/upload'
+      saveProfilePic: 'users/saveProfilePic',
+      showToast: 'snackbar/showToastMessage'
     }),
-    onSubmitForm () {
-      this.setAvatar(this.formData)
-        .then(() => {
-          this.$router.push({ name: 'profile' })
-        })
-    },
-    uploadFile () {
-      if (this.avatarFile) {
-        this.fileLoading = true
-        this.upload(this.avatarFile)
-          .then(() => {
-            this.formData.avatarAttachment = this.files[0].fileName
-            this.fileLoading = false
-          })
-          .catch(() => {
-            this.fileLoading = false
-          })
-      }
+    uploadProfilePic () {
+      this.fileLoading = true
+      this.fileList.push(this.avatarFile)
+      this.saveProfilePic(this.fileList).then(response => {
+        if (response.status === 200) {
+          const successMessage = this.$t('toasts.avatarChangedSuccessfully')
+          this.showToast({ content: successMessage, color: 'success' })
+          this.fileLoading = false
+        }
+      })
     }
-  },
-  created () {
-    this.avatarFile = this.userInfo.avatar ? this.getFileURL(this.userInfo.avatar) : null
   }
 }
 </script>

@@ -81,7 +81,8 @@ export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
     return {
-      userInfo: {}
+      userInfo: {},
+      avatarFile: null
     }
   },
   computed: {
@@ -89,7 +90,7 @@ export default {
       return this.$store.state.layout.profile
     },
     avatarImage () {
-      return this.userInfo.avatarImage ? this.userInfo.avatarImage : '/img/default-avatar.jpg'
+      return this.avatarFile ? this.avatarFile : '/img/default-avatar.jpg'
     },
     email () {
       return this.userInfo ? this.userInfo.email : ''
@@ -101,12 +102,16 @@ export default {
   created () {
     this.getUser().then(response => {
       this.userInfo = response.data
+      this.getProfilePic().then(response => {
+        this.avatarFile = `data:image/png;base64, ${response.data}`
+      })
       console.log(this.userInfo)
     })
   },
   methods: {
     ...mapActions({
       getUser: 'users/getUser',
+      getProfilePic: 'users/getProfilePic',
       showToast: 'snackbar/showToastMessage'
     })
   }

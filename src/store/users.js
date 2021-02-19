@@ -69,6 +69,12 @@ export default {
     },
     excel (context, payload) {
       return this.server.Excel(payload)
+    },
+    saveProfilePic (context, payload) {
+      return this.server.SaveProfilePic(payload)
+    },
+    getProfilePic (context, payload) {
+      return this.server.GetProfilePic(payload)
     }
   }
 }

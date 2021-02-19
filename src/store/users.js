@@ -59,7 +59,9 @@ export default {
     },
     emailExist (context, payload) {
       return this.server.EmailExist(payload)
+    },
+    excel (context, payload) {
+      return this.server.Excel(payload)
     }
-
   }
 }

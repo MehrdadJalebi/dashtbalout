@@ -146,29 +146,35 @@
             </div>
           </v-layout>
         </v-card>
-        <v-card-actions>
-          <v-btn
-            class="mr-auto"
-            outlined
-            color="orange"
-            >
-            {{ $t('pages.users.excelAddUsers.sampleBtn') }}
-          </v-btn>
-        </v-card-actions>
       </v-card>
+      <v-row>
+        <v-col :sm="12">
       <div class="text-center mt-3">
-        <v-btn
-          color="primary"
+        <form-item
+          v-model="file"
+          class="file-upload mb-5"
+          type="file"
+          icon="mdi-file-upload"
+          accept=".xlsx, .xls, .csv"
+          :label="$t('enums.excelFile')"
+          :placeholder="$t('enums.placeholders.chooseFile')"
           >
-          {{ $t('pages.users.excelAddUsers.chooseFile') }}
-        </v-btn>
+        </form-item>
+      </div>
+        </v-col>
+      </v-row>
+      <v-row class="mt-5">
+        <v-col class="mt-5 text-center" :sm="12">
       <v-btn
+        :loading="uploadLoading"
         class="mr-3"
         color="success"
+        @click="uploadExcel"
         >
         {{ $t('pages.users.excelAddUsers.uploadFile') }}
       </v-btn>
-      </div>
+        </v-col>
+      </v-row>
       </v-card>
     </v-dialog>
   </div>
@@ -185,6 +191,7 @@ export default {
       pages: {},
       totalItems: 0,
       isLoading: true,
+      uploadLoading: false,
       usersList: [],
       filterBtn: {
         iconColor: 'primary',
@@ -194,7 +201,9 @@ export default {
       filterObject: {
         userType: null,
         search: null
-      }
+      },
+      file: null,
+      fileList: []
     }
   },
   computed: {
@@ -247,6 +256,7 @@ export default {
       changeRole: 'users/changeRole',
       enableUser: 'users/enableUser',
       disableUser: 'users/disableUser',
+      excel: 'users/excel',
       showToast: 'snackbar/showToastMessage'
     }),
     filter () {
@@ -316,6 +326,16 @@ export default {
           this.showToast({ content: successMessage, color: 'success' })
         })
       }
+    },
+    uploadExcel () {
+      this.uploadLoading = true
+      this.fileList.push(this.file)
+      this.excel(this.fileList).then(response => {
+        const successMessage = this.$t('toasts.fileUploadedSuccessfully')
+        this.showToast({ content: successMessage, color: 'success' })
+        this.uploadLoading = false
+        this.dialog = false
+      })
     }
   }
 }

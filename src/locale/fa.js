@@ -444,6 +444,7 @@ export default {
     getUserMessages: 'نمایش پیامهای کاربر',
     downloadPayroll: 'دانلود فیش  حقوقی',
     payrollFile: 'فایل فیش حقوقی',
+    excelFile: 'فایل اکسل',
     isRead: 'خوانده شده',
     isntRead: 'خوانده نشده',
     placeholders: {
@@ -587,6 +588,7 @@ export default {
     bankInfoEditedSuccessfully: 'اطلاعات بانکی با موفقیت ویرایش گردید',
     bankInfoAddedSuccessfully: 'اطلاعات بانکی با موفقیت افزوده  شد',
     bankAccountDeletedSuccessfully: 'حساب بانکی با موفقیت حذف گردید',
-    invalidValues: 'مقادیر ورودی معتبر نیست'
+    invalidValues: 'مقادیر ورودی معتبر نیست',
+    fileUploadedSuccessfully: 'فایل با موفقیت آپلود گردید'
   }
 }

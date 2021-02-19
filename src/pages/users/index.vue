@@ -164,6 +164,16 @@
             </div>
           </v-layout>
         </v-card>
+        <v-card-actions>
+          <v-btn
+            class="mr-auto"
+            outlined
+            color="orange"
+            @click="downloadSample"
+            >
+            {{ $t('pages.users.excelAddUsers.sampleBtn') }}
+          </v-btn>
+        </v-card-actions>
       </v-card>
       <v-row>
         <v-col :sm="12">
@@ -494,6 +504,9 @@ export default {
         this.showToast({ content: successMessage, color: 'success' })
         this.isLoading = false
       })
+    },
+    downloadSample () {
+      window.open('https://salary.asazan.com/personal.xls', '_blank')
     }
   }
 }

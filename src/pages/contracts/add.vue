@@ -208,6 +208,7 @@ export default {
       showToast: 'snackbar/showToastMessage'
     }),
     add () {
+      this.contract.monthlyWorkAmount = parseInt(this.contract.monthlyWorkAmount)
       console.log(this.contract)
       this.addContract(this.contract)
         .then(() => {

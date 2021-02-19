@@ -218,6 +218,7 @@ export default {
       showToast: 'snackbar/showToastMessage'
     }),
     editContract () {
+      this.contract.monthlyWorkAmount = parseInt(this.contract.monthlyWorkAmount)
       this.updateContract(this.contract)
         .then(() => {
           const successMessage = this.$t('pages.contracts.editedSuccessfully')

@@ -237,7 +237,13 @@ export default {
       title: 'فراموشی رمز عبور'
     },
     index: {
-      title: 'خانه'
+      title: 'خانه',
+      usersCount: 'تعداد پرسنل و کاربران',
+      contractsCount: 'تعداد قراردادها',
+      payrollsCount: 'تعداد فیش ها',
+      goToUsers: 'مشاهده لیست کاربران',
+      goToContracts: 'مشاهده لیست قرارداد ها',
+      goToPayrolls: 'مشاهده لیست فیش ها'
     },
     login: {
       title: 'ورود'

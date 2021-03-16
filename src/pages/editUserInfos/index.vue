@@ -4,7 +4,8 @@
   "meta": {
     "order": 5,
     "isVisible": true,
-    "iconName": "mdi-arrow-left"
+    "iconName": "mdi-arrow-left",
+    "roles": ["User"]
   }
 }
 </route>

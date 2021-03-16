@@ -4,7 +4,7 @@
   "meta": {
     "order": 3,
     "isVisible": true,
-    "iconName": "mdi-arrow-left",
+    "iconName": "mdi-cash-multiple",
     "roles": ["User"]
   }
 }

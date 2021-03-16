@@ -4,7 +4,7 @@
   "meta": {
     "order": 2,
     "isVisible": true,
-    "iconName": "mdi-arrow-left",
+    "iconName": "mdi-account",
     "roles": ["Admin"]
   }
 }

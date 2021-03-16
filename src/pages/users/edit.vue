@@ -83,7 +83,7 @@
                     v-model="user.nationalCode"
                     type="textbox"
                     :rules="nationalCodeValidation"
-                    icon="mdi-account-circle"
+                    icon="mdi-card-account-details"
                     :label="$t('enums.nationalCode')"
                     :placeholder="$t('enums.placeholders.nationalCode')"
                     ></form-item>
@@ -94,7 +94,7 @@
                     <form-item
                       v-model="user.phoneNumber"
                       type="textbox"
-                      icon="mdi-account-circle"
+                      icon="mdi-cellphone"
                       :rules="phoneNumberValidation"
                       :label="$t('enums.phoneNumber')"
                       :placeholder="$t('enums.placeholders.phoneNumber')"
@@ -106,7 +106,7 @@
                     <form-item
                       v-model="user.email"
                       type="textbox"
-                      icon="mdi-account-circle"
+                      icon="mdi-email"
                       :label="$t('enums.email')"
                       :placeholder="$t('enums.placeholders.email')"
                       ></form-item>
@@ -144,7 +144,7 @@
                     type="select"
                     :items="genderArray"
                     :rules="[rules.required]"
-                    icon="mdi-account-circle"
+                    icon="mdi-human-male-female"
                     :label="$t('enums.gender')"
                     :placeholder="$t('enums.placeholders.gender')"
                     ></form-item>
@@ -157,7 +157,7 @@
                       type="select"
                       :items="maritalStatusesArray"
                     :rules="[rules.required]"
-                      icon="mdi-account-circle"
+                      icon="mdi-ring"
                       :label="$t('enums.maritalStatus')"
                       :placeholder="$t('enums.placeholders.maritalStatus')"
                       ></form-item>
@@ -169,7 +169,7 @@
                         v-model="user.childrenCount"
                         type="select"
                         :items="childrensCountArray"
-                        icon="mdi-account-circle"
+                        icon="mdi-human-male-child"
                         :label="$t('enums.childrensCount')"
                         :placeholder="$t('enums.placeholders.childrensCount')"
                         ></form-item>
@@ -220,7 +220,7 @@
                         <form-item
                           v-model="user.birthPlace"
                           type="textbox"
-                          icon="mdi-account-circle"
+                            icon="mdi-map-marker"
                     :rules="[rules.required]"
                           :label="$t('enums.birthPlace')"
                           :placeholder="$t('enums.placeholders.birthPlace')"
@@ -232,7 +232,7 @@
                           <form-item
                             v-model="user.placeIssue"
                             type="textbox"
-                            icon="mdi-account-circle"
+                            icon="mdi-map-marker"
                             :label="$t('enums.placeIssue')"
                             :placeholder="$t('enums.placeholders.placeIssue')"
                             ></form-item>
@@ -247,7 +247,7 @@
                   <form-item
                     v-model="user.birthCertificateNumber"
                     type="textbox"
-                    icon="mdi-account-circle"
+                    icon="mdi-card-account-details-outline"
                     :rules="[rules.required]"
                     :label="$t('enums.birthCertificateNumber')"
                     :placeholder="$t('enums.placeholders.birthCertificateNumber')"
@@ -259,7 +259,7 @@
                     <form-item
                       v-model="user.centerTopicName"
                       type="textbox"
-                      icon="mdi-account-circle"
+                      icon="mdi-office-building-marker-outline"
                       :label="$t('enums.centerTopicName')"
                       :placeholder="$t('enums.placeholders.centerTopicName')"
                       ></form-item>
@@ -270,7 +270,7 @@
                       <form-item
                         v-model="user.tel"
                         type="textbox"
-                        icon="mdi-account-circle"
+                        icon="mdi-phone"
                     :rules="[rules.required]"
                         :label="$t('enums.telephone')"
                         :placeholder="$t('enums.placeholders.telephone')"
@@ -283,7 +283,7 @@
                         v-model="user.employeeStatus"
                         type="select"
                         :items="employeeStatusesArray"
-                        icon="mdi-account-circle"
+                        icon="mdi-account"
                         :label="$t('enums.employeeStatus')"
                         :placeholder="$t('enums.placeholders.employeeStatus')"
                         ></form-item>
@@ -298,7 +298,7 @@
                   <form-item
                     v-model="user.insuranceNumber"
                     type="textbox"
-                    icon="mdi-account-circle"
+                    icon="mdi-newspaper-variant-outline"
                     :label="$t('enums.insuranceNumber')"
                     :placeholder="$t('enums.placeholders.insuranceNumber')"
                     ></form-item>
@@ -309,7 +309,7 @@
                     <form-item
                       v-model="user.insuranceName"
                       type="textbox"
-                      icon="mdi-account-circle"
+                      icon="mdi-office-building-outline"
                       :label="$t('enums.insuranceName')"
                       :placeholder="$t('enums.placeholders.insuranceName')"
                       ></form-item>
@@ -321,7 +321,7 @@
                         v-model="user.experience"
                         type="select"
                         :items="experienceArray"
-                        icon="mdi-account-circle"
+                        icon="mdi-calendar-account"
                         :label="$t('enums.experience')"
                         :placeholder="$t('enums.placeholders.experience')"
                         ></form-item>
@@ -333,7 +333,7 @@
                           v-model="user.underSupportPersonsCount"
                           type="select"
                           :items="underSupportPersonsCountArray"
-                          icon="mdi-account-circle"
+                          icon="mdi-human-capacity-decrease"
                           :label="$t('enums.underSupportPersonsCount')"
                           :placeholder="$t('enums.placeholders.underSupportPersonsCount')"
                           ></form-item>
@@ -382,7 +382,7 @@
                             v-model="user.lessDevelopedAreas"
                             type="select"
                             :items="lessDevelopedAreasArray"
-                            icon="mdi-account-circle"
+                            icon="mdi-map-marker"
                             :label="$t('enums.lessDevelopedAreas')"
                             :placeholder="$t('enums.placeholders.lessDevelopedAreas')"
                             ></form-item>
@@ -430,7 +430,7 @@
                     <form-item
                       v-model="bankAccount.bankName"
                       type="textbox"
-                      icon="mdi-account-circle"
+                      icon="mdi-bank"
                       :label="$t('enums.bankName')"
                       :placeholder="$t('enums.placeholders.bankName')"
                       ></form-item>
@@ -441,7 +441,7 @@
                     <form-item
                       v-model="bankAccount.bankBranch"
                       type="textbox"
-                      icon="mdi-account-circle"
+                      icon="mdi-bank-outline"
                       :label="$t('enums.bankBranch')"
                       :placeholder="$t('enums.placeholders.bankBranch')"
                       ></form-item>
@@ -452,7 +452,7 @@
                     <form-item
                       v-model="bankAccount.accountNumber"
                       type="textbox"
-                      icon="mdi-account-circle"
+                      icon="mdi-credit-card-outline"
                       :label="$t('enums.accountNumber')"
                       :placeholder="$t('enums.placeholders.accountNumber')"
                       ></form-item>
@@ -463,7 +463,7 @@
                     <form-item
                       v-model="bankAccount.cardNumber"
                       type="textbox"
-                      icon="mdi-account-circle"
+                      icon="mdi-credit-card-outline"
                       :label="$t('enums.cardNumber')"
                       :placeholder="$t('enums.placeholders.cardNumber')"
                       ></form-item>
@@ -474,7 +474,7 @@
                     <form-item
                       v-model="bankAccount.shabaNumber"
                       type="textbox"
-                      icon="mdi-account-circle"
+                      icon="mdi-credit-card-outline"
                       :label="$t('enums.shabaNumber')"
                       :placeholder="$t('enums.placeholders.shabaNumber')"
                       ></form-item>

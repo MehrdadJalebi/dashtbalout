@@ -4,7 +4,7 @@
   "meta": {
     "order": 5,
     "isVisible": true,
-    "iconName": "mdi-arrow-left",
+    "iconName": "mdi-pen",
     "roles": ["User"]
   }
 }

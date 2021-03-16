@@ -44,7 +44,7 @@
             <form-item
               v-model="message.body"
               type="textarea"
-              rows="6"
+              rows="2"
               icon="mdi-account-circle"
               :label="$t('enums.messageBody')"
               :placeholder="$t('enums.placeholders.messageBody')"
@@ -54,7 +54,7 @@
           <v-card-actions>
             <v-btn
               large
-              class="px-5 ml-1 mr-auto"
+              class="px-5 mt-2 ml-1 mr-auto"
               color="success"
               @click="sendMessage"
               >

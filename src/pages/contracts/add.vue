@@ -167,7 +167,7 @@
             <form-item
               v-model="contract.description"
               type="textarea"
-              rows="3"
+              rows="2"
               icon="mdi-account-circle"
               :label="$t('enums.details')"
               :placeholder="$t('enums.placeholders.details')"
@@ -177,7 +177,7 @@
           <v-card-actions>
             <v-btn
               large
-              class="px-5 ml-1 mr-auto"
+              class="px-5 ml-1 mt-2 mr-auto"
               color="success"
               @click="add"
               >

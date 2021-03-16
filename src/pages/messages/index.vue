@@ -17,7 +17,7 @@
      <div
        class="mb-3">
          <v-btn
-           class="mr-2"
+          class="w-sm-100"
            to="/messages/add"
            color="success">
            <v-icon

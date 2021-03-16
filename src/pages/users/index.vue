@@ -20,7 +20,7 @@
           :outlined="!filterBtn.isActive"
           max-width="42"
           min-width="42"
-          class="ml-2"
+           class="ml-2 mb-2"
           :color="filterBtn.btnColor"
           @click="filter()">
           <v-icon
@@ -29,6 +29,7 @@
           </v-icon>
         </v-btn>
          <v-btn
+           class="ml-2 w-sm-100 mb-2"
            color="success"
            @click="excelAddUsersModal">
            <v-icon
@@ -39,7 +40,7 @@
        {{ $t('pages.users.excelAdd') }}
          </v-btn>
          <v-btn
-           class="mr-2"
+           class="mb-2 w-sm-100"
            to="/users/add"
            color="success">
            <v-icon

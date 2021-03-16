@@ -46,3 +46,9 @@
     border: 2px solid #25aaea;
   }
 }
+
+@media screen and (max-width: 414px ) {
+.w-sm-100 {
+  width: 100%;
+}
+}

@@ -17,6 +17,7 @@
     <div
        class="mb-3">
          <v-btn
+          class="w-sm-100"
            to="/contracts/add"
            color="success">
            <v-icon

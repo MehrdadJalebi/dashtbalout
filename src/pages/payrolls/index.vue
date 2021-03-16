@@ -17,7 +17,7 @@
     <div
        class="mb-3">
          <v-btn
-          class="ml-2"
+          class="ml-2 mb-2 w-sm-100"
            to="/payrolls/add"
            color="success">
            <v-icon
@@ -28,10 +28,11 @@
        {{ $t('pages.payrolls.add') }}
          </v-btn>
          <v-btn
+          class="mb-2 w-sm-100"
            to="/payrolls/addGroup"
            color="success">
            <v-icon
-             class="ml-2"
+             class="ml-2 mb-2"
              small>
              mdi-plus
            </v-icon>

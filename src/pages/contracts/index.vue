@@ -45,23 +45,25 @@
           <td class="data-min-td"> {{ props.item.counterParty }} </td>
           <td class="data-min-td"> {{ props.item.workshopCode }} </td>
           <td class="data-min-td">
-            <v-btn
-              :to="'/contracts/edit?id='+ props.item.id"
-              small
-              outlined
-              color="primary"
-              >
-              {{ $t('enums.tableActions.edit') }}
-            </v-btn>
-            <v-btn
-              small
-              outlined
-              class="mr-1"
-              color="error"
-              @click="deleteContractModal(props.item.id)"
-              >
-              {{ $t('enums.tableActions.delete') }}
-            </v-btn>
+            <div class="d-flex justify-around">
+              <v-btn
+                :to="'/contracts/edit?id='+ props.item.id"
+                small
+                outlined
+                color="primary"
+                >
+                {{ $t('enums.tableActions.edit') }}
+              </v-btn>
+                <v-btn
+                  small
+                  outlined
+                  class="mr-1"
+                  color="error"
+                  @click="deleteContractModal(props.item.id)"
+                  >
+                  {{ $t('enums.tableActions.delete') }}
+                </v-btn>
+            </div>
           </td>
         </tr>
       </template>

@@ -140,11 +140,9 @@
           flat
           color="primary"
           class="mt-2"
-          :rules="emailValidation"
           :prepend-icon="outlined && iconEnabled ? 'mdi-email' : ''"
           name="email"
           type="text"
-          required
         ></v-text-field>
       </div>
       <!-- role -->
@@ -624,7 +622,6 @@ export default {
   },
   data () {
     return {
-      valid: true,
       userInfo: {
         password: '',
         phoneNumber: '',
@@ -665,6 +662,10 @@ export default {
     }
   },
   computed: {
+    valid () {
+      return this.userInfo.password && this.userInfo.phoneNumber && this.userInfo.nationalCode &&
+      this.userInfo.firstName && this.userInfo.lastName && this.userInfo.username
+    },
     emailValidation () {
       if (this.emailRequiredEnabled === true && this.emailPatternEnabled === true) {
         return [this.emailRules.required, this.emailRules.pattern]

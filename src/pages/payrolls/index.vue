@@ -87,6 +87,7 @@
           <td class="data-min-td"> {{ props.item.year }} </td>
           <td class="data-min-td"> {{ props.item.month}} </td>
           <td class="data-min-td">
+            <div class="d-flex justify-around">
             <v-btn
               small
               outlined
@@ -105,6 +106,7 @@
               >
               {{ $t('enums.tableActions.delete') }}
             </v-btn>
+            </div>
           </td>
         </tr>
       </template>

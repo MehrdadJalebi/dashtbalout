@@ -101,32 +101,34 @@
               ></v-switch>
           </td>
           <td class="data-min-td">
-          <v-btn
-            :to="'/users/edit?id='+ props.item.id"
-            small
-            outlined
-            color="primary"
-            >
-            {{ $t('enums.tableActions.edit') }}
-          </v-btn>
-          <v-btn
-            small
-            class="mr-1"
-            outlined
-            color="primary"
-            @click="resetUserPassword(props.item.id)"
-            >
-            {{ $t('enums.tableActions.resetPassword') }}
-          </v-btn>
-            <v-btn
-              small
-              outlined
-              class="mr-1"
-              color="error"
-              @click="deleteUserModal(props.item.id)"
-              >
-              {{ $t('enums.tableActions.delete') }}
-            </v-btn>
+            <div class="d-flex justify-around">
+              <v-btn
+                :to="'/users/edit?id='+ props.item.id"
+                small
+                outlined
+                color="primary"
+                >
+                {{ $t('enums.tableActions.edit') }}
+              </v-btn>
+                <v-btn
+                  small
+                  class="mr-1"
+                  outlined
+                  color="primary"
+                  @click="resetUserPassword(props.item.id)"
+                  >
+                  {{ $t('enums.tableActions.resetPassword') }}
+                </v-btn>
+                  <v-btn
+                    small
+                    outlined
+                    class="mr-1"
+                    color="error"
+                    @click="deleteUserModal(props.item.id)"
+                    >
+                    {{ $t('enums.tableActions.delete') }}
+                  </v-btn>
+            </div>
           </td>
         </tr>
       </template>
@@ -257,6 +259,7 @@
     </v-dialog>
     <v-dialog
       v-model="changeUserRoleDialog"
+      persistent
       width="700"
       >
       <v-card class="px-3 pb-3">
@@ -299,6 +302,13 @@
             @click="changeUserRole"
             >
             {{ $t('pages.users.changeUserRoleBtn') }}
+          </v-btn>
+          <v-btn
+            class="mr-3"
+            color="error"
+            @click="cancelUserState"
+            >
+            {{ $t('pages.confirmModal.cancel') }}
           </v-btn>
         </v-col>
       </v-row>
@@ -450,6 +460,10 @@ export default {
         this.changeUserRoleLoading = false
       })
     },
+    cancelUserState () {
+      this.changeUserRoleDialog = false
+      this.loadData()
+    },
     changeUserState (id, state) {
       const payload = {
         userid: id
@@ -458,11 +472,13 @@ export default {
         this.disableUser(payload).then(() => {
           const successMessage = this.$t('pages.users.userDisabledSuccessfully')
           this.showToast({ content: successMessage, color: 'success' })
+          this.loadData()
         })
       } else {
         this.enableUser(payload).then(() => {
           const successMessage = this.$t('pages.users.userEnabledSuccessfully')
           this.showToast({ content: successMessage, color: 'success' })
+          this.loadData()
         })
       }
     },

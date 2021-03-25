@@ -49,20 +49,26 @@
               <v-btn
                 :to="'/contracts/edit?id='+ props.item.id"
                 small
-                outlined
                 color="primary"
                 >
+                <v-icon
+                  small>
+                  mdi-pen
+                </v-icon>
                 {{ $t('enums.tableActions.edit') }}
               </v-btn>
-                <v-btn
-                  small
-                  outlined
-                  class="mr-1"
-                  color="error"
-                  @click="deleteContractModal(props.item.id)"
-                  >
-                  {{ $t('enums.tableActions.delete') }}
-                </v-btn>
+              <v-btn
+                small
+                class="mr-1"
+                color="error"
+                @click="deleteContractModal(props.item.id)"
+                >
+                <v-icon
+                  small>
+                  mdi-delete
+                </v-icon>
+                {{ $t('enums.tableActions.delete') }}
+              </v-btn>
             </div>
           </td>
         </tr>

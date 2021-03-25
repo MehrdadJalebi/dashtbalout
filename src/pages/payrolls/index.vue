@@ -90,20 +90,26 @@
             <div class="d-flex justify-around">
             <v-btn
               small
-              outlined
               class="px-1"
               color="primary"
               @click="downloadPayroll(props.item.fileId)"
               >
+              <v-icon
+                small>
+                mdi-download
+              </v-icon>
               {{ $t('enums.downloadPayroll') }}
             </v-btn>
             <v-btn
               small
-              outlined
               class="px-1 mr-1"
               color="error"
               @click="deletePayroll(props.item.fileId)"
               >
+              <v-icon
+                small>
+                mdi-delete
+              </v-icon>
               {{ $t('enums.tableActions.delete') }}
             </v-btn>
             </div>

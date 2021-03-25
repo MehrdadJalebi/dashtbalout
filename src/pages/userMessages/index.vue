@@ -36,11 +36,15 @@
           <td class="data-min-td">
             <v-btn
               small
-              outlined
               class="px-1"
               color="primary"
               @click="showMessageModal(props.item)"
               >
+              <v-icon
+                class="ml-1"
+                small>
+                mdi-message
+              </v-icon>
               {{ $t('enums.showMessage') }}
             </v-btn>
           </td>

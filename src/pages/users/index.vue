@@ -105,27 +105,36 @@
               <v-btn
                 :to="'/users/edit?id='+ props.item.id"
                 small
-                outlined
                 color="primary"
                 >
+                <v-icon
+                  small>
+                  mdi-pen
+                </v-icon>
                 {{ $t('enums.tableActions.edit') }}
               </v-btn>
                 <v-btn
                   small
                   class="mr-1"
-                  outlined
                   color="primary"
                   @click="resetUserPassword(props.item.id)"
                   >
+                  <v-icon
+                    small>
+                    mdi-lock
+                  </v-icon>
                   {{ $t('enums.tableActions.resetPassword') }}
                 </v-btn>
                   <v-btn
                     small
-                    outlined
                     class="mr-1"
                     color="error"
                     @click="deleteUserModal(props.item.id)"
                     >
+                    <v-icon
+                      small>
+                      mdi-delete
+                    </v-icon>
                     {{ $t('enums.tableActions.delete') }}
                   </v-btn>
             </div>
@@ -439,7 +448,6 @@ export default {
             user.isAdmin = user.role === 'Admin'
             user.isActive = user.userState === 'Enable'
           })
-          console.log(this.usersList)
           this.isLoading = false
         })
     },

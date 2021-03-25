@@ -34,11 +34,14 @@
           <td class="data-min-td">
             <v-btn
               small
-              outlined
               class="px-1"
               color="primary"
               @click="downloadPayroll(props.item.fileId)"
               >
+              <v-icon
+                small>
+                mdi-download
+              </v-icon>
               {{ $t('enums.downloadPayroll') }}
             </v-btn>
           </td>

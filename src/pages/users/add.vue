@@ -546,7 +546,8 @@
                         large
                         class="px-5 ml-1 mr-auto"
                         color="primary"
-                        @click="addBankAccounts"
+                        :loading="isLoading"
+                        @click="addUserInfos"
                         >
                         {{ $t('pages.users.addBankInfoBtn') }}
                       </v-btn>
@@ -672,7 +673,7 @@ export default {
       this.isLoading = true
       if (this.stepper.current === 1) {
         if (Object.keys(this.user).length !== 0) {
-          console.log(this.user)
+          console.log('step1 : ', this.user)
           this.userNameExist({ username: this.user.username }).then(usernameResponse => {
             if (usernameResponse.data) {
               const errorMessage = this.$t('pages.users.userNameExist')
@@ -691,14 +692,8 @@ export default {
                       this.showToast({ content: errorMessage, color: 'error' })
                       this.isLoading = false
                     } else {
-                      this.register(this.user)
-                        .then(response => {
-                          const successMessage = this.$t('pages.users.userRegisteredSuccessfully')
-                          this.showToast({ content: successMessage, color: 'success' })
-                          this.isLoading = false
-                          this.userId = response.data.id
-                          this.stepper.current = n
-                        })
+                      this.isLoading = false
+                      this.stepper.current = n
                     }
                   })
                 }
@@ -711,16 +706,10 @@ export default {
           this.isLoading = false
         }
       } else if (this.stepper.current === 2) {
-        console.log(this.user)
-        this.user.userid = this.userId
+        console.log('step2 : ', this.user)
         this.user.experience = Number(this.user.experience)
-        this.updateByUserId(this.user).then(response => {
-          const successMessage = this.$t('pages.users.userCompletedSuccessfully')
-          this.showToast({ content: successMessage, color: 'success' })
-          console.log(response)
-          this.isLoading = false
-          this.stepper.current = n
-        })
+        this.isLoading = false
+        this.stepper.current = n
       }
     },
     goBack (n) {
@@ -743,31 +732,33 @@ export default {
         this.bankAccounts.forEach(bankAccount => {
           const payload = bankAccount
           payload.userid = this.userId
-          console.log('payload is: ', payload)
           this.addBankAccountByUserId(payload).then(response => {
-            const successMessage = this.$t('pages.users.bankInfoAddedSuccessfully')
+            const successMessage = this.$t('pages.users.userCompletedSuccessfully')
             this.showToast({ content: successMessage, color: 'success' })
-            console.log(response)
           })
         })
+        this.isLoading = false
         this.$router.push({ name: 'users' })
       } else {
+        this.isLoading = false
         this.$router.push({ name: 'users' })
       }
     },
-    addUser () {
-      // fatherName
-      // birthdate
-      // birthPlace
-      // placeIssue ?
-      // birthCertificateNumber ?
-      // centerTopicName ?
-      // tel ? sabet?
-      // startWorkDate
-      // endWorkDate
-      // experience
-      // employmentDate
-
+    addUserInfos () {
+      const payload = this.user
+      console.log('innja', this.user)
+      this.isLoading = true
+      this.register(payload)
+        .then(response => {
+          this.userId = response.data.id
+          this.user.userid = this.userId
+          payload.userid = this.userId
+          console.log(payload)
+          console.log('oonja', this.user)
+          this.updateByUserId(payload).then(userResponse => {
+            this.addBankAccounts()
+          })
+        })
     }
   }
 }

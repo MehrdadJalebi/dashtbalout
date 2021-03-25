@@ -10,8 +10,9 @@
       class="sidebarContent"
       >
       <v-card
+        v-if="!drawerIsMini"
         to="/profile"
-        class="pa-4 d-block d-md-none rounded-0"
+        class="pa-4 d-block rounded-0 transparent"
         elevation="1">
         <v-avatar
           class="mr-auto ml-auto d-block"

@@ -629,13 +629,6 @@ export default {
       showToast: 'snackbar/showToastMessage'
     }),
     goStep (n) {
-      if (this.stepper.current === 2) {
-        this.user.experience = Number(this.user.experience)
-        this.update(this.user).then(response => {
-          const successMessage = this.$t('pages.users.userCompletedSuccessfully')
-          this.showToast({ content: successMessage, color: 'success' })
-        })
-      }
       this.stepper.current = n
     },
     goBack (n) {
@@ -692,7 +685,14 @@ export default {
       })
     },
     finalEdit () {
-      this.$router.push({ name: 'userPayrolls' })
+      this.isLoading = true
+      this.user.experience = Number(this.user.experience)
+      this.update(this.user).then(response => {
+        const successMessage = this.$t('pages.users.userCompletedSuccessfully')
+        this.showToast({ content: successMessage, color: 'success' })
+        this.isLoading = false
+        this.$router.push({ name: 'userPayrolls' })
+      })
     }
   }
 }

@@ -11,7 +11,7 @@
 </route>
 <template>
   <div class="home text-end">
-    <v-row class="mt-3">
+    <v-row class="mt-3 mb-5">
       <v-col md="4" sm="12">
         <div class="counts-boxes greenbg text-right">
           <v-row>
@@ -70,6 +70,26 @@
               </router-link>
             </v-col>
           </v-row>
+        </div>
+      </v-col>
+    </v-row>
+    <v-row class="mt-5">
+      <v-col md="4" sm="12">
+        <div class="counts-boxes add text-center" @click="$router.push({ path: 'users/add' })">
+          <h3>{{ $t('pages.index.addUser') }}</h3>
+          <img src="/img/addUser.png" alt="">
+        </div>
+      </v-col>
+      <v-col md="4" sm="12">
+        <div class="counts-boxes add text-center" @click="$router.push({ path: 'contracts/add' })">
+          <h3>{{ $t('pages.index.addContract') }}</h3>
+          <img src="/img/addContract.png" alt="">
+        </div>
+      </v-col>
+      <v-col md="4" sm="12">
+        <div class="counts-boxes add text-center" @click="$router.push({ path: 'payrolls/addGroup' })">
+          <h3>{{ $t('pages.index.addGroupPayroll') }}</h3>
+          <img src="/img/addPayroll.png" alt="">
         </div>
       </v-col>
     </v-row>

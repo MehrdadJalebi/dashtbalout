@@ -243,7 +243,10 @@ export default {
       payrollsCount: 'تعداد فیش ها',
       goToUsers: 'مشاهده لیست کاربران',
       goToContracts: 'مشاهده لیست قرارداد ها',
-      goToPayrolls: 'مشاهده لیست فیش ها'
+      goToPayrolls: 'مشاهده لیست فیش ها',
+      addUser: 'افزودن کاربر جدید',
+      addGroupPayroll: 'افزودن فیش حقوقی گروهی جدید',
+      addContract: 'افزودن قرارداد جدید'
     },
     login: {
       title: 'ورود'

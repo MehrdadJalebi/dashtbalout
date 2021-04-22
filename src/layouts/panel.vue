@@ -109,11 +109,11 @@
           <v-btn
             :elevation="0"
             color="transparent"
-            class="px-0 pr-2 d-none d-md-block"
+            class="px-0 pr-2 d-md-block"
             v-bind="attrs"
             v-on="on"
             >
-            <span>
+            <span class="white--text">
               {{ profile.name }}
             </span>
             <v-avatar
@@ -179,8 +179,7 @@ export default {
   },
   computed: {
     profile () {
-      console.log(this.$store.state.layout.profile)
-      return this.$store.state.layout.profile
+      return this.$store.state.auth.userInfo
     },
     memberTerritoryMenus () {
       return this.$store.state.layout.memberTerritoryMenus

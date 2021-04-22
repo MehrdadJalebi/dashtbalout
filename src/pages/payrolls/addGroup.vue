@@ -101,7 +101,6 @@
               accept="image/*"
               :label="$t('enums.payrollFile')"
               :placeholder="$t('enums.placeholders.chooseFile')"
-              @input="uploadPayroll"
               ></form-item>
           </v-col>
         </v-row>
@@ -170,26 +169,21 @@ export default {
       showToast: 'snackbar/showToastMessage'
     }),
     addNewPayroll () {
-      if (this.payroll.fileIds.length !== 0 && this.payroll.contractId !== null &&
-        this.payroll.year !== null && this.payroll.month !== null) {
-        console.log('this.payroll is: ', this.payroll)
-        this.addGroupPayroll(this.payroll).then(response => {
-          console.log('payroll res is: ', response)
-          const successMessage = this.$t('pages.payrolls.addedSuccessfully')
-          this.showToast({ content: successMessage, color: 'success' })
-          this.$router.push({ name: 'payrolls' })
-        })
-      } else {
-        const errorMessage = this.$t('toasts.fillFields')
-        this.showToast({ content: errorMessage, color: 'error' })
-      }
-    },
-    uploadPayroll () {
       this.isLoading = true
       this.upload(this.file).then(response => {
-        console.log('response is: ', response)
         response.data.items.map(item => {
           this.payroll.fileIds.push(item.fileId)
+          if (this.payroll.fileIds.length !== 0 && this.payroll.contractId !== null &&
+            this.payroll.year !== null && this.payroll.month !== null) {
+            this.addGroupPayroll(this.payroll).then(response => {
+              const successMessage = this.$t('pages.payrolls.addedSuccessfully')
+              this.showToast({ content: successMessage, color: 'success' })
+              this.$router.push({ name: 'payrolls' })
+            })
+          } else {
+            const errorMessage = this.$t('toasts.fillFields')
+            this.showToast({ content: errorMessage, color: 'error' })
+          }
           this.isLoading = false
         })
       })

@@ -380,7 +380,11 @@ export default {
       addPayrollBtn: 'ثبت فیش  جدید',
       addedSuccessfully: 'فیش حقوقی با موفقیت افزوده شد',
       noticeText: 'نام فایل وارد شده باید برابر با شماره پرسنلی باشد',
-      payrollDeletedSuccessfully: 'فیش حقوقی با موفقیت حذف گردید'
+      payrollDeletedSuccessfully: 'فیش حقوقی با موفقیت حذف گردید',
+      deletePayrollConfirmation: {
+        title: 'پاک کردن  فیش حقوقی'
+      },
+      deletePayrollBtn: 'حذف فیش حقوقی'
     },
     userPayrolls: {
       title: 'فیش های حقوقی',
@@ -484,6 +488,7 @@ export default {
     excelFile: 'فایل اکسل',
     isRead: 'خوانده شده',
     isntRead: 'خوانده نشده',
+    cancel: 'انصراف',
     placeholders: {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
@@ -639,7 +644,8 @@ export default {
   },
   confirms: {
     deleteUserConfirmation: 'با حذف کردن کاربر، تمامی فیش های حقوقی مربوط به کاربر حذف خواهد شد. آیا از حذف کاربر اطمینان دارید؟',
-    deleteContractConfirmation: 'با حذف کردن کاربر، تمامی فیش های حقوقی مربوط به قرارداد حذف خواهد شد. آیا از حذف قرارداد اطمینان دارید؟',
+    deleteContractConfirmation: 'با حذف کردن قرارداد، تمامی فیش های حقوقی مربوط به قرارداد حذف خواهد شد. آیا از حذف قرارداد اطمینان دارید؟',
+    deletePayrollConfirmation: 'آیا از حذف فیش حقوقی اطمینان دارید؟',
     changeUserRoleConfirmation: 'آیا از تغییر نقش کاربر مورد نظر اطمینان دارید؟'
   }
 }

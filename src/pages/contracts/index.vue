@@ -112,6 +112,13 @@
       <v-row class="mt-3">
         <v-col class="text-center" :sm="12">
           <v-btn
+            class="mr-3"
+            color="error"
+            @click="deleteContractDialog = false"
+            >
+            {{ $t('enums.cancel') }}
+          </v-btn>
+          <v-btn
             :loading="deleteLoading"
             class="mr-3"
             color="success"

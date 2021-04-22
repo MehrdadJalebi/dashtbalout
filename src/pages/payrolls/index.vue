@@ -104,7 +104,7 @@
               small
               class="px-1 mr-1"
               color="error"
-              @click="deletePayroll(props.item.fileId)"
+              @click="deletePayrollModal(props.item.fileId)"
               >
               <v-icon
                 small>
@@ -117,6 +117,62 @@
         </tr>
       </template>
     </v-data-table>
+    <v-dialog
+      v-model="deletePayrollDialog"
+      width="700"
+      >
+      <v-card class="px-3 pb-3">
+        <v-card-title class="headline">
+          {{ $t('pages.payrolls.deletePayrollConfirmation.title') }}
+        </v-card-title>
+      <v-card
+        outlined
+        class="border-box"
+        >
+        <v-card
+          flat
+          class="d-flex">
+          <v-layout
+            justify-right
+            align-center
+            class="pa-2"
+            >
+            <div>
+              <div class="alert-circle">
+                <v-icon class="orange--text text-h2">mdi-alert</v-icon>
+              </div>
+            </div>
+            <div>
+              <v-card-text
+                class="orange--text"
+                v-html="$t('confirms.deletePayrollConfirmation')"
+                >
+              </v-card-text>
+            </div>
+          </v-layout>
+        </v-card>
+      </v-card>
+      <v-row class="mt-3">
+        <v-col class="text-center" :sm="12">
+          <v-btn
+            class="mr-3"
+            color="error"
+            @click="deletePayrollDialog = false"
+            >
+            {{ $t('enums.cancel') }}
+          </v-btn>
+          <v-btn
+            :loading="deleteLoading"
+            class="mr-3"
+            color="success"
+            @click="deletePayroll"
+            >
+            {{ $t('pages.payrolls.deletePayrollBtn') }}
+          </v-btn>
+        </v-col>
+      </v-row>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -130,7 +186,10 @@ export default {
       isLoading: false,
       payrollsList: [],
       userList: [],
-      userid: null
+      userid: null,
+      fileId: null,
+      deleteLoading: false,
+      deletePayrollDialog: false
     }
   },
   computed: {
@@ -204,13 +263,20 @@ export default {
         window.open(response.data, '_blank')
       })
     },
-    deletePayroll (fileId) {
+    deletePayrollModal (fileId) {
+      this.fileId = fileId
+      this.deletePayrollDialog = true
+    },
+    deletePayroll () {
+      this.deleteLoading = true
       const payload = {
-        fileid: fileId
+        fileid: this.fileId
       }
       this.delete(payload).then(response => {
         const successMessage = this.$t('pages.payrolls.payrollDeletedSuccessfully')
         this.showToast({ content: successMessage, color: 'success' })
+        this.deleteLoading = false
+        this.deletePayrollDialog = false
         this.getUserPayrolls()
       })
     }

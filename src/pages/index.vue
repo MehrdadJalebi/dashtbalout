@@ -66,7 +66,7 @@
           <v-row>
             <v-col :sm="12">
               <router-link :to="{ name: 'payrolls'}">
-              <h5 class="text-center white--text">{{ $t('pages.index.goToPayrolls') }}</h5>
+                <h5 class="text-center white--text">{{ $t('pages.index.goToPayrolls') }}</h5>
               </router-link>
             </v-col>
           </v-row>
@@ -93,6 +93,32 @@
         </div>
       </v-col>
     </v-row>
+    <v-row class="mt-5">
+      <v-col sm="12">
+        <v-card class="px-3 pb-3">
+          <v-card-title>
+            {{ $t('pages.index.lastAddedUsers') }}
+          </v-card-title>
+          <v-data-table
+            class="report-table text-right"
+            :headers="headers"
+            :items="usersList"
+            :loading="isLoading"
+            disable-sort
+            >
+            <template slot="item" slot-scope="props">
+              <tr>
+                <td class="data-min-td"> {{ props.item.firstName }} </td>
+                <td class="data-min-td"> {{ props.item.lastName }} </td>
+                <td class="data-min-td"> {{ props.item.nationalCode }} </td>
+                <td class="data-min-td"> {{ props.item.username }} </td>
+                <td class="data-min-td"> {{ props.item.personnelNumber }} </td>
+              </tr>
+            </template>
+          </v-data-table>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -104,12 +130,43 @@ export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
     return {
+      page: 1,
+      pageCount: 10000,
+      usersList: [],
+      isLoading: true,
       userCount: null,
       contractCount: null,
       payrollCount: null
     }
   },
+  computed: {
+    headers () {
+      return [
+        {
+          text: this.$t('enums.headers.firstName'),
+          value: 'firstName'
+        },
+        {
+          text: this.$t('enums.headers.lastName'),
+          value: 'lastName'
+        },
+        {
+          text: this.$t('enums.headers.nationalCode'),
+          value: 'nationalCode'
+        },
+        {
+          text: this.$t('enums.headers.userName'),
+          value: 'userName'
+        },
+        {
+          text: this.$t('enums.headers.personnelNumber'),
+          value: 'personnelNumber'
+        }
+      ]
+    }
+  },
   created () {
+    this.loadData()
     this.getUserCount().then(response => {
       this.userCount = response.data
     })
@@ -122,10 +179,26 @@ export default {
   },
   methods: {
     ...mapActions({
+      getAllUsers: 'users/getAllUsers',
       getUserCount: 'users/getUserCount',
       getContractCount: 'users/getContractCount',
       getPayrollCount: 'users/getPayrollCount'
-    })
+    }),
+    loadData () {
+      this.isLoading = true
+      const payload = {
+        pageIndex: this.page,
+        pageSize: this.pageCount
+      }
+      this.getAllUsers(payload)
+        .then(response => {
+          var length = response.data.length
+          for (var i = 1; i <= 5; i++) {
+            this.usersList.push(response.data[length - i])
+          }
+          this.isLoading = false
+        })
+    }
   }
 }
 </script>

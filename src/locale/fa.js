@@ -246,7 +246,8 @@ export default {
       goToPayrolls: 'مشاهده لیست فیش ها',
       addUser: 'افزودن کاربر جدید',
       addGroupPayroll: 'افزودن فیش حقوقی گروهی جدید',
-      addContract: 'افزودن قرارداد جدید'
+      addContract: 'افزودن قرارداد جدید',
+      lastAddedUsers: 'آخرین کاربران افزوده شده'
     },
     login: {
       title: 'ورود'

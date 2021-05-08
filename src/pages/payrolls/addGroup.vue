@@ -171,38 +171,51 @@ export default {
       getAllContracts: 'contracts/getAllContracts',
       addGroupPayroll: 'payrolls/addGroupPayroll',
       uploadZip: 'cdn/uploadZip',
+      checkGroupPayrollExist: 'payrolls/checkGroupPayrollExist',
       showToast: 'snackbar/showToastMessage'
     }),
     addNewPayroll () {
       this.isLoading = true
-      this.uploadZip(this.file).then(response => {
-        console.log('zip response', response)
-        response.data.items.map(item => {
-          this.payroll.fileIds.push(item.fileId)
-        })
-        console.log('this.payroll', this.payroll)
-        if (this.payroll.fileIds.length !== 0 && this.payroll.contractId !== null &&
-          this.payroll.year !== null && this.payroll.month !== null) {
-          this.addGroupPayroll(this.payroll).then(response => {
-            const successMessage = this.$t('pages.payrolls.addedSuccessfully')
-            this.showToast({ content: successMessage, color: 'success' })
-            this.$router.push({ name: 'payrolls' })
-          }, error => {
-            this.showToast({ content: error, color: 'error' })
-            this.isLoading = false
+      const payload = {
+        year: this.payroll.year,
+        month: this.payroll.month,
+        contractId: this.payroll.contractId
+      }
+      this.checkGroupPayrollExist(payload).then(response => {
+        if (response.data === false) {
+          this.uploadZip(this.file).then(response => {
+            response.data.items.map(item => {
+              this.payroll.fileIds.push(item.fileId)
+            })
+            if (this.payroll.fileIds.length !== 0 && this.payroll.contractId !== null &&
+               this.payroll.year !== null && this.payroll.month !== null) {
+              this.addGroupPayroll(this.payroll).then(response => {
+                this.isLoading = false
+                const successMessage = this.$t('pages.payrolls.addedSuccessfully')
+                this.showToast({ content: successMessage, color: 'success' })
+                this.$router.push({ name: 'payrolls' })
+              }, error => {
+                this.showToast({ content: error, color: 'error' })
+                this.isLoading = false
+              })
+            } else {
+              this.isLoading = false
+              const errorMessage = this.$t('toasts.fillFields')
+              this.showToast({ content: errorMessage, color: 'error' })
+            }
           })
         } else {
-          const errorMessage = this.$t('toasts.fillFields')
+          this.isLoading = false
+          const errorMessage = this.$t('toasts.groupPayrollAlreadyExists')
           this.showToast({ content: errorMessage, color: 'error' })
         }
-        this.isLoading = false
       })
     }
   }
 }
 </script>
 <style lang="scss">
-  .v-input__control{
-    flex-direction: row;
-  }
+.v-input__control{
+  flex-direction: row;
+}
 </style>

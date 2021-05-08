@@ -35,6 +35,9 @@ export default {
     },
     addGroupPayroll (context, payload) {
       return this.server.AddGroupPayroll(payload)
+    },
+    checkGroupPayrollExist (context, payload) {
+      return this.server.ExistPayrollGroup(payload)
     }
   }
 }

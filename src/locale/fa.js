@@ -648,7 +648,8 @@ export default {
     userDeletedSuccessfully: 'کاربر با موفقیت حذف شد',
     contractDeletedSuccessfully: 'قرارداد با موفقیت حذف شد',
     passwordChangedSuccessfully: 'پسورد با موفقیت تغییر یافت',
-    fillFields: 'لطفا مقادیر را وارد کنید'
+    fillFields: 'لطفا مقادیر را وارد کنید',
+    groupPayrollAlreadyExists: 'فیش حقوقی ماه و سال انتخابی در سیستم موجود است'
   },
   validations: {
     fileImageWhiteList: 'فرمت های قابل قبول تصویر png jpg jpeg'

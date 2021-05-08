@@ -38,6 +38,11 @@
                   v-html="$t('pages.payrolls.noticeText')"
                   >
                 </v-card-text>
+                <v-card-text
+                  class="orange--text"
+                  v-html="$t('pages.payrolls.noticeText2')"
+                  >
+                </v-card-text>
               </div>
             </v-layout>
           </v-card>
@@ -97,8 +102,8 @@
               type="file"
               multiple
                     :rules="[rules.required]"
-              icon="mdi-file-upload"
-              accept="image/*"
+              icon="mdi-folder-zip"
+              accept=".zip,.rar,.7zip"
               :label="$t('enums.payrollFile')"
               :placeholder="$t('enums.placeholders.chooseFile')"
               ></form-item>
@@ -165,27 +170,32 @@ export default {
     ...mapActions({
       getAllContracts: 'contracts/getAllContracts',
       addGroupPayroll: 'payrolls/addGroupPayroll',
-      upload: 'cdn/upload',
+      uploadZip: 'cdn/uploadZip',
       showToast: 'snackbar/showToastMessage'
     }),
     addNewPayroll () {
       this.isLoading = true
-      this.upload(this.file).then(response => {
+      this.uploadZip(this.file).then(response => {
+        console.log('zip response', response)
         response.data.items.map(item => {
           this.payroll.fileIds.push(item.fileId)
-          if (this.payroll.fileIds.length !== 0 && this.payroll.contractId !== null &&
-            this.payroll.year !== null && this.payroll.month !== null) {
-            this.addGroupPayroll(this.payroll).then(response => {
-              const successMessage = this.$t('pages.payrolls.addedSuccessfully')
-              this.showToast({ content: successMessage, color: 'success' })
-              this.$router.push({ name: 'payrolls' })
-            })
-          } else {
-            const errorMessage = this.$t('toasts.fillFields')
-            this.showToast({ content: errorMessage, color: 'error' })
-          }
-          this.isLoading = false
         })
+        console.log('this.payroll', this.payroll)
+        if (this.payroll.fileIds.length !== 0 && this.payroll.contractId !== null &&
+          this.payroll.year !== null && this.payroll.month !== null) {
+          this.addGroupPayroll(this.payroll).then(response => {
+            const successMessage = this.$t('pages.payrolls.addedSuccessfully')
+            this.showToast({ content: successMessage, color: 'success' })
+            this.$router.push({ name: 'payrolls' })
+          }, error => {
+            this.showToast({ content: error, color: 'error' })
+            this.isLoading = false
+          })
+        } else {
+          const errorMessage = this.$t('toasts.fillFields')
+          this.showToast({ content: errorMessage, color: 'error' })
+        }
+        this.isLoading = false
       })
     }
   }

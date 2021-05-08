@@ -30,6 +30,9 @@ export default {
     delete (context, payload) {
       return this.server.DeletePayroll(payload)
     },
+    deleteGroupPayrolls (context, payload) {
+      return this.server.DeleteGroupPayroll(payload)
+    },
     addGroupPayroll (context, payload) {
       return this.server.AddGroupPayroll(payload)
     }

@@ -382,11 +382,18 @@ export default {
       add: 'ثبت فیش حقوقی جدید',
       addGroup: 'ثبت فیش حقوقی گروهی',
       addPayrollBtn: 'ثبت فیش  جدید',
+      deleteGroupPayrollBtn: 'حذف فیش گروهی',
+      deleteGroupPayrollConfirmationBtn: 'حذف تمامی  فیشهای حقوقی',
       addedSuccessfully: 'فیش حقوقی با موفقیت افزوده شد',
       noticeText: 'نام فایل وارد شده باید برابر با شماره پرسنلی باشد',
+      noticeText2: 'برای آپلود فایل فقط از فایل های فشرده (zip, rar) استفاده نمایید',
       payrollDeletedSuccessfully: 'فیش حقوقی با موفقیت حذف گردید',
+      payrollGroupDeletedSuccessfully: 'تمامی فیش های حقوقی مربوط به ماه و سال انتخاب شده حذف گردید',
       deletePayrollConfirmation: {
         title: 'پاک کردن  فیش حقوقی'
+      },
+      deleteGroupPayrollConfirmation: {
+        title: 'پاک کردن  فیش حقوقی گروهی'
       },
       deletePayrollBtn: 'حذف فیش حقوقی'
     },
@@ -650,6 +657,7 @@ export default {
     deleteUserConfirmation: 'با حذف کردن کاربر، تمامی فیش های حقوقی مربوط به کاربر حذف خواهد شد. آیا از حذف کاربر اطمینان دارید؟',
     deleteContractConfirmation: 'با حذف کردن قرارداد، تمامی فیش های حقوقی مربوط به قرارداد حذف خواهد شد. آیا از حذف قرارداد اطمینان دارید؟',
     deletePayrollConfirmation: 'آیا از حذف فیش حقوقی اطمینان دارید؟',
+    deleteGroupPayrollConfirmation: 'با انتخاب ماه و سال، تمامی فیش های حقوقی مربوط به آن ماه و سال حذف خواهند شد. آیا از حذف فیش حقوقی گروهی اطمینان دارید؟',
     changeUserRoleConfirmation: 'آیا از تغییر نقش کاربر مورد نظر اطمینان دارید؟'
   }
 }

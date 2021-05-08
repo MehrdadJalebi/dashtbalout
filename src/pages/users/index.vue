@@ -505,6 +505,10 @@ export default {
         this.showToast({ content: successMessage, color: 'success' })
         this.uploadLoading = false
         this.dialog = false
+      }, error => {
+        this.showToast({ content: error.message, color: 'error' })
+        this.uploadLoading = false
+        this.dialog = false
       })
     },
     deleteUserModal (userId) {

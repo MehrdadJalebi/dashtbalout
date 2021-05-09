@@ -506,7 +506,7 @@ export default {
         this.uploadLoading = false
         this.dialog = false
       }, error => {
-        this.showToast({ content: error.message, color: 'error' })
+        this.showToast({ content: error.response.data.error, color: 'error' })
         this.uploadLoading = false
         this.dialog = false
       })

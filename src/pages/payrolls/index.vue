@@ -267,6 +267,7 @@
           <v-btn
             :loading="deleteGroupLoading"
             class="mr-3"
+            :disabled="!isDeleteGroupPayrollValid"
             color="success"
             @click="deleteGroupPayroll"
             >
@@ -289,7 +290,10 @@ export default {
       isLoading: false,
       payrollsList: [],
       userList: [],
-      payrollToDelete: {},
+      payrollToDelete: {
+        month: null,
+        year: null
+      },
       userid: null,
       fileId: null,
       deleteLoading: false,
@@ -306,6 +310,10 @@ export default {
     ...mapGetters({
       monthsArray: 'enums/monthsArray'
     }),
+    isDeleteGroupPayrollValid () {
+      return Object.keys(this.payrollToDelete).filter(key => this.payrollToDelete[key] === null ||
+         this.payrollToDelete[key] === undefined || this.payrollToDelete[key] === '').length === 0
+    },
     headers () {
       return [
         {
@@ -398,10 +406,10 @@ export default {
       })
     },
     deleteGroupPayroll () {
-      this.deleteGroupLoading = true
+      this.deleteGroupPayrollDialog = false
+      this.isLoading = true
       this.deleteGroupPayrolls(this.payrollToDelete).then(response => {
-        this.deleteGroupPayrollDialog = false
-        this.deleteGroupLoading = false
+        this.isLoading = false
         const successMessage = this.$t('pages.payrolls.payrollGroupDeletedSuccessfully')
         this.showToast({ content: successMessage, color: 'success' })
       })

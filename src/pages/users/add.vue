@@ -573,6 +573,7 @@ export default {
         phoneNumber: null,
         password: null,
         email: null
+
       },
       underSupportPersonsCountArray: [],
       childrensCountArray: [],
@@ -630,6 +631,8 @@ export default {
       }
     }
   },
+  mounted () {
+  },
   computed: {
     ...mapGetters({
       genderArray: 'enums/genderArray',
@@ -647,10 +650,9 @@ export default {
          this.user[key] === undefined || this.user[key] === '').length === 0
     },
     isStep2Valid () {
-      return this.user.personnelNumber !== null && this.user.gender !== null && this.user.maritalStatus !== null &&
-        this.user.fatherName !== null && this.user.birthdate !== null &&
-        this.user.birthPlace !== null && this.user.birthCertificateNumber !== null &&
-        this.user.tel !== null
+      return ['personnelNumber', 'gender', 'maritalStatus', 'fatherName', 'birthdate',
+        'birthPlace', 'birthCertificateNumber', 'tel'].filter(key => this.user[key] === null ||
+         this.user[key] === undefined || this.user[key] === '').length === 0
     }
   },
   created () {
@@ -673,7 +675,6 @@ export default {
       this.isLoading = true
       if (this.stepper.current === 1) {
         if (Object.keys(this.user).length !== 0) {
-          console.log('step1 : ', this.user)
           this.userNameExist({ username: this.user.username }).then(usernameResponse => {
             if (usernameResponse.data) {
               const errorMessage = this.$t('pages.users.userNameExist')
@@ -706,8 +707,7 @@ export default {
           this.isLoading = false
         }
       } else if (this.stepper.current === 2) {
-        console.log('step2 : ', this.user)
-        this.user.experience = Number(this.user.experience)
+        if (this.user.experience) this.user.experience = Number(this.user.experience)
         this.isLoading = false
         this.stepper.current = n
       }

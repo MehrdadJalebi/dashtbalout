@@ -199,7 +199,7 @@
                         <form-item
                           v-model="user.personnelNumber"
                           type="textbox"
-                  :rules="[rules.required]"
+                          :rules="[rules.required]"
                           icon="mdi-account-circle"
                           :label="$t('enums.personnelNumber')"
                           :placeholder="$t('enums.placeholders.personnelNumber')"
@@ -564,14 +564,7 @@ export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
     return {
-      user: {
-        firstName: null,
-        lastName: null,
-        username: null,
-        nationalCode: null,
-        phoneNumber: null,
-        password: null
-      },
+      user: {},
       underSupportPersonsCountArray: [],
       childrensCountArray: [],
       experienceArray: [],
@@ -629,7 +622,8 @@ export default {
       },
       rules: {
         required: value => !!value || 'این فیلد اجباری است'
-      }
+      },
+      isRepeated: false
     }
   },
   mounted () {
@@ -647,8 +641,8 @@ export default {
       return [this.nationalCodeRules.required, this.nationalCodeRules.pattern, this.nationalCodeRules.counter]
     },
     isStep1Valid () {
-      return Object.keys(this.user).filter(key => this.user[key] === null ||
-         this.user[key] === undefined || this.user[key] === '').length === 0
+      return ['firstName', 'lastName', 'username', 'nationalCode', 'phoneNumber',
+        'password'].filter(key => this.user[key] === null || this.user[key] === undefined || this.user[key] === '').length === 0
     },
     isStep2Valid () {
       return ['personnelNumber', 'gender', 'maritalStatus', 'fatherName', 'birthdate',
@@ -682,22 +676,26 @@ export default {
               this.showToast({ content: errorMessage, color: 'error' })
               this.isLoading = false
             } else {
-              this.emailExist({ email: this.user.email }).then(emailResponse => {
-                if (emailResponse.data) {
-                  const errorMessage = this.$t('pages.users.emailExist')
+              if (this.user.email) {
+                this.emailExist({ email: this.user.email }).then(emailResponse => {
+                  if (emailResponse.data) {
+                    this.isRepeated = true
+                    const errorMessage = this.$t('pages.users.emailExist')
+                    this.showToast({ content: errorMessage, color: 'error' })
+                    this.isLoading = false
+                  } else {
+                    this.isRepeated = false
+                  }
+                })
+              }
+              this.mobileExist({ mobile: this.user.phoneNumber }).then(mobileResponse => {
+                if (mobileResponse.data) {
+                  const errorMessage = this.$t('pages.users.mobileExist')
                   this.showToast({ content: errorMessage, color: 'error' })
                   this.isLoading = false
-                } else {
-                  this.mobileExist({ mobile: this.user.phoneNumber }).then(mobileResponse => {
-                    if (mobileResponse.data) {
-                      const errorMessage = this.$t('pages.users.mobileExist')
-                      this.showToast({ content: errorMessage, color: 'error' })
-                      this.isLoading = false
-                    } else {
-                      this.isLoading = false
-                      this.stepper.current = n
-                    }
-                  })
+                } else if (!this.isRepeated) {
+                  this.isLoading = false
+                  this.stepper.current = n
                 }
               })
             }
@@ -747,15 +745,12 @@ export default {
     },
     addUserInfos () {
       const payload = this.user
-      console.log('innja', this.user)
       this.isLoading = true
       this.register(payload)
         .then(response => {
           this.userId = response.data.id
           this.user.userid = this.userId
           payload.userid = this.userId
-          console.log(payload)
-          console.log('oonja', this.user)
           this.updateByUserId(payload).then(userResponse => {
             this.addBankAccounts()
           })

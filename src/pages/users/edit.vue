@@ -45,6 +45,7 @@
                 <form-item
                   v-model="user.firstName"
                   type="textbox"
+                  :rules="[rules.required]"
                   icon="mdi-account-circle"
                   :label="$t('enums.firstName')"
                   :placeholder="$t('enums.placeholders.firstName')"
@@ -56,6 +57,7 @@
                   <form-item
                     v-model="user.lastName"
                     type="textbox"
+                    :rules="[rules.required]"
                     icon="mdi-account-circle"
                     :label="$t('enums.lastName')"
                     :placeholder="$t('enums.placeholders.lastName')"
@@ -67,6 +69,7 @@
                     <form-item
                       v-model="user.username"
                       type="textbox"
+                      :rules="[rules.required]"
                       icon="mdi-account-circle"
                       :label="$t('enums.userName')"
                       :placeholder="$t('enums.placeholders.userName')"
@@ -122,6 +125,7 @@
                         large
                         class="px-5 ml-1 mr-auto"
                         color="primary"
+                        :disabled="!isStep1Valid"
                         :loading="isLoading"
                         @click="goStep(2)"
                         >
@@ -196,7 +200,7 @@
                     <form-item
                       v-model="user.fatherName"
                       type="textbox"
-                    :rules="[rules.required]"
+                      :rules="[rules.required]"
                       icon="mdi-account-circle"
                       :label="$t('enums.fatherName')"
                       :placeholder="$t('enums.placeholders.fatherName')"
@@ -208,7 +212,7 @@
                       <form-item
                         v-model="user.birthdate"
                         icon="mdi-calendar"
-                    :rules="[rules.required]"
+                        :rules="[rules.required]"
                         type="date"
                         :label="$t('enums.birthDate')"
                         :placeholder="$t('enums.placeholders.birthDate')"
@@ -220,8 +224,8 @@
                         <form-item
                           v-model="user.birthPlace"
                           type="textbox"
-                            icon="mdi-map-marker"
-                    :rules="[rules.required]"
+                          icon="mdi-map-marker"
+                          :rules="[rules.required]"
                           :label="$t('enums.birthPlace')"
                           :placeholder="$t('enums.placeholders.birthPlace')"
                           ></form-item>
@@ -408,6 +412,7 @@
                         large
                         class="px-5 ml-1 mr-auto"
                         color="primary"
+                        :disabled="!isStep2Valid"
                         :loading="isLoading"
                         @click="goStep(3)"
                         >
@@ -609,6 +614,8 @@ export default {
       },
       nationalCodeRules: {
         required: value => !!value || this.$t('components.register.nationalCodeRequired'),
+        pattern: value => (value && RegExp(this.nationalCodePatternRegex.substring(1,
+          this.nationalCodePatternRegex.length - 1)).test(value)) || this.$t('components.register.nationalCodeCountValidation'),
         counter: value => value.length === 10 || this.$t('components.register.nationalCodeCountValidation')
       },
       rules: {
@@ -626,17 +633,15 @@ export default {
       return [this.phoneNumberRules.required, this.phoneNumberRules.pattern, this.phoneNumberRules.counter]
     },
     nationalCodeValidation () {
-      return [this.nationalCodeRules.required, this.nationalCodeRules.counter]
+      return [this.nationalCodeRules.required, this.nationalCodeRules.pattern, this.nationalCodeRules.counter]
     },
     isStep1Valid () {
-      return Object.keys(this.user).filter(key => this.user[key] === null ||
-         this.user[key] === undefined || this.user[key] === '').length === 0
+      return ['firstName', 'lastName', 'username', 'nationalCode', 'phoneNumber'].filter(key => this.user[key] === null || this.user[key] === undefined || this.user[key] === '').length === 0
     },
     isStep2Valid () {
-      return this.user.personnelNumber !== null && this.user.gender !== null && this.user.maritalStatus !== null &&
-        this.user.fatherName !== null && this.user.birthdate !== null &&
-        this.user.birthPlace !== null && this.user.birthCertificateNumber !== null &&
-        this.user.tel !== null
+      return ['personnelNumber', 'gender', 'maritalStatus', 'fatherName', 'birthdate',
+        'birthPlace', 'birthCertificateNumber', 'tel'].filter(key => this.user[key] === null ||
+         this.user[key] === undefined || this.user[key] === '').length === 0
     }
   },
   created () {

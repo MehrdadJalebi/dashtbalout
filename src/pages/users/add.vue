@@ -124,7 +124,6 @@
                     <form-item
                       v-model="user.email"
                       type="textbox"
-                      :rules="[rules.required]"
                       icon="mdi-email"
                       :label="$t('enums.email')"
                       :placeholder="$t('enums.placeholders.email')"
@@ -571,9 +570,7 @@ export default {
         username: null,
         nationalCode: null,
         phoneNumber: null,
-        password: null,
-        email: null
-
+        password: null
       },
       underSupportPersonsCountArray: [],
       childrensCountArray: [],
@@ -615,16 +612,20 @@ export default {
         }
       ],
       phoneNumberPatternRegex: '/09[0-9]{9,9}/',
+      nationalCodePatternRegex: '/[0-9]{9,9}/',
       userId: null,
       isLoading: false,
       phoneNumberRules: {
         required: value => !!value || this.$t('components.register.phoneNumberRequired'),
-        pattern: value => RegExp(this.phoneNumberPatternRegex.substring(1, this.phoneNumberPatternRegex.length - 1)).test(value) || this.phoneNumberPatternMessage,
-        counter: value => value.length === 11 || this.$t('components.register.phoneNumberCountValidation')
+        pattern: value => (value && RegExp(this.phoneNumberPatternRegex.substring(1,
+          this.phoneNumberPatternRegex.length - 1)).test(value)) || this.$t('components.register.phoneNumberCountValidation'),
+        counter: value => (value && value.length === 11) || this.$t('components.register.phoneNumberCountValidation')
       },
       nationalCodeRules: {
         required: value => !!value || this.$t('components.register.nationalCodeRequired'),
-        counter: value => value.length === 10 || this.$t('components.register.nationalCodeCountValidation')
+        pattern: value => (value && RegExp(this.nationalCodePatternRegex.substring(1,
+          this.nationalCodePatternRegex.length - 1)).test(value)) || this.$t('components.register.nationalCodeCountValidation'),
+        counter: value => (value && value.length === 10) || this.$t('components.register.nationalCodeCountValidation')
       },
       rules: {
         required: value => !!value || 'این فیلد اجباری است'
@@ -643,7 +644,7 @@ export default {
       return [this.phoneNumberRules.required, this.phoneNumberRules.pattern, this.phoneNumberRules.counter]
     },
     nationalCodeValidation () {
-      return [this.nationalCodeRules.required, this.nationalCodeRules.counter]
+      return [this.nationalCodeRules.required, this.nationalCodeRules.pattern, this.nationalCodeRules.counter]
     },
     isStep1Valid () {
       return Object.keys(this.user).filter(key => this.user[key] === null ||

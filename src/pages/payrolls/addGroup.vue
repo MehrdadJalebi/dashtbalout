@@ -179,40 +179,40 @@ export default {
     }),
     addNewPayroll () {
       this.isLoading = true
-      const payload = {
+      /*      const payload = {
         year: this.payroll.year,
         month: this.payroll.month,
         contractId: this.payroll.contractId
-      }
+      } */
       if (this.payroll.year && this.payroll.month && this.payroll.contractId) {
-        this.checkGroupPayrollExist(payload).then(response => {
-          if (response.data === false) {
-            this.uploadZip(this.file).then(response => {
-              response.data.items.map(item => {
-                this.payroll.fileIds.push(item.fileId)
-              })
-              if (this.payroll.fileIds.length !== 0) {
-                this.addGroupPayroll(this.payroll).then(response => {
-                  this.isLoading = false
-                  const successMessage = this.$t('pages.payrolls.addedSuccessfully')
-                  this.showToast({ content: successMessage, color: 'success' })
-                  this.$router.push({ name: 'payrolls' })
-                }, error => {
-                  this.showToast({ content: error, color: 'error' })
-                  this.isLoading = false
-                })
-              } else {
-                this.isLoading = false
-                const errorMessage = this.$t('toasts.fillFields')
-                this.showToast({ content: errorMessage, color: 'error' })
-              }
+        //        this.checkGroupPayrollExist(payload).then(response => {
+        //          if (response.data === false) {
+        this.uploadZip(this.file).then(response => {
+          response.data.items.map(item => {
+            this.payroll.fileIds.push(item.fileId)
+          })
+          if (this.payroll.fileIds.length !== 0) {
+            this.addGroupPayroll(this.payroll).then(response => {
+              this.isLoading = false
+              const successMessage = this.$t('pages.payrolls.addedSuccessfully')
+              this.showToast({ content: successMessage, color: 'success' })
+              this.$router.push({ name: 'payrolls' })
+            }, error => {
+              this.showToast({ content: error, color: 'error' })
+              this.isLoading = false
             })
           } else {
             this.isLoading = false
-            const errorMessage = this.$t('toasts.groupPayrollAlreadyExists')
+            const errorMessage = this.$t('toasts.fillFields')
             this.showToast({ content: errorMessage, color: 'error' })
           }
         })
+        //         } else {
+        //            this.isLoading = false
+        //            const errorMessage = this.$t('toasts.groupPayrollAlreadyExists')
+        //            this.showToast({ content: errorMessage, color: 'error' })
+        //          }
+        //      })
       } else {
         this.isLoading = false
         const errorMessage = this.$t('toasts.fillFields')

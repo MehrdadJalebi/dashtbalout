@@ -830,6 +830,36 @@
         }
       }
     },
+    "/api/v1/options": {
+      "get": {
+        "tags": [
+          "Options"
+        ],
+        "operationId": "GetOption",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptionResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptionResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/payrolls/count": {
       "get": {
         "tags": [
@@ -2396,6 +2426,20 @@
           "dateAt": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OptionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "configurations": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

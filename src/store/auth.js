@@ -8,7 +8,8 @@ export default {
     role: null,
     token: null,
     password: null,
-    refreshTokenInterval: null
+    refreshTokenInterval: null,
+    config: null
   },
   getters: {
     userInfo (state) {
@@ -25,6 +26,9 @@ export default {
     },
     password (state) {
       return state.password
+    },
+    config (state) {
+      return state.config
     }
   },
   mutations: {
@@ -40,6 +44,9 @@ export default {
     },
     setRole (state, data) {
       state.role = data
+    },
+    setConfig (state, data) {
+      state.config = data
     }
   },
   actions: {
@@ -162,6 +169,9 @@ export default {
     },
     verifyEmailAddress (context, payload) {
       return this.server.VerifyEmailAddress(payload)
+    },
+    getConfig (context) {
+      return this.server.GetOption()
     }
   }
 }

@@ -15,9 +15,9 @@ export default {
   },
   rtl: true,
   darkTheme: false,
-  apiBaseURL: 'https://webapi.asazan.com',
+  apiBaseURL: `https://webapi.${window.location.host}`,
   apiJson: API_JSON,
-  brandLogo: '/img/brand-logo.jpeg',
+  brandLogo: null,
   defaultPagesArtwork: '/img/samples/artwork.png',
   themes: {
     enableChange: false,

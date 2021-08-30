@@ -9,7 +9,8 @@
       class="sidebarContent"
       >
       <v-img
-        :src="APP_CONFIG.brandLogo"
+        v-if="imageSrc"
+        :src="imageSrc"
         class="mx-auto my-5"
         height="auto"
         width="120"
@@ -127,6 +128,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import sidebarList from '../components/sidebar-list'
 export default {
   name: 'LayoutsPanel',
@@ -137,6 +139,9 @@ export default {
     source: String
   },
   computed: {
+    ...mapGetters({
+      config: 'auth/config'
+    }),
     profile () {
       console.log(this.$store.state.layout.profile)
       return this.$store.state.layout.profile
@@ -146,8 +151,14 @@ export default {
     }
   },
   data: () => ({
-    drawerIsMini: null
+    drawerIsMini: null,
+    imageSrc: ''
   }),
+  watch: {
+    config (val) {
+      this.imageSrc = val.logo
+    }
+  },
   methods: {
     changeTheme () {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark

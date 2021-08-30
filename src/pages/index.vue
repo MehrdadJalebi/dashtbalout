@@ -124,14 +124,14 @@
 
 <script>
 
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'Home',
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
     return {
       page: 1,
-      pageCount: 10000,
+      pageCount: 5,
       usersList: [],
       isLoading: true,
       userCount: null,
@@ -140,6 +140,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      last5Users: 'users/last5Users'
+    }),
     headers () {
       return [
         {
@@ -188,14 +191,12 @@ export default {
       this.isLoading = true
       const payload = {
         pageIndex: this.page,
-        pageSize: this.pageCount
+        pageSize: this.pageCount,
+        sortType: 'DESC'
       }
       this.getAllUsers(payload)
-        .then(response => {
-          var length = response.data.length
-          for (var i = 1; i <= 5; i++) {
-            this.usersList.push(response.data[length - i])
-          }
+        .then(() => {
+          this.usersList = [...this.last5Users]
           this.isLoading = false
         })
     }

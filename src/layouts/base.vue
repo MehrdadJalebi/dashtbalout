@@ -10,7 +10,8 @@
           <v-col cols="12">
             <router-link :to="APP_CONFIG.homeURL" >
               <v-img
-                :src="APP_CONFIG.brandLogo"
+                v-if="imageSrc"
+                :src="imageSrc"
                 class="mb-5 mx-auto"
                 height="auto"
                 width="230"
@@ -27,9 +28,25 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   props: {
     source: String
+  },
+  data () {
+    return {
+      imageSrc: ''
+    }
+  },
+  computed: {
+    ...mapGetters({
+      config: 'auth/config'
+    })
+  },
+  watch: {
+    config (val) {
+      this.imageSrc = val.logo
+    }
   }
 }
 </script>

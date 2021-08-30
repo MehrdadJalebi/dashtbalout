@@ -79,7 +79,8 @@
       >
       <router-link :to="APP_CONFIG.homeURL" >
         <v-img
-          :src="APP_CONFIG.brandLogo"
+          v-if="imageSrc"
+          :src="imageSrc"
           height="auto"
           width="50"
           >
@@ -167,7 +168,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import sidebarList from '../components/sidebar-list'
 export default {
   name: 'LayoutsPanel',
@@ -178,6 +179,9 @@ export default {
     source: String
   },
   computed: {
+    ...mapGetters({
+      config: 'auth/config'
+    }),
     profile () {
       return this.$store.state.auth.userInfo
     },
@@ -200,8 +204,14 @@ export default {
   data: () => ({
     drawer: null,
     drawerIsMini: null,
-    avatarFile: null
+    avatarFile: null,
+    imageSrc: ''
   }),
+  watch: {
+    config (val) {
+      this.imageSrc = val.logo
+    }
+  },
   methods: {
     ...mapActions({
       getUser: 'users/getUser',

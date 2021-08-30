@@ -1475,6 +1475,13 @@
             }
           },
           {
+            "name": "SortType",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/SortType"
+            }
+          },
+          {
             "name": "UserStatus",
             "in": "query",
             "schema": {
@@ -2646,6 +2653,13 @@
           }
         },
         "additionalProperties": false
+      },
+      "SortType": {
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
+        "type": "string"
       },
       "UserStatus": {
         "enum": [

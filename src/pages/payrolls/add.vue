@@ -18,11 +18,11 @@
           class="px-3"
           >
           <v-col
-            :sm="4"
+            :sm="userListLoading ? 3 : 4"
             >
             <form-item
               v-model="payroll.userId"
-              type="select"
+              type="autocomplete"
               :items="userList"
               icon="mdi-account-circle"
                     :rules="[rules.required]"
@@ -31,13 +31,24 @@
               ></form-item>
           </v-col>
           <v-col
+            v-if="userListLoading"
+            class="d-flex align-self-center mt-5"
+            :sm="1"
+            >
+            <v-progress-circular
+              indeterminate
+              color="primary"
+              :value="20"
+              />
+          </v-col>
+          <v-col
             :sm="4"
             >
             <form-item
               v-model="payroll.contractId"
-              type="select"
+              type="autocomplete"
               :items="contractsList"
-                    :rules="[rules.required]"
+              :rules="[rules.required]"
               icon="mdi-account-circle"
               :label="$t('enums.contractTitle')"
               :placeholder="$t('enums.placeholders.contractTitle')"
@@ -119,12 +130,14 @@ export default {
       rules: {
         required: value => !!value || 'این فیلد اجباری است'
       },
-      isLoading: false
+      isLoading: false,
+      userListLoading: true
     }
   },
   computed: {
     ...mapGetters({
-      monthsArray: 'enums/monthsArray'
+      monthsArray: 'enums/monthsArray',
+      allUsers: 'users/users'
     }),
     fileRules () {
       return [
@@ -133,17 +146,13 @@ export default {
     }
   },
   created () {
+    if (this.allUsers) {
+      this.setUserList()
+    }
     const payload = {
       pageIndex: 1,
-      pageSize: 100000
+      pageSize: 1000
     }
-    this.getAllUsers(payload)
-      .then(response => {
-        this.isLoading = false
-        this.userList = response.data.map(user => {
-          return { text: user.fullName, value: user.id }
-        })
-      })
     this.getAllContracts(payload)
       .then(response => {
         this.contractsList = response.data.map(contract => {
@@ -152,9 +161,16 @@ export default {
         this.isLoading = false
       })
   },
+  watch: {
+    allUsers: {
+      handler () {
+        this.setUserList()
+      },
+      deep: true
+    }
+  },
   methods: {
     ...mapActions({
-      getAllUsers: 'users/getAllUsers',
       getAllContracts: 'contracts/getAllContracts',
       addPayroll: 'payrolls/addPayroll',
       upload: 'cdn/upload',
@@ -177,6 +193,12 @@ export default {
           this.showToast({ content: errorMessage, color: 'error' })
         }
         this.isLoading = false
+      })
+    },
+    setUserList () {
+      this.userListLoading = false
+      this.userList = this.allUsers.map(user => {
+        return { text: user.fullName, value: user.id }
       })
     }
   }

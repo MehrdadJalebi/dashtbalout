@@ -19,7 +19,7 @@
             >
             <form-item
               v-model="message.userIds"
-              type="select"
+              type="autocomplete"
               :items="userList"
               multiple
               icon="mdi-account-circle"
@@ -81,25 +81,25 @@ export default {
   },
   computed: {
     ...mapGetters({
-      monthsArray: 'enums/monthsArray'
+      monthsArray: 'enums/monthsArray',
+      allUsers: 'users/users'
     })
   },
-  created () {
-    const payload = {
-      pageIndex: 1,
-      pageSize: 100000
+  watch: {
+    allUsers: {
+      handler () {
+        this.setUserList()
+      },
+      deep: true
     }
-    this.getAllUsers(payload)
-      .then(response => {
-        this.isLoading = false
-        this.userList = response.data.map(user => {
-          return { text: user.fullName, value: user.id }
-        })
-      })
+  },
+  created () {
+    if (this.allUsers) {
+      this.setUserList()
+    }
   },
   methods: {
     ...mapActions({
-      getAllUsers: 'users/getAllUsers',
       addMessageByUserId: 'messages/addMessageByUserId',
       showToast: 'snackbar/showToastMessage'
     }),
@@ -107,7 +107,12 @@ export default {
       this.addMessageByUserId(this.message).then(response => {
         const successMessage = this.$t('pages.messages.messageSendedSuccessfully')
         this.showToast({ content: successMessage, color: 'success' })
-        console.log(response)
+      })
+    },
+    setUserList () {
+      this.isLoading = false
+      this.userList = this.allUsers.map(user => {
+        return { text: user.fullName, value: user.id }
       })
     }
   }

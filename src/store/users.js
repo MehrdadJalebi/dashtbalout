@@ -3,7 +3,8 @@ export default {
   namespaced: true,
   state: {
     user: {},
-    users: []
+    users: [],
+    last5Users: []
   },
   getters: {
     users (state) {
@@ -11,6 +12,9 @@ export default {
     },
     user (state) {
       return state.user
+    },
+    last5Users (state) {
+      return state.last5Users
     }
   },
   mutations: {
@@ -19,6 +23,9 @@ export default {
     },
     setUser (state, data) {
       state.user = data
+    },
+    setLast5Users (state, data) {
+      state.last5Users = data
     }
   },
   actions: {
@@ -29,8 +36,17 @@ export default {
         Search: payload.search,
         UserStatus: payload.userType,
         PageIndex: payload.pageIndex,
-        PageSize: payload.pageSize
+        PageSize: payload.pageSize,
+        SortType: payload.sortType
       })
+        .then((response) => {
+          const userData = response.data
+          if (!payload.sortType) {
+            context.commit('setUsers', userData)
+          } else {
+            context.commit('setLast5Users', userData)
+          }
+        })
     },
     editUser (context, payload) {
     },

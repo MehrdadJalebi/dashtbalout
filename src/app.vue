@@ -41,10 +41,6 @@ export default {
   },
   created () {
     this.getConfig()
-      .then(response => {
-        const result = response.data
-        this.APP_CONFIG.brandLogo = JSON.parse(result.configurations).logo
-      })
     if (this.token !== 'Bearer null') {
       this.loadData()
     } else {
@@ -54,10 +50,16 @@ export default {
   methods: {
     ...mapActions({
       getUserInfo: 'auth/getUserInfo',
+      getAllUsers: 'users/getAllUsers',
       getConfig: 'auth/getConfig'
     }),
     loadData () {
       this.getUserInfo()
+      const payload = {
+        pageIndex: 1,
+        pageSize: 10000
+      }
+      this.getAllUsers(payload)
     }
   }
 }

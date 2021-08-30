@@ -60,12 +60,23 @@
             >
             <form-item
               v-model="userid"
-              type="select"
+              type="autocomplete"
               :items="userList"
               icon="mdi-account-circle"
               :label="$t('enums.userList')"
               :placeholder="$t('enums.placeholders.userList')"
               ></form-item>
+          </v-col>
+          <v-col
+            v-if="userListLoading"
+            class="d-flex align-self-center mt-5"
+            :sm="1"
+            >
+            <v-progress-circular
+              indeterminate
+              color="primary"
+              :value="20"
+              />
           </v-col>
           <v-col
             :sm="12"
@@ -288,6 +299,7 @@ export default {
       pages: {},
       totalItems: 0,
       isLoading: false,
+      userListLoading: true,
       payrollsList: [],
       userList: [],
       payrollToDelete: {
@@ -308,7 +320,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      monthsArray: 'enums/monthsArray'
+      monthsArray: 'enums/monthsArray',
+      allUsers: 'users/users'
     }),
     isDeleteGroupPayrollValid () {
       return Object.keys(this.payrollToDelete).filter(key => this.payrollToDelete[key] === null ||
@@ -343,22 +356,21 @@ export default {
       ]
     }
   },
-  created () {
-    const payload = {
-      pageIndex: 1,
-      pageSize: 100000
+  watch: {
+    allUsers: {
+      handler () {
+        this.setUserList()
+      },
+      deep: true
     }
-    this.getAllUsers(payload)
-      .then(response => {
-        this.isLoading = false
-        this.userList = response.data.map(user => {
-          return { text: user.fullName, value: user.id }
-        })
-      })
+  },
+  created () {
+    if (this.allUsers) {
+      this.setUserList()
+    }
   },
   methods: {
     ...mapActions({
-      getAllUsers: 'users/getAllUsers',
       getPayrollByUserId: 'payrolls/getPayrollByUserId',
       delete: 'payrolls/delete',
       deleteGroupPayrolls: 'payrolls/deleteGroupPayrolls',
@@ -412,6 +424,12 @@ export default {
         this.isLoading = false
         const successMessage = this.$t('pages.payrolls.payrollGroupDeletedSuccessfully')
         this.showToast({ content: successMessage, color: 'success' })
+      })
+    },
+    setUserList () {
+      this.userListLoading = false
+      this.userList = this.allUsers.map(user => {
+        return { text: user.fullName, value: user.id }
       })
     }
   }

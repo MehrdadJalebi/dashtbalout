@@ -46,6 +46,7 @@ export default {
       state.role = data
     },
     setConfig (state, data) {
+      document.title = data.Title
       state.config = data
     }
   },
@@ -172,6 +173,9 @@ export default {
     },
     getConfig (context) {
       return this.server.GetOption()
+        .then(({ data }) => {
+          context.commit('setConfig', JSON.parse(data.configurations))
+        })
     }
   }
 }

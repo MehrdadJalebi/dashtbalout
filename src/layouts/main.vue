@@ -19,7 +19,8 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <router-link :to="APP_CONFIG.homeURL" >
         <v-img
-          :src="APP_CONFIG.brandLogo"
+          v-if="imageSrc"
+          :src="imageSrc"
           height="auto"
           width="120"
           >
@@ -53,6 +54,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import sidebarList from '../components/sidebar-list'
 export default {
   name: 'LayoutsDemosBaselineFlipped',
@@ -63,7 +65,18 @@ export default {
     source: String
   },
   data: () => ({
-    drawer: null
-  })
+    drawer: null,
+    imageSrc: ''
+  }),
+  computed: {
+    ...mapGetters({
+      config: 'auth/config'
+    })
+  },
+  watch: {
+    config (val) {
+      this.imageSrc = val.logo
+    }
+  }
 }
 </script>

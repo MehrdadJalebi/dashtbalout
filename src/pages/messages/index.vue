@@ -37,12 +37,23 @@
             >
             <form-item
               v-model="userId"
-              type="select"
+              type="autocomplete"
               :items="userList"
               icon="mdi-account-circle"
               :label="$t('enums.userList')"
               :placeholder="$t('enums.placeholders.userList')"
               ></form-item>
+          </v-col>
+          <v-col
+            v-if="userListLoading"
+            class="d-flex align-self-center mt-5"
+            :sm="1"
+            >
+            <v-progress-circular
+              indeterminate
+              color="primary"
+              :value="20"
+              />
           </v-col>
           <v-col
             :sm="12"
@@ -128,7 +139,7 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
@@ -137,6 +148,7 @@ export default {
       pages: {},
       userId: null,
       isLoading: false,
+      userListLoading: true,
       dialog: false,
       userList: [],
       messagesList: [],
@@ -144,19 +156,23 @@ export default {
       isntRead: this.$t('enums.isntRead')
     }
   },
-  created () {
-    const payload = {
-      pageIndex: 1,
-      pageSize: 100000
+  watch: {
+    allUsers: {
+      handler () {
+        this.setUserList()
+      },
+      deep: true
     }
-    this.getAllUsers(payload)
-      .then(response => {
-        this.userList = response.data.map(user => {
-          return { text: user.fullName, value: user.id }
-        })
-      })
+  },
+  created () {
+    if (this.allUsers) {
+      this.setUserList()
+    }
   },
   computed: {
+    ...mapGetters({
+      allUsers: 'users/users'
+    }),
     headers () {
       return [
         {
@@ -184,7 +200,6 @@ export default {
   },
   methods: {
     ...mapActions({
-      getAllUsers: 'users/getAllUsers',
       getMessagesByUserId: 'messages/getMessagesByUserId',
       showToast: 'snackbar/showToastMessage'
     }),
@@ -198,6 +213,12 @@ export default {
     showMessageModal (val) {
       this.message = val
       this.dialog = true
+    },
+    setUserList () {
+      this.userListLoading = false
+      this.userList = this.allUsers.map(user => {
+        return { text: user.fullName, value: user.id }
+      })
     }
   }
 }

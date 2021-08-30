@@ -367,7 +367,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      userTypeArray: 'enums/userTypeArray'
+      userTypeArray: 'enums/userTypeArray',
+      allUsers: 'users/users'
     }),
     headers () {
       return [
@@ -450,7 +451,7 @@ export default {
       }
       this.getAllUsers(payload)
         .then(response => {
-          this.usersList = response.data
+          this.usersList = this.allUsers
           this.usersList.map(user => {
             user.isAdmin = user.role === 'Admin'
             user.isActive = user.userState === 'Enable'
@@ -542,7 +543,7 @@ export default {
       })
     },
     downloadSample () {
-      window.open('https://salary.asazan.com/personal.xls', '_blank')
+      window.open(`${window.location.origin}/personal.xls`, '_blank')
     }
   }
 }

@@ -41,6 +41,7 @@ export default {
     ...mapActions({
       login: 'auth/login',
       showToast: 'snackbar/showToastMessage',
+      getAllUsers: 'users/getAllUsers',
       getUserInfo: 'auth/getUserInfo'
     }),
     onLogin (payload) {
@@ -51,6 +52,11 @@ export default {
           if (localStorage.token) {
             this.getUserInfo().then(() => {
               if (this.userInfo.role === 'Admin') {
+                const payload = {
+                  pageIndex: 1,
+                  pageSize: 10000
+                }
+                this.getAllUsers(payload)
                 this.$router.push({ name: 'index' })
               } else {
                 this.$router.push({ name: 'userPayrolls' })

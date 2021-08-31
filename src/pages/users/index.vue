@@ -409,7 +409,11 @@ export default {
     if (!this.allUsers.length) {
       this.loadData()
     } else {
-      this.usersList = [...this.allUsers]
+      this.usersList = this.allUsers
+      this.usersList.map(user => {
+        user.isAdmin = user.role === 'Admin'
+        user.isActive = user.userState === 'Enable'
+      })
       this.isLoading = false
     }
   },

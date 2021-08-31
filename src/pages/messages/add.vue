@@ -15,7 +15,7 @@
           class="px-3"
           >
           <v-col
-            :sm="12"
+            :sm="7"
             >
             <form-item
               v-model="message.userIds"
@@ -28,7 +28,18 @@
               ></form-item>
           </v-col>
           <v-col
-            :sm="12"
+            v-if="userListLoading"
+            class="d-flex align-self-center mt-5"
+            :sm="1"
+            >
+            <v-progress-circular
+              indeterminate
+              color="primary"
+              :value="20"
+              />
+          </v-col>
+          <v-col
+            :sm="7"
             >
             <form-item
               v-model="message.title"
@@ -82,8 +93,12 @@ export default {
   computed: {
     ...mapGetters({
       monthsArray: 'enums/monthsArray',
-      allUsers: 'users/users'
-    })
+      allUsers: 'users/users',
+      hasUsersSucceeded: 'users/hasUsersSucceeded'
+    }),
+    userListLoading () {
+      return !this.hasUsersSucceeded
+    }
   },
   watch: {
     allUsers: {
@@ -94,7 +109,7 @@ export default {
     }
   },
   created () {
-    if (this.allUsers) {
+    if (this.allUsers.length) {
       this.setUserList()
     }
   },
@@ -104,10 +119,15 @@ export default {
       showToast: 'snackbar/showToastMessage'
     }),
     sendMessage () {
-      this.addMessageByUserId(this.message).then(response => {
-        const successMessage = this.$t('pages.messages.messageSendedSuccessfully')
-        this.showToast({ content: successMessage, color: 'success' })
-      })
+      if (this.message.userIds.length && this.message.title && this.message.body) {
+        this.addMessageByUserId(this.message).then(response => {
+          const successMessage = this.$t('pages.messages.messageSendedSuccessfully')
+          this.showToast({ content: successMessage, color: 'success' })
+        })
+      } else {
+        const errorMessage = this.$t('toasts.fillFields')
+        this.showToast({ content: errorMessage, color: 'error' })
+      }
     },
     setUserList () {
       this.isLoading = false

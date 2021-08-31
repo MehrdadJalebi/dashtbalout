@@ -56,21 +56,19 @@
         v-if="filterBtn.isActive"
         :disable-from-date=true
         :disable-to-date=true
-        @Filter="onFilter"
+        @filter="onFilter"
         @cancelFilter="onCancelFilter"
         >
         <filter-item
           v-model="filterObject.search"
           type="textbox"
           :placeholder="$t('components.filterBox.search')"
-          @input="onFilter"
           ></filter-item>
         <filter-item
           v-model="filterObject.userType"
           type="select"
           :items='userTypeArray'
           :placeholder="$t('components.filterBox.userStatus')"
-          @input="onFilter"
           ></filter-item>
       </filter-box>
     <v-data-table
@@ -408,7 +406,17 @@ export default {
     }
   },
   created () {
-    this.loadData()
+    if (!this.allUsers.length) {
+      this.loadData()
+    } else {
+      this.usersList = [...this.allUsers]
+      this.isLoading = false
+    }
+  },
+  beforeDestroy () {
+    if (this.filterObject.userType || this.filterObject.search) {
+      this.onCancelFilter()
+    }
   },
   methods: {
     ...mapActions({

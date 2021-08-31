@@ -148,7 +148,6 @@ export default {
       pages: {},
       userId: null,
       isLoading: false,
-      userListLoading: true,
       dialog: false,
       userList: [],
       messagesList: [],
@@ -165,13 +164,14 @@ export default {
     }
   },
   created () {
-    if (this.allUsers) {
+    if (this.allUsers.length) {
       this.setUserList()
     }
   },
   computed: {
     ...mapGetters({
-      allUsers: 'users/users'
+      allUsers: 'users/users',
+      hasUsersSucceeded: 'users/hasUsersSucceeded'
     }),
     headers () {
       return [
@@ -196,6 +196,9 @@ export default {
           value: 'actions'
         }
       ]
+    },
+    userListLoading () {
+      return !this.hasUsersSucceeded
     }
   },
   methods: {
@@ -215,7 +218,6 @@ export default {
       this.dialog = true
     },
     setUserList () {
-      this.userListLoading = false
       this.userList = this.allUsers.map(user => {
         return { text: user.fullName, value: user.id }
       })

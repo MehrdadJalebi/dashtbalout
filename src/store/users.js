@@ -4,7 +4,8 @@ export default {
   state: {
     user: {},
     users: [],
-    last5Users: []
+    last5Users: [],
+    hasUsersSucceeded: false
   },
   getters: {
     users (state) {
@@ -15,6 +16,9 @@ export default {
     },
     last5Users (state) {
       return state.last5Users
+    },
+    hasUsersSucceeded (state) {
+      return state.hasUsersSucceeded
     }
   },
   mutations: {
@@ -26,12 +30,14 @@ export default {
     },
     setLast5Users (state, data) {
       state.last5Users = data
+    },
+    setHasUsersSucceeded (state, data) {
+      state.hasUsersSucceeded = data
     }
   },
   actions: {
-    addUser (context, payload) {
-    },
     getAllUsers (context, payload) {
+      context.commit('setHasUsersSucceeded', false)
       return this.server.GetAll({
         Search: payload.search,
         UserStatus: payload.userType,
@@ -40,6 +46,7 @@ export default {
         SortType: payload.sortType
       })
         .then((response) => {
+          context.commit('setHasUsersSucceeded', true)
           const userData = response.data
           if (!payload.sortType) {
             context.commit('setUsers', userData)

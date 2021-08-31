@@ -130,15 +130,18 @@ export default {
       rules: {
         required: value => !!value || 'این فیلد اجباری است'
       },
-      isLoading: false,
-      userListLoading: true
+      isLoading: false
     }
   },
   computed: {
     ...mapGetters({
       monthsArray: 'enums/monthsArray',
-      allUsers: 'users/users'
+      allUsers: 'users/users',
+      hasUsersSucceeded: 'users/hasUsersSucceeded'
     }),
+    userListLoading () {
+      return !this.hasUsersSucceeded
+    },
     fileRules () {
       return [
         v => (v && v.length > 0) || 'Required'
@@ -146,7 +149,7 @@ export default {
     }
   },
   created () {
-    if (this.allUsers) {
+    if (this.allUsers.length) {
       this.setUserList()
     }
     const payload = {

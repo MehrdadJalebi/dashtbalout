@@ -299,7 +299,6 @@ export default {
       pages: {},
       totalItems: 0,
       isLoading: false,
-      userListLoading: true,
       payrollsList: [],
       userList: [],
       payrollToDelete: {
@@ -321,7 +320,8 @@ export default {
   computed: {
     ...mapGetters({
       monthsArray: 'enums/monthsArray',
-      allUsers: 'users/users'
+      allUsers: 'users/users',
+      hasUsersSucceeded: 'users/hasUsersSucceeded'
     }),
     isDeleteGroupPayrollValid () {
       return Object.keys(this.payrollToDelete).filter(key => this.payrollToDelete[key] === null ||
@@ -354,6 +354,9 @@ export default {
           value: ''
         }
       ]
+    },
+    userListLoading () {
+      return !this.hasUsersSucceeded
     }
   },
   watch: {
@@ -365,7 +368,7 @@ export default {
     }
   },
   created () {
-    if (this.allUsers) {
+    if (this.allUsers.length) {
       this.setUserList()
     }
   },
@@ -427,7 +430,6 @@ export default {
       })
     },
     setUserList () {
-      this.userListLoading = false
       this.userList = this.allUsers.map(user => {
         return { text: user.fullName, value: user.id }
       })

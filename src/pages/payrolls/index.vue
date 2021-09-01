@@ -397,7 +397,13 @@ export default {
         fileid: fileId
       }
       this.ticket(payload).then(response => {
-        window.open(response.data, '_blank')
+        const filePath = response.data
+        const a = document.createElement('A')
+        a.href = filePath
+        a.download = filePath.substr(filePath.lastIndexOf('/') + 1)
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
       })
     },
     deletePayrollModal (fileId) {

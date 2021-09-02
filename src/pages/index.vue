@@ -102,6 +102,7 @@
           <v-data-table
             class="report-table text-right"
             :headers="headers"
+            :hide-default-header="isMobile"
             :items="usersList"
             :loading="isLoading"
             disable-sort
@@ -109,7 +110,7 @@
             <template slot="item" slot-scope="props">
               <tr>
                 <td class="data-min-td"> {{ props.item.firstName }} </td>
-                <td class="data-min-td"> {{ props.item.lastName }} </td>
+                <td class="data-min-td min-20"> {{ props.item.lastName }} </td>
                 <td class="data-min-td"> {{ props.item.nationalCode }} </td>
                 <td class="data-min-td"> {{ props.item.username }} </td>
                 <td class="data-min-td"> {{ props.item.personnelNumber }} </td>
@@ -166,6 +167,9 @@ export default {
           value: 'personnelNumber'
         }
       ]
+    },
+    isMobile () {
+      return window.innerWidth < 767
     }
   },
   created () {

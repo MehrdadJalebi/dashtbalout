@@ -102,6 +102,7 @@
         -->
       </portal-target>
       <v-app-bar-nav-icon
+        color="white"
         class="d-block d-md-none"
         @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-menu

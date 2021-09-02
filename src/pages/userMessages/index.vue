@@ -19,6 +19,7 @@
       align-center
       class="report-table"
       :headers="headers"
+      :hide-default-header="isMobile"
       :options.sync="pages"
       :items="messagesList"
       :loading="isLoading"
@@ -138,6 +139,9 @@ export default {
           value: 'actions'
         }
       ]
+    },
+    isMobile () {
+      return window.innerWidth < 767
     }
   },
   methods: {

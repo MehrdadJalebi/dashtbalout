@@ -72,6 +72,7 @@
       align-center
       class="report-table"
       :headers="headers"
+      :hide-default-header="isMobile"
       :options.sync="pages"
       :items="messagesList"
       :loading="isLoading"
@@ -79,8 +80,8 @@
       >
       <template slot="item" slot-scope="props">
         <tr>
-          <td class="data-min-td"> {{ props.item.title }} </td>
-          <td class="data-min-td"> {{ props.item.body.substring(0,60) }}
+          <td class="data-min-td min-20"> {{ props.item.title }} </td>
+          <td class="data-min-td min-20"> {{ props.item.body.substring(0,60) }}
             <span v-if="props.item.body.length > 60">...</span>
           </td>
           <td v-if="props.item.isRead" class="data-min-td success--text"> {{ isRead }} </td>
@@ -199,6 +200,9 @@ export default {
     },
     userListLoading () {
       return !this.hasUsersSucceeded
+    },
+    isMobile () {
+      return window.innerWidth < 767
     }
   },
   methods: {

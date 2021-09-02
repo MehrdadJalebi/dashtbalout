@@ -74,6 +74,7 @@
     <v-data-table
       class="report-table text-right"
       :headers="headers"
+      :hide-default-header="isMobile"
       :options.sync="pages"
       :items="usersList"
       :loading="isLoading"
@@ -81,22 +82,24 @@
       >
       <template slot="item" slot-scope="props">
         <tr>
-          <td class="data-min-td"> {{ props.item.firstName }} </td>
-          <td class="data-min-td"> {{ props.item.lastName }} </td>
-          <td class="data-min-td"> {{ props.item.nationalCode }} </td>
-          <td class="data-min-td"> {{ props.item.username }} </td>
-          <td class="data-min-td"> {{ props.item.personnelNumber }} </td>
-          <td class="data-min-td">
-            <v-switch
-              v-model="props.item.isAdmin"
+          <td class="data-min-td py-2"> {{ props.item.firstName }} </td>
+          <td class="data-min-td py-2 min-20"> {{ props.item.lastName }} </td>
+          <td class="data-min-td py-2"> {{ props.item.nationalCode }} </td>
+          <td class="data-min-td py-2"> {{ props.item.username }} </td>
+          <td class="data-min-td py-2"> {{ props.item.personnelNumber }} </td>
+          <td class="data-min-td py-2">
+            <v-icon
+              large
+              :color="props.item.isAdmin ? 'success' : ''"
               @click="changeUserRoleModal(props.item.id, props.item.role)"
-              ></v-switch>
+              >mdi-check-circle</v-icon>
           </td>
           <td class="data-min-td">
-            <v-switch
-              v-model="props.item.isActive"
+            <v-icon
+              large
+              :color="props.item.isActive ? 'success' : ''"
               @click="changeUserState(props.item.id, props.item.userState)"
-              ></v-switch>
+              >mdi-check-circle</v-icon>
           </td>
           <td class="data-min-td">
             <div class="d-flex justify-around">
@@ -403,6 +406,9 @@ export default {
           value: 'actions'
         }
       ]
+    },
+    isMobile () {
+      return window.innerWidth < 767
     }
   },
   created () {

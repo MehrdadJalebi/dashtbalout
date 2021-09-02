@@ -19,6 +19,7 @@
       align-center
       class="report-table"
       :headers="headers"
+      :hide-default-header="isMobile"
       :options.sync="pages"
       :items="payrollsList"
       :loading="isLoading"
@@ -26,7 +27,7 @@
       >
       <template slot="item" slot-scope="props">
         <tr>
-          <td class="data-min-td"> {{ props.item.title }} </td>
+          <td class="data-min-td min-20"> {{ props.item.title }} </td>
           <td class="data-min-td"> {{ props.item.contractNumber}} </td>
           <td class="data-min-td"> {{ props.item.payrollType}} </td>
           <td class="data-min-td"> {{ props.item.year }} </td>
@@ -92,6 +93,9 @@ export default {
           value: ''
         }
       ]
+    },
+    isMobile () {
+      return window.innerWidth < 767
     }
   },
   created () {

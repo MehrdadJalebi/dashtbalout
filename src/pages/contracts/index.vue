@@ -33,6 +33,7 @@
       align-center
       class="report-table"
       :headers="headers"
+      :hide-default-header="isMobile"
       :options.sync="pages"
       :items="contractsList"
       :loading="isLoading"
@@ -40,9 +41,9 @@
       >
       <template slot="item" slot-scope="props">
         <tr>
-          <td class="data-min-td"> {{ props.item.title }} </td>
+          <td class="data-min-td min-20"> {{ props.item.title }} </td>
           <td class="data-min-td"> {{ props.item.contractNumber }} </td>
-          <td class="data-min-td"> {{ props.item.counterParty }} </td>
+          <td class="data-min-td min-20"> {{ props.item.counterParty }} </td>
           <td class="data-min-td"> {{ props.item.workshopCode }} </td>
           <td class="data-min-td">
             <div class="d-flex justify-around">
@@ -173,6 +174,9 @@ export default {
           value: 'actions'
         }
       ]
+    },
+    isMobile () {
+      return window.innerWidth < 767
     }
   },
   created () {

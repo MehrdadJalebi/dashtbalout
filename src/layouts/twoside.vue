@@ -42,13 +42,17 @@
                 The slot content of the above portal component will be rendered here.
               -->
             </portal-target>
-            <v-img
-              v-if="artworkURL"
-              max-width="100%"
-              max-height="100%"
-              :aspect-ratio="this.$route.meta.artworkAspectRatio || APP_CONFIG.layout.twoside.defaultArtworkAspectRatio"
-              contain
-              :src="artworkURL" />
+            <div class="right-side-container">
+              <v-img
+                v-if="artworkURL"
+                max-width="100%"
+                max-height="100%"
+                :aspect-ratio="this.$route.meta.artworkAspectRatio || APP_CONFIG.layout.twoside.defaultArtworkAspectRatio"
+                contain
+                :src="artworkURL"
+              />
+              <div v-if="htmlConfig" class="mt-5 text-center" v-html="htmlConfig" />
+            </div>
           </v-col>
         </v-row>
       </v-container>
@@ -65,7 +69,9 @@ export default {
   },
   data () {
     return {
-      imageSrc: ''
+      imageSrc: '',
+      hasHtmlConfig: false,
+      htmlConfig: null
     }
   },
   computed: {
@@ -87,7 +93,13 @@ export default {
   watch: {
     config (val) {
       this.imageSrc = val.logo
+      this.htmlConfig = val.LoginHtml
     }
   }
 }
 </script>
+<style lang="scss">
+.right-side-container {
+  width: 100%;
+}
+</style>

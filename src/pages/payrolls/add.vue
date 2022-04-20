@@ -122,7 +122,8 @@ export default {
       payroll: {
         fileId: []
       },
-      yearsArray: [1395, 1396, 1397, 1398, 1399, 1400],
+      yearsArray: [1395, 1396, 1397, 1398, 1399, 1400, 1401, 1402, 1403, 1403, 1404, 1405, 1406,
+        1407, 1408, 1409],
       userList: [],
       contractsList: [],
       file: null,

@@ -133,7 +133,7 @@ export default {
     },
     toJalali (date) {
       const jalali = JalaliDateTime()
-      return jalali.toDate(new Date(date))
+      return jalali.toString(new Date(date))
     }
   }
 }

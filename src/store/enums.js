@@ -55,6 +55,10 @@ export default {
       all: 'All',
       enable: 'Enable',
       disable: 'Disable'
+    },
+    leaveTypes: {
+      hourly: 'Hourly',
+      daily: 'Daily'
     }
   },
   getters: {
@@ -144,6 +148,16 @@ export default {
     userTypeArray (state) {
       const array = Object.entries(state.userTypes).map(([key, value]) => {
         const translate = APP_CONFIG.locales[APP_CONFIG.locale].enums.userTypes[key]
+        return {
+          value: value,
+          text: translate
+        }
+      })
+      return array
+    },
+    leaveTypesArray (state) {
+      const array = Object.entries(state.leaveTypes).map(([key, value]) => {
+        const translate = APP_CONFIG.locales[APP_CONFIG.locale].enums.leaveTypes[key]
         return {
           value: value,
           text: translate

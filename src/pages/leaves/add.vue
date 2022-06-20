@@ -13,34 +13,6 @@
   <div class="mt-5 mx-5">
       <v-card>
         <v-card-title>{{$t('pages.leaves.add')}}</v-card-title>
-        <v-card
-          outlined
-          color="orange"
-          class="border-box mx-3 mb-3"
-          >
-          <v-card
-            flat
-            class="d-flex">
-            <v-layout
-              justify-right
-              align-center
-              class="pa-2"
-              >
-              <div>
-                <div class="alert-circle">
-                  <v-icon class="orange--text text-h2">mdi-alert</v-icon>
-                </div>
-              </div>
-              <div>
-                <v-card-text
-                  class="orange--text"
-                  v-html="$t('pages.leaves.noticeText')"
-                  >
-                </v-card-text>
-              </div>
-            </v-layout>
-          </v-card>
-        </v-card>
         <v-row
           class="px-3"
           >
@@ -48,132 +20,56 @@
             :sm="8"
             >
             <form-item
-              v-model="leave.title"
+              v-model="leave.reason"
               type="textbox"
               icon="mdi-account-circle"
-              :label="$t('enums.leaveTitle')"
-              :placeholder="$t('enums.placeholders.leaveTitle')"
+              :label="$t('enums.reason')"
+              :rules="[rules.required]"
+              :placeholder="$t('enums.placeholders.reason')"
               ></form-item>
           </v-col>
           <v-col
             :sm="4"
             >
             <form-item
-              v-model="leave.leaveNumber"
-              type="textbox"
-              icon="mdi-account-circle"
-              :label="$t('enums.leaveRegisterationNumber')"
-              :placeholder="$t('enums.placeholders.leaveRegisterationNumber')"
-              ></form-item>
-          </v-col>
-        </v-row>
-        <v-row
-        class="px-3"
-          >
-          <v-col
-            :sm="4"
-            >
-            <form-item
-              v-model="leave.counterParty"
-              type="textbox"
-              icon="mdi-account-circle"
-              :label="$t('enums.counterParty')"
-              :placeholder="$t('enums.placeholders.counterParty')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="3"
-            >
-            <form-item
-              v-model="leave.rowOfAgreement"
-              type="textbox"
-              icon="mdi-account-circle"
-              :label="$t('enums.rowOfAgreement')"
-              :placeholder="$t('enums.placeholders.rowOfAgreement')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="2"
-            >
-            <form-item
-              v-model="leave.workshopCode"
-              type="textbox"
-              icon="mdi-account-circle"
-              :label="$t('enums.workshopCode')"
-              :placeholder="$t('enums.placeholders.workshopCode')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="3"
-            >
-            <form-item
-              v-model="leave.payrollType"
+              v-model="leave.type"
               type="select"
-              :items="payrollTypesArray"
+              :items="leaveTypesArray"
               icon="mdi-account-circle"
-              :label="$t('enums.payrollsType')"
-              :placeholder="$t('enums.placeholders.payrollsType')"
+              :rules="[rules.required]"
+              :label="$t('enums.type')"
+              :placeholder="$t('enums.placeholders.type')"
               ></form-item>
           </v-col>
         </v-row>
-        <v-row
-        class="px-3"
-          >
-          <v-col
-            :sm="5"
+          <v-row
+            class="px-3"
             >
-            <form-item
-              v-model="leave.monthlyWorkTimeType"
-              type="select"
-              :items="monthlyWorkTimeTypesArray"
-              icon="mdi-account-circle"
-              :label="$t('enums.monthlyWorkTimeType')"
-              :placeholder="$t('enums.placeholders.monthlyWorkTimeType')"
-              ></form-item>
-          </v-col>
-          <v-col
-            :sm="7"
-            >
-            <form-item
-              v-model="leave.monthlyWorkAmount"
-              type="textbox"
-              icon="mdi-account-circle"
-              :label="$t('enums.monthlyWorkAmount')"
-              :placeholder="$t('enums.placeholders.monthlyWorkAmount')"
-              ></form-item>
-          </v-col>
-        </v-row>
-        <v-row
-        class="px-3"
-          >
-          <v-col
-            :sm="12"
-            >
-            <form-item
-              v-model="leave.workshopPlace"
-              type="textbox"
-              icon="mdi-account-circle"
-              :label="$t('enums.workshopPlace')"
-              :placeholder="$t('enums.placeholders.workshopPlace')"
-              ></form-item>
-          </v-col>
-        </v-row>
-        <v-row
-        class="px-3"
-          >
-          <v-col
-            :sm="12"
-            >
-            <form-item
-              v-model="leave.description"
-              type="textarea"
-              rows="2"
-              icon="mdi-account-circle"
-              :label="$t('enums.details')"
-              :placeholder="$t('enums.placeholders.details')"
-              ></form-item>
-          </v-col>
-        </v-row>
+              <v-col
+                :sm="6"
+                >
+                <form-item
+                  v-model="leave.startDateTime"
+                  icon="mdi-calendar"
+                  type="datetime"
+                  :rules="[rules.required]"
+                  :label="$t('enums.startDateTime')"
+                  :placeholder="$t('enums.placeholders.startDateTime')"
+                  ></form-item>
+              </v-col>
+              <v-col
+                :sm="6"
+                >
+                <form-item
+                  v-model="leave.endDateTime"
+                  icon="mdi-calendar"
+                  type="datetime"
+                  :rules="[rules.required]"
+                  :label="$t('enums.endDateTime')"
+                  :placeholder="$t('enums.placeholders.endDateTime')"
+                  ></form-item>
+              </v-col>
+          </v-row>
           <v-card-actions>
             <v-btn
               large
@@ -193,13 +89,15 @@ export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
     return {
-      leave: {}
+      leave: {},
+      rules: {
+        required: value => !!value || 'این فیلد اجباری است'
+      }
     }
   },
   computed: {
     ...mapGetters({
-      monthlyWorkTimeTypesArray: 'enums/monthlyWorkTimeTypesArray',
-      payrollTypesArray: 'enums/payrollTypesArray'
+      leaveTypesArray: 'enums/leaveTypesArray'
     })
   },
   methods: {
@@ -208,11 +106,19 @@ export default {
       showToast: 'snackbar/showToastMessage'
     }),
     add () {
-      this.leave.monthlyWorkAmount = parseInt(this.leave.monthlyWorkAmount)
-      console.log(this.leave)
-      this.addLeave(this.leave)
+      const start = new Date(this.leave.startDateTime)
+      const end = new Date(this.leave.endDateTime)
+      var userTimezoneOffset = start.getTimezoneOffset() * 60000
+
+      const payload = {
+        type: this.leave.type,
+        reason: this.leave.reason,
+        startDateTime: new Date(start.getTime() - userTimezoneOffset),
+        endDateTime: new Date(end.getTime() - userTimezoneOffset)
+      }
+      this.addLeave(payload)
         .then(() => {
-          const successMessage = this.$t('pages.leaves.addedSuccessfully')
+          const successMessage = this.$t('pages.leaves.requestAddedSuccessfully')
           this.showToast({ content: successMessage, color: 'success' })
           this.$router.push({ name: 'leaves' })
         })

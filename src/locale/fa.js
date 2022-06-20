@@ -507,11 +507,17 @@ export default {
     isRead: 'خوانده شده',
     isntRead: 'خوانده نشده',
     cancel: 'انصراف',
+    type: 'نوع',
     new: 'جدید',
     approve: 'قبول شده',
     reject: 'رد شده',
     hourly: 'ساعتی',
     daily: 'روزانه',
+    reason: 'دلیل',
+    countDay: 'تعداد روز',
+    description: 'توضیحات',
+    startDateTime: 'تاریخ شروع',
+    endDateTime: 'تاریخ پایان',
     placeholders: {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
@@ -562,7 +568,13 @@ export default {
       messageTitle: 'عنوان پیام',
       messageBody: 'متن پیام',
       userList: 'لیست کاربران',
-      chooseFile: 'انتخاب فایل'
+      chooseFile: 'انتخاب فایل',
+      reason: 'دلیل',
+      type: 'نوع',
+      description: 'توضیحات',
+      countDay: 'تعداد روز',
+      startDateTime: 'تاریخ شروع',
+      endDateTime: 'تاریخ پایان'
     },
     headers: {
       firstName: 'نام',
@@ -588,6 +600,7 @@ export default {
       status: 'وضعیت',
       sendingDate: 'تاریخ ارسال',
       reason: 'دلیل',
+      countDay: 'تعداد روز',
       startDateTime: 'تاریخ شروع',
       endDateTime: 'تاریخ پایان'
     },
@@ -650,6 +663,10 @@ export default {
       all: 'همه',
       enable: 'فعال',
       disable: 'غیر فعال'
+    },
+    leaveTypes: {
+      daily: 'روزانه',
+      hourly: 'ساعتی'
     }
   },
   toasts: {

@@ -152,9 +152,29 @@
         @input="onChange"
       ></multiselect>
       <date-picker
-        v-else-if="type === 'date' || type === 'datetime' || type === 'time'"
+        v-else-if="type === 'date'"
         format="YYYY-MM-DD"
         display-format="jDD jMMMM jYYYY"
+        :type="type"
+        :value="value"
+        v-bind="$attrs"
+        @input="onChange"
+      >
+      </date-picker>
+      <date-picker
+        v-else-if="type === 'time'"
+        format="HH:mm:ss"
+        display-format="HH:mm:ss"
+        :type="type"
+        :value="value"
+        v-bind="$attrs"
+        @input="onChange"
+      >
+      </date-picker>
+      <date-picker
+        v-else-if="type === 'datetime'"
+        format="YYYY-MM-DD HH:mm:ss"
+        display-format="jDD jMMMM jYYYY HH:mm"
         :type="type"
         :value="value"
         v-bind="$attrs"
@@ -297,14 +317,15 @@ export default {
   methods: {
     onChange (e) {
       // TODO: move it to better place
+      /* eslint-disable */
       String.prototype.toEnglishDigits = function () {
         return this.replace(/[۰-۹]/g, function (chr) {
-          var persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-          return persian.indexOf(chr);
-        });
-      };
+          var persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹']
+          return persian.indexOf(chr)
+        })
+      }
       if (e && this.isNumber) {
-        e = e.replace(/[ ,.]/g, "")
+        e = e.replace(/[ ,.]/g, '')
         e = e.toEnglishDigits()
       }
       this.$emit('input', e)

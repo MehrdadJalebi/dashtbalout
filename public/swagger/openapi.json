@@ -650,6 +650,263 @@
         }
       }
     },
+    "/api/v1/contracts/add-attachment": {
+      "post": {
+        "tags": [
+          "Contracts"
+        ],
+        "operationId": "AddAttachment",
+        "parameters": [
+          {
+            "name": "contractId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "nullable": true
+                  }
+                }
+              },
+              "encoding": {
+                "files": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/contracts/{attachmentId}/attachment": {
+      "delete": {
+        "tags": [
+          "Contracts"
+        ],
+        "operationId": "DeleteAttachment",
+        "parameters": [
+          {
+            "name": "attachmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/leaves/add-leave": {
+      "post": {
+        "tags": [
+          "Leaves"
+        ],
+        "operationId": "AddLeave",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LeaveRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LeaveRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LeaveRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/leaves": {
+      "get": {
+        "tags": [
+          "Leaves"
+        ],
+        "operationId": "GetLeave",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LeaveResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LeaveResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LeaveResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/leaves/date/{fromDateTime}/{toDateTime}": {
+      "get": {
+        "tags": [
+          "Leaves"
+        ],
+        "operationId": "GetLeaves",
+        "parameters": [
+          {
+            "name": "fromDateTime",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "toDateTime",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LeaveResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LeaveResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LeaveResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/leaves/{leaveId}/approve": {
+      "post": {
+        "tags": [
+          "Leaves"
+        ],
+        "operationId": "Approve",
+        "parameters": [
+          {
+            "name": "leaveId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/leaves/{leaveId}/reject": {
+      "post": {
+        "tags": [
+          "Leaves"
+        ],
+        "operationId": "Reject",
+        "parameters": [
+          {
+            "name": "leaveId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/v1/messages/add": {
       "post": {
         "tags": [
@@ -2342,6 +2599,33 @@
         },
         "additionalProperties": false
       },
+      "ContractAttachmentResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "contractId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "fileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "attachment": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ContractResponse": {
         "type": "object",
         "properties": {
@@ -2384,6 +2668,365 @@
             "$ref": "#/components/schemas/ContractType"
           },
           "monthlyWorkAmount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContractAttachmentResponse"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LeaveType": {
+        "enum": [
+          "Hourly",
+          "Daily"
+        ],
+        "type": "string"
+      },
+      "LeaveRequest": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/LeaveType"
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "countDay": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "startDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDateTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LeaveStatus": {
+        "enum": [
+          "New",
+          "Approve",
+          "Reject"
+        ],
+        "type": "string"
+      },
+      "Gender": {
+        "enum": [
+          "Male",
+          "Female"
+        ],
+        "type": "string"
+      },
+      "MaritalStatus": {
+        "enum": [
+          "Single",
+          "Married"
+        ],
+        "type": "string"
+      },
+      "UserStatus": {
+        "enum": [
+          "All",
+          "Enable",
+          "Disable"
+        ],
+        "type": "string"
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "maxLength": 64,
+            "type": "string",
+            "nullable": true
+          },
+          "userState": {
+            "$ref": "#/components/schemas/UserStatus"
+          },
+          "createAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "pinCode": {
+            "maxLength": 16,
+            "type": "string",
+            "nullable": true
+          },
+          "pinExpireDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "role": {
+            "maxLength": 64,
+            "type": "string",
+            "nullable": true
+          },
+          "picProfile": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "personId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "person": {
+            "$ref": "#/components/schemas/Person"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BankAccount": {
+        "required": [
+          "bankName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "personId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bankName": {
+            "maxLength": 64,
+            "type": "string"
+          },
+          "bankBranch": {
+            "maxLength": 32,
+            "type": "string",
+            "nullable": true
+          },
+          "accountNumber": {
+            "maxLength": 64,
+            "type": "string",
+            "nullable": true
+          },
+          "cardNumber": {
+            "maxLength": 128,
+            "type": "string",
+            "nullable": true
+          },
+          "shabaNumber": {
+            "maxLength": 32,
+            "type": "string",
+            "nullable": true
+          },
+          "person": {
+            "$ref": "#/components/schemas/Person"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Person": {
+        "required": [
+          "firstName",
+          "lastName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nationalCode": {
+            "maxLength": 10,
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "maxLength": 128,
+            "type": "string"
+          },
+          "lastName": {
+            "maxLength": 128,
+            "type": "string"
+          },
+          "fatherName": {
+            "maxLength": 100,
+            "type": "string",
+            "nullable": true
+          },
+          "gender": {
+            "$ref": "#/components/schemas/Gender"
+          },
+          "maritalStatus": {
+            "$ref": "#/components/schemas/MaritalStatus"
+          },
+          "email": {
+            "maxLength": 150,
+            "type": "string",
+            "nullable": true
+          },
+          "personnelNumber": {
+            "maxLength": 20,
+            "type": "string",
+            "nullable": true
+          },
+          "placeIssue": {
+            "maxLength": 32,
+            "type": "string",
+            "nullable": true
+          },
+          "createAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "birthdate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "birthPlace": {
+            "maxLength": 32,
+            "type": "string",
+            "nullable": true
+          },
+          "birthCertificateNumber": {
+            "maxLength": 20,
+            "type": "string",
+            "nullable": true
+          },
+          "centerTopicName": {
+            "maxLength": 128,
+            "type": "string",
+            "nullable": true
+          },
+          "insuranceName": {
+            "maxLength": 64,
+            "type": "string",
+            "nullable": true
+          },
+          "insuranceNumber": {
+            "maxLength": 16,
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "maxLength": 16,
+            "type": "string",
+            "nullable": true
+          },
+          "tel": {
+            "maxLength": 16,
+            "type": "string",
+            "nullable": true
+          },
+          "childrenCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "underSupportPersonsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lessDevelopedAreas": {
+            "type": "boolean"
+          },
+          "employeeStatus": {
+            "maxLength": 128,
+            "type": "string",
+            "nullable": true
+          },
+          "startWorkDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endWorkDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "experience": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "employmentDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "bankAccounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankAccount"
+            },
+            "nullable": true
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LeaveResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "personId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "$ref": "#/components/schemas/LeaveType"
+          },
+          "status": {
+            "$ref": "#/components/schemas/LeaveStatus"
+          },
+          "createAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "startDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "person": {
+            "$ref": "#/components/schemas/Person"
+          },
+          "countDay": {
             "type": "integer",
             "format": "int32"
           }
@@ -2467,8 +3110,8 @@
             "format": "int32"
           },
           "month": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "nullable": true
           },
           "payrollType": {
             "$ref": "#/components/schemas/PayrollType"
@@ -2658,28 +3301,6 @@
         "enum": [
           "ASC",
           "DESC"
-        ],
-        "type": "string"
-      },
-      "UserStatus": {
-        "enum": [
-          "All",
-          "Enable",
-          "Disable"
-        ],
-        "type": "string"
-      },
-      "Gender": {
-        "enum": [
-          "Male",
-          "Female"
-        ],
-        "type": "string"
-      },
-      "MaritalStatus": {
-        "enum": [
-          "Single",
-          "Married"
         ],
         "type": "string"
       },

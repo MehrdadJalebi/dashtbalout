@@ -4,6 +4,7 @@ import layout from './layout'
 import auth from './auth'
 import users from './users'
 import contracts from './contracts'
+import leaves from './leaves'
 import bankAccounts from './bankAccounts'
 import payrolls from './payrolls'
 import messages from './messages'
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     auth,
     users,
     contracts,
+    leaves,
     bankAccounts,
     payrolls,
     messages,

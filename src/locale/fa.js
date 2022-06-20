@@ -415,6 +415,13 @@ export default {
         title: 'پاک کردن قرارداد'
       }
     },
+    leaves: {
+      title: 'مرخصی',
+      leavesList: 'لیست مرخصی ها',
+      add: 'ثبت مرخصی جدید',
+      addLeaveBtn: 'ثبت  درخواست',
+      requestAddedSuccessfully: 'درخواست مرخصی با موفقیت ثبت شد'
+    },
     messages: {
       title: 'پیام ها',
       add: 'نوشتن پیام جدید',
@@ -500,6 +507,11 @@ export default {
     isRead: 'خوانده شده',
     isntRead: 'خوانده نشده',
     cancel: 'انصراف',
+    new: 'جدید',
+    approve: 'قبول شده',
+    reject: 'رد شده',
+    hourly: 'ساعتی',
+    daily: 'روزانه',
     placeholders: {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
@@ -574,7 +586,10 @@ export default {
       messageTitle: 'عنوان پیام',
       messageBody: 'متن پیام',
       status: 'وضعیت',
-      sendingDate: 'تاریخ ارسال'
+      sendingDate: 'تاریخ ارسال',
+      reason: 'دلیل',
+      startDateTime: 'تاریخ شروع',
+      endDateTime: 'تاریخ پایان'
     },
     tableActions: {
       add: 'افزودن',

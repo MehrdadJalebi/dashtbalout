@@ -1,0 +1,34 @@
+export default {
+
+  namespaced: true,
+  state: {
+    leaves: []
+  },
+  getters: {
+    leaves (state) {
+      return state.leaves
+    }
+  },
+  mutations: {
+    setLeaves (state, data) {
+      state.leaves = data
+    }
+  },
+  actions: {
+    addLeave (context, payload) {
+      return this.server.AddLeave(payload)
+    },
+    getAllLeaves (context, payload) {
+      return this.server.GetLeaves()
+    },
+    getLeaves (context, payload) {
+      return this.server.GetLeave()
+    },
+    approveLeave (context, payload) {
+      return this.server.Approve()
+    },
+    rejectLeave (context, payload) {
+      return this.server.Reject()
+    }
+  }
+}

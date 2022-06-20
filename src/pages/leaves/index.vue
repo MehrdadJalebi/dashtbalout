@@ -45,21 +45,40 @@
           <td class="data-min-td"> {{ leaveType(props.item.type) }} </td>
           <td class="data-min-td min-10"> {{ toJalali(props.item.startDateTime) }} </td>
           <td class="data-min-td min-10"> {{ toJalali(props.item.endDateTime) }} </td>
-          <td class="data-min-td py-3"> {{ props.item.description }} </td>
+          <td class="data-min-td py-3" v-html="props.item.description"></td>
           <td
-            class="data-min-td min-20"
+            class="data-min-td"
             :class="{
               'success--text': props.item.status === 'Approve',
               'error--text': props.item.status === 'Reject',
             }"
           > {{ leaveStatus(props.item.status) }} </td>
+          <td v-if="role === 'Admin' || role === 'SuperUser'" class="data-min-td">
+            <div class="d-flex justify-around">
+              <v-btn
+                small
+                color="success"
+                @click="approve(props.item.id)"
+                >
+                {{ $t('enums.tableActions.approve') }}
+              </v-btn>
+              <v-btn
+                small
+                color="error"
+                class="mr-2"
+                @click="reject(props.item.id)"
+                >
+                {{ $t('enums.tableActions.reject') }}
+              </v-btn>
+            </div>
+          </td>
         </tr>
       </template>
     </v-data-table>
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { JalaliDateTime } from 'jalali-date-time'
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
@@ -74,6 +93,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      role: 'auth/role'
+    }),
     headers () {
       return [
         {
@@ -107,11 +129,21 @@ export default {
     }
   },
   created () {
+    if (this.role === 'Admin' || this.role === 'SuperUser') {
+      this.headers.push(
+        {
+          text: this.$t('enums.headers.actions'),
+          value: 'actions'
+        }
+      )
+    }
     this.loadData()
   },
   methods: {
     ...mapActions({
       getLeaves: 'leaves/getLeaves',
+      approveLeave: 'leaves/approveLeave',
+      rejectLeave: 'leaves/rejectLeave',
       showToast: 'snackbar/showToastMessage'
     }),
     loadData () {
@@ -134,6 +166,30 @@ export default {
     toJalali (date) {
       const jalali = JalaliDateTime()
       return jalali.toString(new Date(date))
+    },
+    approve (id) {
+      this.isLoading = true
+      const payload = {
+        leaveId: id
+      }
+      this.approveLeave(payload)
+        .then(response => {
+          const successMessage = this.$t('pages.leaves.approvedSuccessfully')
+          this.showToast({ content: successMessage, color: 'success' })
+          this.isLoading = false
+        })
+    },
+    reject (id) {
+      this.isLoading = true
+      const payload = {
+        leaveId: id
+      }
+      this.rejectLeave(payload)
+        .then(response => {
+          const errorMessage = this.$t('pages.leaves.rejectedSuccessfully')
+          this.showToast({ content: errorMessage, color: 'error' })
+          this.isLoading = false
+        })
     }
   }
 }

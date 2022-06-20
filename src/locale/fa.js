@@ -420,7 +420,9 @@ export default {
       leavesList: 'لیست مرخصی ها',
       add: 'ثبت مرخصی جدید',
       addLeaveBtn: 'ثبت  درخواست',
-      requestAddedSuccessfully: 'درخواست مرخصی با موفقیت ثبت شد'
+      requestAddedSuccessfully: 'درخواست مرخصی با موفقیت ثبت شد',
+      approvedSuccessfully: 'درخواست مرخصی با موفقیت قبول شد',
+      rejectedSuccessfully: 'درخواست مرخصی رد شد'
     },
     messages: {
       title: 'پیام ها',
@@ -608,6 +610,8 @@ export default {
       add: 'افزودن',
       edit: 'ویرایش',
       delete: 'حذف',
+      approve: 'قبول',
+      reject: 'رد',
       resetPassword: 'بازیابی کلمه عبور'
     },
     userRoles: {

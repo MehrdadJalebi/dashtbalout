@@ -25,10 +25,10 @@ export default {
       return this.server.GetLeave()
     },
     approveLeave (context, payload) {
-      return this.server.Approve()
+      return this.server.Approve(payload)
     },
     rejectLeave (context, payload) {
-      return this.server.Reject()
+      return this.server.Reject(payload)
     }
   }
 }

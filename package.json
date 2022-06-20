@@ -22,6 +22,8 @@
     "core-js": "^3.6.5",
     "downloadjs": "^1.4.7",
     "faker": "git+https://github.com/fariborzemami/faker.js.git",
+    "jalali-date": "^1.1.4",
+    "jalali-date-time": "^5.0.1",
     "moment": "^2.27.0",
     "persian-date": "^1.1.0",
     "portal-vue": "^2.1.7",

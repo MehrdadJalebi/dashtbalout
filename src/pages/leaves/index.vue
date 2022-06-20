@@ -43,8 +43,8 @@
         <tr>
           <td class="data-min-td"> {{ props.item.reason }} </td>
           <td class="data-min-td"> {{ leaveType(props.item.type) }} </td>
-          <td class="data-min-td"> {{ props.item.startDateTime }} </td>
-          <td class="data-min-td"> {{ props.item.endDateTime }} </td>
+          <td class="data-min-td min-10"> {{ toJalali(props.item.startDateTime) }} </td>
+          <td class="data-min-td min-10"> {{ toJalali(props.item.endDateTime) }} </td>
           <td class="data-min-td py-3"> {{ props.item.description }} </td>
           <td
             class="data-min-td min-20"
@@ -60,6 +60,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import { JalaliDateTime } from 'jalali-date-time'
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
@@ -129,6 +130,10 @@ export default {
     },
     leaveStatus (status) {
       return this.$t(`enums.${status.toLowerCase()}`)
+    },
+    toJalali (date) {
+      const jalali = JalaliDateTime()
+      return jalali.toDate(new Date(date))
     }
   }
 }

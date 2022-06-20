@@ -33,7 +33,7 @@
           </td>
           <td v-if="props.item.isRead" class="data-min-td success--text"> {{ isRead }} </td>
           <td v-else class="data-min-td error--text"> {{ isntRead }} </td>
-          <td class="data-min-td"> {{ props.item.dateAt }} </td>
+          <td class="data-min-td"> {{ toJalali(props.item.dateAt) }} </td>
           <td class="data-min-td">
             <v-btn
               small
@@ -97,6 +97,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import { JalaliDateTime } from 'jalali-date-time'
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
@@ -169,6 +170,10 @@ export default {
         this.getUserMessages()
         this.dialog = false
       })
+    },
+    toJalali (date) {
+      const jalali = JalaliDateTime()
+      return jalali.toDate(new Date(date))
     }
   }
 }

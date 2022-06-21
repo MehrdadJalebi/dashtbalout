@@ -5,7 +5,7 @@
     "order": 5,
     "isVisible": true,
     "iconName": "mdi-pen",
-    "roles": ["User"]
+    "roles": ["User", "SuperUser"]
   }
 }
 </route>

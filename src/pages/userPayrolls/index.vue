@@ -5,7 +5,7 @@
     "order": 3,
     "isVisible": true,
     "iconName": "mdi-cash-multiple",
-    "roles": ["User"]
+    "roles": ["User", "SuperUser"]
   }
 }
 </route>

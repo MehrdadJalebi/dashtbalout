@@ -30,6 +30,7 @@
        </div>
     </page-title>
     <v-row
+      v-if="role !== 'User'"
       class="px-3 mb-3"
       >
       <v-col
@@ -238,7 +239,6 @@ export default {
       }
     },
     loadData () {
-      alert('inja')
       const payload = {
         pageIndex: this.page,
         pageSize: this.pageCount

@@ -5,7 +5,7 @@
     "order": 4,
     "isVisible": true,
     "iconName": "mdi-message",
-    "roles": ["User"]
+    "roles": ["User", "SuperUser"]
   }
 }
 </route>

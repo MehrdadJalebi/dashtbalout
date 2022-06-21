@@ -19,7 +19,7 @@ export default {
       return this.server.AddLeave(payload)
     },
     getAllLeaves (context, payload) {
-      return this.server.GetLeaves()
+      return this.server.GetLeaves(payload)
     },
     getLeaves (context, payload) {
       return this.server.GetLeave()

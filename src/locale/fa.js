@@ -503,6 +503,8 @@ export default {
     userList: 'لیست کاربران',
     getUserPayrolls: 'نمایش فیش های حقوقی',
     getUserMessages: 'نمایش پیامهای کاربر',
+    getUserLeaves: 'نمایش مرخصیهای کاربر',
+    clean: 'پاک کردن فیلترها',
     downloadPayroll: 'دانلود فیش  حقوقی',
     payrollFile: 'فایل فیش حقوقی',
     excelFile: 'فایل اکسل',
@@ -520,6 +522,8 @@ export default {
     description: 'توضیحات',
     startDateTime: 'تاریخ شروع',
     endDateTime: 'تاریخ پایان',
+    fromDateTime: 'از تاریخ',
+    toDateTime: 'تا تاریخ',
     placeholders: {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
@@ -575,6 +579,8 @@ export default {
       type: 'نوع',
       description: 'توضیحات',
       countDay: 'تعداد روز',
+      fromDateTime: 'تاریخ شروع',
+      toDateTime: 'تاریخ پایان',
       startDateTime: 'تاریخ شروع',
       endDateTime: 'تاریخ پایان'
     },
@@ -603,6 +609,8 @@ export default {
       sendingDate: 'تاریخ ارسال',
       reason: 'دلیل',
       countDay: 'تعداد روز',
+      fromDateTime: 'تاریخ شروع',
+      toDateTime: 'تاریخ پایان',
       startDateTime: 'تاریخ شروع',
       endDateTime: 'تاریخ پایان'
     },

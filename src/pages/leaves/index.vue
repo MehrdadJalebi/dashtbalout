@@ -29,6 +29,75 @@
          </v-btn>
        </div>
     </page-title>
+    <v-row
+      class="px-3 mb-3"
+      >
+      <v-col
+        :sm="5"
+        >
+        <form-item
+          v-model="userId"
+          type="autocomplete"
+          :items="userList"
+          icon="mdi-account-circle"
+          :label="$t('enums.userList')"
+          :placeholder="$t('enums.placeholders.userList')"
+          ></form-item>
+      </v-col>
+        <v-col
+          v-if="userListLoading"
+          class="d-flex align-self-center mt-5"
+          :sm="1"
+          >
+          <v-progress-circular
+            indeterminate
+            color="primary"
+            :value="20"
+            />
+        </v-col>
+              <v-col
+                :sm="3"
+                >
+                <form-item
+                  v-model="fromDateTime"
+                  icon="mdi-calendar"
+                  type="datetime"
+                  :label="$t('enums.fromDateTime')"
+                  :placeholder="$t('enums.placeholders.fromDateTime')"
+                  ></form-item>
+              </v-col>
+              <v-col
+                :sm="3"
+                >
+                <form-item
+                  v-model="toDateTime"
+                  icon="mdi-calendar"
+                  type="datetime"
+                  :label="$t('enums.toDateTime')"
+                  :placeholder="$t('enums.placeholders.toDateTime')"
+                  ></form-item>
+              </v-col>
+          <v-col
+            :sm="12"
+            >
+            <v-btn
+              large
+              class="px-5 ml-1 mr-auto"
+              color="primary"
+              @click="getUsersLeaves"
+              >
+              {{ $t('enums.getUserLeaves') }}
+            </v-btn>
+            <v-btn
+              large
+              class="px-5 ml-1 mr-auto"
+              color="error"
+              @click="clean"
+              >
+              {{ $t('enums.clean') }}
+            </v-btn>
+          </v-col>
+    </v-row>
     <v-data-table
       align-center
       class="report-table"
@@ -85,16 +154,22 @@ export default {
   data () {
     return {
       page: 1,
-      pageCount: 15,
+      pageCount: 1000,
       pages: {},
       totalItems: 0,
       isLoading: true,
+      userId: '',
+      fromDateTime: null,
+      toDateTime: null,
+      userList: [],
       leavesList: []
     }
   },
   computed: {
     ...mapGetters({
-      role: 'auth/role'
+      role: 'auth/role',
+      allUsers: 'users/users',
+      hasUsersSucceeded: 'users/hasUsersSucceeded'
     }),
     headers () {
       return [
@@ -126,27 +201,44 @@ export default {
     },
     isMobile () {
       return window.innerWidth < 767
+    },
+    userListLoading () {
+      return !this.hasUsersSucceeded
     }
   },
   created () {
-    if (this.role === 'Admin' || this.role === 'SuperUser') {
-      this.headers.push(
-        {
-          text: this.$t('enums.headers.actions'),
-          value: 'actions'
-        }
-      )
+    this.getData()
+  },
+  watch: {
+    allUsers: {
+      handler (newVal) {
+        this.setUserList()
+      },
+      immediate: true
     }
-    this.loadData()
   },
   methods: {
     ...mapActions({
       getLeaves: 'leaves/getLeaves',
+      getAllLeaves: 'leaves/getAllLeaves',
       approveLeave: 'leaves/approveLeave',
       rejectLeave: 'leaves/rejectLeave',
       showToast: 'snackbar/showToastMessage'
     }),
+    async setUserList () {
+      this.userList = await this.allUsers.map(user => {
+        return { text: user.fullName, value: user.id }
+      })
+    },
+    getData () {
+      if (this.role === 'User') {
+        this.loadData()
+      } else {
+        this.getUsersLeaves()
+      }
+    },
     loadData () {
+      alert('inja')
       const payload = {
         pageIndex: this.page,
         pageSize: this.pageCount
@@ -176,6 +268,7 @@ export default {
         .then(response => {
           const successMessage = this.$t('pages.leaves.approvedSuccessfully')
           this.showToast({ content: successMessage, color: 'success' })
+          this.getData()
           this.isLoading = false
         })
     },
@@ -188,8 +281,43 @@ export default {
         .then(response => {
           const errorMessage = this.$t('pages.leaves.rejectedSuccessfully')
           this.showToast({ content: errorMessage, color: 'error' })
+          this.getData()
           this.isLoading = false
         })
+    },
+    getUsersLeaves () {
+      this.isLoading = true
+      let start = null
+      let end = null
+      let fromDateTime = null
+      let toDateTime = null
+      if (this.fromDateTime) {
+        start = new Date(this.fromDateTime)
+        const userTimezoneOffset = start.getTimezoneOffset() * 60000
+        fromDateTime = new Date(start.getTime() - userTimezoneOffset)
+      }
+      if (this.toDateTime) {
+        end = new Date(this.toDateTime)
+        const userTimezoneOffset = end.getTimezoneOffset() * 60000
+        toDateTime = new Date(end.getTime() - userTimezoneOffset)
+      }
+      const payload = {
+        FromDateTime: fromDateTime,
+        ToDateTime: toDateTime,
+        UserId: this.userId,
+        PageIndex: this.page,
+        PageSize: this.pageCount
+      }
+      this.getAllLeaves(payload).then(response => {
+        this.leavesList = response.data
+        this.isLoading = false
+      })
+    },
+    clean () {
+      this.userId = ''
+      this.fromDateTime = ''
+      this.toDateTime = ''
+      this.getUsersLeaves()
     }
   }
 }

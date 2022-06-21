@@ -88,11 +88,7 @@
           <td class="data-min-td py-2"> {{ props.item.username }} </td>
           <td class="data-min-td py-2"> {{ props.item.personnelNumber }} </td>
           <td class="data-min-td py-2">
-            <v-icon
-              large
-              :color="props.item.isAdmin ? 'success' : ''"
-              @click="changeUserRoleModal(props.item.id, props.item.role)"
-              >mdi-check-circle</v-icon>
+            {{ showRole(props.item.role) }}
           </td>
           <td class="data-min-td">
             <v-icon
@@ -104,8 +100,20 @@
           <td class="data-min-td">
             <div class="d-flex justify-around">
               <v-btn
+                small
+                color="primary"
+                @click="changeUserRoleModal(props.item.id, props.item.role)"
+                >
+                <v-icon
+                  small>
+                  mdi-pen
+                </v-icon>
+                {{ $t('enums.tableActions.changeRole') }}
+              </v-btn>
+              <v-btn
                 :to="'/users/edit?id='+ props.item.id"
                 small
+                class="mr-1"
                 color="primary"
                 >
                 <v-icon
@@ -310,6 +318,15 @@
           </v-layout>
         </v-card>
       </v-card>
+      <form-item
+        v-model="userRole"
+        type="select"
+        class="my-3"
+        :items="userRolesArray"
+        icon="mdi-account-circle"
+        :label="$t('enums.type')"
+        :placeholder="$t('enums.placeholders.type')"
+        ></form-item>
       <v-row class="mt-3">
         <v-col class="text-center" :sm="12">
           <v-btn
@@ -394,7 +411,7 @@ export default {
           value: 'personnelNumber'
         },
         {
-          text: this.$t('enums.headers.adminAccess'),
+          text: this.$t('enums.headers.role'),
           value: ''
         },
         {
@@ -404,6 +421,22 @@ export default {
         {
           text: this.$t('enums.headers.actions'),
           value: 'actions'
+        }
+      ]
+    },
+    userRolesArray () {
+      return [
+        {
+          text: this.$t('enums.userRoles.admin'),
+          value: 'Admin'
+        },
+        {
+          text: this.$t('enums.userRoles.superUser'),
+          value: 'SuperUser'
+        },
+        {
+          text: this.$t('enums.userRoles.user'),
+          value: 'User'
         }
       ]
     },
@@ -418,6 +451,7 @@ export default {
       this.usersList = this.allUsers
       this.usersList.map(user => {
         user.isAdmin = user.role === 'Admin'
+        user.isSuperUser = user.role === 'SuperUser'
         user.isActive = user.userState === 'Enable'
       })
       this.isLoading = false
@@ -472,6 +506,7 @@ export default {
           this.usersList = this.allUsers
           this.usersList.map(user => {
             user.isAdmin = user.role === 'Admin'
+            user.isSuperUser = user.role === 'SuperUser'
             user.isActive = user.userState === 'Enable'
           })
           this.isLoading = false
@@ -484,7 +519,7 @@ export default {
       this.changeUserRoleLoading = true
       const payload = {
         userid: this.userId,
-        role: this.userRole === 'Admin' ? 'User' : 'Admin'
+        role: this.userRole
       }
       this.changeRole(payload).then(() => {
         const successMessage = this.$t('pages.users.roleChangedSuccessfully')
@@ -562,6 +597,11 @@ export default {
     },
     downloadSample () {
       window.open(`${window.location.origin}/personal.xls`, '_blank')
+    },
+    showRole (userRole) {
+      if (userRole === 'Admin') return this.$t('enums.userRoles.admin')
+      else if (userRole === 'SuperUser') return this.$t('enums.userRoles.superUser')
+      else return this.$t('enums.userRoles.user')
     }
   }
 }

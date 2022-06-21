@@ -591,6 +591,7 @@ export default {
       nationalCode: 'کد ملی',
       personnelNumber: 'شماره پرسنلی',
       adminAccess: 'دسترسی ادمین',
+      role: 'نقش کاربر',
       actions: 'عملیات',
       contractTitle: 'عنوان قرارداد',
       contractNumber: 'شماره ثبت قرارداد',
@@ -620,10 +621,12 @@ export default {
       delete: 'حذف',
       approve: 'قبول',
       reject: 'رد',
+      changeRole: 'تغییر نقش',
       resetPassword: 'بازیابی کلمه عبور'
     },
     userRoles: {
       admin: 'ادمین',
+      superUser: 'سوپر یوزر',
       user: 'کاربر'
     },
     genders: {
@@ -703,6 +706,6 @@ export default {
     deleteContractConfirmation: 'با حذف کردن قرارداد، تمامی فیش های حقوقی مربوط به قرارداد حذف خواهد شد. آیا از حذف قرارداد اطمینان دارید؟',
     deletePayrollConfirmation: 'آیا از حذف فیش حقوقی اطمینان دارید؟',
     deleteGroupPayrollConfirmation: 'با انتخاب ماه و سال، تمامی فیش های حقوقی مربوط به آن ماه و سال حذف خواهند شد. آیا از حذف فیش حقوقی گروهی اطمینان دارید؟',
-    changeUserRoleConfirmation: 'آیا از تغییر نقش کاربر مورد نظر اطمینان دارید؟'
+    changeUserRoleConfirmation: 'نقش مورد نظر کاربر را انتخاب نمایید.'
   }
 }

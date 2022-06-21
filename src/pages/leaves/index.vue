@@ -30,7 +30,7 @@
        </div>
     </page-title>
     <v-row
-      v-if="role !== 'User'"
+      v-if="role && role !== 'User'"
       class="px-3 mb-3"
       >
       <v-col
@@ -216,6 +216,9 @@ export default {
         this.setUserList()
       },
       immediate: true
+    },
+    role () {
+      this.getData()
     }
   },
   methods: {
@@ -232,10 +235,12 @@ export default {
       })
     },
     getData () {
-      if (this.role === 'User') {
-        this.loadData()
-      } else {
-        this.getUsersLeaves()
+      if (this.role) {
+        if (this.role === 'User') {
+          this.loadData()
+        } else {
+          this.getUsersLeaves()
+        }
       }
     },
     loadData () {

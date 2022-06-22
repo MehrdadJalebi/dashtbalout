@@ -116,12 +116,17 @@ export default {
         startDateTime: new Date(start.getTime() - userTimezoneOffset),
         endDateTime: new Date(end.getTime() - userTimezoneOffset)
       }
-      this.addLeave(payload)
-        .then(() => {
-          const successMessage = this.$t('pages.leaves.requestAddedSuccessfully')
-          this.showToast({ content: successMessage, color: 'success' })
-          this.$router.push({ name: 'leaves' })
-        })
+      if (this.leave.type && this.leave.reason && this.leave.startDateTime && this.leave.endDateTime) {
+        this.addLeave(payload)
+          .then(() => {
+            const successMessage = this.$t('pages.leaves.requestAddedSuccessfully')
+            this.showToast({ content: successMessage, color: 'success' })
+            this.$router.push({ name: 'leaves' })
+          })
+      } else {
+        const errorMessage = this.$t('toasts.fillFields')
+        this.showToast({ content: errorMessage, color: 'error' })
+      }
     }
   }
 }

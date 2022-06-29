@@ -99,6 +99,40 @@
             </v-btn>
           </v-col>
     </v-row>
+    <v-row
+      class="px-3 mb-3"
+      >
+      <v-col
+        :sm="6"
+        class="d-flex align-items-center"
+        >
+        <div
+          v-if="userId"
+          class="d-flex align-self-end mb-5 ml-5"
+          >
+          {{ $t('pages.leaves.balance') + ' : ' + userBalance }}
+        </div>
+        <form-item
+          v-if="role && role !== 'User' && userId"
+          v-model="balance"
+          type="textbox"
+          ltr
+          class="mr-5"
+          icon="mdi-calendar-plus"
+          :label="$t('pages.leaves.setBalance')"
+          >
+        </form-item>
+          <v-btn
+            v-if="role && role !== 'User' && userId"
+            large
+            class="align-self-end mb-3 mr-5"
+            color="primary"
+            @click="setUserBalance"
+          >
+            {{ $t('pages.leaves.setBalanceBtn') }}
+          </v-btn>
+      </v-col>
+    </v-row>
     <v-data-table
       align-center
       class="report-table"
@@ -160,6 +194,8 @@ export default {
       totalItems: 0,
       isLoading: true,
       userId: '',
+      balance: '',
+      userBalance: '',
       fromDateTime: null,
       toDateTime: null,
       userList: [],
@@ -219,6 +255,11 @@ export default {
     },
     role () {
       this.getData()
+    },
+    userId (newVal) {
+      if (newVal) {
+        this.getUserBalance()
+      }
     }
   },
   methods: {
@@ -227,6 +268,8 @@ export default {
       getAllLeaves: 'leaves/getAllLeaves',
       approveLeave: 'leaves/approveLeave',
       rejectLeave: 'leaves/rejectLeave',
+      setBalance: 'leaves/setBalance',
+      getBalance: 'leaves/getBalance',
       showToast: 'snackbar/showToastMessage'
     }),
     async setUserList () {
@@ -323,6 +366,40 @@ export default {
       this.fromDateTime = ''
       this.toDateTime = ''
       this.getUsersLeaves()
+    },
+    getUserBalance () {
+      this.isLoading = true
+      const payload = {
+        userId: this.userId
+      }
+      this.getBalance(payload).then(response => {
+        this.userBalance = response.data
+        this.isLoading = false
+      })
+    },
+    setUserBalance () {
+      this.isLoading = true
+      const intBalance = parseInt(this.balance)
+      const payload = {
+        userId: this.userId,
+        value: intBalance
+      }
+      if (!this.balance) {
+        this.isLoading = false
+        const errorMessage = this.$t('toasts.fillFields')
+        this.showToast({ content: errorMessage, color: 'error' })
+      } else if (isNaN(intBalance)) {
+        this.isLoading = false
+        const errorMessage = this.$t('pages.leaves.enterNumber')
+        this.showToast({ content: errorMessage, color: 'error' })
+      } else {
+        this.setBalance(payload).then(response => {
+          const successMessage = this.$t('pages.leaves.balanceSetsSuccessfully')
+          this.showToast({ content: successMessage, color: 'success' })
+          this.balance = ''
+          this.getUserBalance()
+        })
+      }
     }
   }
 }

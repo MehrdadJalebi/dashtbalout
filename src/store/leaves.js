@@ -29,6 +29,12 @@ export default {
     },
     rejectLeave (context, payload) {
       return this.server.Reject(payload)
+    },
+    setBalance (context, payload) {
+      return this.server.SetBalance(payload)
+    },
+    getBalance (context, payload) {
+      return this.server.GetBalance(payload)
     }
   }
 }

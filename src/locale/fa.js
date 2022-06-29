@@ -422,7 +422,12 @@ export default {
       addLeaveBtn: 'ثبت  درخواست',
       requestAddedSuccessfully: 'درخواست مرخصی با موفقیت ثبت شد',
       approvedSuccessfully: 'درخواست مرخصی با موفقیت قبول شد',
-      rejectedSuccessfully: 'درخواست مرخصی رد شد'
+      rejectedSuccessfully: 'درخواست مرخصی رد شد',
+      balance: 'مانده مرخصی',
+      setBalance: 'تخصیص مرخصی',
+      setBalanceBtn: 'ذخیره',
+      balanceSetsSuccessfully: 'مرخصی با موفقیت تنظیم شد',
+      enterNumber: 'لطفا مقدار عددی وارد نمایید.'
     },
     messages: {
       title: 'پیام ها',

@@ -205,6 +205,7 @@ export default {
   computed: {
     ...mapGetters({
       role: 'auth/role',
+      user: 'users/user',
       allUsers: 'users/users',
       hasUsersSucceeded: 'users/hasUsersSucceeded'
     }),
@@ -294,6 +295,8 @@ export default {
       this.getLeaves(payload)
         .then(response => {
           this.leavesList = response.data
+          this.userId = this.user.id
+          this.getUserBalance()
           this.isLoading = false
         })
     },

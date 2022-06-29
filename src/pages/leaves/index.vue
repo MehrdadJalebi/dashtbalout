@@ -144,7 +144,12 @@
       disable-sort
     >
       <template slot="item" slot-scope="props">
-        <tr>
+        <tr
+                            :class="{
+                                     'success-light': props.item.status === 'Approve',
+                                      'error-light': props.item.status === 'Reject'
+                                   }"
+        >
           <td class="data-min-td"> {{ props.item.reason }} </td>
           <td class="data-min-td"> {{ leaveType(props.item.type) }} </td>
           <td class="data-min-td min-10"> {{ toJalali(props.item.startDateTime) }} </td>
@@ -152,10 +157,6 @@
           <td class="data-min-td py-3" v-html="props.item.description"></td>
           <td
             class="data-min-td"
-            :class="{
-              'success--text': props.item.status === 'Approve',
-              'error--text': props.item.status === 'Reject',
-            }"
           > {{ leaveStatus(props.item.status) }} </td>
           <td v-if="role === 'Admin' || role === 'SuperUser'" class="data-min-td">
             <div class="d-flex justify-around">
@@ -173,6 +174,14 @@
                 @click="reject(props.item.id)"
                 >
                 {{ $t('enums.tableActions.reject') }}
+              </v-btn>
+              <v-btn
+                small
+                color="primary"
+                class="mr-2"
+                @click="printBalance(props.item.description)"
+                >
+                {{ $t('enums.tableActions.print') }}
               </v-btn>
             </div>
           </td>
@@ -403,6 +412,14 @@ export default {
           this.getUserBalance()
         })
       }
+    },
+    printBalance (text) {
+      var mywindow = window.open('', 'PRINT')
+      mywindow.document.write(text)
+      mywindow.document.close()
+      mywindow.focus()
+      mywindow.print()
+      mywindow.close()
     }
   }
 }

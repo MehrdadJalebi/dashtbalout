@@ -627,7 +627,8 @@ export default {
       approve: 'قبول',
       reject: 'رد',
       changeRole: 'تغییر نقش',
-      resetPassword: 'بازیابی کلمه عبور'
+      resetPassword: 'بازیابی کلمه عبور',
+      print: 'چاپ'
     },
     userRoles: {
       admin: 'ادمین',

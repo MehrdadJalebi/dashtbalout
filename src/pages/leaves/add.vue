@@ -123,6 +123,10 @@ export default {
             this.showToast({ content: successMessage, color: 'success' })
             this.$router.push({ name: 'leaves' })
           })
+          .catch((err) => {
+            const errorMessage = err.response.data.error
+            this.showToast({ content: errorMessage, color: 'error' })
+          })
       } else {
         const errorMessage = this.$t('toasts.fillFields')
         this.showToast({ content: errorMessage, color: 'error' })

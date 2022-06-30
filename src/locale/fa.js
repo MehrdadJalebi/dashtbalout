@@ -429,6 +429,23 @@ export default {
       balanceSetsSuccessfully: 'مرخصی با موفقیت تنظیم شد',
       enterNumber: 'لطفا مقدار عددی وارد نمایید.'
     },
+    personGroups: {
+      title: 'گروه پرسنل',
+      personGroupsList: 'لیست گروه‌های پرسنل',
+      add: 'ثبت گروه جدید',
+      addPersonGroupBtn: 'ثبت گروه',
+      editPersonGroupBtn: 'ویرایش گروه',
+      deletePersonGroupBtn: 'حذف گروه',
+      deletepersonGroupConfirmation: {
+        title: 'حذف گروه'
+      },
+      editPersonGroup: {
+        title: 'ویرایش گروه'
+      },
+      personGroupAddedSuccessfully: 'گروه جدید با موفقیت افزوده شد',
+      personGroupEditedSuccessfully: 'گروه جدید با موفقیت ویرایش شد',
+      personGroupDeletedSuccessfully: 'گروه جدید با موفقیت حذف شد'
+    },
     messages: {
       title: 'پیام ها',
       add: 'نوشتن پیام جدید',
@@ -529,6 +546,8 @@ export default {
     endDateTime: 'تاریخ پایان',
     fromDateTime: 'از تاریخ',
     toDateTime: 'تا تاریخ',
+    groupName: 'نام گروه',
+    personsList: 'لیست پرسنل',
     placeholders: {
       firstName: 'نام',
       lastName: 'نام خانوادگی',
@@ -587,7 +606,9 @@ export default {
       fromDateTime: 'تاریخ شروع',
       toDateTime: 'تاریخ پایان',
       startDateTime: 'تاریخ شروع',
-      endDateTime: 'تاریخ پایان'
+      endDateTime: 'تاریخ پایان',
+      groupName: 'نام گروه',
+      personsList: 'لیست پرسنل'
     },
     headers: {
       firstName: 'نام',
@@ -618,7 +639,9 @@ export default {
       fromDateTime: 'تاریخ شروع',
       toDateTime: 'تاریخ پایان',
       startDateTime: 'تاریخ شروع',
-      endDateTime: 'تاریخ پایان'
+      endDateTime: 'تاریخ پایان',
+      groupName: 'نام گروه',
+      personsList: 'لیست پرسنل'
     },
     tableActions: {
       add: 'افزودن',
@@ -712,6 +735,7 @@ export default {
     deleteContractConfirmation: 'با حذف کردن قرارداد، تمامی فیش های حقوقی مربوط به قرارداد حذف خواهد شد. آیا از حذف قرارداد اطمینان دارید؟',
     deletePayrollConfirmation: 'آیا از حذف فیش حقوقی اطمینان دارید؟',
     deleteGroupPayrollConfirmation: 'با انتخاب ماه و سال، تمامی فیش های حقوقی مربوط به آن ماه و سال حذف خواهند شد. آیا از حذف فیش حقوقی گروهی اطمینان دارید؟',
+    deletePersonGroupConfirmation: 'آیا از حذف این گروه پرسنل اطمینان دارید؟',
     changeUserRoleConfirmation: 'نقش مورد نظر کاربر را انتخاب نمایید.'
   }
 }

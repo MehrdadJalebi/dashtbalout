@@ -5,6 +5,7 @@ import auth from './auth'
 import users from './users'
 import contracts from './contracts'
 import leaves from './leaves'
+import personGroups from './personGroups'
 import bankAccounts from './bankAccounts'
 import payrolls from './payrolls'
 import messages from './messages'
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     users,
     contracts,
     leaves,
+    personGroups,
     bankAccounts,
     payrolls,
     messages,

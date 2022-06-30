@@ -1546,7 +1546,7 @@
         "tags": [
           "PersonGroups"
         ],
-        "operationId": "Add",
+        "operationId": "AddGroup",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1576,7 +1576,7 @@
         "tags": [
           "PersonGroups"
         ],
-        "operationId": "Update",
+        "operationId": "UpdateGroup",
         "parameters": [
           {
             "name": "id",
@@ -1616,7 +1616,7 @@
         "tags": [
           "PersonGroups"
         ],
-        "operationId": "Delete",
+        "operationId": "DeleteGroup",
         "parameters": [
           {
             "name": "id",
@@ -1637,7 +1637,7 @@
         "tags": [
           "PersonGroups"
         ],
-        "operationId": "GetAll",
+        "operationId": "GetAllGroup",
         "responses": {
           "200": {
             "description": "Success",
@@ -1676,7 +1676,7 @@
         "tags": [
           "PersonGroups"
         ],
-        "operationId": "Get",
+        "operationId": "GetGroup",
         "parameters": [
           {
             "name": "id",

@@ -348,7 +348,8 @@ export default {
       excelAdd: 'ثبت  از فایل  اکسل',
       addUserBtn: 'ثبت کاربر',
       deleteUserBtn: 'حذف کاربر',
-      changeUserRoleBtn: 'تغییر نقش کاربر',
+      changeUserSettingsBtn: 'تغییر تنظیمات کاربر',
+      deleteUserGroupBtn: 'حذف گروه کاربر',
       completeUserBtn: 'تکمیل اطلاعات کاربر',
       addBankInfoBtn: 'افزودن اطلاعات بانکی',
       editBankInfoBtn: 'ویرایش اطلاعات بانکی',
@@ -360,15 +361,16 @@ export default {
         uploadFile: 'آپلود فایل'
       },
       deleteUserConfirmation: {
-        title: 'پاک کردن کاربر'
+        title: 'حذف کاربر'
       },
-      changeUserRoleConfirmation: {
-        title: 'تغییر نقش کاربر'
+      userSettingsConfirmation: {
+        title: 'تنظیمات کاربر'
       },
       userRegisteredSuccessfully: 'کاربر با موفقیت ثبت نام شد',
       userCompletedSuccessfully: 'اطلاعات کاربر با موفقیت تکمیل  شد',
       bankInfoAddedSuccessfully: 'اطلاعات بانکی با موفقیت افزوده  شد',
-      roleChangedSuccessfully: 'نقش کاربر با موفقیت تغییر یافت',
+      settingsChangedSuccessfully: 'تنظبمات کاربر با موفقیت تغییر یافت',
+      groupDeletedSuccessfully: 'گروه کاربر با موفقیت حذف شد',
       userDisabledSuccessfully: 'کاربر با موفقیت غیرفعال گردید',
       userEnabledSuccessfully: 'کاربر با موفقیت فعال گردید',
       userNameExist: 'نام کاربری تکراری است',
@@ -436,7 +438,7 @@ export default {
       addPersonGroupBtn: 'ثبت گروه',
       editPersonGroupBtn: 'ویرایش گروه',
       deletePersonGroupBtn: 'حذف گروه',
-      deletepersonGroupConfirmation: {
+      deletePersonGroupConfirmation: {
         title: 'حذف گروه'
       },
       editPersonGroup: {
@@ -650,6 +652,7 @@ export default {
       approve: 'قبول',
       reject: 'رد',
       changeRole: 'تغییر نقش',
+      userSettings: 'تنظیمات کاربر',
       resetPassword: 'بازیابی کلمه عبور',
       print: 'چاپ'
     },
@@ -735,7 +738,6 @@ export default {
     deleteContractConfirmation: 'با حذف کردن قرارداد، تمامی فیش های حقوقی مربوط به قرارداد حذف خواهد شد. آیا از حذف قرارداد اطمینان دارید؟',
     deletePayrollConfirmation: 'آیا از حذف فیش حقوقی اطمینان دارید؟',
     deleteGroupPayrollConfirmation: 'با انتخاب ماه و سال، تمامی فیش های حقوقی مربوط به آن ماه و سال حذف خواهند شد. آیا از حذف فیش حقوقی گروهی اطمینان دارید؟',
-    deletePersonGroupConfirmation: 'آیا از حذف این گروه پرسنل اطمینان دارید؟',
-    changeUserRoleConfirmation: 'نقش مورد نظر کاربر را انتخاب نمایید.'
+    deletePersonGroupConfirmation: 'آیا از حذف این گروه پرسنل اطمینان دارید؟'
   }
 }

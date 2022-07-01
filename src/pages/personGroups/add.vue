@@ -35,6 +35,7 @@
               v-model="personGroup.personsList"
               type="autocomplete"
               multiple
+              class="person-group-list"
               :items="userList"
               icon="mdi-account-group"
               :rules="[rules.required]"
@@ -107,31 +108,21 @@ export default {
     }),
     async setUserList () {
       this.userList = await this.allUsers.map(user => {
-        return { text: user.fullName, value: user.id }
+        return { text: user.fullName, value: user.personId }
       })
     },
     add () {
       this.isLoading = true
       const payload = {
-        groupName: this.personGroup.groupName
+        groupName: this.personGroup.groupName,
+        personIds: this.personGroup.personsList
       }
       if (this.personGroup.groupName && this.personGroup.personsList.length) {
         this.addPersonGroup(payload)
           .then((res) => {
-            console.log('ressss is: ', res)
             const successMessage = this.$t('pages.personGroups.personGroupAddedSuccessfully')
             this.showToast({ content: successMessage, color: 'success' })
             this.$router.push({ name: 'personGroups' })
-            /*            this.addPersons(personsPayload)
-              .then(() => {
-              const successMessage = this.$t('pages.personGroups.personGroupAddedSuccessfully')
-              this.showToast({ content: successMessage, color: 'success' })
-              this.$router.push({ name: 'personGroups' })
-            })
-              .catch((err) => {
-                const errorMessage = err.response.data.error
-                this.showToast({ content: errorMessage, color: 'error' })
-              }) */
           })
           .catch((err) => {
             const errorMessage = err.response.data.error

@@ -35,6 +35,9 @@ export default {
     },
     deletePersons (context, payload) {
       return this.server.DeletePersons(payload)
+    },
+    changePersonGroup (context, payload) {
+      return this.server.ChangeGroup(payload)
     }
   }
 }

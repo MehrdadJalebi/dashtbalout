@@ -42,7 +42,14 @@
       <template slot="item" slot-scope="props">
         <tr>
           <td class="data-min-td"> {{ props.item.groupName }} </td>
-          <td class="data-min-td"> {{ props.item.personsList }} </td>
+          <td class="data-min-td">
+            <div class="group-persons">
+              <span v-for="(person, index) in props.item.persons" :key="index">
+                {{ person.fullName }}
+                <span v-if="index < (props.item.persons.length - 1)"> - </span>
+              </span>
+            </div>
+          </td>
           <td class="data-min-td">
             <div class="d-flex justify-around">
               <v-btn
@@ -80,7 +87,7 @@
       >
       <v-card class="px-3 pb-3">
         <v-card-title class="headline">
-          {{ $t('pages.personGroups.deletepersonGroupConfirmation.title') }}
+          {{ $t('pages.personGroups.deletePersonGroupConfirmation.title') }}
         </v-card-title>
       <v-card
         outlined
@@ -130,6 +137,80 @@
       </v-row>
       </v-card>
     </v-dialog>
+    <v-dialog
+      v-model="editPersonGroupDialog"
+      width="700"
+      >
+      <v-card class="px-3 pb-3">
+        <v-card-title class="headline">
+          {{ $t('pages.personGroups.editPersonGroup.title') }}
+        </v-card-title>
+          <v-card-text>
+        <v-row
+          class="px-3 mb-3"
+          >
+          <v-col
+            :sm="5"
+            >
+            <form-item
+              v-model="personGroup.groupName"
+              type="textbox"
+              icon="mdi-account-group"
+              :label="$t('enums.groupName')"
+              :rules="[rules.required]"
+              :placeholder="$t('enums.placeholders.groupName')"
+              ></form-item>
+          </v-col>
+          <v-col
+            :sm="5"
+            >
+            <form-item
+              v-model="personGroupPersons"
+              type="autocomplete"
+              multiple
+              class="person-group-list"
+              :items="userList"
+              icon="mdi-account-group"
+              :rules="[rules.required]"
+              :label="$t('enums.personsList')"
+              :placeholder="$t('enums.placeholders.personsList')"
+              ></form-item>
+          </v-col>
+            <v-col
+              v-if="userListLoading"
+              class="d-flex align-self-center mt-5"
+              :sm="1"
+              >
+              <v-progress-circular
+                indeterminate
+                color="primary"
+                :value="20"
+                />
+            </v-col>
+        </v-row>
+          </v-card-text>
+          <v-card-actions>
+      <v-row class="mt-5">
+        <v-col class="text-center" :sm="12">
+          <v-btn
+            color="error"
+            @click="deletePersonGroupDialog = false"
+            >
+            {{ $t('enums.cancel') }}
+          </v-btn>
+            <v-btn
+            class="mr-3"
+              color="success"
+              :loading="editLoading"
+              @click="editGroup"
+              >
+              {{ $t('pages.personGroups.editPersonGroupBtn') }}
+            </v-btn>
+        </v-col>
+      </v-row>
+          </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -147,12 +228,19 @@ export default {
       deleteLoading: false,
       deletePersonGroupDialog: false,
       editPersonGroupDialog: false,
+      userList: [],
+      personGroupPersons: [],
       personGroup: {},
-      personGroupsList: []
+      personGroupsList: [],
+      rules: {
+        required: value => !!value || 'این فیلد اجباری است'
+      }
     }
   },
   computed: {
     ...mapGetters({
+      allUsers: 'users/users',
+      hasUsersSucceeded: 'users/hasUsersSucceeded',
       personGroups: 'personGroups/personGroups'
     }),
     headers () {
@@ -178,6 +266,14 @@ export default {
       return !this.hasUsersSucceeded
     }
   },
+  watch: {
+    allUsers: {
+      handler (newVal) {
+        this.setUserList()
+      },
+      immediate: true
+    }
+  },
   created () {
     this.loadData()
   },
@@ -188,6 +284,11 @@ export default {
       getAllPersonGroups: 'personGroups/getAllPersonGroups',
       showToast: 'snackbar/showToastMessage'
     }),
+    async setUserList () {
+      this.userList = await this.allUsers.map(user => {
+        return { text: user.fullName, value: user.personId }
+      })
+    },
     loadData () {
       const payload = {
         pageIndex: this.page,
@@ -196,23 +297,26 @@ export default {
       this.getAllPersonGroups(payload)
         .then(response => {
           this.personGroupsList = response.data
-          console.log('personGroups: ', this.personGroupsList)
           this.isLoading = false
         })
     },
     editPersonGroupModal (personGroup) {
-      this.personGroup = personGroup
+      this.personGroup = { ...personGroup }
+      personGroup.persons.forEach(person => {
+        this.personGroupPersons.push(person.id)
+      })
       this.editPersonGroupDialog = true
     },
     deletePersonGroupModal (personGroup) {
-      this.personGroup = personGroup
+      this.personGroup = { ...personGroup }
       this.deletePersonGroupDialog = true
     },
     editGroup () {
       this.editLoading = true
       const payload = {
         id: this.personGroup.id,
-        groupName: this.personGroup.groupName
+        groupName: this.personGroup.groupName,
+        personIds: this.personGroupPersons
       }
       this.editPersonGroup(payload)
         .then(response => {

@@ -531,3 +531,17 @@ td {
 .error-light {
   background-color: #ff9898;
 }
+
+.group-persons {
+  span {
+    padding: 5px 0;
+  }
+}
+
+.person-group-list {
+  .v-select__slot {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 120px;
+  }
+}

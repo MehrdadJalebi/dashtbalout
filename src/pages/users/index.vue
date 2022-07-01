@@ -90,6 +90,9 @@
           <td class="data-min-td py-2">
             {{ showRole(props.item.role) }}
           </td>
+          <td class="data-min-td py-2">
+            {{ showGroup(props.item.groupId) }}
+          </td>
           <td class="data-min-td">
             <v-icon
               large
@@ -102,13 +105,13 @@
               <v-btn
                 small
                 color="primary"
-                @click="changeUserRoleModal(props.item.id, props.item.role)"
+                @click="changeUserSettingsModal(props.item)"
                 >
                 <v-icon
                   small>
                   mdi-pen
                 </v-icon>
-                {{ $t('enums.tableActions.changeRole') }}
+                {{ $t('enums.tableActions.userSettings') }}
               </v-btn>
               <v-btn
                 :to="'/users/edit?id='+ props.item.id"
@@ -283,40 +286,18 @@
       </v-card>
     </v-dialog>
     <v-dialog
-      v-model="changeUserRoleDialog"
+      v-model="changeUserSettingsDialog"
       persistent
       width="700"
       >
       <v-card class="px-3 pb-3">
         <v-card-title class="headline">
-          {{ $t('pages.users.changeUserRoleConfirmation.title') }}
+          {{ $t('pages.users.userSettingsConfirmation.title') }}
         </v-card-title>
       <v-card
         outlined
         class="border-box"
         >
-        <v-card
-          flat
-          class="d-flex">
-          <v-layout
-            justify-right
-            align-center
-            class="pa-2"
-            >
-            <div>
-              <div class="alert-circle">
-                <v-icon class="orange--text text-h2">mdi-alert</v-icon>
-              </div>
-            </div>
-            <div>
-              <v-card-text
-                class="orange--text"
-                v-html="$t('confirms.changeUserRoleConfirmation')"
-                >
-              </v-card-text>
-            </div>
-          </v-layout>
-        </v-card>
       </v-card>
       <form-item
         v-model="userRole"
@@ -326,16 +307,33 @@
         icon="mdi-account-circle"
         :label="$t('enums.type')"
         :placeholder="$t('enums.placeholders.type')"
-        ></form-item>
+       ></form-item>
+      <form-item
+        v-model="userGroup"
+        type="select"
+        class="my-3"
+        :items="personGroupsList"
+        icon="mdi-account-circle"
+        :label="$t('enums.groupName')"
+        :placeholder="$t('enums.placeholders.groupName')"
+       ></form-item>
+          <v-btn
+            v-if="hasUserGroup"
+            color="error"
+            :loading="deleteGroupLoading"
+            @click="deleteUserGroup"
+            >
+            {{ $t('pages.users.deleteUserGroupBtn') }}
+          </v-btn>
       <v-row class="mt-3">
         <v-col class="text-center" :sm="12">
           <v-btn
-            :loading="changeUserRoleLoading"
+            :loading="changeUserSettingsLoading"
             class="mr-3"
             color="success"
-            @click="changeUserRole"
+            @click="changeUserSettings"
             >
-            {{ $t('pages.users.changeUserRoleBtn') }}
+            {{ $t('pages.users.changeUserSettingsBtn') }}
           </v-btn>
           <v-btn
             class="mr-3"
@@ -360,13 +358,14 @@ export default {
       pageCount: 100000,
       dialog: false,
       deleteUserDialog: false,
-      changeUserRoleDialog: false,
+      changeUserSettingsDialog: false,
       pages: {},
       totalItems: 0,
       isLoading: true,
       uploadLoading: false,
       deleteLoading: false,
-      changeUserRoleLoading: false,
+      deleteGroupLoading: false,
+      changeUserSettingsLoading: false,
       usersList: [],
       filterBtn: {
         iconColor: 'primary',
@@ -380,13 +379,17 @@ export default {
       file: null,
       fileList: [],
       userId: null,
-      userRole: null
+      userRole: null,
+      userGroup: null,
+      hasUserGroup: false,
+      personGroupsList: []
     }
   },
   computed: {
     ...mapGetters({
       userTypeArray: 'enums/userTypeArray',
-      allUsers: 'users/users'
+      allUsers: 'users/users',
+      personGroups: 'personGroups/personGroups'
     }),
     headers () {
       return [
@@ -412,6 +415,10 @@ export default {
         },
         {
           text: this.$t('enums.headers.role'),
+          value: ''
+        },
+        {
+          text: this.$t('enums.headers.groupName'),
           value: ''
         },
         {
@@ -444,6 +451,19 @@ export default {
       return window.innerWidth < 767
     }
   },
+  watch: {
+    personGroups: {
+      handler (newVal) {
+        console.log('newVal is: ', newVal)
+        if (newVal) {
+          this.personGroupsList = newVal.map(group => {
+            return { text: group.groupName, value: group.id }
+          })
+        }
+      },
+      immediate: true
+    }
+  },
   created () {
     if (!this.allUsers.length) {
       this.loadData()
@@ -456,6 +476,7 @@ export default {
       })
       this.isLoading = false
     }
+    this.getUserGroups()
   },
   beforeDestroy () {
     if (this.filterObject.userType || this.filterObject.search) {
@@ -469,6 +490,8 @@ export default {
       enableUser: 'users/enableUser',
       delete: 'users/deleteUser',
       disableUser: 'users/disableUser',
+      getAllPersonGroups: 'personGroups/getAllPersonGroups',
+      changePersonGroup: 'personGroups/changePersonGroup',
       resetPassword: 'users/resetPassword',
       excel: 'users/excel',
       showToast: 'snackbar/showToastMessage'
@@ -515,22 +538,28 @@ export default {
     excelAddUsersModal () {
       this.dialog = true
     },
-    changeUserRole () {
-      this.changeUserRoleLoading = true
+    changeUserSettings () {
+      this.changeUserSettingsLoading = true
       const payload = {
         userid: this.userId,
         role: this.userRole
       }
       this.changeRole(payload).then(() => {
-        const successMessage = this.$t('pages.users.roleChangedSuccessfully')
-        this.showToast({ content: successMessage, color: 'success' })
-        this.loadData()
-        this.changeUserRoleDialog = false
-        this.changeUserRoleLoading = false
+        const groupPayload = {
+          userid: this.userId,
+          groupId: this.userGroup
+        }
+        this.changePersonGroup(groupPayload).then(() => {
+          const successMessage = this.$t('pages.users.settingsChangedSuccessfully')
+          this.showToast({ content: successMessage, color: 'success' })
+          this.loadData()
+          this.changeUserSettingsDialog = false
+          this.changeUserSettingsLoading = false
+        })
       })
     },
     cancelUserState () {
-      this.changeUserRoleDialog = false
+      this.changeUserSettingsDialog = false
       this.loadData()
     },
     changeUserState (id, state) {
@@ -582,10 +611,12 @@ export default {
         this.loadData()
       })
     },
-    changeUserRoleModal (userId, userRole) {
-      this.userId = userId
-      this.userRole = userRole
-      this.changeUserRoleDialog = true
+    changeUserSettingsModal (user) {
+      this.userId = user.id
+      this.userRole = user.role
+      this.userGroup = user.groupId
+      this.hasUserGroup = !!this.userGroup
+      this.changeUserSettingsDialog = true
     },
     resetUserPassword (userId) {
       this.isLoading = true
@@ -602,6 +633,42 @@ export default {
       if (userRole === 'Admin') return this.$t('enums.userRoles.admin')
       else if (userRole === 'SuperUser') return this.$t('enums.userRoles.superUser')
       else return this.$t('enums.userRoles.user')
+    },
+    showGroup (userGroup) {
+      let groupName
+      this.personGroupsList.find(group => {
+        if (group.value === userGroup) {
+          groupName = group.text
+        }
+      })
+      return groupName
+    },
+    getUserGroups () {
+      const payload = {
+        pageIndex: 1,
+        pageSize: 1000
+      }
+      this.getAllPersonGroups(payload)
+        .then(response => {
+          this.personGroupsList = response.data.map(group => {
+            return { text: group.groupName, value: group.id }
+          })
+        })
+    },
+    deleteUserGroup () {
+      this.deleteGroupLoading = true
+      this.userGroup = 0
+      const groupPayload = {
+        userid: this.userId,
+        groupId: this.userGroup
+      }
+      this.changePersonGroup(groupPayload).then(() => {
+        const successMessage = this.$t('pages.users.groupDeletedSuccessfully')
+        this.showToast({ content: successMessage, color: 'success' })
+        this.loadData()
+        this.hasUserGroup = false
+        this.deleteGroupLoading = false
+      })
     }
   }
 }

@@ -254,6 +254,9 @@ export default {
     }
   },
   created () {
+    if (!this.allUsers.length) {
+      this.getUsers()
+    }
     this.getData()
   },
   watch: {
@@ -276,16 +279,24 @@ export default {
     ...mapActions({
       getLeaves: 'leaves/getLeaves',
       getAllLeaves: 'leaves/getAllLeaves',
+      getAllUsers: 'users/getAllUsers',
       approveLeave: 'leaves/approveLeave',
       rejectLeave: 'leaves/rejectLeave',
       setBalance: 'leaves/setBalance',
       getBalance: 'leaves/getBalance',
       showToast: 'snackbar/showToastMessage'
     }),
-    async setUserList () {
-      this.userList = await this.allUsers.map(user => {
+    setUserList () {
+      this.userList = this.allUsers.map(user => {
         return { text: user.fullName, value: user.id }
       })
+    },
+    getUsers () {
+      const payload = {
+        pageIndex: 1,
+        pageSize: 10000
+      }
+      this.getAllUsers(payload)
     },
     getData () {
       if (this.role) {

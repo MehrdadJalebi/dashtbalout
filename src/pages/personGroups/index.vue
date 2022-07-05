@@ -121,7 +121,7 @@
           <v-btn
             class="mr-3"
             color="error"
-            @click="deletePersonGroupDialog = false"
+            @click.stop="deletePersonGroupDialog = false"
             >
             {{ $t('enums.cancel') }}
           </v-btn>
@@ -194,7 +194,7 @@
         <v-col class="text-center" :sm="12">
           <v-btn
             color="error"
-            @click="deletePersonGroupDialog = false"
+            @click="editPersonGroupDialog = false"
             >
             {{ $t('enums.cancel') }}
           </v-btn>
@@ -301,6 +301,7 @@ export default {
         })
     },
     editPersonGroupModal (personGroup) {
+      this.personGroupPersons = []
       this.personGroup = { ...personGroup }
       personGroup.persons.forEach(person => {
         this.personGroupPersons.push(person.id)

@@ -31,17 +31,26 @@
           <v-col
             :sm="4"
             >
-            <form-item
-              v-model="personGroup.personsList"
-              type="autocomplete"
-              multiple
-              class="person-group-list"
-              :items="userList"
-              icon="mdi-account-group"
-              :rules="[rules.required]"
-              :label="$t('enums.personsList')"
+            <label class="typo__label">
+              <v-icon>mdi-account-group</v-icon>
+              {{ $t('enums.personsList') }}
+            </label>
+            <multiselect
+              v-model="personGroupPersons"
+              :options="userList"
+              :multiple="true"
+              :close-on-select="false"
+              :preserve-search="true"
               :placeholder="$t('enums.placeholders.personsList')"
-              ></form-item>
+              :select-label="$t('multiselect.selectLabel')"
+              :selected-label="$t('multiselect.selectedLabel')"
+              :deselect-label="$t('multiselect.deselectLabel')"
+              label="text"
+              track-by="text"
+              :preselect-first="true"
+            >
+            <template #noResult>{{ $t('multiselect.noResult') }}</template>
+            </multiselect>
           </v-col>
             <v-col
               v-if="userListLoading"
@@ -71,12 +80,15 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import Multiselect from 'vue-multiselect'
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
+  components: { Multiselect },
   data () {
     return {
       isLoading: false,
       personGroup: {},
+      personGroupPersons: [],
       userList: [],
       rules: {
         required: value => !!value || 'این فیلد اجباری است'
@@ -113,11 +125,14 @@ export default {
     },
     add () {
       this.isLoading = true
+      const personIds = this.personGroupPersons.map((person) => {
+        return person.value
+      })
       const payload = {
         groupName: this.personGroup.groupName,
-        personIds: this.personGroup.personsList
+        personIds: personIds
       }
-      if (this.personGroup.groupName && this.personGroup.personsList.length) {
+      if (this.personGroup.groupName && personIds.length) {
         this.addPersonGroup(payload)
           .then((res) => {
             const successMessage = this.$t('pages.personGroups.personGroupAddedSuccessfully')

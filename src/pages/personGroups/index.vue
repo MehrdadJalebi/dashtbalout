@@ -140,8 +140,9 @@
     <v-dialog
       v-model="editPersonGroupDialog"
       width="700"
+      scrollable
       >
-      <v-card class="px-3 pb-3">
+      <v-card class="px-3 pb-3" height="75vh">
         <v-card-title class="headline">
           {{ $t('pages.personGroups.editPersonGroup.title') }}
         </v-card-title>
@@ -150,7 +151,7 @@
           class="px-3 mb-3"
           >
           <v-col
-            :sm="5"
+            :sm="11"
             >
             <form-item
               v-model="personGroup.groupName"
@@ -162,19 +163,28 @@
               ></form-item>
           </v-col>
           <v-col
-            :sm="5"
+            :sm="11"
             >
-            <form-item
+            <label class="typo__label">
+              <v-icon>mdi-account-group</v-icon>
+              {{ $t('enums.personsList') }}
+            </label>
+            <multiselect
               v-model="personGroupPersons"
-              type="autocomplete"
-              multiple
-              class="person-group-list"
-              :items="userList"
-              icon="mdi-account-group"
-              :rules="[rules.required]"
-              :label="$t('enums.personsList')"
+              :options="userList"
+              :multiple="true"
+              :close-on-select="false"
+              :preserve-search="true"
               :placeholder="$t('enums.placeholders.personsList')"
-              ></form-item>
+              :select-label="$t('multiselect.selectLabel')"
+              :selected-label="$t('multiselect.selectedLabel')"
+              :deselect-label="$t('multiselect.deselectLabel')"
+              label="text"
+              track-by="text"
+              :preselect-first="true"
+            >
+            <template #noResult>{{ $t('multiselect.noResult') }}</template>
+            </multiselect>
           </v-col>
             <v-col
               v-if="userListLoading"
@@ -215,8 +225,11 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import Multiselect from 'vue-multiselect'
+
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
+  components: { Multiselect },
   data () {
     return {
       page: 1,
@@ -304,7 +317,7 @@ export default {
       this.personGroupPersons = []
       this.personGroup = { ...personGroup }
       personGroup.persons.forEach(person => {
-        this.personGroupPersons.push(person.id)
+        this.personGroupPersons.push({ text: person.fullName, value: person.id })
       })
       this.editPersonGroupDialog = true
     },
@@ -313,11 +326,14 @@ export default {
       this.deletePersonGroupDialog = true
     },
     editGroup () {
+      const personIds = this.personGroupPersons.map((person) => {
+        return person.value
+      })
       this.editLoading = true
       const payload = {
         id: this.personGroup.id,
         groupName: this.personGroup.groupName,
-        personIds: this.personGroupPersons
+        personIds: personIds
       }
       this.editPersonGroup(payload)
         .then(response => {

@@ -739,5 +739,11 @@ export default {
     deletePayrollConfirmation: 'آیا از حذف فیش حقوقی اطمینان دارید؟',
     deleteGroupPayrollConfirmation: 'با انتخاب ماه و سال، تمامی فیش های حقوقی مربوط به آن ماه و سال حذف خواهند شد. آیا از حذف فیش حقوقی گروهی اطمینان دارید؟',
     deletePersonGroupConfirmation: 'آیا از حذف این گروه پرسنل اطمینان دارید؟'
+  },
+  multiselect: {
+    selectLabel: 'انتخاب',
+    selectedLabel: 'انتخاب شده',
+    deselectLabel: 'برای حذف کلیک کنید',
+    noResult: 'مقدار مورد نظر یافت نشد'
   }
 }

@@ -165,19 +165,22 @@
               <span class="mr-1 align-self-center">{{ leaveStatus(props.item.status) }}</span>
             </div>
           </td>
-          <td v-if="role === 'Admin' || role === 'SuperUser'" class="data-min-td">
-            <div class="d-flex justify-around">
+          <td class="data-min-td min-10">
+            <div class="d-flex justify-around align-items-center flex-column">
               <v-btn
+                v-if="role !== 'User'"
                 small
+                class="w-50"
                 color="success"
                 @click="approve(props.item.id)"
                 >
                 {{ $t('enums.tableActions.approve') }}
               </v-btn>
               <v-btn
+                v-if="role !== 'User'"
                 small
                 color="error"
-                class="mr-2"
+                class="mt-2 w-50"
                 @click="reject(props.item.id)"
                 >
                 {{ $t('enums.tableActions.reject') }}
@@ -185,7 +188,7 @@
               <v-btn
                 small
                 color="primary"
-                class="mr-2"
+                class="mt-2 w-50"
                 @click="printBalance(props.item.description)"
                 >
                 {{ $t('enums.tableActions.print') }}
@@ -250,6 +253,10 @@ export default {
         {
           text: this.$t('enums.headers.status'),
           value: 'status'
+        },
+        {
+          text: this.$t('enums.headers.actions'),
+          value: ''
         }
       ]
     },

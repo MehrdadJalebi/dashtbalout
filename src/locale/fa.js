@@ -536,7 +536,7 @@ export default {
     isntRead: 'خوانده نشده',
     cancel: 'انصراف',
     type: 'نوع',
-    new: 'جدید',
+    new: 'در حال بررسی',
     approve: 'قبول شده',
     reject: 'رد شده',
     hourly: 'ساعتی',

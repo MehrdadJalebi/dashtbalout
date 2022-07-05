@@ -545,3 +545,13 @@ td {
     max-height: 120px;
   }
 }
+.light-hover {
+  tbody {
+    tr.success-light:hover {
+      background-color: #6cd26c !important;
+    }
+    tr.error-light:hover {
+      background-color: #f5a6a6 !important;
+    }
+  }
+}

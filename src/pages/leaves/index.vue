@@ -135,7 +135,7 @@
     </v-row>
     <v-data-table
       align-center
-      class="report-table"
+      class="report-table light-hover"
       :headers="headers"
       :hide-default-header="isMobile"
       :options.sync="pages"
@@ -156,8 +156,15 @@
           <td class="data-min-td min-10"> {{ toJalali(props.item.endDateTime) }} </td>
           <td class="data-min-td py-3" v-html="props.item.description"></td>
           <td
-            class="data-min-td"
-          > {{ leaveStatus(props.item.status) }} </td>
+            class="data-min-td min-10"
+            >
+            <div large class="d-flex">
+            <v-icon>
+              {{ getIcon(props.item.status) }}
+            </v-icon>
+              <span class="mr-1 align-self-center">{{ leaveStatus(props.item.status) }}</span>
+            </div>
+          </td>
           <td v-if="role === 'Admin' || role === 'SuperUser'" class="data-min-td">
             <div class="d-flex justify-around">
               <v-btn
@@ -325,6 +332,15 @@ export default {
     },
     leaveStatus (status) {
       return this.$t(`enums.${status.toLowerCase()}`)
+    },
+    getIcon (status) {
+      if (status === 'Approve') {
+        return 'mdi-check-bold'
+      } else if (status === 'Reject') {
+        return 'mdi-close-thick'
+      } else {
+        return 'mdi-clock'
+      }
     },
     toJalali (date) {
       const jalali = JalaliDateTime()

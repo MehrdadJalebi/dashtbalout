@@ -983,23 +983,54 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "number",
-                  "format": "double"
+                  "type": "string"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "number",
-                  "format": "double"
+                  "type": "string"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "number",
-                  "format": "double"
+                  "type": "string"
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/v1/leaves/excel": {
+      "post": {
+        "tags": [
+          "Leaves"
+        ],
+        "operationId": "ImportBalanceByExcel",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "nullable": true
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
@@ -2855,6 +2886,7 @@
         "tags": [
           "Users"
         ],
+        "summary": "Only Admin",
         "operationId": "ChangeGroup",
         "parameters": [
           {
@@ -3950,6 +3982,10 @@
           },
           "userState": {
             "$ref": "#/components/schemas/UserStatus"
+          },
+          "groupId": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

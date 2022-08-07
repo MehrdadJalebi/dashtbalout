@@ -426,6 +426,8 @@ export default {
       approvedSuccessfully: 'درخواست مرخصی با موفقیت قبول شد',
       rejectedSuccessfully: 'درخواست مرخصی رد شد',
       balance: 'مانده مرخصی',
+      excelBalance: 'آپلود اکسل مانده مرخصی',
+      excelBalanceModalTitle: 'آپلود فایل اکسل مانده مرخصی',
       setBalance: 'تخصیص مرخصی',
       setBalanceBtn: 'ذخیره',
       balanceSetsSuccessfully: 'مرخصی با موفقیت تنظیم شد',

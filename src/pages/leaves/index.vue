@@ -17,12 +17,19 @@
     <div
        class="mb-3">
          <v-btn
-          class="w-sm-100"
+           class="ml-2 w-sm-100 mb-2"
+           color="success"
+           @click="excelBalanceModal">
+           <v-icon small>
+             mdi-plus
+           </v-icon>
+       {{ $t('pages.leaves.excelBalance') }}
+         </v-btn>
+         <v-btn
+          class="w-sm-100 mb-2"
            to="/leaves/add"
            color="success">
-           <v-icon
-             class="mr-2"
-             small>
+           <v-icon small>
              mdi-plus
            </v-icon>
        {{ $t('pages.leaves.add') }}
@@ -198,6 +205,71 @@
         </tr>
       </template>
     </v-data-table>
+    <v-dialog
+      v-model="dialog"
+      width="700"
+      >
+      <v-card class="px-3 pb-3">
+        <v-card-title class="headline">
+          {{ $t('pages.leaves.excelBalanceModalTitle') }}
+        </v-card-title>
+      <v-card
+        outlined
+        class="border-box"
+        >
+        <v-card
+          flat
+          class="d-flex">
+          <v-layout
+            justify-right
+            align-center
+            class="pa-2"
+            >
+            <div>
+              <div class="alert-circle">
+                <v-icon class="orange--text text-h2">mdi-alert</v-icon>
+              </div>
+            </div>
+            <div>
+              <v-card-text
+                class="orange--text"
+                v-html="$t('pages.users.excelAddUsers.noticeText')"
+                >
+              </v-card-text>
+            </div>
+          </v-layout>
+        </v-card>
+      </v-card>
+      <v-row>
+        <v-col :sm="12">
+      <div class="text-center mt-3">
+        <form-item
+          v-model="file"
+          class="file-upload mb-5"
+          type="file"
+          icon="mdi-file-upload"
+          accept=".xlsx, .xls, .csv"
+          :label="$t('enums.excelFile')"
+          :placeholder="$t('enums.placeholders.chooseFile')"
+          >
+        </form-item>
+      </div>
+        </v-col>
+      </v-row>
+      <v-row class="mt-5">
+        <v-col class="mt-5 text-center" :sm="12">
+      <v-btn
+        :loading="uploadLoading"
+        class="mr-3"
+        color="success"
+        @click="uploadExcel"
+        >
+        {{ $t('pages.users.excelAddUsers.uploadFile') }}
+      </v-btn>
+        </v-col>
+      </v-row>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -212,11 +284,14 @@ export default {
       pages: {},
       totalItems: 0,
       isLoading: true,
+      dialog: false,
+      uploadLoading: false,
       userId: '',
       balance: '',
       userBalance: '',
       fromDateTime: null,
       toDateTime: null,
+      file: null,
       userList: [],
       leavesList: []
     }
@@ -298,6 +373,7 @@ export default {
       rejectLeave: 'leaves/rejectLeave',
       setBalance: 'leaves/setBalance',
       getBalance: 'leaves/getBalance',
+      excel: 'leaves/excel',
       showToast: 'snackbar/showToastMessage'
     }),
     setUserList () {
@@ -454,6 +530,21 @@ export default {
       mywindow.focus()
       mywindow.print()
       mywindow.close()
+    },
+    excelBalanceModal () {
+      this.dialog = true
+    },
+    uploadExcel () {
+      this.uploadLoading = true
+      this.excel(this.file).then(response => {
+        const successMessage = this.$t('toasts.fileUploadedSuccessfully')
+        this.showToast({ content: successMessage, color: 'success' })
+        this.uploadLoading = false
+        this.dialog = false
+      }, error => {
+        this.showToast({ content: error.response.data.error, color: 'error' })
+        this.uploadLoading = false
+      })
     }
   }
 }

@@ -35,6 +35,9 @@ export default {
     },
     getBalance (context, payload) {
       return this.server.GetBalance(payload)
+    },
+    excel (context, payload) {
+      return this.server.ImportBalanceByExcel(payload)
     }
   }
 }

@@ -68,6 +68,10 @@ export default {
     },
     getUser (context, payload) {
       return this.server.GetUser(payload)
+        .then((response) => {
+          const userData = response.data
+          context.commit('setUser', userData)
+        })
     },
     getUserByUserId (context, payload) {
       return this.server.GetByUserId(payload)

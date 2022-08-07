@@ -346,6 +346,9 @@ export default {
     if (!this.allUsers.length) {
       this.getUsers()
     }
+    if (!Object.keys(this.user).length) {
+      this.getUser()
+    }
     this.getData()
   },
   watch: {
@@ -374,6 +377,7 @@ export default {
       setBalance: 'leaves/setBalance',
       getBalance: 'leaves/getBalance',
       excel: 'leaves/excel',
+      getUser: 'users/getUser',
       showToast: 'snackbar/showToastMessage'
     }),
     setUserList () {

@@ -5,7 +5,8 @@ export default {
     user: {},
     users: [],
     last5Users: [],
-    hasUsersSucceeded: false
+    hasUsersSucceeded: false,
+    hasUserSucceeded: false
   },
   getters: {
     users (state) {
@@ -19,6 +20,9 @@ export default {
     },
     hasUsersSucceeded (state) {
       return state.hasUsersSucceeded
+    },
+    hasUserSucceeded (state) {
+      return state.hasUserSucceeded
     }
   },
   mutations: {
@@ -33,6 +37,9 @@ export default {
     },
     setHasUsersSucceeded (state, data) {
       state.hasUsersSucceeded = data
+    },
+    setHasUserSucceeded (state, data) {
+      state.hasUserSucceeded = data
     }
   },
   actions: {
@@ -67,8 +74,10 @@ export default {
       return this.server.UpdateByUserId(payload)
     },
     getUser (context, payload) {
+      context.commit('setHasUserSucceeded', false)
       return this.server.GetUser(payload)
         .then((response) => {
+          context.commit('setHasUserSucceeded', true)
           const userData = response.data
           context.commit('setUser', userData)
         })

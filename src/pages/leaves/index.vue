@@ -16,7 +16,8 @@
     >
     <div
        class="mb-3">
-         <v-btn
+      <v-btn
+           v-if="role && role === 'Admin'"
            class="ml-2 w-sm-100 mb-2"
            color="success"
            @click="excelBalanceModal">
@@ -300,6 +301,7 @@ export default {
     ...mapGetters({
       role: 'auth/role',
       user: 'users/user',
+      hasUserSucceeded: 'users/hasUserSucceeded',
       allUsers: 'users/users',
       hasUsersSucceeded: 'users/hasUsersSucceeded'
     }),
@@ -346,7 +348,7 @@ export default {
     if (!this.allUsers.length) {
       this.getUsers()
     }
-    if (!Object.keys(this.user).length) {
+    if (!this.hasUserSucceeded) {
       this.getUser()
     }
     this.getData()

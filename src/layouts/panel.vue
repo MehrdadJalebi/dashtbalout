@@ -181,7 +181,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      config: 'auth/config'
+      config: 'auth/config',
+      user: 'users/user'
     }),
     profile () {
       return this.$store.state.auth.userInfo
@@ -194,12 +195,11 @@ export default {
     }
   },
   created () {
-    this.getUser().then(response => {
-      this.userInfo = response.data
+    this.getUser().then(() => {
+      this.userInfo = this.user
       this.getProfilePic().then(response => {
         this.avatarFile = `data:image/png;base64, ${response.data}`
       })
-      console.log(this.userInfo)
     })
   },
   data: () => ({

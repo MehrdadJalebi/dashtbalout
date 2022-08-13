@@ -507,7 +507,7 @@ export default {
     },
     setUserBalance () {
       this.isLoading = true
-      const intBalance = parseInt(this.balance)
+      const intBalance = parseFloat(this.balance)
       const payload = {
         userId: this.userId,
         value: intBalance

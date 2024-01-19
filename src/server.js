@@ -31,6 +31,7 @@ const server = function (config, data) {
         server[methodName] = function (payload) {
           const query = this.generateQueryModel(queryParameters, payload)
           const data = this.generateDataModel(dataModel, payload)
+          console.log('data: ', data)
           const currentPath = this.generateUrl(pathKey, pathParameters, payload)
           return axios.request({
             url: currentPath,
@@ -65,8 +66,13 @@ const setBaseServerMethod = function (server) {
         payload.map((item) => {
           dataModel.append('files', item)
         })
+      } else {
+        if (payload.file) {
+          dataModel.append('file', payload.file)
+        } else {
+          dataModel.append('file', payload)
+        }
       }
-      dataModel.append('files', payload)
       return dataModel
     } else {
       const model = {}

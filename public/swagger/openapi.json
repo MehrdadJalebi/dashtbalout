@@ -1013,7 +1013,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "file": {
+                  "files": {
                     "type": "string",
                     "format": "binary",
                     "nullable": true
@@ -1021,7 +1021,7 @@
                 }
               },
               "encoding": {
-                "file": {
+                "files": {
                   "style": "form"
                 }
               }
@@ -1561,6 +1561,117 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/DeletePayrollGroupRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/PayStubs/{year}/{month}/{contractId}": {
+      "get": {
+        "tags": [
+          "PayStubs"
+        ],
+        "operationId": "Get",
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "month",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "contractId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "PayStubs"
+        ],
+        "operationId": "ImportExcel",
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "month",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "contractId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "nullable": true
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -3707,6 +3818,10 @@
             "format": "int32"
           },
           "month": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "contractId": {
             "type": "integer",
             "format": "int32"
           }

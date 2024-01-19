@@ -383,19 +383,21 @@ export default {
       payrollsList: 'لیست فیش های حقوقی',
       add: 'ثبت فیش حقوقی جدید',
       addGroup: 'ثبت فیش حقوقی گروهی',
+      addExcelGroup: 'بارگزاری اکسل فیش حقوقی',
       addPayrollBtn: 'ثبت فیش  جدید',
       deleteGroupPayrollBtn: 'حذف فیش گروهی',
       deleteGroupPayrollConfirmationBtn: 'حذف تمامی  فیشهای حقوقی',
       addedSuccessfully: 'فیش حقوقی با موفقیت افزوده شد',
       noticeText: 'نام فایل وارد شده باید برابر با شماره پرسنلی باشد',
       noticeText2: 'برای آپلود فایل فقط از فایل های فشرده (zip, rar) استفاده نمایید',
+      noticeText3: 'برای آپلود فایل فقط از فایل اکسل (xlsx) استفاده نمایید.',
       payrollDeletedSuccessfully: 'فیش حقوقی با موفقیت حذف گردید',
       payrollGroupDeletedSuccessfully: 'تمامی فیش های حقوقی مربوط به ماه و سال انتخاب شده حذف گردید',
       deletePayrollConfirmation: {
         title: 'پاک کردن  فیش حقوقی'
       },
       deleteGroupPayrollConfirmation: {
-        title: 'پاک کردن  فیش حقوقی گروهی'
+        title: 'پاک کردن فیش حقوقی گروهی'
       },
       deletePayrollBtn: 'حذف فیش حقوقی'
     },
@@ -686,7 +688,7 @@ export default {
     },
     months: {
       farvardin: 'فروردین',
-      ordibehesht: 'اردییهشت',
+      ordibehesht: 'اردیبهشت',
       khordad: 'خرداد',
       tir: 'تیر',
       mordad: 'مرداد',
@@ -730,7 +732,8 @@ export default {
     contractDeletedSuccessfully: 'قرارداد با موفقیت حذف شد',
     passwordChangedSuccessfully: 'پسورد با موفقیت تغییر یافت',
     fillFields: 'لطفا مقادیر را وارد کنید',
-    groupPayrollAlreadyExists: 'فیش حقوقی ماه و سال انتخابی در سیستم موجود است'
+    groupPayrollAlreadyExists: 'فیش حقوقی ماه و سال انتخابی در سیستم موجود است',
+    groupExcelPayrollError: 'خطا در آپلود فایل اکسل'
   },
   validations: {
     fileImageWhiteList: 'فرمت های قابل قبول تصویر png jpg jpeg'

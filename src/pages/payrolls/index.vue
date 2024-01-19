@@ -39,15 +39,26 @@
        {{ $t('pages.payrolls.add') }}
          </v-btn>
          <v-btn
-          class="mb-2 w-sm-100"
+          class="ml-2 mb-2 w-sm-100"
            to="/payrolls/addGroup"
            color="success">
            <v-icon
-             class="ml-2 mb-2"
+             class="ml-2"
              small>
              mdi-plus
            </v-icon>
        {{ $t('pages.payrolls.addGroup') }}
+         </v-btn>
+         <v-btn
+          class="mb-2 w-sm-100"
+           to="/payrolls/addExcelGroup"
+           color="success">
+           <v-icon
+             class="ml-2"
+             small>
+             mdi-plus
+           </v-icon>
+       {{ $t('pages.payrolls.addExcelGroup') }}
          </v-btn>
     </div>
     </page-title>
@@ -115,7 +126,7 @@
               small
               class="px-1"
               color="primary"
-              @click="downloadPayroll(props.item.fileId)"
+              @click="downloadPayroll(props.item)"
               >
               <v-icon
                 small>
@@ -397,7 +408,28 @@ export default {
         this.payrollsList = response.data
       })
     },
-    downloadPayroll (fileId) {
+    downloadPayroll (item) {
+      if (item.payrollType === 'Excel') {
+        this.getExcelData(item)
+      } else {
+        this.downloadImage(item)
+      }
+    },
+    getExcelData (item) {
+      /* const payload = {
+        year: item.year,
+        month: getMonthNumber(item.month),
+        contractId: this.payroll.contractId
+      }
+      this.ticket(payload).then(response => {
+        console.log('asdasdasdas', response)
+      }) */
+    },
+    getMonthNumber (text) {
+      console.log(this.monthsArray)
+      // return this.monthsArray
+    },
+    downloadImage ({ fileId }) {
       const payload = {
         fileid: fileId
       }
@@ -448,3 +480,8 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.v-btn {
+  letter-spacing: 0;
+}
+</style>

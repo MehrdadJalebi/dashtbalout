@@ -8,6 +8,9 @@ export default {
     uploadZip (context, payload) {
       return this.server.UploadZip(payload)
     },
+    uploadXlsx (context, payload) {
+      return this.server.ImportExcel(payload)
+    },
     ticket (context, payload) {
       return this.server.Ticket(payload)
     },

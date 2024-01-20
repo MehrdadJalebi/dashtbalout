@@ -395,6 +395,7 @@ export default {
       deleteGroupPayrolls: 'payrolls/deleteGroupPayrolls',
       showToast: 'snackbar/showToastMessage',
       ticket: 'cdn/ticket',
+      getExcel: 'cdn/getExcel',
       download: 'cdn/download'
     }),
     getUserPayrolls () {
@@ -416,18 +417,18 @@ export default {
       }
     },
     getExcelData (item) {
-      /* const payload = {
+      const payload = {
         year: item.year,
-        month: getMonthNumber(item.month),
-        contractId: this.payroll.contractId
+        month: this.getMonthNumber(item.month),
+        contractId: item.contractNumber,
+        userId: this.userid
       }
-      this.ticket(payload).then(response => {
+      this.getExcel(payload).then(response => {
         console.log('asdasdasdas', response)
-      }) */
+      })
     },
     getMonthNumber (text) {
-      console.log(this.monthsArray)
-      // return this.monthsArray
+      return this.monthsArray.find((month) => month.text === text).value
     },
     downloadImage ({ fileId }) {
       const payload = {

@@ -11,6 +11,9 @@ export default {
     uploadXlsx (context, payload) {
       return this.server.ImportExcel(payload)
     },
+    getExcel (context, payload) {
+      return this.server.Get(payload)
+    },
     ticket (context, payload) {
       return this.server.Ticket(payload)
     },

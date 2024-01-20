@@ -103,6 +103,9 @@
           </v-col>
         </v-row>
     </v-card>
+
+    <!-- OUTPUT -->
+    <img :src="output">
     <v-data-table
       align-center
       class="report-table"
@@ -308,6 +311,7 @@ export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
     return {
+      output: null,
       pages: {},
       totalItems: 0,
       isLoading: false,
@@ -412,20 +416,59 @@ export default {
     downloadPayroll (item) {
       if (item.payrollType === 'Excel') {
         this.getExcelData(item)
+        // this.print()
       } else {
         this.downloadImage(item)
       }
+    },
+    async print () {
+      const newDiv = document.createElement('div')
+      const newContent = document.createTextNode('Hi there and greetings!')
+      newDiv.appendChild(newContent)
+      document.body.appendChild(newDiv)
+
+      const options = {
+        type: 'dataURL',
+        allowTaint: true
+      }
+      this.output = await this.$html2canvas(newDiv, options)
     },
     getExcelData (item) {
       const payload = {
         year: item.year,
         month: this.getMonthNumber(item.month),
-        contractId: item.contractNumber,
+        contractId: 1,
         userId: this.userid
       }
       this.getExcel(payload).then(response => {
         console.log('asdasdasdas', response)
+        /* this.$html2canvas(document.getElementById("target"), {
+          onrendered: function (canvas) {
+            alert()
+            document.body.appendChild(canvas);
+            let link = document.createElement('a');
+            if (typeof link.download !== 'string') {
+              window.open(canvas.toDataURL());
+            } else {
+              link.href = canvas.toDataURL();
+              link.download = `${this.userid}-${item.month}-${item.year}-${item.contractNumber}.png`;
+              this.accountForFirefox(clickLink, link);
+           }
+          },
+          type: 'dataURL',
+          allowTaint:true,
+          useCORS: true
+        }); */
       })
+    },
+    clickLink (link) {
+      link.click()
+    },
+    accountForFirefox (click) {
+      const link = arguments[1]
+      document.body.appendChild(link)
+      click(link)
+      document.body.removeChild(link)
     },
     getMonthNumber (text) {
       return this.monthsArray.find((month) => month.text === text).value

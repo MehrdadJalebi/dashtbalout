@@ -12,8 +12,11 @@ import Server from '@/plugins/server'
 import GetToken from '@/plugins/gettoken'
 import PortalVue from 'portal-vue'
 import Filters from '@/filters'
+import VueHtml2Canvas from 'vue-html2canvas'
 import Bowser from 'bowser'
 import browserVersionCompatibility from '@/plugins/browser-compatibility'
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 
 const browser = Bowser && Bowser.getParser(window.navigator.userAgent)
 const isValidBrowser = browser && browser.satisfies(APP_CONFIG.validBrowsers)
@@ -21,6 +24,7 @@ browserVersionCompatibility(isValidBrowser)
 
 Vue.mixin(globalMixin)
 Vue.use(PortalVue)
+Vue.use(VueHtml2Canvas)
 Filters(APP_CONFIG)
 
 window.CURRENT_USER_ROLE = 'ADMIN'

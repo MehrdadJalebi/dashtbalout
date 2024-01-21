@@ -103,9 +103,6 @@
           </v-col>
         </v-row>
     </v-card>
-
-    <!-- OUTPUT -->
-    <img :src="output">
     <v-data-table
       align-center
       class="report-table"
@@ -307,11 +304,11 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+
 export default {
   layout: APP_CONFIG.layout.mainPanelLayout,
   data () {
     return {
-      output: null,
       pages: {},
       totalItems: 0,
       isLoading: false,
@@ -409,66 +406,54 @@ export default {
       }
       this.getPayrollByUserId(userIdPayload).then(response => {
         this.isLoading = false
-        //        console.log('response is: ', response)
         this.payrollsList = response.data
       })
     },
     downloadPayroll (item) {
       if (item.payrollType === 'Excel') {
         this.getExcelData(item)
-        // this.print()
       } else {
         this.downloadImage(item)
       }
     },
-    async print () {
-      const newDiv = document.createElement('div')
-      const newContent = document.createTextNode('Hi there and greetings!')
-      newDiv.appendChild(newContent)
-      document.body.appendChild(newDiv)
-
-      const options = {
-        type: 'dataURL',
-        allowTaint: true
-      }
-      this.output = await this.$html2canvas(newDiv, options)
-    },
     getExcelData (item) {
+      this.isLoading = true
       const payload = {
         year: item.year,
         month: this.getMonthNumber(item.month),
-        contractId: 1,
+        contractId: item.contractId,
         userId: this.userid
       }
-      this.getExcel(payload).then(response => {
-        console.log('asdasdasdas', response)
-        /* this.$html2canvas(document.getElementById("target"), {
-          onrendered: function (canvas) {
-            alert()
-            document.body.appendChild(canvas);
-            let link = document.createElement('a');
-            if (typeof link.download !== 'string') {
-              window.open(canvas.toDataURL());
-            } else {
-              link.href = canvas.toDataURL();
-              link.download = `${this.userid}-${item.month}-${item.year}-${item.contractNumber}.png`;
-              this.accountForFirefox(clickLink, link);
-           }
-          },
-          type: 'dataURL',
-          allowTaint:true,
-          useCORS: true
-        }); */
+      this.getExcel(payload).then(excelData => {
+        this.downloadExcel(excelData, item).then(() => {
+          this.isLoading = false
+        })
       })
     },
-    clickLink (link) {
-      link.click()
+    downloadExcel (excelData, item) {
+      const htmlContent = this.generatePayroll()
+      document.body.appendChild(htmlContent)
+      return this.$html2canvas(htmlContent, {
+        type: 'dataURL',
+        allowTaint: true,
+        useCORS: true
+      }).then((canvas) => {
+        document.body.removeChild(htmlContent)
+        const link = document.createElement('a')
+        link.href = canvas
+        link.download = `${this.userid}-${item.month}-${item.year}-${item.contractNumber}.png`
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+      })
     },
-    accountForFirefox (click) {
-      const link = arguments[1]
-      document.body.appendChild(link)
-      click(link)
-      document.body.removeChild(link)
+    generatePayroll () {
+      const payrollContent = document.createElement('div')
+      payrollContent.id = 'payroll-content'
+      payrollContent.innerHTML = `
+      <!doctype html><html lang="en-US"><head><meta charset="UTF-8"><title>Working with elements</title><style>.logo{width:33%}.title{font-weight:700;width:33%;text-align:center;margin-right:auto;margin-left:auto}.page{width:33%;padding-top:20px;padding-left:20px;text-align:left;margin-right:auto}.desc{padding-top:20px}.payroll-col{text-align:right;padding-right:40px}table.payroll-content{margin:10px auto;direction:rtl;text-align:right;font-family:arial,sans-serif;border-collapse:collapse;width:700px}.payroll-content th{background-color:#dce1dc;font-size:13px}.payroll-content td,.payroll-content th{border:1px solid #ddd;text-align:right;direction:rtl;padding:8px}.payroll-content tr:nth-child(even){background-color:#ddd}</style></head><body style="direction:rtl;background-color:#fff;width:800px;height:600px;border:1px solid #000"><div style="display:flex;justify-content:space-between"><div class="logo"></div><div class="title"><h3>شرکت قادر گستران آریا ۱<br>صورتحساب حقوق</h3><span>دی ماه ۱۴۰۲</span></div><div class="page"><div>تاریخ تهیه: 26/10/1402</div><div>صفحه: 1/1</div></div></div><div class="desc"><div style="width:45%;display:inline-block"><div class="payroll-col"><span>نام و نام خانوادگی:</span><span>ج : ن</span></div><div class="payroll-col"><span>شماره پرسنلی :</span><span>21</span></div></div><div style="width:45%;display:inline-block"><div class="payroll-col"><span>مرکز هزینه:</span><span># #</span></div><div class="payroll-col"><span>حساب:</span><span>جاری شماره ۲ نزد رفاه کارگران شعبه نامشخص رفاه</span></div></div></div><table class="payroll-content"><tr><th>Company</th><th>Contact</th><th>Country</th></tr><tr><td>Alfreds Futterkiste</td><td>Maria Anders</td><td>Germany</td></tr><tr><td>Centro comercial Moctezuma</td><td>Francisco Chang</td><td>Mexico</td></tr><tr><td>Ernst Handel</td><td>Roland Mendel</td><td>Austria</td></tr><tr><td>Island Trading</td><td>Helen Bennett</td><td>UK</td></tr><tr><td>Laughing Bacchus Winecellars</td><td>Yoshi Tannamuri</td><td>Canada</td></tr><tr><td>Magazzini Alimentari Riuniti</td><td>Giovanni Rovelli</td><td>Italy</td></tr></table></body></html>
+      `
+      return payrollContent
     },
     getMonthNumber (text) {
       return this.monthsArray.find((month) => month.text === text).value

@@ -9,24 +9,30 @@
         text-align: right;
         padding: 20px;
       }
-      .logo img {
-          background-size: contain;
+
+      .payroll-body {
+        width: 793px !important;
+        height: 600px;
+        font-size: 13px !important;
+        border: 1px solid black;
       }
 
       .title {
-        font-weight: 700;
         width: 33%;
+        font-weight: 700;
         text-align: center;
         margin-right: auto;
         margin-left: auto;
+        padding-top: 10px;
       }
 
       .page {
         width: 33%;
         padding-top: 20px;
         padding-left: 20px;
-        text-align: left;
+        text-align: right;
         margin-right: auto;
+        direction: rtl !important;
       }
 
       .desc {
@@ -39,15 +45,17 @@
         text-align: right;
         padding-right: 40px;
         direction: rtl;
+        margin-right: 100px;
       }
 
       table.payroll-content {
-        margin: 10px auto;
+        margin: 10px auto 40px;
         direction: rtl;
         text-align: right;
         font-family: arial, sans-serif;
         border-collapse: collapse;
-        width: 700px;
+        width: 1000px;
+        height: 500px;
       }
 
       .payroll-content th {
@@ -73,60 +81,59 @@
       .dir-rtl {
         direction: rtl;
       }
+
       .payroll-content tr:nth-child(even) {
         background-color: #F4F6F5;
       }
+
       .sum td {
         background-color: #FBF4DA;
       }
+
       .text-left {
         text-align: left !important;
       }
     </style>
   </head>
-  <body style="
-  background-color: white;
-  width: 700px;
-  height: 600px;
-  font-size: 13px !important;
-  border: 1px solid black;">
+  <body class="payroll-body">
     <div style="display: flex;
     justify-content: space-between;">
       <div class="page">
-        <div>تاریخ تهیه: 26/10/1402</div>
-        <div>صفحه: 1/1</div>
+        <div><span>تاریخ تهیه </span><span>:</span>&nbsp ${item.year}/${this.getMonthNumber(item.month)}/1</div>
+        <div><span style="padding-right: 5px;">صفحه </span><span>:</span>&nbsp 1/1</div>
       </div>
       <div class="title">
-        <h3> شرکت قادر گستران آریا ۱ <br /> صورتحساب حقوق </h3><span>${item.month} ماه  ${item.year}</span>
+        <h3> شرکت قادر گستران آریا ۱ <br /> صورتحساب حقوق </h3><span>${item.month} ماه ${item.year}</span>
       </div>
-      <div class="logo">
-      </div>
+      <div class="logo"></div>
     </div>
     <div class="desc">
-      <div style="width: 45%;
+      <div style="width: 35%;
         display: inline-block;">
-        <div class="payroll-col">نام و نام خانوادگی: ${row.firstName} ${row.lastName}</div>
-        <div class="payroll-col">شماره پرسنلی : ${row.personnelNumber}</div>
+        <div class="payroll-col"><span>نام و نام خانوادگی </span><span>:</span>&nbsp ${row.firstName} ${row.lastName}</div>
+        <div class="payroll-col"><span>شماره پرسنلی </span><span>:</span>&nbsp ${row.personnelNumber}</div>
       </div>
-      <div style="width: 45%;
+      <div style="width: 35%;
         display: inline-block;">
-        <div class="payroll-col">${nn.columnTitle} : ${nn.columnValue}</div>
-        <div class="payroll-col">حساب: ${nn.account}</div>
+        
+        
+        <div class="payroll-col"><span>${nn.columnTitle}</span><span>:</span>&nbsp ${nn.columnValue}</div>
+        <div class="payroll-col"><span>حساب</span><span>:</span>&nbsp ${row.account}</div>
       </div>
     </div>
     <table class="payroll-content">
       <tr>
         <th>پرداختها</th>
-        <th>مدت<br />د س ر</th>
+        <th>مدت<br />د &nbsp س &nbsp ر</th>
         <th>ریال</th>
         <th>کسور</th>
-        <th>مدت<br />د س ر</th>
+        <th>مدت<br />د &nbsp س &nbsp ر</th>
         <th>ریال</th>
         <th>ملاحظات</th>
       </tr>
       <tr>
         <td>${sl.columnTitle}</td>
-        <td>${wt.columnValue}:00:00</td>
+        <td style="text-align: center;">${wt.columnValue}:00:00</td>
         <td>${sl.columnValue}</td>
         <td>${iu.columnTitle}</td>
         <td></td>
@@ -216,5 +223,6 @@
         <td colspan="2">${spure.columnValue}</td>
       </tr>
     </table>
+    <div style="height: 30px;"></div>
   </body>
 </html>

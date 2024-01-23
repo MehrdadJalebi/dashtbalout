@@ -1617,7 +1617,24 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayStubResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayStubResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayStubResponse"
+                }
+              }
+            }
           }
         }
       },
@@ -3702,6 +3719,10 @@
       "PayrollResponse": {
         "type": "object",
         "properties": {
+          "contractId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "title": {
             "type": "string",
             "nullable": true
@@ -3824,6 +3845,53 @@
           "contractId": {
             "type": "integer",
             "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PayStubItem": {
+        "type": "object",
+        "properties": {
+          "columnId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "columnTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "columnValue": {
+            "type": "string",
+            "nullable": true
+          },
+          "columnType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PayStubResponse": {
+        "type": "object",
+        "properties": {
+          "personnelNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PayStubItem"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false

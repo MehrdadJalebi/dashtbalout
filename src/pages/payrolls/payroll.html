@@ -6,6 +6,11 @@
     <style>
       .logo {
         width: 33%;
+        text-align: right;
+        padding: 20px;
+      }
+      .logo img {
+          background-size: contain;
       }
 
       .title {
@@ -26,13 +31,14 @@
 
       .desc {
         padding-top: 20px;
+        direction: rtl;
+        text-align: center;
       }
-
-      .row {}
 
       .payroll-col {
         text-align: right;
         padding-right: 40px;
+        direction: rtl;
       }
 
       table.payroll-content {
@@ -52,83 +58,162 @@
       .payroll-content td,
       .payroll-content th {
         border: 1px solid #dddddd;
-        text-align: right;
         direction: rtl;
         padding: 8px;
       }
 
-      .payroll-content tr:nth-child(even) {
-        background-color: #dddddd;
+      .payroll-content td {
+        text-align: right;
       }
 
-      .total {}
+      .payroll-content th {
+        text-align: center;
+      }
 
-      .leave {}
+      .dir-rtl {
+        direction: rtl;
+      }
+      .payroll-content tr:nth-child(even) {
+        background-color: #F4F6F5;
+      }
+      .sum td {
+        background-color: #FBF4DA;
+      }
+      .text-left {
+        text-align: left !important;
+      }
     </style>
   </head>
-  <body style="direction: rtl;
+  <body style="
   background-color: white;
-  width: 800px;
+  width: 700px;
   height: 600px;
+  font-size: 13px !important;
   border: 1px solid black;">
     <div style="display: flex;
     justify-content: space-between;">
-      <div class="logo"></div>
-      <div class="title">
-        <h3> شرکت قادر گستران آریا ۱ <br /> صورتحساب حقوق </h3><span>دی ماه ۱۴۰۲</span>
-      </div>
       <div class="page">
         <div>تاریخ تهیه: 26/10/1402</div>
         <div>صفحه: 1/1</div>
+      </div>
+      <div class="title">
+        <h3> شرکت قادر گستران آریا ۱ <br /> صورتحساب حقوق </h3><span>${item.month} ماه  ${item.year}</span>
+      </div>
+      <div class="logo">
       </div>
     </div>
     <div class="desc">
       <div style="width: 45%;
         display: inline-block;">
-        <div class="payroll-col"><span>نام و نام خانوادگی:</span><span>ج : ن</span></div>
-        <div class="payroll-col"><span>شماره پرسنلی :</span><span>21</span></div>
+        <div class="payroll-col">نام و نام خانوادگی: ${row.firstName} ${row.lastName}</div>
+        <div class="payroll-col">شماره پرسنلی : ${row.personnelNumber}</div>
       </div>
       <div style="width: 45%;
         display: inline-block;">
-        <div class="payroll-col"><span>مرکز هزینه: </span><span># #</span></div>
-        <div class="payroll-col"><span>حساب: </span><span>جاری شماره ۲ نزد رفاه کارگران شعبه نامشخص رفاه</span></div>
+        <div class="payroll-col">${nn.columnTitle} : ${nn.columnValue}</div>
+        <div class="payroll-col">حساب: ${nn.account}</div>
       </div>
     </div>
     <table class="payroll-content">
       <tr>
-        <th>Company</th>
-        <th>Contact</th>
-        <th>Country</th>
+        <th>پرداختها</th>
+        <th>مدت<br />د س ر</th>
+        <th>ریال</th>
+        <th>کسور</th>
+        <th>مدت<br />د س ر</th>
+        <th>ریال</th>
+        <th>ملاحظات</th>
       </tr>
       <tr>
-        <td>Alfreds Futterkiste</td>
-        <td>Maria Anders</td>
-        <td>Germany</td>
+        <td>${sl.columnTitle}</td>
+        <td>${wt.columnValue}:00:00</td>
+        <td>${sl.columnValue}</td>
+        <td>${iu.columnTitle}</td>
+        <td></td>
+        <td>${iu.columnValue}</td>
+        <td></td>
       </tr>
       <tr>
-        <td>Centro comercial Moctezuma</td>
-        <td>Francisco Chang</td>
-        <td>Mexico</td>
+        <td>${wy.columnTitle}</td>
+        <td></td>
+        <td>${wy.columnValue}</td>
+        <td>${cm.columnTitle}</td>
+        <td></td>
+        <td>${cm.columnValue}</td>
+        <td></td>
       </tr>
       <tr>
-        <td>Ernst Handel</td>
-        <td>Roland Mendel</td>
-        <td>Austria</td>
+        <td>${cr.columnTitle}</td>
+        <td></td>
+        <td>${cr.columnValue}</td>
+        <td>${tx.columnTitle}</td>
+        <td></td>
+        <td>${tx.columnValue}</td>
+        <td></td>
       </tr>
       <tr>
-        <td>Island Trading</td>
-        <td>Helen Bennett</td>
-        <td>UK</td>
+        <td>${hc.columnTitle}</td>
+        <td></td>
+        <td>${hc.columnValue}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
       <tr>
-        <td>Laughing Bacchus Winecellars</td>
-        <td>Yoshi Tannamuri</td>
-        <td>Canada</td>
+        <td>${cc.columnTitle}</td>
+        <td></td>
+        <td>${cc.columnValue}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
       <tr>
-        <td>Magazzini Alimentari Riuniti</td>
-        <td>Giovanni Rovelli</td>
-        <td>Italy</td>
+        <td>${sc.columnTitle}</td>
+        <td></td>
+        <td>${sc.columnValue}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>${ot.columnTitle}</td>
+        <td></td>
+        <td>${ot.columnValue}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>${hv.columnTitle}</td>
+        <td></td>
+        <td>${hs.columnValue}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>${cm.columnTitle}</td>
+        <td></td>
+        <td>${cm.columnValue}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="sum">
+        <td colspan="2" class="text-left">${spaid.columnTitle}</td>
+        <td>${spaid.columnValue}</td>
+        <td colspan="2" class="text-left">${sminus.columnTitle}</td>
+        <td colspan="2">${sminus.columnValue}</td>
+      </tr>
+      <tr class="sum">
+        <td class="text-left" colspan="5">${spure.columnTitle}</td>
+        <td colspan="2">${spure.columnValue}</td>
       </tr>
     </table>
   </body>

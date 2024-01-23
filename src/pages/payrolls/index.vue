@@ -424,14 +424,15 @@ export default {
         contractId: item.contractId,
         userId: this.userid
       }
-      this.getExcel(payload).then(excelData => {
-        this.downloadExcel(excelData, item).then(() => {
-          this.isLoading = false
+      this.getExcel(payload)
+        .then(({ data }) => {
+          this.downloadExcel(data, item).then(() => {
+            this.isLoading = false
+          })
         })
-      })
     },
-    downloadExcel (excelData, item) {
-      const htmlContent = this.generatePayroll()
+    downloadExcel (row, item) {
+      const htmlContent = this.generatePayroll(row, item)
       document.body.appendChild(htmlContent)
       return this.$html2canvas(htmlContent, {
         type: 'dataURL',
@@ -447,12 +448,51 @@ export default {
         document.body.removeChild(link)
       })
     },
-    generatePayroll () {
+    generatePayroll (row, item) {
+      let nn, wt, sl, wy, cr, hc, cc, sc, ot, hv, hs, cm, iu, tx, spaid, sminus, spure
+      row.items.forEach((i) => {
+        if (i.columnId === 1) {
+          nn = i
+        // } else if (i.columnId === 4) {
+        //   wp = i
+        } else if (i.columnId === 5) {
+          wt = i
+        } else if (i.columnId === 6) {
+          sl = i
+        } else if (i.columnId === 7) {
+          wy = i
+        } else if (i.columnId === 8) {
+          cr = i
+        } else if (i.columnId === 9) {
+          hc = i
+        } else if (i.columnId === 10) {
+          cc = i
+        } else if (i.columnId === 11) {
+          sc = i
+        } else if (i.columnId === 12) {
+          ot = i
+        } else if (i.columnId === 13) {
+          hv = i
+        } else if (i.columnId === 14) {
+          hs = i
+        } else if (i.columnId === 15) {
+          cm = i
+        } else if (i.columnId === 16) {
+          iu = i
+        } else if (i.columnId === 17) {
+          tx = i
+        } else if (i.columnId === 18) {
+          spaid = i
+        } else if (i.columnId === 19) {
+          sminus = i
+        } else if (i.columnId === 20) {
+          spure = i
+        }
+      })
       const payrollContent = document.createElement('div')
       payrollContent.id = 'payroll-content'
       payrollContent.innerHTML = `
-      <!doctype html><html lang="en-US"><head><meta charset="UTF-8"><title>Working with elements</title><style>.logo{width:33%}.title{font-weight:700;width:33%;text-align:center;margin-right:auto;margin-left:auto}.page{width:33%;padding-top:20px;padding-left:20px;text-align:left;margin-right:auto}.desc{padding-top:20px}.payroll-col{text-align:right;padding-right:40px}table.payroll-content{margin:10px auto;direction:rtl;text-align:right;font-family:arial,sans-serif;border-collapse:collapse;width:700px}.payroll-content th{background-color:#dce1dc;font-size:13px}.payroll-content td,.payroll-content th{border:1px solid #ddd;text-align:right;direction:rtl;padding:8px}.payroll-content tr:nth-child(even){background-color:#ddd}</style></head><body style="direction:rtl;background-color:#fff;width:800px;height:600px;border:1px solid #000"><div style="display:flex;justify-content:space-between"><div class="logo"></div><div class="title"><h3>شرکت قادر گستران آریا ۱<br>صورتحساب حقوق</h3><span>دی ماه ۱۴۰۲</span></div><div class="page"><div>تاریخ تهیه: 26/10/1402</div><div>صفحه: 1/1</div></div></div><div class="desc"><div style="width:45%;display:inline-block"><div class="payroll-col"><span>نام و نام خانوادگی:</span><span>ج : ن</span></div><div class="payroll-col"><span>شماره پرسنلی :</span><span>21</span></div></div><div style="width:45%;display:inline-block"><div class="payroll-col"><span>مرکز هزینه:</span><span># #</span></div><div class="payroll-col"><span>حساب:</span><span>جاری شماره ۲ نزد رفاه کارگران شعبه نامشخص رفاه</span></div></div></div><table class="payroll-content"><tr><th>Company</th><th>Contact</th><th>Country</th></tr><tr><td>Alfreds Futterkiste</td><td>Maria Anders</td><td>Germany</td></tr><tr><td>Centro comercial Moctezuma</td><td>Francisco Chang</td><td>Mexico</td></tr><tr><td>Ernst Handel</td><td>Roland Mendel</td><td>Austria</td></tr><tr><td>Island Trading</td><td>Helen Bennett</td><td>UK</td></tr><tr><td>Laughing Bacchus Winecellars</td><td>Yoshi Tannamuri</td><td>Canada</td></tr><tr><td>Magazzini Alimentari Riuniti</td><td>Giovanni Rovelli</td><td>Italy</td></tr></table></body></html>
-      `
+<!doctype html><html lang="en-US"><head><meta charset="UTF-8"><title>Working with elements</title><style>.logo{width:33%;text-align:right;padding:20px}.logo img{background-size:contain}.title{font-weight:700;width:33%;text-align:center;margin-right:auto;margin-left:auto}.page{width:33%;padding-top:20px;padding-left:20px;text-align:left;margin-right:auto}.desc{padding-top:20px;direction:rtl;text-align:center}.payroll-col{text-align:right;padding-right:40px;direction:rtl}table.payroll-content{margin:10px auto;direction:rtl;text-align:right;font-family:arial,sans-serif;border-collapse:collapse;width:700px}.payroll-content th{background-color:#dce1dc;font-size:13px}.payroll-content td,.payroll-content th{border:1px solid #ddd;direction:rtl;padding:8px}.payroll-content td{text-align:right}.payroll-content th{text-align:center}.dir-rtl{direction:rtl}.payroll-content tr:nth-child(even){background-color:#f4f6f5}.sum td{background-color:#fbf4da}.text-left{text-align:left!important}</style></head><body style="background-color:#fff;width:700px;height:600px;font-size:13px!important;border:1px solid #000"><div style="display:flex;justify-content:space-between"><div class="page"><div>تاریخ تهیه: 26/10/1402</div><div>صفحه: 1/1</div></div><div class="title"><h3>شرکت قادر گستران آریا ۱<br>صورتحساب حقوق</h3><span>${item.month} ماه ${item.year}</span></div><div class="logo"></div></div><div class="desc"><div style="width:45%;display:inline-block"><div class="payroll-col">نام و نام خانوادگی: ${row.firstName} ${row.lastName}</div><div class="payroll-col">شماره پرسنلی : ${row.personnelNumber}</div></div><div style="width:45%;display:inline-block"><div class="payroll-col">${nn.columnTitle} : ${nn.columnValue}</div><div class="payroll-col">حساب: ${nn.account}</div></div></div><table class="payroll-content"><tr><th>پرداختها</th><th>مدت<br>د س ر</th><th>ریال</th><th>کسور</th><th>مدت<br>د س ر</th><th>ریال</th><th>ملاحظات</th></tr><tr><td>${sl.columnTitle}</td><td>${wt.columnValue}:00:00</td><td>${sl.columnValue}</td><td>${iu.columnTitle}</td><td></td><td>${iu.columnValue}</td><td></td></tr><tr><td>${wy.columnTitle}</td><td></td><td>${wy.columnValue}</td><td>${cm.columnTitle}</td><td></td><td>${cm.columnValue}</td><td></td></tr><tr><td>${cr.columnTitle}</td><td></td><td>${cr.columnValue}</td><td>${tx.columnTitle}</td><td></td><td>${tx.columnValue}</td><td></td></tr><tr><td>${hc.columnTitle}</td><td></td><td>${hc.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${cc.columnTitle}</td><td></td><td>${cc.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${sc.columnTitle}</td><td></td><td>${sc.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${ot.columnTitle}</td><td></td><td>${ot.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${hv.columnTitle}</td><td></td><td>${hs.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${cm.columnTitle}</td><td></td><td>${cm.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr class="sum"><td colspan="2" class="text-left">${spaid.columnTitle}</td><td>${spaid.columnValue}</td><td colspan="2" class="text-left">${sminus.columnTitle}</td><td colspan="2">${sminus.columnValue}</td></tr><tr class="sum"><td class="text-left" colspan="5">${spure.columnTitle}</td><td colspan="2">${spure.columnValue}</td></tr></table></body></html>      `
       return payrollContent
     },
     getMonthNumber (text) {

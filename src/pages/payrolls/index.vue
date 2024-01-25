@@ -153,7 +153,7 @@
     </v-data-table>
     <v-dialog
       v-model="deletePayrollDialog"
-      width="700"
+      width="800"
       >
       <v-card class="px-3 pb-3">
         <v-card-title class="headline">
@@ -249,8 +249,19 @@
             <v-row
               class="px-3 mb-2"
               >
+              <v-col :sm="4">
+                <form-item
+                  v-model="payrollToDelete.contractId"
+                  type="autocomplete"
+                  :items="contractsList"
+                  :rules="[rules.required]"
+                  icon="mdi-account-circle"
+                  :label="$t('enums.contractTitle')"
+                  :placeholder="$t('enums.placeholders.contractTitle')">
+                </form-item>
+              </v-col>
               <v-col
-                :sm="6"
+                :sm="4"
                 >
                 <form-item
                   v-model="payrollToDelete.month"
@@ -263,7 +274,7 @@
                   ></form-item>
               </v-col>
                 <v-col
-                  :sm="6"
+                  :sm="4"
                   >
                   <form-item
                     v-model="payrollToDelete.year"
@@ -275,6 +286,7 @@
                     :placeholder="$t('enums.placeholders.year')"
                     ></form-item>
             </v-col>
+
           </v-row>
           </v-layout>
       </v-card>
@@ -313,10 +325,12 @@ export default {
       totalItems: 0,
       isLoading: false,
       payrollsList: [],
+      contractsList: [],
       userList: [],
       payrollToDelete: {
         month: null,
-        year: null
+        year: null,
+        contractId: null
       },
       userid: null,
       fileId: null,
@@ -328,13 +342,15 @@ export default {
         required: value => !!value || 'این فیلد اجباری است'
       },
       yearsArray: [1395, 1396, 1397, 1398, 1399, 1400, 1401, 1402, 1403, 1403, 1404, 1405, 1406,
-        1407, 1408, 1409]
+        1407, 1408, 1409],
+      imageSrc: ''
     }
   },
   computed: {
     ...mapGetters({
       monthsArray: 'enums/monthsArray',
       allUsers: 'users/users',
+      config: 'auth/config',
       hasUsersSucceeded: 'users/hasUsersSucceeded'
     }),
     isDeleteGroupPayrollValid () {
@@ -382,12 +398,16 @@ export default {
         this.setUserList()
       },
       deep: true
+    },
+    config (val) {
+      this.imageSrc = val.logo
     }
   },
   created () {
     if (this.allUsers.length) {
       this.setUserList()
     }
+    this.getContractsLists()
   },
   methods: {
     ...mapActions({
@@ -397,6 +417,7 @@ export default {
       showToast: 'snackbar/showToastMessage',
       ticket: 'cdn/ticket',
       getExcel: 'cdn/getExcel',
+      getAllContracts: 'contracts/getAllContracts',
       download: 'cdn/download'
     }),
     getUserPayrolls () {
@@ -408,6 +429,19 @@ export default {
         this.isLoading = false
         this.payrollsList = response.data
       })
+    },
+    getContractsLists () {
+      const payload = {
+        pageIndex: 1,
+        pageSize: 1000
+      }
+      this.getAllContracts(payload)
+        .then(({ data }) => {
+          this.contractsList = data.map(contract => {
+            return { text: contract.title, value: contract.id }
+          })
+          this.isLoading = false
+        })
     },
     downloadPayroll (item) {
       if (item.payrollType === 'Excel') {
@@ -492,7 +526,7 @@ export default {
       const payrollContent = document.createElement('div')
       payrollContent.id = 'payroll-content'
       payrollContent.innerHTML = `
-        <!doctype html><html lang="en-US"><head><meta charset="UTF-8"><title>Working with elements</title><style>.logo{width:33%;text-align:right;padding:20px}.payroll-body{width:793px!important;height:600px;font-size:13px!important;border:1px solid #000}.title{width:33%;font-weight:700;text-align:center;margin-right:auto;margin-left:auto;padding-top:10px}.page{width:33%;padding-top:20px;padding-left:20px;text-align:right;margin-right:auto;direction:rtl!important}.desc{padding-top:20px;direction:rtl;text-align:center}.payroll-col{text-align:right;padding-right:40px;direction:rtl;margin-right:100px}table.payroll-content{margin:10px auto 40px;direction:rtl;text-align:right;font-family:arial,sans-serif;border-collapse:collapse;width:1000px;height:500px}.payroll-content th{background-color:#dce1dc;font-size:13px}.payroll-content td,.payroll-content th{border:1px solid #ddd;direction:rtl;padding:8px}.payroll-content td{text-align:right}.payroll-content th{text-align:center}.dir-rtl{direction:rtl}.payroll-content tr:nth-child(even){background-color:#f4f6f5}.sum td{background-color:#fbf4da}.text-left{text-align:left!important}</style></head><body class="payroll-body"><div style="display:flex;justify-content:space-between"><div class="page"><div><span>تاریخ تهیه</span><span>:</span>&nbsp ${item.year}/${this.getMonthNumber(item.month)}/1</div><div><span style="padding-right:5px">صفحه</span><span>:</span>&nbsp 1/1</div></div><div class="title"><h3>شرکت قادر گستران آریا ۱<br>صورتحساب حقوق</h3><span>${item.month} ماه ${item.year}</span></div><div class="logo"></div></div><div class="desc"><div style="width:35%;display:inline-block"><div class="payroll-col"><span>نام و نام خانوادگی</span><span>:</span>&nbsp ${row.firstName} ${row.lastName}</div><div class="payroll-col"><span>شماره پرسنلی</span><span>:</span>&nbsp ${row.personnelNumber}</div></div><div style="width:35%;display:inline-block"><div class="payroll-col"><span>${nn.columnTitle}</span><span>:</span>&nbsp ${nn.columnValue}</div><div class="payroll-col"><span>حساب</span><span>:</span>&nbsp ${row.account}</div></div></div><table class="payroll-content"><tr><th>پرداختها</th><th>مدت<br>د &nbsp س &nbsp ر</th><th>ریال</th><th>کسور</th><th>مدت<br>د &nbsp س &nbsp ر</th><th>ریال</th><th>ملاحظات</th></tr><tr><td>${sl.columnTitle}</td><td style="text-align:center">${wt.columnValue}:00:00</td><td>${sl.columnValue}</td><td>${iu.columnTitle}</td><td></td><td>${iu.columnValue}</td><td></td></tr><tr><td>${wy.columnTitle}</td><td></td><td>${wy.columnValue}</td><td>${cm.columnTitle}</td><td></td><td>${cm.columnValue}</td><td></td></tr><tr><td>${cr.columnTitle}</td><td></td><td>${cr.columnValue}</td><td>${tx.columnTitle}</td><td></td><td>${tx.columnValue}</td><td></td></tr><tr><td>${hc.columnTitle}</td><td></td><td>${hc.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${cc.columnTitle}</td><td></td><td>${cc.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${sc.columnTitle}</td><td></td><td>${sc.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${ot.columnTitle}</td><td></td><td>${ot.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${hv.columnTitle}</td><td></td><td>${hs.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${cm.columnTitle}</td><td></td><td>${cm.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr class="sum"><td colspan="2" class="text-left">${spaid.columnTitle}</td><td>${spaid.columnValue}</td><td colspan="2" class="text-left">${sminus.columnTitle}</td><td colspan="2">${sminus.columnValue}</td></tr><tr class="sum"><td class="text-left" colspan="5">${spure.columnTitle}</td><td colspan="2">${spure.columnValue}</td></tr></table><div style="height:30px"></div></body></html>
+        <!doctype html><html lang="en-US"><head><meta charset="UTF-8"><title>Working with elements</title><style>.logo{width:33%;text-align:right;padding:20px}.payroll-body{width:793px!important;height:600px;font-size:13px!important;border:1px solid #000}.title{width:33%;font-weight:700;text-align:center;margin-right:auto;margin-left:auto;padding-top:10px}.page{width:33%;padding-top:20px;padding-left:20px;text-align:right;margin-right:auto;direction:rtl!important}.desc{padding-top:20px;direction:rtl;text-align:center}.payroll-col{text-align:right;padding-right:40px;direction:rtl;margin-right:100px}table.payroll-content{margin:10px auto 40px;direction:rtl;text-align:right;font-family:arial,sans-serif;border-collapse:collapse;width:1000px;height:500px}.payroll-content th{background-color:#dce1dc;font-size:13px}.payroll-content td,.payroll-content th{border:1px solid #ddd;direction:rtl;padding:8px}.payroll-content td{text-align:right}.payroll-content th{text-align:center}.dir-rtl{direction:rtl}.payroll-content tr:nth-child(even){background-color:#f4f6f5}.sum td{background-color:#fbf4da}.text-left{text-align:left!important}</style></head><body class="payroll-body"><div style="display:flex;justify-content:space-between"><div class="page"><div><span>تاریخ تهیه</span><span>:</span>&nbsp ${item.year}/${this.getMonthNumber(item.month)}/1</div><div><span style="padding-right:5px">صفحه</span><span>:</span>&nbsp 1/1</div></div><div class="title"><h3>شرکت قادر گستران آریا ۱<br>صورتحساب حقوق</h3><span>${item.month} ماه ${item.year}</span></div><div class="logo"><img src="${this.imageSrc}" alt="لوگو"></div></div><div class="desc"><div style="width:35%;display:inline-block"><div class="payroll-col"><span>نام و نام خانوادگی</span><span>:</span>&nbsp ${row.firstName} ${row.lastName}</div><div class="payroll-col"><span>شماره پرسنلی</span><span>:</span>&nbsp ${row.personnelNumber}</div></div><div style="width:35%;display:inline-block"><div class="payroll-col"><span>${nn.columnTitle}</span><span>:</span>&nbsp ${nn.columnValue}</div><div class="payroll-col"><span>حساب</span><span>:</span>&nbsp ${row.account}</div></div></div><table class="payroll-content"><tr><th>پرداختها</th><th>مدت<br>د &nbsp س &nbsp ر</th><th>ریال</th><th>کسور</th><th>مدت<br>د &nbsp س &nbsp ر</th><th>ریال</th><th>ملاحظات</th></tr><tr><td>${sl.columnTitle}</td><td style="text-align:center">${wt.columnValue}:00:00</td><td>${sl.columnValue}</td><td>${iu.columnTitle}</td><td></td><td>${iu.columnValue}</td><td></td></tr><tr><td>${wy.columnTitle}</td><td></td><td>${wy.columnValue}</td><td>${cm.columnTitle}</td><td></td><td>${cm.columnValue}</td><td></td></tr><tr><td>${cr.columnTitle}</td><td></td><td>${cr.columnValue}</td><td>${tx.columnTitle}</td><td></td><td>${tx.columnValue}</td><td></td></tr><tr><td>${hc.columnTitle}</td><td></td><td>${hc.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${cc.columnTitle}</td><td></td><td>${cc.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${sc.columnTitle}</td><td></td><td>${sc.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${ot.columnTitle}</td><td></td><td>${ot.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${hv.columnTitle}</td><td></td><td>${hs.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${cm.columnTitle}</td><td></td><td>${cm.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr class="sum"><td colspan="2" class="text-left">${spaid.columnTitle}</td><td>${spaid.columnValue}</td><td colspan="2" class="text-left">${sminus.columnTitle}</td><td colspan="2">${sminus.columnValue}</td></tr><tr class="sum"><td class="text-left" colspan="5">${spure.columnTitle}</td><td colspan="2">${spure.columnValue}</td></tr></table><div style="height:30px"></div></body></html>
       `
       return payrollContent
     },

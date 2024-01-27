@@ -47,6 +47,12 @@
         direction: rtl;
         margin-right: 100px
       }
+      @media screen and (max-width: 1200px) {
+        .payroll-col {
+          padding-right: 10px;
+          margin-right: 0px;
+        }
+      }
 
       table.payroll-content {
         margin: 10px auto 40px;
@@ -54,7 +60,7 @@
         text-align: right;
         font-family: arial, sans-serif;
         border-collapse: collapse;
-        width: 1200px;
+        width: 90vw;
         height: 500px
       }
 
@@ -107,7 +113,7 @@
       <div class="logo"><img src="img/Logo.png" height="150" alt="لوگو"></div>
     </div>
     <div class="desc">
-      <div style="width:35%;display:inline-block">
+      <div style="width:40%;display:inline-block">
         <div class="payroll-col"><span>نام و نام خانوادگی</span><span>:</span>&nbsp ${row.firstName} ${row.lastName}</div>
         <div class="payroll-col"><span>شماره پرسنلی</span><span>:</span>&nbsp ${row.personnelNumber}</div>
       </div>

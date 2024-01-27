@@ -5,37 +5,40 @@
     <title>Working with elements</title>
     <style>
       .logo {
-        width: 33%;
+        width: 300px;
         text-align: center;
-        padding: 10px
+        padding: 10px;
+        margin-right: auto;
       }
 
       .payroll-body {
         width: 793px !important;
         height: 600px;
         font-size: 13px !important;
-        border: 1px solid #000
+        border: 1px solid #000;
+        direction: ltr;
       }
 
       .title {
-        width: 33%;
+        width: 250px;
         font-weight: 700;
         text-align: center;
         margin-right: auto;
-        margin-left: auto;
         padding-top: 10px
       }
 
       .page {
-        width: 33%;
+        width: 250px;
         padding-top: 20px;
         padding-left: 20px;
+        padding-right: 60px;
         text-align: right;
         margin-right: auto;
         direction: rtl !important
       }
 
       .desc {
+        width: 793px;
         padding-top: 20px;
         direction: rtl;
         text-align: center
@@ -43,24 +46,18 @@
 
       .payroll-col {
         text-align: right;
-        padding-right: 40px;
         direction: rtl;
-        margin-right: 100px
-      }
-      @media screen and (max-width: 1200px) {
-        .payroll-col {
-          padding-right: 10px;
-          margin-right: 0px;
-        }
+        padding-right: 10px;
+        margin-right: 0px;
       }
 
       table.payroll-content {
-        margin: 10px auto 40px;
+        margin: 10px 0 10px 20px;
         direction: rtl;
         text-align: right;
         font-family: arial, sans-serif;
         border-collapse: collapse;
-        width: 90vw;
+        width: 700px;
         height: 500px
       }
 
@@ -102,7 +99,7 @@
     </style>
   </head>
   <body class="payroll-body">
-    <div style="display:flex;justify-content:space-between">
+    <div style="display:flex;justify-content:space-between;width:793px;">
       <div class="page">
         <div><span>تاریخ تهیه</span><span>:</span>&nbsp ${item.year}/${this.getMonthNumber(item.month)}/1</div>
         <div><span style="padding-right:5px">صفحه</span><span>:</span>&nbsp 1/1</div>
@@ -113,7 +110,7 @@
       <div class="logo"><img src="img/Logo.png" height="150" alt="لوگو"></div>
     </div>
     <div class="desc">
-      <div style="width:40%;display:inline-block">
+      <div style="width:45%;display:inline-block">
         <div class="payroll-col"><span>نام و نام خانوادگی</span><span>:</span>&nbsp ${row.firstName} ${row.lastName}</div>
         <div class="payroll-col"><span>شماره پرسنلی</span><span>:</span>&nbsp ${row.personnelNumber}</div>
       </div>
@@ -199,15 +196,6 @@
         <td>${hv.columnTitle}</td>
         <td></td>
         <td>${hs.columnValue}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>${cm.columnTitle}</td>
-        <td></td>
-        <td>${cm.columnValue}</td>
         <td></td>
         <td></td>
         <td></td>

@@ -484,38 +484,13 @@ export default {
       })
     },
     generatePayroll (row, item) {
-      let nn, wt, sl, wy, cr, hc, cc, sc, ot, hv, hs, cm, iu, tx, spaid, sminus, spure
+      const pays = []; const minuses = []; let collectedRows = ''
+      let nn, wt, spaid, sminus, spure
       row.items.forEach((i) => {
         if (i.columnId === 1) {
           nn = i
-        // } else if (i.columnId === 4) {
-        //   wp = i
         } else if (i.columnId === 5) {
           wt = i
-        } else if (i.columnId === 6) {
-          sl = i
-        } else if (i.columnId === 7) {
-          wy = i
-        } else if (i.columnId === 8) {
-          cr = i
-        } else if (i.columnId === 9) {
-          hc = i
-        } else if (i.columnId === 10) {
-          cc = i
-        } else if (i.columnId === 11) {
-          sc = i
-        } else if (i.columnId === 12) {
-          ot = i
-        } else if (i.columnId === 13) {
-          hv = i
-        } else if (i.columnId === 14) {
-          hs = i
-        } else if (i.columnId === 15) {
-          cm = i
-        } else if (i.columnId === 16) {
-          iu = i
-        } else if (i.columnId === 17) {
-          tx = i
         } else if (i.columnId === 18) {
           spaid = i
         } else if (i.columnId === 19) {
@@ -524,10 +499,48 @@ export default {
           spure = i
         }
       })
+      row.items.forEach(i => {
+        if (i.columnId === 6) {
+          pays.push(`
+        <td>${i.columnTitle}</td>
+        <td style="text-align:center">${wt.columnValue}:00:00</td>
+        <td>${i.columnValue}</td>
+          `)
+        } else if (i.columnType === 'Pay') {
+          pays.push(`
+        <td>${i.columnTitle}</td>
+        <td></td>
+        <td>${i.columnValue}</td>
+          `)
+        } else if (i.columnType === 'Minus') {
+          minuses.push(`
+          <td>${i.columnTitle}</td>
+          <td></td>
+          <td>${i.columnValue}</td>
+          <td></td>
+        `)
+        }
+      })
+      const maxLength = Math.max(pays.length, minuses.length)
+      for (let i = 0; i < maxLength; i++) {
+        collectedRows += '<tr>'
+        if (pays[i]) {
+          collectedRows += pays[i]
+        } else {
+          collectedRows += '<td></td><td></td><td></td>'
+        }
+        if (minuses[i]) {
+          collectedRows += minuses[i]
+        } else {
+          collectedRows += '<td></td><td></td><td></td><td></td>'
+        }
+        collectedRows += '</tr>'
+      }
       const payrollContent = document.createElement('div')
       payrollContent.id = 'payroll-content'
       payrollContent.innerHTML = `
-      <!doctype html><html lang="en-US"><head><meta charset="UTF-8"><title>Working with elements</title><style>.logo{width:300px;text-align:center;padding:10px;margin-right:auto}.payroll-body{width:793px!important;height:600px;font-size:13px!important;border:1px solid #000;direction:ltr}.title{width:250px;font-weight:700;text-align:center;margin-right:auto;padding-top:10px}.page{width:250px;padding-top:20px;padding-left:20px;padding-right:60px;text-align:right;margin-right:auto;direction:rtl!important}.desc{width:793px;padding-top:20px;direction:rtl;text-align:center}.payroll-col{text-align:right;direction:rtl;padding-right:10px;margin-right:0}table.payroll-content{margin:10px 0 10px 20px;direction:rtl;text-align:right;font-family:arial,sans-serif;border-collapse:collapse;width:700px;height:500px}.payroll-content th{background-color:#dce1dc;font-size:13px}.payroll-content td,.payroll-content th{border:1px solid #ddd;direction:rtl;padding:8px}.payroll-content td{text-align:right}.payroll-content th{text-align:center}.dir-rtl{direction:rtl}.payroll-content tr:nth-child(even){background-color:#f4f6f5}.sum td{background-color:#fbf4da}.text-left{text-align:left!important}</style></head><body class="payroll-body"><div style="display:flex;justify-content:space-between;width:793px"><div class="page"><div><span>تاریخ تهیه</span><span>:</span>&nbsp ${item.year}/${this.getMonthNumber(item.month)}/1</div><div><span style="padding-right:5px">صفحه</span><span>:</span>&nbsp 1/1</div></div><div class="title"><h3>شرکت قادر گستران آریا ۱<br>صورتحساب حقوق</h3><span>${item.month} ماه ${item.year}</span></div><div class="logo"><img src="img/Logo.png" height="150" alt="لوگو"></div></div><div class="desc"><div style="width:45%;display:inline-block"><div class="payroll-col"><span>نام و نام خانوادگی</span><span>:</span>&nbsp ${row.firstName} ${row.lastName}</div><div class="payroll-col"><span>شماره پرسنلی</span><span>:</span>&nbsp ${row.personnelNumber}</div></div><div style="width:35%;display:inline-block"><div class="payroll-col"><span>${nn.columnTitle}</span><span>:</span>&nbsp ${nn.columnValue}</div><div class="payroll-col"><span>حساب</span><span>:</span>&nbsp ${row.account}</div></div></div><table class="payroll-content"><tr><th>پرداختها</th><th>مدت<br>د &nbsp س &nbsp ر</th><th>ریال</th><th>کسور</th><th>مدت<br>د &nbsp س &nbsp ر</th><th>ریال</th><th>ملاحظات</th></tr><tr><td>${sl.columnTitle}</td><td style="text-align:center">${wt.columnValue}:00:00</td><td>${sl.columnValue}</td><td>${iu.columnTitle}</td><td></td><td>${iu.columnValue}</td><td></td></tr><tr><td>${wy.columnTitle}</td><td></td><td>${wy.columnValue}</td><td>${cm.columnTitle}</td><td></td><td>${cm.columnValue}</td><td></td></tr><tr><td>${cr.columnTitle}</td><td></td><td>${cr.columnValue}</td><td>${tx.columnTitle}</td><td></td><td>${tx.columnValue}</td><td></td></tr><tr><td>${hc.columnTitle}</td><td></td><td>${hc.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${cc.columnTitle}</td><td></td><td>${cc.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${sc.columnTitle}</td><td></td><td>${sc.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${ot.columnTitle}</td><td></td><td>${ot.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr><td>${hv.columnTitle}</td><td></td><td>${hs.columnValue}</td><td></td><td></td><td></td><td></td></tr><tr class="sum"><td colspan="2" class="text-left">${spaid.columnTitle}</td><td>${spaid.columnValue}</td><td colspan="2" class="text-left">${sminus.columnTitle}</td><td colspan="2">${sminus.columnValue}</td></tr><tr class="sum"><td class="text-left" colspan="5">${spure.columnTitle}</td><td colspan="2">${spure.columnValue}</td></tr></table><div style="height:30px"></div></body></html>`
+<!doctype html><html lang="en-US"><head><meta charset="UTF-8"><title>Working with elements</title><style>.logo{width:300px;text-align:center;padding:10px;margin-right:auto}.payroll-body{width:793px!important;height:600px;font-size:13px!important;border:1px solid #000;direction:ltr}.title{width:250px;font-weight:700;text-align:center;margin-right:auto;padding-top:10px}.page{width:250px;padding-top:20px;padding-left:20px;padding-right:60px;text-align:right;margin-right:auto;direction:rtl!important}.desc{width:793px;padding-top:20px;direction:rtl;text-align:center}.payroll-col{text-align:right;direction:rtl;padding-right:10px;margin-right:0}table.payroll-content{margin:10px 0 10px 20px;direction:rtl;text-align:right;font-family:arial,sans-serif;border-collapse:collapse;width:700px;height:500px}.payroll-content th{background-color:#dce1dc;font-size:13px}.payroll-content td,.payroll-content th{border:1px solid #ddd;direction:rtl;padding:8px}.payroll-content td{text-align:right}.payroll-content th{text-align:center}.dir-rtl{direction:rtl}.payroll-content tr:nth-child(even){background-color:#f4f6f5}.sum td{background-color:#fbf4da}.text-left{text-align:left!important}</style></head><body class="payroll-body"><div style="display:flex;justify-content:space-between;width:793px"><div class="page"><div><span>تاریخ تهیه</span><span>:</span>&nbsp ${item.year}/${this.getMonthNumber(item.month)}/1</div><div><span style="padding-right:5px">صفحه</span><span>:</span>&nbsp 1/1</div></div><div class="title"><h3>شرکت قادر گستران آریا ۱<br>صورتحساب حقوق</h3><span>${item.month} ماه ${item.year}</span></div><div class="logo"><img src="img/Logo.png" height="150" alt="لوگو"></div></div><div class="desc"><div style="width:45%;display:inline-block"><div class="payroll-col"><span>نام و نام خانوادگی</span><span>:</span>&nbsp ${row.firstName} ${row.lastName}</div><div class="payroll-col"><span>شماره پرسنلی</span><span>:</span>&nbsp ${row.personnelNumber}</div></div><div style="width:35%;display:inline-block"><div class="payroll-col"><span>${nn.columnTitle}</span><span>:</span>&nbsp ${nn.columnValue}</div><div class="payroll-col"><span>حساب</span><span>:</span>&nbsp ${row.account}</div></div></div><table class="payroll-content"><tr><th>پرداختها</th><th>مدت<br>د &nbsp س &nbsp ر</th><th>ریال</th><th>کسور</th><th>مدت<br>د &nbsp س &nbsp ر</th><th>ریال</th><th>ملاحظات</th></tr>${collectedRows}<tr class="sum"><td colspan="2" class="text-left">${spaid.columnTitle}</td><td>${spaid.columnValue}</td><td colspan="2" class="text-left">${sminus.columnTitle}</td><td colspan="2">${sminus.columnValue}</td></tr><tr class="sum"><td class="text-left" colspan="5">${spure.columnTitle}</td><td colspan="2">${spure.columnValue}</td></tr></table><div style="height:30px"></div></body></html>
+      `
       return payrollContent
     },
     getMonthNumber (text) {

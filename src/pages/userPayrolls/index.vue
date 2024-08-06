@@ -182,6 +182,12 @@ export default {
         <td style="text-align:center">${wt.columnValue}:00:00</td>
         <td>${i.columnValue}</td>
           `)
+        } else if (i.columnType === 'ExtraTime') {
+          pays.push(`
+        <td>${i.columnTitle}</td>
+        <td style="text-align:center">00:${i.columnValue}:00</td>
+        <td></td>
+          `)
         } else if (i.columnType === 'Pay') {
           pays.push(`
         <td>${i.columnTitle}</td>

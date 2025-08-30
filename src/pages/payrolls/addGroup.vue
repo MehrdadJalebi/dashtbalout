@@ -55,9 +55,9 @@
             >
             <form-item
               v-model="payroll.contractId"
-              type="select"
+              type="autocomplete"
               :items="contractsList"
-                    :rules="[rules.required]"
+              :rules="[rules.required]"
               icon="mdi-account-circle"
               :label="$t('enums.contractTitle')"
               :placeholder="$t('enums.placeholders.contractTitle')"

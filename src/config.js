@@ -17,7 +17,7 @@ export default {
   darkTheme: false,
   apiBaseURL: `https://webapi.${window.location.hostname.split('.').slice(0)
     .slice(-(window.location.hostname.split('.').length === 4 ? 3 : 2)).join('.')}`,
-  // apiBaseURL: 'https://webapi.parssalary.com',
+  // apiBaseURL: 'https://webapi.salary-ghadergostaran.ir',
   apiJson: API_JSON,
   brandLogo: null,
   defaultPagesArtwork: '/img/samples/artwork.png',
